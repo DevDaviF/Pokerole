@@ -24,6 +24,7 @@ import Shop from '../components/Shop'
 import ImagePicker, { DEFAULT_AVATAR } from '../components/ImagePicker'
 import { useMesa } from '../lib/mesa'
 import { useCustomItems, customItemToItem } from '../lib/customItems'
+import { supabaseConfigured } from '../lib/supabase'
 
 export const getActiveTrainerId = (): number | null => {
   const v = localStorage.getItem('activeTrainerId')
@@ -52,7 +53,8 @@ export default function TrainersPage() {
   const [rollingId, setRollingId] = useState<number | null>(null)
   // itens customizados só existem se você estiver numa mesa (são
   // criados pelo Mestre lá) — fora de mesa a loja mostra só o catálogo
-  const { activeMesa } = useMesa()
+  const { activeMesa, session } = useMesa()
+  const needsAccount = supabaseConfigured && !session
   const customItemRows = useCustomItems(activeMesa?.id ?? null)
   const customItems = customItemRows.map(customItemToItem)
 
@@ -356,13 +358,33 @@ export default function TrainersPage() {
     <div>
       <div className="mb-5 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-slate-800">Treinadores</h1>
-        <button
-          onClick={() => setEditing(emptyTrainer())}
-          className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700"
-        >
-          + Novo Treinador
-        </button>
+        {needsAccount ? (
+          <span
+            title="Crie uma conta ou faça login na aba Mesa pra criar fichas"
+            className="rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-400"
+          >
+            🔒 + Novo Treinador
+          </span>
+        ) : (
+          <button
+            onClick={() => setEditing(emptyTrainer())}
+            className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700"
+          >
+            + Novo Treinador
+          </button>
+        )}
       </div>
+
+      {needsAccount && (
+        <p className="mb-5 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+          🔒 Crie uma conta ou faça login (na aba{' '}
+          <a href="#/mesa" className="underline">
+            Mesa
+          </a>
+          ) pra criar novas fichas de Treinador. Fichas já existentes
+          continuam disponíveis pra editar.
+        </p>
+      )}
 
       {trainers.length === 0 ? (
         <p className="rounded-xl border border-slate-200 bg-white p-10 text-center text-slate-400 shadow-sm">

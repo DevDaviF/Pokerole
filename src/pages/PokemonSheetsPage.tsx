@@ -32,6 +32,8 @@ import MoveDetailModal from '../components/MoveDetailModal'
 import TrainingPointsBadge from '../components/TrainingPoints'
 import SpeciesPicker from '../components/SpeciesPicker'
 import PokemonProgression from '../components/PokemonProgression'
+import { useMesa } from '../lib/mesa'
+import { supabaseConfigured } from '../lib/supabase'
 
 const emptySheet = (): PokemonSheet => ({
   trainerId: 0,
@@ -60,6 +62,8 @@ export default function PokemonSheetsPage() {
   const trainers = useLiveQuery(() => db.trainers.toArray(), []) ?? []
   const [editing, setEditing] = useState<PokemonSheet | null>(null)
   const [moveInfo, setMoveInfo] = useState<Move | null>(null)
+  const { session } = useMesa()
+  const needsAccount = supabaseConfigured && !session
 
   const species = editing?.species ? pokemonById.get(editing.species) : undefined
 
@@ -676,13 +680,33 @@ export default function PokemonSheetsPage() {
     <div>
       <div className="mb-5 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-slate-800">Meus Pokémon</h1>
-        <button
-          onClick={() => setEditing(emptySheet())}
-          className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700"
-        >
-          + Nova Ficha
-        </button>
+        {needsAccount ? (
+          <span
+            title="Crie uma conta ou faça login na aba Mesa pra criar fichas"
+            className="rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-400"
+          >
+            🔒 + Nova Ficha
+          </span>
+        ) : (
+          <button
+            onClick={() => setEditing(emptySheet())}
+            className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700"
+          >
+            + Nova Ficha
+          </button>
+        )}
       </div>
+
+      {needsAccount && (
+        <p className="mb-5 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+          🔒 Crie uma conta ou faça login (na aba{' '}
+          <a href="#/mesa" className="underline">
+            Mesa
+          </a>
+          ) pra criar novas fichas de Pokémon. Fichas já existentes continuam
+          disponíveis pra editar.
+        </p>
+      )}
 
       {displaySheets.length === 0 ? (
         <p className="rounded-xl border border-slate-200 bg-white p-10 text-center text-slate-400 shadow-sm">
