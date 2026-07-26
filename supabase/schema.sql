@@ -40,7 +40,11 @@ create table public.mesas (
   invite_code text not null unique
     default upper(substr(md5(random()::text || clock_timestamp()::text), 1, 6)),
   owner_id uuid not null references auth.users (id) on delete cascade,
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  -- bônus de captura: "dice" = dados extras na rolagem (padrão), "flat" =
+  -- sucessos somados direto no resultado
+  capture_bonus_mode text not null default 'dice'
+    check (capture_bonus_mode in ('dice', 'flat'))
 );
 
 create table public.mesa_members (
@@ -223,6 +227,11 @@ create policy "dono exclui a mesa" on public.mesas
   for delete to authenticated
   using (owner_id = auth.uid());
 
+create policy "mestre edita configuracoes da mesa" on public.mesas
+  for update to authenticated
+  using (public.is_mesa_gm(id))
+  with check (public.is_mesa_gm(id));
+
 -- mesa_members: membro vê a lista da própria mesa; sair = deletar a si mesmo
 create policy "ver membros da mesa" on public.mesa_members
   for select to authenticated
@@ -300,6 +309,7 @@ alter publication supabase_realtime add table public.mesa_notes;
 alter publication supabase_realtime add table public.battle_order;
 alter publication supabase_realtime add table public.scout_rolls;
 alter publication supabase_realtime add table public.shared_sheets;
+alter publication supabase_realtime add table public.mesas;
 
 -- REPLICA IDENTITY FULL: colunas jsonb grandes (TOAST) podem chegar
 -- incompletas via realtime com a identidade padrão (só a PK). Isso

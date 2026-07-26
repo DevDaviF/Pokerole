@@ -16,9 +16,20 @@ import BattleTracker from '../components/BattleTracker'
 import ScoutRollWidget from '../components/ScoutRollWidget'
 import CaptureRoll from '../components/CaptureRoll'
 import SheetTransfers from '../components/SheetTransfers'
+import DayPassPanel from '../components/DayPassPanel'
 import ErrorBoundary from '../components/ErrorBoundary'
 import GmToolsPanel from './MesaGmTools'
 import { getActiveTrainerId } from './TrainersPage'
+
+// Cor determinística por usuário (hash simples do id → matiz), pra
+// identificar quem falou o quê de relance no chat.
+function colorForUser(userId: string): string {
+  let hash = 0
+  for (let i = 0; i < userId.length; i++) {
+    hash = (hash * 31 + userId.charCodeAt(i)) >>> 0
+  }
+  return `hsl(${hash % 360}, 60%, 38%)`
+}
 
 // Rolagem rápida pelas fichas locais, sem sair do chat da mesa
 function QuickRollCard() {
@@ -558,6 +569,15 @@ export default function MesaPage() {
     Array<{ user_id: string; role: 'gm' | 'player' }>
   >([])
   const chatEndRef = useRef<HTMLDivElement>(null)
+  const chatContainerRef = useRef<HTMLDivElement>(null)
+  // só faz scroll automático se o usuário já estava perto do fim — evita
+  // puxar a tela de quem rolou pra cima pra ler o histórico
+  const wasNearBottomRef = useRef(true)
+  const handleChatScroll = () => {
+    const el = chatContainerRef.current
+    if (!el) return
+    wasNearBottomRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 80
+  }
 
   const myPokemonSheets = useLiveQuery(() => db.pokemonSheets.toArray(), []) ?? []
   const myTrainers = useLiveQuery(() => db.trainers.toArray(), []) ?? []
@@ -699,7 +719,9 @@ export default function MesaPage() {
   }, [session, activeMesa])
 
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (wasNearBottomRef.current) {
+      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
   }, [messages])
 
   if (!supabaseConfigured) {
@@ -1019,7 +1041,13 @@ export default function MesaPage() {
 
           <div className="grid gap-4 lg:grid-cols-2">
             <ErrorBoundary label="Captura">
-              <CaptureRoll myTrainer={myActiveTrainer} sharedNpcs={sharedNpcs} />
+              <CaptureRoll
+                mesaId={activeMesa.id}
+                myTrainer={myActiveTrainer}
+                myPokemonSheets={myPokemonSheets}
+                sharedNpcs={sharedNpcs}
+                isGm={myRole === 'gm'}
+              />
             </ErrorBoundary>
             <ErrorBoundary label="Transferência de fichas">
               <SheetTransfers
@@ -1034,44 +1062,65 @@ export default function MesaPage() {
             </ErrorBoundary>
           </div>
 
+          <ErrorBoundary label="Passar o dia">
+            <DayPassPanel myTrainer={myActiveTrainer} myPokemonSheets={myPokemonSheets} />
+          </ErrorBoundary>
+
           <div className="grid gap-4 lg:grid-cols-3">
             {/* Chat */}
             <div className="flex h-96 flex-col rounded-xl border border-slate-200 bg-white shadow-sm lg:col-span-2">
-              <div className="flex-1 space-y-2 overflow-y-auto p-4">
-                {messages.map((m) => (
-                  <div key={m.id} className="text-sm">
-                    <span
-                      className={`font-bold ${
-                        m.user_id === myId ? 'text-red-600' : 'text-slate-700'
+              <div
+                ref={chatContainerRef}
+                onScroll={handleChatScroll}
+                className="flex-1 space-y-2 overflow-y-auto p-4"
+              >
+                {messages.map((m) => {
+                  const isWarning = m.kind === 'chat' && m.content.startsWith('⚠️')
+                  return (
+                    <div
+                      key={m.id}
+                      className={`text-sm ${
+                        isWarning
+                          ? 'rounded-lg border border-amber-300 bg-amber-50 px-2 py-1.5'
+                          : ''
                       }`}
                     >
-                      {usernames[m.user_id] ?? '???'}
-                    </span>{' '}
-                    {m.kind === 'roll' && m.roll ? (
-                      <span className="text-slate-600">
-                        rolou <b>{m.content || `${m.roll.pool}d6`}</b>:{' '}
-                        <span className="inline-block align-middle">
-                          <DiceRow
-                            r={{
-                              label: '',
-                              at: 0,
-                              pool: m.roll.pool,
-                              dice: m.roll.dice,
-                              successes: m.roll.successes,
-                              sixes: m.roll.sixes,
-                              mode: m.roll.mode,
-                              triggered: m.roll.triggered,
-                              bonus: m.roll.bonus,
-                              total: m.roll.total,
-                            }}
-                          />
+                      <span
+                        className="font-bold"
+                        style={{ color: colorForUser(m.user_id) }}
+                      >
+                        {usernames[m.user_id] ?? '???'}
+                      </span>{' '}
+                      {m.kind === 'roll' && m.roll ? (
+                        <span className="text-slate-600">
+                          rolou <b>{m.content || `${m.roll.pool}d6`}</b>:{' '}
+                          <span className="inline-block align-middle">
+                            <DiceRow
+                              r={{
+                                label: '',
+                                at: 0,
+                                pool: m.roll.pool,
+                                dice: m.roll.dice,
+                                successes: m.roll.successes,
+                                sixes: m.roll.sixes,
+                                mode: m.roll.mode,
+                                triggered: m.roll.triggered,
+                                bonus: m.roll.bonus,
+                                total: m.roll.total,
+                              }}
+                            />
+                          </span>
                         </span>
-                      </span>
-                    ) : (
-                      <span className="text-slate-600">{m.content}</span>
-                    )}
-                  </div>
-                ))}
+                      ) : (
+                        <span
+                          className={isWarning ? 'font-semibold text-amber-800' : 'text-slate-600'}
+                        >
+                          {m.content}
+                        </span>
+                      )}
+                    </div>
+                  )
+                })}
                 <div ref={chatEndRef} />
               </div>
               <div className="flex gap-2 border-t border-slate-100 p-3">
@@ -1114,17 +1163,35 @@ export default function MesaPage() {
                               'Pokémon',
                           )
                         : `${p.name} (Treinador)`
+                    // Pokémon selvagem/de ginásio (isNpc): só o Mestre que
+                    // publicou pode abrir a ficha e ver atributos como
+                    // Def/Sp.Def — pro jogador aparece só o nome, sem clique,
+                    // pra não estragar surpresa de captura/ginásio.
+                    const isNpc = s.kind === 'pokemon' && Boolean(p.isNpc)
+                    const canView = s.owner_id === myId || !isNpc
                     return (
                       <div key={s.id} className="flex items-center gap-2">
-                        <button
-                          onClick={() => setViewing(s)}
-                          className="flex-1 truncate rounded-lg border border-slate-200 px-3 py-1.5 text-left text-sm text-slate-700 hover:bg-slate-50"
-                        >
-                          {label}
-                          <span className="ml-1 text-xs text-slate-400">
-                            · {usernames[s.owner_id] ?? '?'}
+                        {canView ? (
+                          <button
+                            onClick={() => setViewing(s)}
+                            className="flex-1 truncate rounded-lg border border-slate-200 px-3 py-1.5 text-left text-sm text-slate-700 hover:bg-slate-50"
+                          >
+                            {label}
+                            <span className="ml-1 text-xs text-slate-400">
+                              · {usernames[s.owner_id] ?? '?'}
+                            </span>
+                          </button>
+                        ) : (
+                          <span
+                            title="Ficha do Mestre — atributos ficam ocultos até a captura"
+                            className="flex-1 truncate rounded-lg border border-dashed border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-400"
+                          >
+                            🔒 {label}
+                            <span className="ml-1 text-xs text-slate-400">
+                              · {usernames[s.owner_id] ?? '?'}
+                            </span>
                           </span>
-                        </button>
+                        )}
                         {s.owner_id === myId && (
                           <button
                             onClick={() => unshareSheet(s.id)}

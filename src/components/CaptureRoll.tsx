@@ -13,6 +13,8 @@ import {
   parseWeightKg,
   captureBonusSuccesses,
   captureOutcome,
+  useCaptureBonusMode,
+  setCaptureBonusMode,
   type CaptureOutcome,
 } from '../lib/capture'
 
@@ -22,15 +24,24 @@ const selectCls =
   'rounded-lg border-0 bg-white px-2 py-1.5 text-xs font-medium text-slate-700 shadow-sm ring-1 ring-slate-200 focus:ring-2 focus:ring-red-400 focus:outline-none'
 
 export default function CaptureRoll({
+  mesaId,
   myTrainer,
+  myPokemonSheets,
   sharedNpcs,
+  isGm,
 }: {
+  mesaId: string
   myTrainer: Trainer | undefined
+  myPokemonSheets: PokemonSheet[]
   sharedNpcs: Array<{ id: string; ownerId: string; payload: PokemonSheet }>
+  isGm: boolean
 }) {
   const { postRoll, session, activeMesa } = useMesa()
+  const bonusMode = useCaptureBonusMode(mesaId)
 
   const [targetKey, setTargetKey] = useState('')
+  // Estes valores só ficam visíveis na tela pro Mestre (isGm) — pro jogador
+  // eles são usados só internamente pra calcular o bônus, nunca exibidos.
   const [rank, setRank] = useState<Rank>('Standard')
   const [curHp, setCurHp] = useState(1)
   const [maxHp, setMaxHp] = useState(1)
@@ -61,6 +72,8 @@ export default function CaptureRoll({
         return n.payload.nickname || sp?.name || '?'
       })()
     : 'alvo manual'
+
+  const ballQty = myTrainer?.inventory?.find((e) => e.itemId === ballId)?.qty ?? 0
 
   const pickTarget = (id: string) => {
     setTargetKey(id)
@@ -107,6 +120,12 @@ export default function CaptureRoll({
   )
   const required = requiredOverride ?? CAPTURE_REQUIRED_SUCCESSES[rank] ?? null
 
+  // Modo "dice": o bônus vira dados extras somados à pool antes de rolar
+  // (só conta se cair 4+, como qualquer dado). Modo "flat": o bônus soma
+  // direto nos sucessos depois da rolagem — comportamento antigo.
+  const rollPool = () =>
+    Math.max(0, sealPool()) + (bonusMode === 'dice' ? bonus : 0)
+
   const throwPool = myTrainer
     ? Math.max(0, sheetAttrValue(myTrainer, throwAttr) + (myTrainer.skills['Throw'] ?? 0))
     : 0
@@ -121,10 +140,20 @@ export default function CaptureRoll({
     postRoll(r)
   }
 
+  const consumeBall = async () => {
+    if (!myTrainer?.id) return
+    const inv = (myTrainer.inventory ?? [])
+      .map((e) => (e.itemId === ballId ? { ...e, qty: e.qty - 1 } : e))
+      .filter((e) => e.qty > 0)
+    await db.trainers.update(myTrainer.id, { inventory: inv })
+  }
+
   const rollCapture = async () => {
+    if (ballQty <= 0) return
+    if (!targetKey && !isGm) return
     const r = rollDice(
-      Math.max(0, sealPool()),
-      `${myTrainer?.name ?? 'Treinador'} · Captura da ${ball.label} vs ${targetName} (+${bonus} bônus)`,
+      rollPool(),
+      `${myTrainer?.name ?? 'Treinador'} · Captura (${ball.label}) vs ${targetName}`,
     )
     setLastCapture(r)
     postRoll(r)
@@ -132,7 +161,7 @@ export default function CaptureRoll({
     setAfterNote('')
 
     if (required == null) return
-    const total = r.successes + bonus
+    const total = bonusMode === 'dice' ? r.successes : r.successes + bonus
     const result = captureOutcome(total, required)
     setOutcome(result)
 
@@ -152,26 +181,35 @@ export default function CaptureRoll({
       })
     }
 
+    // a bola quebra numa falha crítica ou é usada numa captura bem-sucedida;
+    // só sobrevive (recuperável) se o alvo escapar
+    if (result === 'success' || result === 'critical-fail') await consumeBall()
+
     if (result === 'success' && targetKey && myTrainer?.id) {
       const n = sharedNpcs.find((s) => s.id === targetKey)
       if (n) {
         const payload = { ...n.payload } as Partial<PokemonSheet>
         delete payload.id
+        const teamCount = myPokemonSheets.filter(
+          (s) => s.trainerId === myTrainer.id && s.inTeam,
+        ).length
+        const joinsTeam = teamCount < 6
         await db.pokemonSheets.add({
           ...(payload as PokemonSheet),
           trainerId: myTrainer.id,
           isNpc: false,
           npcKind: undefined,
-          inTeam: false,
+          inTeam: joinsTeam,
         })
         setAfterNote(
-          `✅ ${targetName} foi adicionado a "Meus Pokémon"! Peça ao Mestre para remover a ficha selvagem da mesa.`,
+          `✅ ${targetName} foi ${joinsTeam ? 'direto pro seu time' : 'adicionado a "Meus Pokémon"'}! Peça ao Mestre para remover a ficha selvagem da mesa.`,
         )
       }
     }
   }
 
-  const totalSuccesses = (lastCapture?.successes ?? 0) + bonus
+  const totalSuccesses =
+    bonusMode === 'dice' ? (lastCapture?.successes ?? 0) : (lastCapture?.successes ?? 0) + bonus
 
   return (
     <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
@@ -187,19 +225,40 @@ export default function CaptureRoll({
           </p>
         )}
 
+        {isGm && (
+          <div className="flex items-center gap-2 rounded-lg bg-slate-50 p-2 text-xs text-slate-500">
+            <span>Bônus de captura conta como</span>
+            <div className="flex gap-1 rounded-full bg-slate-200 p-0.5">
+              {(['dice', 'flat'] as const).map((m) => (
+                <button
+                  key={m}
+                  onClick={() => setCaptureBonusMode(mesaId, m)}
+                  className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${
+                    bonusMode === m ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500'
+                  }`}
+                >
+                  {m === 'dice' ? 'dados extras' : 'modificador'}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div>
           <p className="mb-1 text-xs font-bold text-slate-500 uppercase">Alvo</p>
           <div className="flex flex-wrap gap-1.5">
-            <button
-              onClick={() => pickTarget('')}
-              className={`rounded-full border px-3 py-1 text-xs font-semibold ${
-                targetKey === ''
-                  ? 'border-transparent bg-slate-800 text-white'
-                  : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-              }`}
-            >
-              Manual
-            </button>
+            {isGm && (
+              <button
+                onClick={() => pickTarget('')}
+                className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+                  targetKey === ''
+                    ? 'border-transparent bg-slate-800 text-white'
+                    : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                }`}
+              >
+                Manual
+              </button>
+            )}
             {sharedNpcs.map((n) => {
               const sp = pokemonById.get(n.payload.species)
               return (
@@ -217,87 +276,107 @@ export default function CaptureRoll({
               )
             })}
           </div>
+          {sharedNpcs.length === 0 && !isGm && (
+            <p className="mt-1 text-xs text-slate-400">
+              Nenhum Pokémon selvagem publicado pelo Mestre ainda.
+            </p>
+          )}
         </div>
 
-        <div className="flex flex-wrap items-end gap-3 rounded-lg bg-slate-50 p-2.5">
-          <label className="flex flex-col gap-0.5 text-[11px] text-slate-500">
-            Rank do alvo
-            <select
-              value={rank}
-              onChange={(e) => {
-                setRank(e.target.value as Rank)
-                setRequiredOverride(null)
-              }}
-              className={selectCls}
-            >
-              {RANKS.map((r) => (
-                <option key={r}>{r}</option>
-              ))}
-            </select>
-          </label>
-          <label className="flex flex-col gap-0.5 text-[11px] text-slate-500">
-            HP atual
-            <input
-              type="number"
-              value={curHp}
-              onChange={(e) => setCurHp(Number(e.target.value) || 0)}
-              className={inputCls}
-            />
-          </label>
-          <label className="flex flex-col gap-0.5 text-[11px] text-slate-500">
-            HP máx.
-            <input
-              type="number"
-              value={maxHp}
-              onChange={(e) => setMaxHp(Number(e.target.value) || 1)}
-              className={inputCls}
-            />
-          </label>
-          <label className="flex flex-col gap-0.5 text-[11px] text-slate-500">
-            Condições de status ativas
-            <input
-              type="number"
-              value={statusCount}
-              onChange={(e) => setStatusCount(Number(e.target.value) || 0)}
-              className={inputCls}
-            />
-          </label>
-          <div className="text-xs text-slate-500">
-            Sucessos necessários:{' '}
-            {required != null ? (
-              <b className="text-slate-700">{required}</b>
-            ) : (
-              <span className="text-amber-600">não definido no livro — </span>
-            )}
-            <input
-              type="number"
-              placeholder={required != null ? String(required) : '?'}
-              value={requiredOverride ?? ''}
-              onChange={(e) =>
-                setRequiredOverride(e.target.value === '' ? null : Number(e.target.value))
-              }
-              className={`${inputCls} ml-1 w-12`}
-            />
+        {isGm && (
+          <div className="flex flex-wrap items-end gap-3 rounded-lg bg-slate-50 p-2.5">
+            <label className="flex flex-col gap-0.5 text-[11px] text-slate-500">
+              Rank do alvo
+              <select
+                value={rank}
+                onChange={(e) => {
+                  setRank(e.target.value as Rank)
+                  setRequiredOverride(null)
+                }}
+                className={selectCls}
+              >
+                {RANKS.map((r) => (
+                  <option key={r}>{r}</option>
+                ))}
+              </select>
+            </label>
+            <label className="flex flex-col gap-0.5 text-[11px] text-slate-500">
+              HP atual
+              <input
+                type="number"
+                value={curHp}
+                onChange={(e) => setCurHp(Number(e.target.value) || 0)}
+                className={inputCls}
+              />
+            </label>
+            <label className="flex flex-col gap-0.5 text-[11px] text-slate-500">
+              HP máx.
+              <input
+                type="number"
+                value={maxHp}
+                onChange={(e) => setMaxHp(Number(e.target.value) || 1)}
+                className={inputCls}
+              />
+            </label>
+            <label className="flex flex-col gap-0.5 text-[11px] text-slate-500">
+              Condições de status ativas
+              <input
+                type="number"
+                value={statusCount}
+                onChange={(e) => setStatusCount(Number(e.target.value) || 0)}
+                className={inputCls}
+              />
+            </label>
+            <div className="text-xs text-slate-500">
+              Sucessos necessários:{' '}
+              {required != null ? (
+                <b className="text-slate-700">{required}</b>
+              ) : (
+                <span className="text-amber-600">não definido no livro — </span>
+              )}
+              <input
+                type="number"
+                placeholder={required != null ? String(required) : '?'}
+                value={requiredOverride ?? ''}
+                onChange={(e) =>
+                  setRequiredOverride(e.target.value === '' ? null : Number(e.target.value))
+                }
+                className={`${inputCls} ml-1 w-12`}
+              />
+            </div>
+            <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-600">
+              🔒 Bônus: +{bonus} (HP +{hpBonus}, status +{statusBonus})
+            </span>
           </div>
-        </div>
+        )}
 
         <div>
-          <p className="mb-1 text-xs font-bold text-slate-500 uppercase">Pokébola</p>
+          <div className="mb-1 flex items-center justify-between">
+            <p className="text-xs font-bold text-slate-500 uppercase">Pokébola</p>
+            <span
+              className={`text-xs font-semibold ${ballQty > 0 ? 'text-slate-500' : 'text-red-500'}`}
+            >
+              {ballQty} no inventário
+            </span>
+          </div>
           <select
             value={ballId}
             onChange={(e) => setBallId(e.target.value)}
             className={`${selectCls} w-full`}
           >
-            {POKEBALLS.map((b) => (
-              <option key={b.id} value={b.id}>
-                {b.label}
-              </option>
-            ))}
+            {POKEBALLS.map((b) => {
+              const owned = myTrainer?.inventory?.find((e) => e.itemId === b.id)?.qty ?? 0
+              return (
+                <option key={b.id} value={b.id}>
+                  {b.label} ({owned})
+                </option>
+              )
+            })}
           </select>
           <p className="mt-1 text-[11px] text-slate-400">{ball.hint}</p>
 
           <div className="mt-2 flex flex-wrap items-end gap-3">
-            {ball.kind === 'fast' && (
+            {isGm && ball.kind === 'fast' && (
               <label className="flex flex-col gap-0.5 text-[11px] text-slate-500">
                 Destreza do alvo
                 <input
@@ -308,7 +387,7 @@ export default function CaptureRoll({
                 />
               </label>
             )}
-            {ball.kind === 'heavy' && (
+            {isGm && ball.kind === 'heavy' && (
               <label className="flex flex-col gap-0.5 text-[11px] text-slate-500">
                 Peso do alvo (kg)
                 <input
@@ -372,10 +451,7 @@ export default function CaptureRoll({
               </label>
             )}
             <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">
-              Captura: {Math.max(0, sealPool())}d6
-            </span>
-            <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-600">
-              Bônus: +{bonus} (HP +{hpBonus}, status +{statusBonus})
+              Captura: {rollPool()}d6
             </span>
           </div>
         </div>
@@ -399,9 +475,11 @@ export default function CaptureRoll({
           </button>
           <button
             onClick={rollCapture}
-            className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700"
+            disabled={ballQty <= 0 || (!targetKey && !isGm)}
+            title={ballQty <= 0 ? 'Você não tem essa Pokébola no inventário' : ''}
+            className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700 disabled:opacity-40"
           >
-            Rolar Captura ({Math.max(0, sealPool())}d6)
+            Rolar Captura ({rollPool()}d6)
           </button>
         </div>
 
@@ -415,7 +493,11 @@ export default function CaptureRoll({
         {lastCapture && (
           <div className="rounded-lg bg-slate-50 p-2.5">
             <p className="mb-1 text-xs font-semibold text-slate-600">
-              Captura — {lastCapture.successes} + {bonus} bônus = {totalSuccesses} sucessos
+              {isGm
+                ? bonusMode === 'flat'
+                  ? `Captura — ${lastCapture.successes} + ${bonus} bônus = ${totalSuccesses} sucessos`
+                  : `Captura — ${totalSuccesses} sucessos (inclui bônus em dados)`
+                : `Captura — ${totalSuccesses} sucessos`}
             </p>
             <DiceRow r={lastCapture} />
           </div>
@@ -431,10 +513,7 @@ export default function CaptureRoll({
                   : 'bg-amber-100 text-amber-700'
             }`}
           >
-            {outcome === 'success' &&
-              (curHp <= 0
-                ? '🎉 Capturado! (por desmaio — Felicidade 0 / Lealdade 0)'
-                : '🎉 Capturado! (Felicidade 2 / Lealdade 1)')}
+            {outcome === 'success' && '🎉 Capturado!'}
             {outcome === 'critical-fail' && '💥 Falha crítica — a bola foi destruída'}
             {outcome === 'escape' && '💨 Escapou — a bola pode ser recuperada'}
           </div>

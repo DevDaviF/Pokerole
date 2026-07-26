@@ -19,12 +19,14 @@ import {
   spriteUrl,
   typeColor,
 } from '../data'
+import { rankAttributePoints, RANK_POINT_ATTRIBUTES } from '../lib/progression'
 import Stepper from '../components/Stepper'
 import TypeBadge from '../components/TypeBadge'
 import MoveDetailModal from '../components/MoveDetailModal'
 import TrainingPointsBadge from '../components/TrainingPoints'
 import SpeciesPicker from '../components/SpeciesPicker'
 import PokemonProgression from '../components/PokemonProgression'
+import ImagePicker from '../components/ImagePicker'
 
 const emptySheet = (): PokemonSheet => ({
   trainerId: 0,
@@ -56,6 +58,32 @@ export default function PokemonSheetsPage() {
 
   const totalHp = species && editing ? species.baseHp + editing.attributes.vitality : 0
   const willPoints = editing ? editing.attributes.insight + 3 : 0
+
+  // Pontos de atributo por Rank (item 12/13): mesmo orçamento pra qualquer
+  // Pokémon, capturado ou selvagem — livre pra distribuir, sem contar
+  // Special (tratado à parte). "Gasto" = quanto cada atributo está acima da
+  // base da espécie; sobra = orçamento do Rank menos o gasto.
+  const attrBudget = species && editing ? rankAttributePoints(editing.rank) : 0
+  const attrSpent =
+    species && editing
+      ? RANK_POINT_ATTRIBUTES.reduce(
+          (sum, key) => sum + Math.max(0, editing.attributes[key] - species.attributes[key]),
+          0,
+        )
+      : 0
+  const attrRemaining = Math.max(0, attrBudget - attrSpent)
+  const attrMax = (key: keyof PokemonSheet['attributes']) => {
+    if (!species || !editing) return 12
+    const speciesMax = species.maxAttributes[key]
+    if (!(RANK_POINT_ATTRIBUTES as readonly string[]).includes(key)) return speciesMax
+    return Math.min(speciesMax, editing.attributes[key] + attrRemaining)
+  }
+
+  const hasOtherStarter = editing
+    ? sheets.some(
+        (s) => s.trainerId === editing.trainerId && s.isStarter && s.id !== editing.id,
+      )
+    : false
 
   // Golpes disponíveis: learnset até o rank atual (Mew: qualquer golpe)
   const availableMoves = useMemo(() => {
@@ -298,13 +326,59 @@ export default function PokemonSheetsPage() {
                   ))}
                 </datalist>
               </label>
+              {!editing.id && (
+                <label
+                  className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm ${
+                    hasOtherStarter
+                      ? 'border-slate-100 bg-slate-50 text-slate-400'
+                      : 'border-slate-200 text-slate-600'
+                  }`}
+                  title={
+                    hasOtherStarter
+                      ? 'Este treinador já tem um Pokémon inicial'
+                      : 'Marca esta ficha como o Pokémon inicial do treinador'
+                  }
+                >
+                  <input
+                    type="checkbox"
+                    checked={Boolean(editing.isStarter)}
+                    disabled={hasOtherStarter}
+                    onChange={(e) =>
+                      setEditing({ ...editing, isStarter: e.target.checked })
+                    }
+                  />
+                  É seu Pokémon inicial?
+                </label>
+              )}
+            </div>
+
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+              <h2 className="mb-3 font-bold text-slate-800">Imagem (opcional)</h2>
+              <ImagePicker
+                value={editing.imageUrl}
+                fallback={spriteUrl(species.id)}
+                onChange={(imageUrl) => setEditing({ ...editing, imageUrl })}
+              />
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                <h2 className="mb-1 font-bold text-slate-800">Atributos</h2>
+                <div className="mb-1 flex items-center justify-between">
+                  <h2 className="font-bold text-slate-800">Atributos</h2>
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs font-bold ${
+                      attrRemaining > 0
+                        ? 'bg-emerald-100 text-emerald-700'
+                        : 'bg-slate-100 text-slate-500'
+                    }`}
+                    title="Pontos ganhos por Rank (mesma regra pra qualquer Pokémon), livres pra distribuir entre Strength/Dexterity/Vitality/Insight"
+                  >
+                    {attrRemaining}/{attrBudget} pontos de Rank
+                  </span>
+                </div>
                 <p className="mb-3 text-xs text-slate-400">
-                  Limites da espécie entre parênteses
+                  Limites da espécie entre parênteses. Special não usa
+                  pontos de Rank.
                 </p>
                 <div className="space-y-2">
                   {POKEMON_ATTRIBUTE_LABELS.map(({ key, label }) => (
@@ -313,7 +387,7 @@ export default function PokemonSheetsPage() {
                       label={`${label} (${species.maxAttributes[key]})`}
                       value={editing.attributes[key]}
                       min={0}
-                      max={species.maxAttributes[key]}
+                      max={attrMax(key)}
                       dotMax={species.maxAttributes[key]}
                       onChange={(v) =>
                         setEditing({

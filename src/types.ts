@@ -124,6 +124,11 @@ export interface SocialAttributes {
   clever: number
 }
 
+export interface InventoryEntry {
+  itemId: string
+  qty: number
+}
+
 export interface Trainer {
   id?: number
   name: string
@@ -135,6 +140,9 @@ export interface Trainer {
   currentHp: number
   items: string[]
   notes: string
+  money?: number
+  inventory?: InventoryEntry[]
+  imageUrl?: string
 }
 
 export interface PokemonSheet {
@@ -156,5 +164,7 @@ export interface PokemonSheet {
   trainingPoints?: number // TP acumulados (treinos somam automático)
   isNpc?: boolean // gerado pelo Mestre (encontro selvagem / Pokémon de ginásio)
   npcKind?: 'wild' | 'gym'
+  isStarter?: boolean // Pokémon inicial do treinador (1 por treinador)
+  imageUrl?: string
   notes: string
 }

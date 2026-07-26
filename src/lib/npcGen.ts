@@ -1,26 +1,29 @@
 import type { Attributes, Pokemon, PokemonSheet, Rank } from '../types'
-import { RANKS, rankIndex } from '../types'
 import { MOVES, NATURES, moveById } from '../data'
+import { rankIndex } from '../types'
+import { rankAttributePoints, RANK_POINT_ATTRIBUTES } from './progression'
 
 /**
- * Geração rápida de fichas de NPC (Pokémon selvagem / de ginásio) para o
- * Mestre. O Corebook não dá uma fórmula fixa de "atributos por Rank" para
- * Pokémon fora do Trainer — só diz que o Pokédex mostra os valores em
- * Starter e que o jogador soma pontos ao subir de Rank (p. 44). Aqui
- * interpolamos entre o inicial (Starter) e o máximo da espécie conforme o
- * Rank escolhido, como ponto de partida rápido para o Mestre ajustar à mão.
+ * Atributos de Pokémon selvagem = base da espécie (referência oficial do
+ * livro, sem alteração) + os mesmos pontos de atributo por Rank que
+ * qualquer Pokémon ganha (ver progression.ts), distribuídos aleatoriamente
+ * entre os atributos físicos (Strength/Dexterity/Vitality/Insight — Special
+ * fica de fora). Não é um bônus especial de "selvagem": são pontos comuns,
+ * então totalmente re-treináveis depois da captura.
  */
-function interpolateAttributes(species: Pokemon, rank: Rank): Attributes {
-  const t = rankIndex(rank) / (RANKS.length - 1)
-  const lerp = (base: number, max: number) =>
-    Math.min(max, Math.max(base, Math.round(base + (max - base) * t)))
-  return {
-    strength: lerp(species.attributes.strength, species.maxAttributes.strength),
-    dexterity: lerp(species.attributes.dexterity, species.maxAttributes.dexterity),
-    vitality: lerp(species.attributes.vitality, species.maxAttributes.vitality),
-    special: lerp(species.attributes.special, species.maxAttributes.special),
-    insight: lerp(species.attributes.insight, species.maxAttributes.insight),
+function randomizeAttributes(species: Pokemon, rank: Rank): Attributes {
+  const attrs: Attributes = { ...species.attributes }
+  let points = rankAttributePoints(rank)
+  // pontos distribuídos um de cada vez em atributos sorteados; se um
+  // atributo bate no máximo da espécie, os pontos restantes vão pros outros
+  let guard = points * 20 // evita loop infinito se todos os atributos baterem no teto
+  while (points > 0 && guard-- > 0) {
+    const key = RANK_POINT_ATTRIBUTES[Math.floor(Math.random() * RANK_POINT_ATTRIBUTES.length)]
+    if (attrs[key] >= species.maxAttributes[key]) continue
+    attrs[key] += 1
+    points--
   }
+  return attrs
 }
 
 function pickRandomAbility(species: Pokemon): string {
@@ -87,7 +90,7 @@ export function generateNpcSheet(
   rank: Rank,
   npcKind: 'wild' | 'gym',
 ): PokemonSheet {
-  const attributes = interpolateAttributes(species, rank)
+  const attributes = randomizeAttributes(species, rank)
   // Corebook 3.0 p. 114: golpes conhecidos = Insight + 3
   const knownMoves = pickMovesForRank(species, rank, attributes.insight + 3)
   const nature = NATURES[Math.floor(Math.random() * NATURES.length)]?.name ?? ''
@@ -110,6 +113,6 @@ export function generateNpcSheet(
     trainingPoints: 0,
     isNpc: true,
     npcKind,
-    notes: `Gerado automaticamente pelo Mestre (${npcKind === 'wild' ? 'encontro selvagem' : 'Pokémon de ginásio'}). Atributos estimados por interpolação de Rank — ajuste à mão se quiser seguir à risca as regras da sua mesa.`,
+    notes: `Gerado automaticamente pelo Mestre (${npcKind === 'wild' ? 'encontro selvagem' : 'Pokémon de ginásio'}). Atributos = base da espécie + pontos de Rank distribuídos aleatoriamente (mesma regra de qualquer Pokémon, totalmente re-treinável).`,
   }
 }

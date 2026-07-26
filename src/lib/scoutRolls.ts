@@ -5,6 +5,7 @@ export interface ScoutContributor {
   name: string
   successes: number
   at: number
+  userId?: string
 }
 
 export interface ScoutRollsRow {
@@ -62,19 +63,23 @@ export function useScoutRolls(mesaId: string | null) {
   return row
 }
 
+// Retorna false sem escrever nada se este usuário já contribuiu nesta
+// rodada (evita contar o mesmo Treinador duas vezes na soma).
 export async function contributeScoutRoll(
   mesaId: string,
   current: ScoutRollsRow,
   name: string,
   successes: number,
-) {
-  if (!supabase) return
+): Promise<boolean> {
+  if (!supabase) return false
   const {
     data: { user },
   } = await supabase.auth.getUser()
+  if (!user) return false
+  if (current.contributors.some((c) => c.userId === user.id)) return false
   const contributors = [
     ...current.contributors,
-    { name, successes, at: Date.now() },
+    { name, successes, at: Date.now(), userId: user.id },
   ].slice(-30)
   await supabase
     .from('scout_rolls')
@@ -82,9 +87,10 @@ export async function contributeScoutRoll(
       total: current.total + successes,
       contributors,
       updated_at: new Date().toISOString(),
-      updated_by: user?.id,
+      updated_by: user.id,
     })
     .eq('mesa_id', mesaId)
+  return true
 }
 
 export async function resetScoutRolls(mesaId: string) {

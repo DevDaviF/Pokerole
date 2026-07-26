@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Trainer } from '../types'
 import { sheetAttrValue } from './MoveRoll'
 import { rollDice } from './DiceRoller'
@@ -11,18 +12,24 @@ export default function ScoutRollWidget({
   mesaId: string
   myTrainer: Trainer | undefined
 }) {
-  const { postRoll } = useMesa()
+  const { postRoll, session } = useMesa()
   const row = useScoutRolls(mesaId)
+  const [notice, setNotice] = useState('')
+
+  const alreadyContributed = Boolean(
+    session && row?.contributors.some((c) => c.userId === session.user.id),
+  )
 
   const contribute = async () => {
-    if (!myTrainer || !row) return
+    if (!myTrainer || !row || alreadyContributed) return
     const pool = Math.max(
       1,
       sheetAttrValue(myTrainer, 'Insight') + (myTrainer.skills['Alert'] ?? 0),
     )
     const r = rollDice(pool, `${myTrainer.name} · Insight + Alert (batedor)`)
     postRoll(r)
-    await contributeScoutRoll(mesaId, row, myTrainer.name, r.successes)
+    const applied = await contributeScoutRoll(mesaId, row, myTrainer.name, r.successes)
+    if (!applied) setNotice('Você já contribuiu nesta rodada de batedores.')
   }
 
   if (!row) return null
@@ -36,17 +43,27 @@ export default function ScoutRollWidget({
         </span>
         <button
           onClick={contribute}
-          disabled={!myTrainer}
+          disabled={!myTrainer || alreadyContributed}
           title={
-            myTrainer
-              ? `Rolar Insight + Alert de ${myTrainer.name}`
-              : 'Crie um Treinador para contribuir'
+            !myTrainer
+              ? 'Crie um Treinador para contribuir'
+              : alreadyContributed
+                ? 'Você já contribuiu nesta rodada'
+                : `Rolar Insight + Alert de ${myTrainer.name}`
           }
           className="ml-auto rounded-full bg-white/20 px-3 py-1 text-xs font-bold hover:bg-white/30 disabled:opacity-40"
         >
-          🎲 Contribuir
+          {alreadyContributed ? '✓ Contribuiu' : '🎲 Contribuir'}
         </button>
       </div>
+      {notice && (
+        <p
+          className="cursor-pointer px-4 pt-2 text-xs text-amber-600"
+          onClick={() => setNotice('')}
+        >
+          {notice}
+        </p>
+      )}
       {row.contributors.length > 0 && (
         <div className="flex flex-wrap gap-1.5 p-3">
           {row.contributors.map((c, i) => (

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { db } from '../db'
 import { supabase } from '../lib/supabase'
-import type { Pokemon, Rank } from '../types'
+import type { Pokemon, PokemonSheet, Rank } from '../types'
 import { RANKS } from '../types'
 import { POKEDEX, spriteUrl } from '../data'
 import { generateNpcSheet } from '../lib/npcGen'
@@ -59,7 +59,7 @@ async function publishNpc(
     myId,
     `${npcKind === 'wild' ? '🐾' : '🏋️'} Ficha gerada e publicada: ${sheet.nickname} (Rank ${rank}). Já dá pra rolar os golpes dela em "Rolar pela ficha".`,
   )
-  return localId
+  return { localId, sheet }
 }
 
 function weightedDraw(
@@ -102,6 +102,7 @@ interface Drawn {
   rank: Rank
   generating: boolean
   done: boolean
+  sheet?: PokemonSheet
 }
 
 function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
@@ -154,10 +155,10 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
     setDrawn((prev) =>
       prev.map((d) => (d.key === key ? { ...d, generating: true } : d)),
     )
-    await publishNpc(mesaId, myId, item.species, item.rank, 'wild')
+    const { sheet } = await publishNpc(mesaId, myId, item.species, item.rank, 'wild')
     setDrawn((prev) =>
       prev.map((d) =>
-        d.key === key ? { ...d, generating: false, done: true } : d,
+        d.key === key ? { ...d, generating: false, done: true, sheet } : d,
       ),
     )
   }
@@ -321,6 +322,16 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
               >
                 {d.done ? '✓ Publicada' : d.generating ? 'Gerando...' : '✨ Gerar ficha'}
               </button>
+              {d.sheet && (
+                <p
+                  className="w-full text-xs text-slate-500"
+                  title="Só você vê isso — o jogador não tem acesso à ficha até você compartilhar/capturar"
+                >
+                  🔒 Def/Sp.Def: <b>{d.sheet.attributes.vitality}</b> /{' '}
+                  <b>{d.sheet.attributes.insight}</b> · HP{' '}
+                  {d.sheet.currentHp}
+                </p>
+              )}
             </div>
           ))}
         </div>
@@ -334,11 +345,13 @@ function GymTab({ mesaId, myId }: { mesaId: string; myId: string }) {
   const [rank, setRank] = useState<Rank>('Ace')
   const [generating, setGenerating] = useState(false)
   const [done, setDone] = useState(false)
+  const [sheet, setSheet] = useState<PokemonSheet | null>(null)
 
   const generate = async () => {
     if (!species) return
     setGenerating(true)
-    await publishNpc(mesaId, myId, species, rank, 'gym')
+    const { sheet: s } = await publishNpc(mesaId, myId, species, rank, 'gym')
+    setSheet(s)
     setGenerating(false)
     setDone(true)
   }
@@ -349,6 +362,7 @@ function GymTab({ mesaId, myId }: { mesaId: string; myId: string }) {
         onSelect={(p) => {
           setSpecies(p)
           setDone(false)
+          setSheet(null)
         }}
         placeholder="Buscar espécie para o time do ginásio..."
       />
@@ -388,6 +402,15 @@ function GymTab({ mesaId, myId }: { mesaId: string; myId: string }) {
             <p className="w-full text-xs font-semibold text-emerald-600">
               Publicado na mesa! Veja em "Fichas da mesa" ou "Rolar pela
               ficha".
+            </p>
+          )}
+          {sheet && (
+            <p
+              className="w-full text-xs text-slate-500"
+              title="Só você vê isso — o jogador não tem acesso à ficha até você compartilhar"
+            >
+              🔒 Def/Sp.Def: <b>{sheet.attributes.vitality}</b> /{' '}
+              <b>{sheet.attributes.insight}</b> · HP {sheet.currentHp}
             </p>
           )}
         </div>

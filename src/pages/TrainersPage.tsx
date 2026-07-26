@@ -10,6 +10,8 @@ import {
 } from '../constants'
 import Stepper from '../components/Stepper'
 import SkillRoll from '../components/SkillRoll'
+import Shop from '../components/Shop'
+import ImagePicker, { DEFAULT_AVATAR } from '../components/ImagePicker'
 
 export const getActiveTrainerId = (): number | null => {
   const v = localStorage.getItem('activeTrainerId')
@@ -27,6 +29,8 @@ const emptyTrainer = (): Trainer => ({
   currentHp: 5,
   items: [],
   notes: '',
+  money: 0,
+  inventory: [],
 })
 
 export default function TrainersPage() {
@@ -67,6 +71,14 @@ export default function TrainersPage() {
         <h1 className="text-2xl font-bold text-slate-800">
           {editing.id ? `Editando ${editing.name}` : 'Novo Treinador'}
         </h1>
+
+        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <ImagePicker
+            value={editing.imageUrl}
+            fallback={DEFAULT_AVATAR}
+            onChange={(imageUrl) => setEditing({ ...editing, imageUrl })}
+          />
+        </div>
 
         <div className="grid gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:grid-cols-2">
           <label className="block">
@@ -182,6 +194,17 @@ export default function TrainersPage() {
           </div>
         </div>
 
+        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="mb-3 font-bold text-slate-800">💰 Economia</h2>
+          <Shop
+            money={editing.money ?? 0}
+            inventory={editing.inventory ?? []}
+            onChange={(money, inventory) =>
+              setEditing({ ...editing, money, inventory })
+            }
+          />
+        </div>
+
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block">
             <span className="mb-1 block text-sm font-medium text-slate-600">
@@ -256,8 +279,13 @@ export default function TrainersPage() {
                 activeId === t.id ? 'border-red-400 ring-2 ring-red-100' : 'border-slate-200'
               }`}
             >
-              <div className="mb-1 flex items-center justify-between">
-                <h2 className="text-lg font-bold text-slate-800">{t.name}</h2>
+              <div className="mb-1 flex items-center gap-2">
+                <img
+                  src={t.imageUrl || DEFAULT_AVATAR}
+                  alt=""
+                  className="h-9 w-9 rounded-full border border-slate-200 object-cover"
+                />
+                <h2 className="flex-1 text-lg font-bold text-slate-800">{t.name}</h2>
                 <button
                   onClick={() => setActive(t.id!)}
                   title="Definir como treinador ativo"
@@ -267,7 +295,8 @@ export default function TrainersPage() {
                 </button>
               </div>
               <p className="text-sm text-slate-500">
-                Rank {t.rank} · HP {t.hp} · Will {t.attributes.insight + 3}
+                Rank {t.rank} · HP {t.hp} · Will {t.attributes.insight + 3} · 💰{' '}
+                {t.money ?? 0}
               </p>
               <p className="mt-1 text-xs text-slate-400">
                 Str {t.attributes.strength} · Dex {t.attributes.dexterity} · Vit{' '}

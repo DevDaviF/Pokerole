@@ -1,4 +1,61 @@
+import { useEffect, useRef, useState } from 'react'
 import type { Rank } from '../types'
+import { supabase } from './supabase'
+
+export type CaptureBonusMode = 'dice' | 'flat'
+
+// Modo de cálculo do bônus de captura, configurável por mesa (só o Mestre
+// pode trocar — RLS de UPDATE em `mesas` exige is_mesa_gm). "dice" = os
+// pontos de bônus viram dados extras na rolagem de Captura (padrão);
+// "flat" = somam direto no total de sucessos, como um modificador.
+export function useCaptureBonusMode(mesaId: string | null): CaptureBonusMode {
+  const [mode, setMode] = useState<CaptureBonusMode>('dice')
+  const instanceId = useRef(Math.random().toString(36).slice(2))
+
+  useEffect(() => {
+    if (!supabase || !mesaId) return
+    let cancelled = false
+
+    supabase
+      .from('mesas')
+      .select('capture_bonus_mode')
+      .eq('id', mesaId)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (cancelled || !data) return
+        setMode((data.capture_bonus_mode as CaptureBonusMode) ?? 'dice')
+      })
+
+    const channel = supabase
+      .channel(`mesa-settings-${mesaId}-${instanceId.current}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'mesas',
+          filter: `id=eq.${mesaId}`,
+        },
+        (payload) => {
+          const row = payload.new as { capture_bonus_mode?: CaptureBonusMode }
+          if (row.capture_bonus_mode) setMode(row.capture_bonus_mode)
+        },
+      )
+      .subscribe()
+
+    return () => {
+      cancelled = true
+      supabase?.removeChannel(channel)
+    }
+  }, [mesaId])
+
+  return mode
+}
+
+export async function setCaptureBonusMode(mesaId: string, mode: CaptureBonusMode) {
+  if (!supabase) return
+  await supabase.from('mesas').update({ capture_bonus_mode: mode }).eq('id', mesaId)
+}
 
 // Captura de Pokémon selvagem (Corebook 3.0, p. 99-100 e 122).
 // Sucessos necessários pelo Rank do Pokémon selvagem. Master/Champion não

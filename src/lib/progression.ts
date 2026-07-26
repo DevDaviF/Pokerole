@@ -54,6 +54,25 @@ export function evolveCost(speed: EvolutionSpeed): number {
   return EVOLVE_COST[speed]
 }
 
+// Pontos de atributo acumulados por Rank (o livro não fixa uma tabela — aqui
+// usamos +2 por degrau de Rank, começando do zero em Starter). Válido pra
+// qualquer Pokémon (capturado ou selvagem): não é um bônus especial, então é
+// totalmente realocável via Re-Treino.
+const ATTR_POINTS_PER_RANK_STEP = 2
+
+export function rankAttributePoints(rank: Rank): number {
+  return rankIndex(rank) * ATTR_POINTS_PER_RANK_STEP
+}
+
+// Física apenas — Special fica de fora da distribuição por Rank (Pokérole
+// trata Special como um atributo à parte na 3.0).
+export const RANK_POINT_ATTRIBUTES = [
+  'strength',
+  'dexterity',
+  'vitality',
+  'insight',
+] as const
+
 // O import guarda "Speed: Fast/Medium/Slow" dentro do texto livre `detail`
 // de cada evolução (nem toda evolução tem isso — Stone/Trade não têm).
 export function parseEvolutionSpeed(detail: string): EvolutionSpeed | null {
