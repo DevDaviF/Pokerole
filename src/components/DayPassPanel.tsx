@@ -40,19 +40,15 @@ export default function DayPassPanel({
     setBusy(true)
     setNotice('')
 
-    if (needed > 0 && haveRations < needed) {
-      await announce(
-        `⚠️ ${myTrainer.name} não tem ração suficiente para o time hoje! Tem ${haveRations}, precisa de ${needed}. Nem o descanso rolou.`,
-      )
-      setNotice('Ração insuficiente — nada foi consumido nem recuperado.')
-      setBusy(false)
-      return
-    }
-
-    if (needed > 0) {
+    // consome o que tiver (até o necessário) — se faltar, só avisa no
+    // chat; o descanso acontece igual, a punição por falta de ração fica
+    // a critério do Mestre, narrativamente
+    const consumed = Math.min(haveRations, needed)
+    const short = needed - consumed
+    if (consumed > 0) {
       const nextInventory = inventory
         .map((e) =>
-          e.itemId === RATION_ITEM_ID ? { ...e, qty: e.qty - needed } : e,
+          e.itemId === RATION_ITEM_ID ? { ...e, qty: e.qty - consumed } : e,
         )
         .filter((e) => e.qty > 0)
       await db.trainers.update(myTrainer.id, {
@@ -72,10 +68,19 @@ export default function DayPassPanel({
       })
     }
 
+    if (short > 0) {
+      await announce(
+        `⚠️ ${myTrainer.name} não tinha ração suficiente hoje! Faltaram ${short} de ${needed}. O time descansou mesmo assim.`,
+      )
+    }
     await announce(
-      `🌙 ${myTrainer.name} passou o dia e descansou${needed > 0 ? ` (−${needed} ${RATION_NAME}${needed > 1 ? 'ões' : ''})` : ''}. Time totalmente recuperado.`,
+      `🌙 ${myTrainer.name} passou o dia e descansou${consumed > 0 ? ` (−${consumed} ${RATION_NAME}${consumed > 1 ? 'ões' : ''})` : ''}. Time totalmente recuperado.`,
     )
-    setNotice('Dia passado! Treinador e time recuperados.')
+    setNotice(
+      short > 0
+        ? `Dia passado, mas faltou ração (${short}). Time recuperado mesmo assim.`
+        : 'Dia passado! Treinador e time recuperados.',
+    )
     setBusy(false)
   }
 

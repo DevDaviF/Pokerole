@@ -13,6 +13,7 @@ import {
   type RarityTier,
 } from '../lib/habitats'
 import { useScoutRolls, resetScoutRolls } from '../lib/scoutRolls'
+import { useCustomItems, createCustomItem, deleteCustomItem } from '../lib/customItems'
 import TypeBadge from '../components/TypeBadge'
 import SpeciesPicker from '../components/SpeciesPicker'
 
@@ -419,6 +420,133 @@ function GymTab({ mesaId, myId }: { mesaId: string; myId: string }) {
   )
 }
 
+const ITEM_POCKETS = [
+  'TrainerItems',
+  'HeldItems',
+  'Medicine',
+  'Pokeballs',
+  'EvolutionItem',
+  'TechnicalMachine',
+]
+
+function ItemsTab({ mesaId }: { mesaId: string }) {
+  const items = useCustomItems(mesaId)
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [pocket, setPocket] = useState('TrainerItems')
+  const [price, setPrice] = useState(100)
+  const [oneUse, setOneUse] = useState(true)
+  const [busy, setBusy] = useState(false)
+
+  const create = async () => {
+    if (!name.trim() || price < 0) return
+    setBusy(true)
+    await createCustomItem(mesaId, {
+      name: name.trim(),
+      description: description.trim(),
+      pocket,
+      price,
+      oneUse,
+    })
+    setName('')
+    setDescription('')
+    setPrice(100)
+    setBusy(false)
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="space-y-2 rounded-lg bg-slate-50 p-3">
+        <p className="text-xs font-bold text-slate-500 uppercase">
+          Criar item personalizado
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Nome do item"
+            className="min-w-0 flex-1 rounded-lg border border-slate-300 px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+          />
+          <select
+            value={pocket}
+            onChange={(e) => setPocket(e.target.value)}
+            className="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+          >
+            {ITEM_POCKETS.map((p) => (
+              <option key={p}>{p}</option>
+            ))}
+          </select>
+          <input
+            type="number"
+            min={0}
+            value={price}
+            onChange={(e) => setPrice(Math.max(0, Number(e.target.value) || 0))}
+            className="w-20 rounded-lg border border-slate-300 px-2 py-1.5 text-center text-xs focus:border-red-400 focus:outline-none"
+          />
+          <label className="flex items-center gap-1 text-xs text-slate-600">
+            <input
+              type="checkbox"
+              checked={oneUse}
+              onChange={(e) => setOneUse(e.target.checked)}
+            />
+            consumível
+          </label>
+        </div>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Descrição / efeito (opcional)"
+          rows={2}
+          className="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+        />
+        <button
+          onClick={create}
+          disabled={!name.trim() || busy}
+          className="rounded-lg bg-purple-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-purple-800 disabled:opacity-40"
+        >
+          {busy ? 'Criando...' : '+ Criar item'}
+        </button>
+      </div>
+
+      <div>
+        <p className="mb-1.5 text-xs font-bold text-slate-500 uppercase">
+          Itens desta mesa
+        </p>
+        {items.length === 0 ? (
+          <p className="text-xs text-slate-400">Nenhum item personalizado ainda.</p>
+        ) : (
+          <div className="space-y-1.5">
+            {items.map((it) => (
+              <div
+                key={it.id}
+                className="flex items-center gap-2 rounded-lg border border-slate-100 px-2.5 py-1.5"
+              >
+                <span className="min-w-0 flex-1 truncate text-xs font-medium text-slate-700">
+                  {it.name}{' '}
+                  <span className="text-slate-400">
+                    ({it.pocket} · {it.price} P$)
+                  </span>
+                </span>
+                <button
+                  onClick={() => deleteCustomItem(it.id)}
+                  title="Remover"
+                  className="text-slate-300 hover:text-red-500"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        <p className="mt-1 text-[11px] text-slate-400">
+          Aparecem na loja de todos os treinadores desta mesa (marcados
+          com 🛠️).
+        </p>
+      </div>
+    </div>
+  )
+}
+
 export default function GmToolsPanel({
   mesaId,
   myId,
@@ -426,14 +554,14 @@ export default function GmToolsPanel({
   mesaId: string
   myId: string
 }) {
-  const [tab, setTab] = useState<'encounter' | 'gym'>('encounter')
+  const [tab, setTab] = useState<'encounter' | 'gym' | 'items'>('encounter')
 
   return (
     <div className="overflow-hidden rounded-xl border border-purple-200 bg-white shadow-sm">
       <div className="flex items-center gap-2 bg-gradient-to-r from-purple-700 to-indigo-700 px-4 py-2.5 text-white">
         <b>🎓 Ferramentas do Mestre</b>
         <div className="ml-auto flex gap-1">
-          {(['encounter', 'gym'] as const).map((t) => (
+          {(['encounter', 'gym', 'items'] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -443,17 +571,15 @@ export default function GmToolsPanel({
                   : 'bg-black/15 text-white hover:bg-black/25'
               }`}
             >
-              {t === 'encounter' ? '🐾 Encontro' : '🏋️ Ginásio'}
+              {t === 'encounter' ? '🐾 Encontro' : t === 'gym' ? '🏋️ Ginásio' : '🛒 Itens'}
             </button>
           ))}
         </div>
       </div>
       <div className="p-4">
-        {tab === 'encounter' ? (
-          <EncounterTab mesaId={mesaId} myId={myId} />
-        ) : (
-          <GymTab mesaId={mesaId} myId={myId} />
-        )}
+        {tab === 'encounter' && <EncounterTab mesaId={mesaId} myId={myId} />}
+        {tab === 'gym' && <GymTab mesaId={mesaId} myId={myId} />}
+        {tab === 'items' && <ItemsTab mesaId={mesaId} />}
       </div>
     </div>
   )

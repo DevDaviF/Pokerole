@@ -40,14 +40,18 @@ const dexAlert = (entity: {
 const newKey = () => Math.random().toString(36).slice(2, 10)
 
 // Blinda contra linhas antigas/parciais vindas do Supabase (realtime ou
-// fetch inicial) — nunca deixa `combatants`/`statusConditions` undefined
-// chegar no render.
+// fetch inicial) — nunca deixa `combatants`/`statusConditions`/HP
+// undefined chegar no render (se a migration-6 — REPLICA IDENTITY FULL —
+// ainda não rodou, updates em colunas jsonb grandes podem chegar
+// incompletos via realtime).
 function normalizeRow(data: BattleRow): BattleRow {
   return {
     ...data,
     combatants: (data.combatants ?? []).map((c) => ({
       ...c,
       statusConditions: c.statusConditions ?? [],
+      currentHp: c.currentHp ?? 0,
+      maxHp: c.maxHp ?? Math.max(1, c.currentHp ?? 1),
     })),
   }
 }

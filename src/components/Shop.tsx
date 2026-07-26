@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import type { InventoryEntry } from '../types'
+import type { InventoryEntry, Item } from '../types'
 import { ITEMS, itemById } from '../data'
 import { parsePrice } from '../lib/economy'
 
@@ -7,17 +7,24 @@ export default function Shop({
   money,
   inventory,
   onChange,
+  customItems = [],
 }: {
   money: number
   inventory: InventoryEntry[]
   onChange: (money: number, inventory: InventoryEntry[]) => void
+  customItems?: Item[]
 }) {
-  const pockets = useMemo(() => ['Todos', ...new Set(ITEMS.map((i) => i.pocket))], [])
+  const allItems = useMemo(() => [...customItems, ...ITEMS], [customItems])
+  const allItemById = useMemo(
+    () => new Map([...customItems.map((i) => [i.id, i] as const), ...itemById]),
+    [customItems],
+  )
+  const pockets = useMemo(() => ['Todos', ...new Set(allItems.map((i) => i.pocket))], [allItems])
   const [pocket, setPocket] = useState('Pokeballs')
   const [search, setSearch] = useState('')
   const [qty, setQty] = useState<Record<string, number>>({})
 
-  const purchasable = ITEMS.filter((i) => parsePrice(i.price) != null)
+  const purchasable = allItems.filter((i) => parsePrice(i.price) != null)
   const filtered = purchasable.filter(
     (i) =>
       (pocket === 'Todos' || i.pocket === pocket) &&
@@ -25,7 +32,7 @@ export default function Shop({
   )
 
   const buy = (itemId: string) => {
-    const item = itemById.get(itemId)
+    const item = allItemById.get(itemId)
     const price = item ? parsePrice(item.price) : null
     if (!item || price == null) return
     const n = Math.max(1, qty[itemId] ?? 1)
@@ -65,7 +72,7 @@ export default function Shop({
           </p>
           <div className="flex flex-wrap gap-1.5">
             {inventory.map((e) => {
-              const item = itemById.get(e.itemId)
+              const item = allItemById.get(e.itemId)
               return (
                 <span
                   key={e.itemId}

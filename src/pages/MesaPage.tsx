@@ -580,6 +580,12 @@ export default function MesaPage() {
   }
 
   const myPokemonSheets = useLiveQuery(() => db.pokemonSheets.toArray(), []) ?? []
+  // NPCs gerados nas Ferramentas do Mestre também ficam salvos no Dexie
+  // local dele (pra poder rolar pela ficha) — sem filtrar isNpc, eles
+  // apareceriam duplicados: uma vez aqui como "meu Pokémon", outra via
+  // sharedNpcs (fichas compartilhadas). Aqui na Mesa, "meu Pokémon" é só
+  // o que não é NPC.
+  const myOwnPokemonSheets = myPokemonSheets.filter((s) => !s.isNpc)
   const myTrainers = useLiveQuery(() => db.trainers.toArray(), []) ?? []
   const myActiveTrainer =
     myTrainers.find((t) => t.id === getActiveTrainerId()) ?? myTrainers[0]
@@ -719,8 +725,13 @@ export default function MesaPage() {
   }, [session, activeMesa])
 
   useEffect(() => {
-    if (wasNearBottomRef.current) {
-      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    const el = chatContainerRef.current
+    // scrollTop direto no container, não scrollIntoView: scrollIntoView
+    // rola QUALQUER ancestral necessário pra mostrar o alvo — se o usuário
+    // estiver lendo outro painel acima do chat (fora da viewport), ele
+    // arrastava a página inteira pra baixo. Isso mexe só no chat.
+    if (wasNearBottomRef.current && el) {
+      el.scrollTop = el.scrollHeight
     }
   }, [messages])
 
@@ -1032,7 +1043,7 @@ export default function MesaPage() {
             <BattleTracker
               mesaId={activeMesa.id}
               myId={myId}
-              myPokemonSheets={myPokemonSheets}
+              myPokemonSheets={myOwnPokemonSheets}
               myTrainer={myActiveTrainer}
               myUsername={usernames[myId] ?? 'você'}
               sharedNpcs={sharedNpcs}
@@ -1044,7 +1055,7 @@ export default function MesaPage() {
               <CaptureRoll
                 mesaId={activeMesa.id}
                 myTrainer={myActiveTrainer}
-                myPokemonSheets={myPokemonSheets}
+                myPokemonSheets={myOwnPokemonSheets}
                 sharedNpcs={sharedNpcs}
                 isGm={myRole === 'gm'}
               />
@@ -1057,13 +1068,13 @@ export default function MesaPage() {
                 members={members}
                 usernames={usernames}
                 myActiveTrainerId={myActiveTrainer?.id}
-                gmPokemonSheets={myPokemonSheets}
+                gmPokemonSheets={myOwnPokemonSheets}
               />
             </ErrorBoundary>
           </div>
 
           <ErrorBoundary label="Passar o dia">
-            <DayPassPanel myTrainer={myActiveTrainer} myPokemonSheets={myPokemonSheets} />
+            <DayPassPanel myTrainer={myActiveTrainer} myPokemonSheets={myOwnPokemonSheets} />
           </ErrorBoundary>
 
           <div className="grid gap-4 lg:grid-cols-3">
@@ -1224,7 +1235,7 @@ export default function MesaPage() {
                       </span>
                     </button>
                   ))}
-                  {myPokemonSheets.map((s) => (
+                  {myOwnPokemonSheets.map((s) => (
                     <button
                       key={`p${s.id}`}
                       onClick={() => shareSheet('pokemon', s.id!)}
@@ -1236,7 +1247,7 @@ export default function MesaPage() {
                       </span>
                     </button>
                   ))}
-                  {myTrainers.length === 0 && myPokemonSheets.length === 0 && (
+                  {myTrainers.length === 0 && myOwnPokemonSheets.length === 0 && (
                     <p className="text-slate-400">
                       Crie fichas em "Treinadores" e "Meus Pokémon".
                     </p>

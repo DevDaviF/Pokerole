@@ -12,6 +12,8 @@ import Stepper from '../components/Stepper'
 import SkillRoll from '../components/SkillRoll'
 import Shop from '../components/Shop'
 import ImagePicker, { DEFAULT_AVATAR } from '../components/ImagePicker'
+import { useMesa } from '../lib/mesa'
+import { useCustomItems, customItemToItem } from '../lib/customItems'
 
 export const getActiveTrainerId = (): number | null => {
   const v = localStorage.getItem('activeTrainerId')
@@ -38,6 +40,11 @@ export default function TrainersPage() {
   const [editing, setEditing] = useState<Trainer | null>(null)
   const [activeId, setActiveId] = useState<number | null>(getActiveTrainerId())
   const [rollingId, setRollingId] = useState<number | null>(null)
+  // itens customizados só existem se você estiver numa mesa (são
+  // criados pelo Mestre lá) — fora de mesa a loja mostra só o catálogo
+  const { activeMesa } = useMesa()
+  const customItemRows = useCustomItems(activeMesa?.id ?? null)
+  const customItems = customItemRows.map(customItemToItem)
 
   const trainerHp = editing ? 4 + editing.attributes.vitality : 0
   const willPoints = editing ? editing.attributes.insight + 3 : 0
@@ -202,7 +209,13 @@ export default function TrainersPage() {
             onChange={(money, inventory) =>
               setEditing({ ...editing, money, inventory })
             }
+            customItems={customItems}
           />
+          {activeMesa && (
+            <p className="mt-2 text-xs text-slate-400">
+              Itens 🛠️ são personalizados pelo Mestre da mesa "{activeMesa.name}".
+            </p>
+          )}
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
