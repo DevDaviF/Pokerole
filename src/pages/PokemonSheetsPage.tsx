@@ -32,9 +32,6 @@ import MoveDetailModal from '../components/MoveDetailModal'
 import TrainingPointsBadge from '../components/TrainingPoints'
 import SpeciesPicker from '../components/SpeciesPicker'
 import PokemonProgression from '../components/PokemonProgression'
-import ImagePicker from '../components/ImagePicker'
-import BookLink from '../components/BookLink'
-import { extractPageRefs } from '../lib/book'
 
 const emptySheet = (): PokemonSheet => ({
   trainerId: 0,
@@ -322,18 +319,10 @@ export default function PokemonSheetsPage() {
                   )}
                 </select>
                 {editing.ability && (
-                  <>
-                    <p className="mt-1 text-xs text-slate-400">
-                      {abilityByName.get(editing.ability.replace(' (Oculta)', ''))
-                        ?.effect ?? ''}
-                    </p>
-                    {extractPageRefs(
-                      abilityByName.get(editing.ability.replace(' (Oculta)', ''))
-                        ?.effect ?? '',
-                    ).map((p) => (
-                      <BookLink key={p} page={p} className="mt-1 inline-block text-[11px] text-slate-400 underline hover:text-red-500" />
-                    ))}
-                  </>
+                  <p className="mt-1 text-xs text-slate-400">
+                    {abilityByName.get(editing.ability.replace(' (Oculta)', ''))
+                      ?.effect ?? ''}
+                  </p>
                 )}
               </label>
               <label className="block">
@@ -397,15 +386,6 @@ export default function PokemonSheetsPage() {
                   É seu Pokémon inicial?
                 </label>
               )}
-            </div>
-
-            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-              <h2 className="mb-3 font-bold text-slate-800">Imagem (opcional)</h2>
-              <ImagePicker
-                value={editing.imageUrl}
-                fallback={spriteUrl(species.id)}
-                onChange={(imageUrl) => setEditing({ ...editing, imageUrl })}
-              />
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">

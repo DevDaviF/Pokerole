@@ -7,7 +7,6 @@ import PokemonSheetsPage from './pages/PokemonSheetsPage'
 import TeamPage from './pages/TeamPage'
 import MesaPage from './pages/MesaPage'
 import SessionHistoryPage from './pages/SessionHistoryPage'
-import LivroPage from './pages/LivroPage'
 import DiceRoller from './components/DiceRoller'
 import ErrorBoundary from './components/ErrorBoundary'
 import { MesaProvider, useMesa } from './lib/mesa'
@@ -19,7 +18,6 @@ const navItems = [
   { to: '/sheets', label: 'Meus Pokémon' },
   { to: '/team', label: 'Meu Time' },
   { to: '/mesa', label: 'Mesa' },
-  { to: '/livro', label: '📖 Livro' },
 ]
 
 function Shell() {
@@ -63,7 +61,6 @@ function Shell() {
             <Route path="/team" element={<TeamPage />} />
             <Route path="/mesa" element={<MesaPage />} />
             <Route path="/mesa/historico" element={<SessionHistoryPage />} />
-            <Route path="/livro" element={<LivroPage />} />
           </Routes>
         </ErrorBoundary>
       </main>

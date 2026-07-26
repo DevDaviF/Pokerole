@@ -461,16 +461,3 @@ create policy "remetente ou destinatario apagam o presente" on public.item_gifts
 
 alter publication supabase_realtime add table public.item_gifts;
 alter table public.item_gifts replica identity full;
-
--- ── Storage: bucket público pro PDF do Corebook (dividido em partes
--- ≤50MB por causa do limite do plano free) ─────────────────────
--- Depois de rodar isso, faça upload manual das 6 partes pelo Dashboard:
--- Storage → bucket "corebook" → Upload file → selecione
--- "pokerole-corebook-3.0-part1.pdf" até "...part6.pdf".
-insert into storage.buckets (id, name, public, file_size_limit)
-values ('corebook', 'corebook', true, 52428800)
-on conflict (id) do update set public = true, file_size_limit = 52428800;
-
-create policy "corebook e publico pra leitura" on storage.objects
-  for select
-  using (bucket_id = 'corebook');

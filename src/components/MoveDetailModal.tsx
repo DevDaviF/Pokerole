@@ -1,8 +1,6 @@
 import type { Move } from '../types'
 import { typeColor, moveAccuracyLabel, moveDamageLabel } from '../data'
-import { extractPageRefs } from '../lib/book'
 import TypeBadge from './TypeBadge'
-import BookLink from './BookLink'
 
 const CATEGORY_STYLES: Record<string, string> = {
   Physical: 'bg-orange-100 text-orange-800',
@@ -104,13 +102,6 @@ export default function MoveDetailModal({
                 Efeito
               </h3>
               <p className="text-sm text-slate-600">{move.addedEffect}</p>
-              {extractPageRefs(move.addedEffect).length > 0 && (
-                <div className="mt-2 flex flex-wrap gap-1.5">
-                  {extractPageRefs(move.addedEffect).map((p) => (
-                    <BookLink key={p} page={p} />
-                  ))}
-                </div>
-              )}
             </div>
           )}
 

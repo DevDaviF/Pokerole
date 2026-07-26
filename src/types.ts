@@ -165,7 +165,6 @@ export interface PokemonSheet {
   isNpc?: boolean // gerado pelo Mestre (encontro selvagem / Pokémon de ginásio)
   npcKind?: 'wild' | 'gym'
   isStarter?: boolean // Pokémon inicial do treinador (1 por treinador)
-  imageUrl?: string
   happiness?: number
   loyalty?: number
   overRankMoveId?: string // golpe atual aprendido via Over-Rank (só 1 por vez)

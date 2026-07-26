@@ -14,7 +14,6 @@ import {
   overRankCost,
   type EvolutionSpeed,
 } from '../lib/progression'
-import BookLink from './BookLink'
 
 const SPEEDS: EvolutionSpeed[] = ['Fast', 'Medium', 'Slow']
 
@@ -39,7 +38,7 @@ function Section({
     <div className="rounded-lg border border-slate-200 bg-white p-3">
       <p className="mb-2 flex items-center gap-2 text-xs font-bold text-slate-500 uppercase">
         {icon} {title}
-        {page && <BookLink page={page} className="normal-case text-slate-400 hover:text-red-500" />}
+        {page && <span className="normal-case text-slate-400">(p.{page})</span>}
       </p>
       {children}
     </div>

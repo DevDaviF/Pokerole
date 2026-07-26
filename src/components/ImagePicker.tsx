@@ -5,24 +5,29 @@ import { useRef, useState } from 'react'
 const MAX_SIDE = 160
 const JPEG_QUALITY = 0.72
 
-// Paleta de avatares padrão (SVG inline, sem depender de arquivos externos).
-const PRESET_COLORS = [
-  '#ef4444',
-  '#f97316',
-  '#eab308',
-  '#22c55e',
-  '#06b6d4',
-  '#3b82f6',
-  '#8b5cf6',
-  '#ec4899',
+// Presets = sprites que já existem em /public/sprites (mesmos usados no
+// Pokédex), então não gastam espaço no armazenamento local — é só uma
+// string curta de caminho, não uma imagem embutida.
+const AVATAR_PRESETS = [
+  'pikachu',
+  'eevee',
+  'charmander',
+  'bulbasaur',
+  'squirtle',
+  'umbreon',
+  'gengar',
+  'lucario',
+  'snorlax',
+  'sylveon',
+  'riolu',
+  'vulpix',
 ]
 
-function presetDataUri(color: string): string {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="${color}"/><circle cx="32" cy="26" r="12" fill="white" fill-opacity="0.85"/><path d="M10 58c2-14 12-22 22-22s20 8 22 22" fill="white" fill-opacity="0.85"/></svg>`
-  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`
+function presetUrl(name: string): string {
+  return `/sprites/${name}.png`
 }
 
-export const DEFAULT_AVATAR = presetDataUri('#94a3b8')
+export const DEFAULT_AVATAR = presetUrl(AVATAR_PRESETS[0])
 
 function resizeToDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -73,7 +78,7 @@ export default function ImagePicker({
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="flex flex-wrap items-start gap-3">
       <img
         src={value || fallback}
         alt=""
@@ -106,16 +111,18 @@ export default function ImagePicker({
           className="hidden"
           onChange={(e) => handleFile(e.target.files?.[0])}
         />
-        <div className="flex flex-wrap gap-1">
-          {PRESET_COLORS.map((c) => (
+        <p className="text-[11px] text-slate-400">Ou escolha um avatar:</p>
+        <div className="flex flex-wrap gap-1.5">
+          {AVATAR_PRESETS.map((name) => (
             <button
-              key={c}
+              key={name}
               type="button"
-              title="Usar avatar padrão"
-              onClick={() => onChange(presetDataUri(c))}
-              className="h-6 w-6 rounded-full border border-white shadow-sm ring-1 ring-slate-200 hover:scale-110"
-              style={{ backgroundColor: c }}
-            />
+              title={name}
+              onClick={() => onChange(presetUrl(name))}
+              className="h-8 w-8 overflow-hidden rounded-full border border-slate-200 bg-slate-50 hover:scale-110 hover:border-red-300"
+            >
+              <img src={presetUrl(name)} alt={name} className="h-full w-full object-contain" />
+            </button>
           ))}
         </div>
         {error && <p className="text-xs text-red-600">{error}</p>}

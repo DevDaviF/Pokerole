@@ -12,6 +12,23 @@ function openDb(name: string): PokeroleDb {
     trainers: '++id, name',
     pokemonSheets: '++id, trainerId, species, nickname',
   })
+  // v2: fichas de Pokémon não têm mais imagem própria (usam só o sprite
+  // da espécie) — limpa o campo de quem já tinha uma foto salva, pra não
+  // carregar base64 morto no IndexedDB pra sempre.
+  instance
+    .version(2)
+    .stores({
+      trainers: '++id, name',
+      pokemonSheets: '++id, trainerId, species, nickname',
+    })
+    .upgrade(async (tx) => {
+      await tx
+        .table('pokemonSheets')
+        .toCollection()
+        .modify((sheet: { imageUrl?: string }) => {
+          delete sheet.imageUrl
+        })
+    })
   return instance
 }
 
