@@ -345,7 +345,7 @@ function AuthPanel() {
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Nome de treinador (3-24 letras)"
+            placeholder="Nome de usuário (3-24 letras)"
             className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-red-400 focus:outline-none"
           />
         )}
@@ -610,7 +610,14 @@ export default function MesaPage() {
   const loadMesas = async () => {
     if (!supabase || !session) return
     const { data } = await supabase.from('mesas').select('*')
-    setMesas((data as MesaRow[]) ?? [])
+    const rows = (data as MesaRow[]) ?? []
+    setMesas(rows)
+    // defesa extra: se a mesa ativa em cache não está entre as mesas que
+    // esta conta realmente participa (removido da mesa, mesa apagada...),
+    // tira ela da tela em vez de continuar mostrando dados presos
+    if (activeMesa && !rows.some((m) => m.id === activeMesa.id)) {
+      setActiveMesa(null)
+    }
   }
 
   useEffect(() => {

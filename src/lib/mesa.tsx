@@ -16,6 +16,11 @@ export interface ActiveMesa {
   inviteCode: string
 }
 
+interface StoredActiveMesa {
+  mesa: ActiveMesa
+  userId: string
+}
+
 interface MesaContextValue {
   session: Session | null
   activeMesa: ActiveMesa | null
@@ -38,22 +43,37 @@ export const useMesa = () => useContext(MesaContext)
 
 export function MesaProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
-  const [activeMesa, setActiveMesaState] = useState<ActiveMesa | null>(() => {
-    try {
-      const raw = localStorage.getItem('activeMesa')
-      return raw ? (JSON.parse(raw) as ActiveMesa) : null
-    } catch {
-      return null
-    }
-  })
+  // começa null de propósito: só restauramos do localStorage depois de
+  // saber de quem é a sessão (ver applySession) — Dexie/localStorage são
+  // por origem, não por conta, então sem essa checagem uma conta nova no
+  // mesmo navegador "herdava" a mesa ativa da conta anterior
+  const [activeMesa, setActiveMesaState] = useState<ActiveMesa | null>(null)
 
   const [passwordRecovery, setPasswordRecovery] = useState(false)
 
   useEffect(() => {
     if (!supabase) return
-    supabase.auth.getSession().then(({ data }) => setSession(data.session))
-    const { data: sub } = supabase.auth.onAuthStateChange((event, s) => {
+
+    const applySession = (s: Session | null) => {
       setSession(s)
+      try {
+        const raw = localStorage.getItem('activeMesa')
+        if (!raw) return
+        const stored = JSON.parse(raw) as StoredActiveMesa
+        if (s && stored.userId === s.user.id) {
+          setActiveMesaState(stored.mesa)
+        } else {
+          localStorage.removeItem('activeMesa')
+          setActiveMesaState(null)
+        }
+      } catch {
+        localStorage.removeItem('activeMesa')
+      }
+    }
+
+    supabase.auth.getSession().then(({ data }) => applySession(data.session))
+    const { data: sub } = supabase.auth.onAuthStateChange((event, s) => {
+      applySession(s)
       if (event === 'PASSWORD_RECOVERY') setPasswordRecovery(true)
     })
     return () => sub.subscription.unsubscribe()
@@ -61,8 +81,14 @@ export function MesaProvider({ children }: { children: ReactNode }) {
 
   const setActiveMesa = (m: ActiveMesa | null) => {
     setActiveMesaState(m)
-    if (m) localStorage.setItem('activeMesa', JSON.stringify(m))
-    else localStorage.removeItem('activeMesa')
+    if (m && session) {
+      localStorage.setItem(
+        'activeMesa',
+        JSON.stringify({ mesa: m, userId: session.user.id } as StoredActiveMesa),
+      )
+    } else {
+      localStorage.removeItem('activeMesa')
+    }
   }
 
   const postRoll = (r: RollResult) => {
