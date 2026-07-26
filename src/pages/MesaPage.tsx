@@ -49,7 +49,7 @@ function splitRollLabel(
 
 // Rolagem rápida pelas fichas locais, sem sair do chat da mesa
 function QuickRollCard() {
-  const sheets = useLiveQuery(() => db.pokemonSheets.toArray(), []) ?? []
+  const allSheets = useLiveQuery(() => db.pokemonSheets.toArray(), []) ?? []
   const trainers = useLiveQuery(() => db.trainers.toArray(), []) ?? []
   const [source, setSource] = useState<'pokemon' | 'trainer'>('pokemon')
   const [sheetId, setSheetId] = useState<number | null>(null)
@@ -60,6 +60,11 @@ function QuickRollCard() {
   const activeTrainerId = getActiveTrainerId()
   const activeTrainer =
     trainers.find((t) => t.id === activeTrainerId) ?? trainers[0]
+  // só os Pokémon do Time do Treinador ativo na mesa — não faz sentido
+  // rolar por um Pokémon de outro treinador ou que nem está no Time.
+  const sheets = allSheets.filter(
+    (s) => s.inTeam && s.trainerId === activeTrainer?.id,
+  )
 
   const ordered = [...sheets].sort(
     (a, b) => Number(b.inTeam) - Number(a.inTeam),

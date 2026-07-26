@@ -400,14 +400,14 @@ export default function PokemonSheetsPage() {
                         ? 'bg-emerald-100 text-emerald-700'
                         : 'bg-slate-100 text-slate-500'
                     }`}
-                    title="Pontos ganhos por Rank (mesma regra pra qualquer Pokémon), livres pra distribuir entre Strength/Dexterity/Vitality/Insight"
+                    title="Pontos ganhos por Rank (mesma regra pra qualquer Pokémon), livres pra distribuir entre Strength/Dexterity/Vitality/Special/Insight"
                   >
                     {attrRemaining}/{attrBudget} pontos de Rank
                   </span>
                 </div>
                 <p className="mb-3 text-xs text-slate-400">
-                  Limites da espécie entre parênteses. Special não usa
-                  pontos de Rank.
+                  Limites da espécie entre parênteses. Não dá pra baixar um
+                  atributo abaixo da base da espécie — só via Re-Treino.
                 </p>
                 <div className="space-y-2">
                   {POKEMON_ATTRIBUTE_LABELS.map(({ key, label }) => (
@@ -415,7 +415,7 @@ export default function PokemonSheetsPage() {
                       key={key}
                       label={`${label} (${species.maxAttributes[key]})`}
                       value={editing.attributes[key]}
-                      min={0}
+                      min={species.attributes[key]}
                       max={attrMax(key)}
                       dotMax={species.maxAttributes[key]}
                       onChange={(v) =>

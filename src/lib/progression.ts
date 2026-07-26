@@ -92,12 +92,16 @@ export function rankSkillLimit(rank: Rank): number {
   return RANK_BENEFITS[rank].skillLimit
 }
 
-// Física apenas — Special fica de fora da distribuição por Rank (Pokérole
-// trata Special como um atributo à parte na 3.0).
+// As 5 Attributes de Pokémon (p.22: "Strength, Dexterity, Vitality,
+// Special, and Insight") compartilham o MESMO pool de pontos por Rank —
+// confirmado pelo exemplo de Re-Treino da Evie (p.112), que relista Special
+// junto dos físicos entre os pontos redistribuídos. Treinadores não têm
+// Special (só Pokémon), por isso TRAINER_ATTRIBUTE_LABELS a exclui à parte.
 export const RANK_POINT_ATTRIBUTES = [
   'strength',
   'dexterity',
   'vitality',
+  'special',
   'insight',
 ] as const
 

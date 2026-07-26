@@ -7,9 +7,10 @@ import { rankAttributePoints, RANK_POINT_ATTRIBUTES } from './progression'
  * Atributos de Pokémon selvagem = base da espécie (referência oficial do
  * livro, sem alteração) + os mesmos pontos de atributo por Rank que
  * qualquer Pokémon ganha (ver progression.ts), distribuídos aleatoriamente
- * entre os atributos físicos (Strength/Dexterity/Vitality/Insight — Special
- * fica de fora). Não é um bônus especial de "selvagem": são pontos comuns,
- * então totalmente re-treináveis depois da captura.
+ * entre os 5 Attributes (Strength/Dexterity/Vitality/Special/Insight — p.22
+ * e p.112 confirmam que Special entra no mesmo pool). Não é um bônus
+ * especial de "selvagem": são pontos comuns, então totalmente
+ * re-treináveis depois da captura.
  */
 function randomizeAttributes(species: Pokemon, rank: Rank): Attributes {
   const attrs: Attributes = { ...species.attributes }
