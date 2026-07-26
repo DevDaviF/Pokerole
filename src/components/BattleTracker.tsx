@@ -39,6 +39,19 @@ const dexAlert = (entity: {
 
 const newKey = () => Math.random().toString(36).slice(2, 10)
 
+// Blinda contra linhas antigas/parciais vindas do Supabase (realtime ou
+// fetch inicial) — nunca deixa `combatants`/`statusConditions` undefined
+// chegar no render.
+function normalizeRow(data: BattleRow): BattleRow {
+  return {
+    ...data,
+    combatants: (data.combatants ?? []).map((c) => ({
+      ...c,
+      statusConditions: c.statusConditions ?? [],
+    })),
+  }
+}
+
 function pokemonMaxHp(attrs: { vitality: number }, speciesId: string) {
   const sp = pokemonById.get(speciesId)
   return (sp?.baseHp ?? 1) + attrs.vitality
@@ -85,7 +98,7 @@ export default function BattleTracker({
       .maybeSingle()
       .then(({ data }) => {
         if (cancelled || !data) return
-        setRow(data as BattleRow)
+        setRow(normalizeRow(data as BattleRow))
       })
 
     const channel = supabase
@@ -98,7 +111,7 @@ export default function BattleTracker({
           table: 'battle_order',
           filter: `mesa_id=eq.${mesaId}`,
         },
-        (payload) => setRow(payload.new as BattleRow),
+        (payload) => setRow(normalizeRow(payload.new as BattleRow)),
       )
       .subscribe()
 

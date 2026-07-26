@@ -4,13 +4,6 @@ import type { PokemonSheet } from '../types'
 import { supabase } from '../lib/supabase'
 import { pokemonById, spriteUrl } from '../data'
 
-interface SharedSheetLite {
-  id: string
-  owner_id: string
-  kind: 'trainer' | 'pokemon'
-  payload: Record<string, unknown>
-}
-
 interface TransferRow {
   id: string
   mesa_id: string
@@ -37,10 +30,10 @@ export default function SheetTransfers({
   members: Array<{ user_id: string; role: 'gm' | 'player' }>
   usernames: Record<string, string>
   myActiveTrainerId: number | undefined
-  gmPokemonSheets: SharedSheetLite[]
+  gmPokemonSheets: PokemonSheet[]
 }) {
   const [pending, setPending] = useState<TransferRow[]>([])
-  const [offeringId, setOfferingId] = useState('')
+  const [offeringId, setOfferingId] = useState<number | ''>('')
   const [targetUser, setTargetUser] = useState('')
   const [notice, setNotice] = useState('')
   const instanceId = useRef(Math.random().toString(36).slice(2))
@@ -103,7 +96,7 @@ export default function SheetTransfers({
       mesa_id: mesaId,
       from_user_id: myId,
       to_user_id: targetUser,
-      payload: sheet.payload,
+      payload: sheet,
     })
     if (error) setNotice(error.message)
     else {
@@ -151,23 +144,24 @@ export default function SheetTransfers({
             </p>
             {gmPokemonSheets.length === 0 ? (
               <p className="text-xs text-slate-400">
-                Compartilhe um Pokémon seu (ex: capturado ou gerado nas
-                Ferramentas do Mestre) em "Fichas da mesa" primeiro.
+                Crie um Pokémon em "Meus Pokémon" primeiro (ex: um Pokémon
+                selvagem gerado nas Ferramentas do Mestre).
               </p>
             ) : (
               <div className="flex flex-wrap items-center gap-2">
                 <select
                   value={offeringId}
-                  onChange={(e) => setOfferingId(e.target.value)}
+                  onChange={(e) =>
+                    setOfferingId(e.target.value === '' ? '' : Number(e.target.value))
+                  }
                   className="rounded-lg border-0 bg-white px-2 py-1.5 text-xs font-medium text-slate-700 shadow-sm ring-1 ring-slate-200 focus:ring-2 focus:ring-red-400 focus:outline-none"
                 >
                   <option value="">Escolha um Pokémon...</option>
                   {gmPokemonSheets.map((s) => {
-                    const p = s.payload as unknown as PokemonSheet
-                    const sp = pokemonById.get(p.species)
+                    const sp = pokemonById.get(s.species)
                     return (
                       <option key={s.id} value={s.id}>
-                        {p.nickname || sp?.name} · {p.rank}
+                        {s.nickname || sp?.name} · {s.rank}
                       </option>
                     )
                   })}

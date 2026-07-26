@@ -294,11 +294,20 @@ create policy "mesa contribui com batedores" on public.scout_rolls
   using (public.is_mesa_member(mesa_id))
   with check (public.is_mesa_member(mesa_id));
 
--- ── Realtime no chat, anotações, combate e batedores ───────────
+-- ── Realtime no chat, anotações, combate, batedores e fichas ───
 alter publication supabase_realtime add table public.messages;
 alter publication supabase_realtime add table public.mesa_notes;
 alter publication supabase_realtime add table public.battle_order;
 alter publication supabase_realtime add table public.scout_rolls;
+alter publication supabase_realtime add table public.shared_sheets;
+
+-- REPLICA IDENTITY FULL: colunas jsonb grandes (TOAST) podem chegar
+-- incompletas via realtime com a identidade padrão (só a PK). Isso
+-- garante que updates sempre levem a linha inteira no payload.
+alter table public.battle_order replica identity full;
+alter table public.shared_sheets replica identity full;
+alter table public.scout_rolls replica identity full;
+alter table public.mesa_notes replica identity full;
 
 -- ── Transferência de fichas de Pokémon entre jogadores ───────
 create table public.sheet_transfers (

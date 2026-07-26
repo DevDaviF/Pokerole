@@ -644,6 +644,60 @@ export default function MesaPage() {
     }
   }, [session, activeMesa])
 
+  // Canal separado para fichas compartilhadas — deixar num canal próprio
+  // (em vez de juntar com o do chat) evita que um problema nessa tabela
+  // derrube também a atualização em tempo real das mensagens.
+  useEffect(() => {
+    if (!supabase || !session || !activeMesa) return
+
+    const channel = supabase
+      .channel(`shared-sheets-${activeMesa.id}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'shared_sheets',
+          filter: `mesa_id=eq.${activeMesa.id}`,
+        },
+        (payload) => {
+          const row = payload.new as SharedSheet
+          setSharedSheets((prev) => [...prev.filter((s) => s.id !== row.id), row])
+        },
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'shared_sheets',
+          filter: `mesa_id=eq.${activeMesa.id}`,
+        },
+        (payload) => {
+          const row = payload.new as SharedSheet
+          setSharedSheets((prev) => [...prev.filter((s) => s.id !== row.id), row])
+        },
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'DELETE',
+          schema: 'public',
+          table: 'shared_sheets',
+          filter: `mesa_id=eq.${activeMesa.id}`,
+        },
+        (payload) => {
+          const row = payload.old as { id: string }
+          setSharedSheets((prev) => prev.filter((s) => s.id !== row.id))
+        },
+      )
+      .subscribe()
+
+    return () => {
+      supabase?.removeChannel(channel)
+    }
+  }, [session, activeMesa])
+
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
@@ -975,9 +1029,7 @@ export default function MesaPage() {
                 members={members}
                 usernames={usernames}
                 myActiveTrainerId={myActiveTrainer?.id}
-                gmPokemonSheets={sharedSheets.filter(
-                  (s) => s.kind === 'pokemon' && s.owner_id === myId,
-                )}
+                gmPokemonSheets={myPokemonSheets}
               />
             </ErrorBoundary>
           </div>

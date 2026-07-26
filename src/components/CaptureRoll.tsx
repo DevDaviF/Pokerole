@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import type { PokemonSheet, Trainer, Rank } from '../types'
 import { RANKS } from '../types'
+import { db } from '../db'
+import { supabase } from '../lib/supabase'
 import { sheetAttrValue } from './MoveRoll'
 import { rollDice, DiceRow, type RollResult } from './DiceRoller'
 import { useMesa } from '../lib/mesa'
@@ -11,6 +13,7 @@ import {
   parseWeightKg,
   captureBonusSuccesses,
   captureOutcome,
+  type CaptureOutcome,
 } from '../lib/capture'
 
 const inputCls =
@@ -45,7 +48,9 @@ export default function CaptureRoll({
 
   const [throwAttr, setThrowAttr] = useState<'Dexterity' | 'Strength'>('Dexterity')
   const [lastThrow, setLastThrow] = useState<RollResult | null>(null)
-  const [lastSeal, setLastSeal] = useState<RollResult | null>(null)
+  const [lastCapture, setLastCapture] = useState<RollResult | null>(null)
+  const [outcome, setOutcome] = useState<CaptureOutcome | null>(null)
+  const [afterNote, setAfterNote] = useState('')
 
   const ball = POKEBALLS.find((b) => b.id === ballId)!
   const targetName = targetKey
@@ -71,6 +76,10 @@ export default function CaptureRoll({
     setTargetDex(n.payload.attributes.dexterity)
     setTargetWeightKg(sp ? parseWeightKg(sp.weight) : 0)
     setRequiredOverride(null)
+    setLastThrow(null)
+    setLastCapture(null)
+    setOutcome(null)
+    setAfterNote('')
   }
 
   const sealPool = () => {
@@ -112,23 +121,63 @@ export default function CaptureRoll({
     postRoll(r)
   }
 
-  const rollSeal = () => {
+  const rollCapture = async () => {
     const r = rollDice(
       Math.max(0, sealPool()),
-      `${myTrainer?.name ?? 'Selo'} · Selo da ${ball.label} vs ${targetName} (+${bonus} bônus)`,
+      `${myTrainer?.name ?? 'Treinador'} · Captura da ${ball.label} vs ${targetName} (+${bonus} bônus)`,
     )
-    setLastSeal(r)
+    setLastCapture(r)
     postRoll(r)
+    setOutcome(null)
+    setAfterNote('')
+
+    if (required == null) return
+    const total = r.successes + bonus
+    const result = captureOutcome(total, required)
+    setOutcome(result)
+
+    const resultText =
+      result === 'success'
+        ? `🎉 Captura bem-sucedida! ${targetName} foi capturado(a) com a ${ball.label} (${total}/${required} sucessos).`
+        : result === 'critical-fail'
+          ? `💥 Falha crítica na captura de ${targetName} — a ${ball.label} foi destruída (${total}/${required} sucessos).`
+          : `💨 ${targetName} escapou da ${ball.label} (${total}/${required} sucessos) — a bola pode ser recuperada.`
+
+    if (supabase && session && activeMesa) {
+      await supabase.from('messages').insert({
+        mesa_id: activeMesa.id,
+        user_id: session.user.id,
+        kind: 'chat',
+        content: resultText,
+      })
+    }
+
+    if (result === 'success' && targetKey && myTrainer?.id) {
+      const n = sharedNpcs.find((s) => s.id === targetKey)
+      if (n) {
+        const payload = { ...n.payload } as Partial<PokemonSheet>
+        delete payload.id
+        await db.pokemonSheets.add({
+          ...(payload as PokemonSheet),
+          trainerId: myTrainer.id,
+          isNpc: false,
+          npcKind: undefined,
+          inTeam: false,
+        })
+        setAfterNote(
+          `✅ ${targetName} foi adicionado a "Meus Pokémon"! Peça ao Mestre para remover a ficha selvagem da mesa.`,
+        )
+      }
+    }
   }
 
-  const totalSuccesses = (lastSeal?.successes ?? 0) + bonus
-  const outcome = lastSeal && required != null ? captureOutcome(totalSuccesses, required) : null
+  const totalSuccesses = (lastCapture?.successes ?? 0) + bonus
 
   return (
     <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
       <div className="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-500 px-4 py-2.5 text-white">
         <b>🎯 Captura</b>
-        <span className="ml-auto text-xs opacity-80">Arremesso + Selo da Pokébola</span>
+        <span className="ml-auto text-xs opacity-80">Arremesso + Captura da Pokébola</span>
       </div>
 
       <div className="space-y-3 p-4">
@@ -323,7 +372,7 @@ export default function CaptureRoll({
               </label>
             )}
             <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">
-              Selo: {Math.max(0, sealPool())}d6
+              Captura: {Math.max(0, sealPool())}d6
             </span>
             <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-600">
               Bônus: +{bonus} (HP +{hpBonus}, status +{statusBonus})
@@ -349,10 +398,10 @@ export default function CaptureRoll({
             Rolar Arremesso ({throwPool}d6)
           </button>
           <button
-            onClick={rollSeal}
+            onClick={rollCapture}
             className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700"
           >
-            Rolar Selo ({Math.max(0, sealPool())}d6)
+            Rolar Captura ({Math.max(0, sealPool())}d6)
           </button>
         </div>
 
@@ -363,12 +412,12 @@ export default function CaptureRoll({
           </div>
         )}
 
-        {lastSeal && (
+        {lastCapture && (
           <div className="rounded-lg bg-slate-50 p-2.5">
             <p className="mb-1 text-xs font-semibold text-slate-600">
-              Selo — {lastSeal.successes} + {bonus} bônus = {totalSuccesses} sucessos
+              Captura — {lastCapture.successes} + {bonus} bônus = {totalSuccesses} sucessos
             </p>
-            <DiceRow r={lastSeal} />
+            <DiceRow r={lastCapture} />
           </div>
         )}
 
@@ -389,6 +438,10 @@ export default function CaptureRoll({
             {outcome === 'critical-fail' && '💥 Falha crítica — a bola foi destruída'}
             {outcome === 'escape' && '💨 Escapou — a bola pode ser recuperada'}
           </div>
+        )}
+
+        {afterNote && (
+          <p className="rounded-lg bg-emerald-50 p-2.5 text-xs text-emerald-700">{afterNote}</p>
         )}
 
         <p className="text-[11px] text-slate-400">
