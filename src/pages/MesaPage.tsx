@@ -748,6 +748,83 @@ export default function MesaPage() {
     }
   }, [session, activeMesa])
 
+  // Canal próprio pra lista de membros — sem isso, quando alguém entra
+  // (ou é expulso/sai), só aparecia depois de recarregar a página.
+  useEffect(() => {
+    if (!supabase || !session || !activeMesa) return
+
+    const fetchUsername = async (userId: string) => {
+      const { data } = await supabase!
+        .from('profiles')
+        .select('id, username')
+        .eq('id', userId)
+        .maybeSingle()
+      if (data) {
+        setUsernames((prev) => ({ ...prev, [data.id]: data.username }))
+      }
+    }
+
+    const channel = supabase
+      .channel(`mesa-members-${activeMesa.id}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'mesa_members',
+          filter: `mesa_id=eq.${activeMesa.id}`,
+        },
+        (payload) => {
+          const row = payload.new as { user_id: string; role: 'gm' | 'player' }
+          setMembers((prev) =>
+            prev.some((m) => m.user_id === row.user_id)
+              ? prev
+              : [...prev, { user_id: row.user_id, role: row.role ?? 'player' }],
+          )
+          fetchUsername(row.user_id)
+        },
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'mesa_members',
+          filter: `mesa_id=eq.${activeMesa.id}`,
+        },
+        (payload) => {
+          const row = payload.new as { user_id: string; role: 'gm' | 'player' }
+          setMembers((prev) =>
+            prev.map((m) => (m.user_id === row.user_id ? { ...m, role: row.role } : m)),
+          )
+          if (row.user_id === session.user.id) setMyRole(row.role)
+        },
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'DELETE',
+          schema: 'public',
+          table: 'mesa_members',
+        },
+        (payload) => {
+          const row = payload.old as { mesa_id?: string; user_id: string }
+          if (row.user_id === session.user.id) {
+            // fui removido (expulso ou saí em outra aba) — sai da mesa na tela
+            setActiveMesa(null)
+            setNotice('Você não está mais nesta mesa.')
+            return
+          }
+          setMembers((prev) => prev.filter((m) => m.user_id !== row.user_id))
+        },
+      )
+      .subscribe()
+
+    return () => {
+      supabase?.removeChannel(channel)
+    }
+  }, [session, activeMesa])
+
   useEffect(() => {
     const el = chatContainerRef.current
     // scrollTop direto no container, não scrollIntoView: scrollIntoView
@@ -916,6 +993,43 @@ export default function MesaPage() {
     )
   }
 
+  const kickMember = async (targetUserId: string) => {
+    if (!supabase || !activeMesa || myRole !== 'gm') return
+    if (
+      !confirm(
+        `Expulsar ${usernames[targetUserId] ?? 'este membro'} da mesa?`,
+      )
+    )
+      return
+    const { error } = await supabase
+      .from('mesa_members')
+      .delete()
+      .eq('mesa_id', activeMesa.id)
+      .eq('user_id', targetUserId)
+    if (error) setNotice(error.message)
+    else setMembers((prev) => prev.filter((m) => m.user_id !== targetUserId))
+  }
+
+  const leaveMesa = async () => {
+    if (!supabase || !activeMesa) return
+    const warning =
+      myRole === 'gm'
+        ? 'Você é o Mestre desta mesa. Se sair, ela fica sem Mestre até alguém assumir. Transfira o cargo antes se quiser continuar a campanha. Sair mesmo assim?'
+        : `Sair da mesa "${activeMesa.name}"?`
+    if (!confirm(warning)) return
+    const { error } = await supabase
+      .from('mesa_members')
+      .delete()
+      .eq('mesa_id', activeMesa.id)
+      .eq('user_id', myId)
+    if (error) {
+      setNotice(error.message)
+      return
+    }
+    setActiveMesa(null)
+    await loadMesas()
+  }
+
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -1048,8 +1162,24 @@ export default function MesaPage() {
                       Tornar Mestre
                     </button>
                   )}
+                  {myRole === 'gm' && m.user_id !== myId && (
+                    <button
+                      onClick={() => kickMember(m.user_id)}
+                      title="Expulsar este membro da mesa"
+                      className="ml-1 rounded-full bg-slate-600 px-1.5 py-0.5 text-[10px] font-bold hover:bg-red-600"
+                    >
+                      Expulsar
+                    </button>
+                  )}
                 </span>
               ))}
+              <button
+                onClick={leaveMesa}
+                title="Sair desta mesa"
+                className="rounded-full bg-white/15 px-2.5 py-0.5 text-xs font-bold hover:bg-red-600"
+              >
+                Sair da mesa
+              </button>
             </div>
           </div>
 

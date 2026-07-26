@@ -19,7 +19,13 @@ import {
   spriteUrl,
   typeColor,
 } from '../data'
-import { rankAttributePoints, RANK_POINT_ATTRIBUTES } from '../lib/progression'
+import {
+  rankAttributePoints,
+  rankSocialPoints,
+  rankSkillPoints,
+  rankSkillLimit,
+  RANK_POINT_ATTRIBUTES,
+} from '../lib/progression'
 import Stepper from '../components/Stepper'
 import TypeBadge from '../components/TypeBadge'
 import MoveDetailModal from '../components/MoveDetailModal'
@@ -27,6 +33,8 @@ import TrainingPointsBadge from '../components/TrainingPoints'
 import SpeciesPicker from '../components/SpeciesPicker'
 import PokemonProgression from '../components/PokemonProgression'
 import ImagePicker from '../components/ImagePicker'
+import BookLink from '../components/BookLink'
+import { extractPageRefs } from '../lib/book'
 
 const emptySheet = (): PokemonSheet => ({
   trainerId: 0,
@@ -74,9 +82,40 @@ export default function PokemonSheetsPage() {
   const attrRemaining = Math.max(0, attrBudget - attrSpent)
   const attrMax = (key: keyof PokemonSheet['attributes']) => {
     if (!species || !editing) return 12
-    const speciesMax = species.maxAttributes[key]
+    // Champion Rank (p.31): atributos podem passar do limite da espécie
+    // em até 2 pontos.
+    const speciesMax = species.maxAttributes[key] + (editing.rank === 'Champion' ? 2 : 0)
     if (!(RANK_POINT_ATTRIBUTES as readonly string[]).includes(key)) return speciesMax
     return Math.min(speciesMax, editing.attributes[key] + attrRemaining)
+  }
+
+  // Sociais: mesmo orçamento dos atributos físicos por Rank (p.30-31),
+  // base 1 em cada (valor inicial de toda ficha nova).
+  const socialBudget = editing ? rankSocialPoints(editing.rank) : 0
+  const socialSpent = editing
+    ? SOCIAL_LABELS.reduce(
+        (sum, { key }) => sum + Math.max(0, editing.social[key] - 1),
+        0,
+      )
+    : 0
+  const socialRemaining = Math.max(0, socialBudget - socialSpent)
+  const socialMax = (key: keyof PokemonSheet['social']) => {
+    if (!editing) return 5
+    return Math.min(5, editing.social[key] + socialRemaining)
+  }
+
+  // Skills: Skill Points totais por Rank + Skill Limit (máx por skill
+  // individual) — p.30-31. Base 0 em cada.
+  const skillBudget = editing ? rankSkillPoints(editing.rank) : 0
+  const skillSpent = editing
+    ? Object.values(editing.skills).reduce((sum, v) => sum + (v ?? 0), 0)
+    : 0
+  const skillRemaining = Math.max(0, skillBudget - skillSpent)
+  const skillLimit = editing ? rankSkillLimit(editing.rank) : 5
+  const skillMax = (skillName: string) => {
+    if (!editing) return skillLimit
+    const current = editing.skills[skillName] ?? 0
+    return Math.min(skillLimit, current + skillRemaining)
   }
 
   const hasOtherStarter = editing
@@ -283,10 +322,18 @@ export default function PokemonSheetsPage() {
                   )}
                 </select>
                 {editing.ability && (
-                  <p className="mt-1 text-xs text-slate-400">
-                    {abilityByName.get(editing.ability.replace(' (Oculta)', ''))
-                      ?.effect ?? ''}
-                  </p>
+                  <>
+                    <p className="mt-1 text-xs text-slate-400">
+                      {abilityByName.get(editing.ability.replace(' (Oculta)', ''))
+                        ?.effect ?? ''}
+                    </p>
+                    {extractPageRefs(
+                      abilityByName.get(editing.ability.replace(' (Oculta)', ''))
+                        ?.effect ?? '',
+                    ).map((p) => (
+                      <BookLink key={p} page={p} className="mt-1 inline-block text-[11px] text-slate-400 underline hover:text-red-500" />
+                    ))}
+                  </>
                 )}
               </label>
               <label className="block">
@@ -400,9 +447,20 @@ export default function PokemonSheetsPage() {
                 </div>
               </div>
               <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                <h2 className="mb-3 font-bold text-slate-800">
-                  Atributos Sociais
-                </h2>
+                <div className="mb-3 flex items-center justify-between">
+                  <h2 className="font-bold text-slate-800">
+                    Atributos Sociais
+                  </h2>
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs font-bold ${
+                      socialRemaining > 0
+                        ? 'bg-emerald-100 text-emerald-700'
+                        : 'bg-slate-100 text-slate-500'
+                    }`}
+                  >
+                    {socialRemaining}/{socialBudget} pontos de Rank
+                  </span>
+                </div>
                 <div className="space-y-2">
                   {SOCIAL_LABELS.map(({ key, label }) => (
                     <Stepper
@@ -410,7 +468,7 @@ export default function PokemonSheetsPage() {
                       label={label}
                       value={editing.social[key]}
                       min={1}
-                      max={5}
+                      max={socialMax(key)}
                       dotMax={5}
                       onChange={(v) =>
                         setEditing({
@@ -425,7 +483,19 @@ export default function PokemonSheetsPage() {
             </div>
 
             <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-              <h2 className="mb-3 font-bold text-slate-800">Skills</h2>
+              <div className="mb-3 flex items-center justify-between">
+                <h2 className="font-bold text-slate-800">Skills</h2>
+                <span
+                  className={`rounded-full px-2 py-0.5 text-xs font-bold ${
+                    skillRemaining > 0
+                      ? 'bg-emerald-100 text-emerald-700'
+                      : 'bg-slate-100 text-slate-500'
+                  }`}
+                  title={`Máximo de ${skillLimit} pontos por skill neste Rank`}
+                >
+                  {skillRemaining}/{skillBudget} Skill Points · limite {skillLimit}/skill
+                </span>
+              </div>
               <div className="grid gap-x-8 gap-y-4 sm:grid-cols-3">
                 {POKEMON_SKILL_GROUPS.map(({ group, skills }) => (
                   <div key={group}>
@@ -438,8 +508,8 @@ export default function PokemonSheetsPage() {
                           key={s}
                           label={s}
                           value={editing.skills[s] ?? 0}
-                          max={5}
-                          dotMax={5}
+                          max={skillMax(s)}
+                          dotMax={skillLimit}
                           onChange={(v) =>
                             setEditing({
                               ...editing,

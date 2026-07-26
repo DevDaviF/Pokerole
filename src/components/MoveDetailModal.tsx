@@ -1,6 +1,8 @@
 import type { Move } from '../types'
 import { typeColor, moveAccuracyLabel, moveDamageLabel } from '../data'
+import { extractPageRefs } from '../lib/book'
 import TypeBadge from './TypeBadge'
+import BookLink from './BookLink'
 
 const CATEGORY_STYLES: Record<string, string> = {
   Physical: 'bg-orange-100 text-orange-800',
@@ -89,12 +91,26 @@ export default function MoveDetailModal({
             </div>
           </div>
 
+          {move.powerLabel && move.category.split('/').length > 1 && (
+            <p className="rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-700">
+              ⚡ Z-Move: a categoria (e o dano) seguem o golpe base usado
+              pra ativá-lo — por isso aparece com as três categorias.
+            </p>
+          )}
+
           {move.addedEffect && (
             <div>
               <h3 className="mb-1 text-sm font-semibold text-slate-700">
                 Efeito
               </h3>
               <p className="text-sm text-slate-600">{move.addedEffect}</p>
+              {extractPageRefs(move.addedEffect).length > 0 && (
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {extractPageRefs(move.addedEffect).map((p) => (
+                    <BookLink key={p} page={p} />
+                  ))}
+                </div>
+              )}
             </div>
           )}
 

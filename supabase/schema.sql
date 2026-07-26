@@ -241,6 +241,10 @@ create policy "sair da mesa" on public.mesa_members
   for delete to authenticated
   using (user_id = auth.uid());
 
+create policy "mestre expulsa membro" on public.mesa_members
+  for delete to authenticated
+  using (public.is_mesa_gm(mesa_id));
+
 create policy "mestre transfere papéis" on public.mesa_members
   for update to authenticated
   using (public.is_mesa_gm(mesa_id))
@@ -310,6 +314,8 @@ alter publication supabase_realtime add table public.battle_order;
 alter publication supabase_realtime add table public.scout_rolls;
 alter publication supabase_realtime add table public.shared_sheets;
 alter publication supabase_realtime add table public.mesas;
+alter publication supabase_realtime add table public.mesa_members;
+alter table public.mesa_members replica identity full;
 
 -- REPLICA IDENTITY FULL: colunas jsonb grandes (TOAST) podem chegar
 -- incompletas via realtime com a identidade padrão (só a PK). Isso
@@ -455,3 +461,15 @@ create policy "remetente ou destinatario apagam o presente" on public.item_gifts
 
 alter publication supabase_realtime add table public.item_gifts;
 alter table public.item_gifts replica identity full;
+
+-- ── Storage: bucket público pro PDF do Corebook ────────────────
+-- Depois de rodar isso, faça upload manual do PDF pelo Dashboard:
+-- Storage → bucket "corebook" → Upload file → salve como
+-- "pokerole-corebook-3.0.pdf".
+insert into storage.buckets (id, name, public)
+values ('corebook', 'corebook', true)
+on conflict (id) do update set public = true;
+
+create policy "corebook e publico pra leitura" on storage.objects
+  for select
+  using (bucket_id = 'corebook');

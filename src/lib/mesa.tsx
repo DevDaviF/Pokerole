@@ -8,6 +8,7 @@ import {
 } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { supabase } from './supabase'
+import { syncDbScope } from '../db'
 import type { RollResult } from '../components/DiceRoller'
 
 export interface ActiveMesa {
@@ -56,6 +57,10 @@ export function MesaProvider({ children }: { children: ReactNode }) {
 
     const applySession = (s: Session | null) => {
       setSession(s)
+      // fichas locais (Dexie) também são isoladas por conta — ver db.ts.
+      // Numa troca de conta de verdade isso recarrega a página; não faz
+      // sentido continuar restaurando a mesa ativa nesse caso.
+      void syncDbScope(s ? s.user.id : 'guest')
       try {
         const raw = localStorage.getItem('activeMesa')
         if (!raw) return

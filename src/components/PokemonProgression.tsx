@@ -1,39 +1,45 @@
 import { useState } from 'react'
 import { db } from '../db'
 import type { PokemonSheet, Trainer } from '../types'
-import { rankIndex } from '../types'
-import { pokemonById, spriteUrl, MOVES, moveById } from '../data'
+import { rankIndex, RANKS } from '../types'
+import { pokemonById, spriteUrl, moveById, MOVES } from '../data'
 import {
   nextRank,
   rankUpCost,
   retrainCost,
   evolveCost,
   parseEvolutionSpeed,
+  evolutiveStage,
+  learnMoveCost,
+  overRankCost,
   type EvolutionSpeed,
 } from '../lib/progression'
+import BookLink from './BookLink'
 
 const SPEEDS: EvolutionSpeed[] = ['Fast', 'Medium', 'Slow']
 
-// Corebook 3.0 p.110: aprender um golpe via TM/TR custa sempre 5 TP, seja
-// qual for o Rank/estágio evolutivo. Se o Pokémon já estiver no limite de
-// golpes conhecidos (Insight+3), precisa esquecer um pra aprender o novo —
-// e serve tanto pra golpes fora do learnset (via TM) quanto pra trocar um
-// golpe já conhecido por outro do mesmo Rank.
-const LEARN_MOVE_COST = 5
+// Corebook 3.0 p.110: TM/TR ensina QUALQUER golpe (dentro ou fora do
+// learnset) por um custo fixo, igual pra qualquer Rank/Estágio — é o que
+// te economiza Training Points, mas custa dinheiro pela TM/TR em si
+// (fica a critério do Mestre disponibilizar).
+const TM_TR_COST = 5
 
 function Section({
   title,
   icon,
+  page,
   children,
 }: {
   title: string
   icon: string
+  page?: number
   children: React.ReactNode
 }) {
   return (
     <div className="rounded-lg border border-slate-200 bg-white p-3">
-      <p className="mb-2 text-xs font-bold text-slate-500 uppercase">
+      <p className="mb-2 flex items-center gap-2 text-xs font-bold text-slate-500 uppercase">
         {icon} {title}
+        {page && <BookLink page={page} className="normal-case text-slate-400 hover:text-red-500" />}
       </p>
       {children}
     </div>
@@ -63,9 +69,13 @@ export default function PokemonProgression({
   const [evoSpeedOverride, setEvoSpeedOverride] = useState<
     Record<string, EvolutionSpeed>
   >({})
-  const [moveSearch, setMoveSearch] = useState('')
-  const [learnMoveId, setLearnMoveId] = useState('')
-  const [forgetMoveId, setForgetMoveId] = useState('')
+  const [tmSearch, setTmSearch] = useState('')
+  const [tmMoveId, setTmMoveId] = useState('')
+  const [tmForgetId, setTmForgetId] = useState('')
+  const [rankMoveId, setRankMoveId] = useState('')
+  const [rankForgetId, setRankForgetId] = useState('')
+  const [overRankMoveId, setOverRankMoveIdSel] = useState('')
+  const [overRankForgetId, setOverRankForgetId] = useState('')
 
   if (!species) return null
 
@@ -136,33 +146,118 @@ export default function PokemonProgression({
     )
   }
 
-  // ── Aprender/Trocar Golpe (TM/TR) ───────────────────────────────
+  // ── Golpes: 3 mecânicas diferentes (p.109-111) ──────────────────
   const maxMoves = sheet.attributes.insight + 3
   const atMoveCap = sheet.knownMoves.length >= maxMoves
-  const canLearnMove =
-    tp >= LEARN_MOVE_COST && Boolean(learnMoveId) && (!atMoveCap || Boolean(forgetMoveId))
+  const stage = evolutiveStage(species.evolutions)
+  const isMew = species.name === 'Mew'
 
-  const doLearnMove = async () => {
-    if (!canLearnMove) return
-    const newMove = moveById.get(learnMoveId)
-    const oldMove = forgetMoveId ? moveById.get(forgetMoveId) : null
+  // 1) Golpe do Rank atual/anterior (dentro do learnset, só quando no limite)
+  const rankLearnable = isMew
+    ? []
+    : species.learnset.filter(
+        (e) =>
+          rankIndex(e.rank) <= rankIndex(sheet.rank) && !sheet.knownMoves.includes(e.moveId),
+      )
+  const rankLearnEntry = rankLearnable.find((e) => e.moveId === rankMoveId)
+  const rankLearnTier: 'current' | 'previous' | null = rankLearnEntry
+    ? rankLearnEntry.rank === sheet.rank
+      ? 'current'
+      : 'previous'
+    : null
+  const rankLearnCost = rankLearnTier ? learnMoveCost(stage, rankLearnTier) : 0
+  const canRankLearn =
+    atMoveCap && Boolean(rankLearnEntry) && Boolean(rankForgetId) && tp >= rankLearnCost
+
+  const doRankLearn = async () => {
+    if (!canRankLearn || !rankLearnEntry) return
+    const newMove = moveById.get(rankMoveId)
+    const oldMove = moveById.get(rankForgetId)
+    if (!newMove || !oldMove) return
+    if (
+      !confirm(
+        `Trocar "${oldMove.name}" por "${newMove.name}" (Rank ${rankLearnEntry.rank})? Custa ${rankLearnCost} TP.`,
+      )
+    )
+      return
+    const knownMoves = sheet.knownMoves.map((id) => (id === oldMove.id ? newMove.id : id))
+    await apply({ knownMoves, trainingPoints: tp - rankLearnCost })
+    setNotice(`Trocou "${oldMove.name}" por "${newMove.name}"! (−${rankLearnCost} TP)`)
+    setRankMoveId('')
+    setRankForgetId('')
+  }
+
+  // 2) Over-Rank (golpe acima do Rank atual, ainda do learnset)
+  const overRankCandidates = isMew
+    ? []
+    : species.learnset.filter(
+        (e) => rankIndex(e.rank) > rankIndex(sheet.rank) && !sheet.knownMoves.includes(e.moveId),
+      )
+  const overRankEntry = overRankCandidates.find((e) => e.moveId === overRankMoveId)
+  const ranksAbove = overRankEntry ? rankIndex(overRankEntry.rank) - rankIndex(sheet.rank) : 0
+  const overRankTp = overRankEntry ? overRankCost(stage, ranksAbove) : 0
+  const happiness = sheet.happiness ?? 0
+  const loyalty = sheet.loyalty ?? 0
+  const meetsBond = happiness + loyalty >= 7
+  // se já existe um golpe Over-Rank ativo, aprender outro esquece ELE
+  // automaticamente (p.111); senão, só precisa escolher o que esquecer se
+  // já estiver no limite de golpes
+  const autoForgetMove = sheet.overRankMoveId ? moveById.get(sheet.overRankMoveId) : null
+  const needsManualForget = !sheet.overRankMoveId && atMoveCap
+  const canOverRank =
+    Boolean(overRankEntry) &&
+    meetsBond &&
+    tp >= overRankTp &&
+    (!needsManualForget || Boolean(overRankForgetId))
+
+  const doOverRank = async () => {
+    if (!canOverRank || !overRankEntry) return
+    const newMove = moveById.get(overRankMoveId)
+    if (!newMove) return
+    const forgetMove =
+      autoForgetMove ?? (needsManualForget ? moveById.get(overRankForgetId) : null)
+    const question = forgetMove
+      ? `Over-Rank: trocar "${forgetMove.name}" por "${newMove.name}" (Rank ${overRankEntry.rank}, ${ranksAbove} acima do seu)? Custa ${overRankTp} TP.`
+      : `Over-Rank: aprender "${newMove.name}" (Rank ${overRankEntry.rank}, ${ranksAbove} acima do seu)? Custa ${overRankTp} TP.`
+    if (!confirm(question)) return
+    const knownMoves = forgetMove
+      ? sheet.knownMoves.map((id) => (id === forgetMove.id ? newMove.id : id))
+      : [...sheet.knownMoves, newMove.id]
+    await apply({
+      knownMoves,
+      trainingPoints: tp - overRankTp,
+      overRankMoveId: newMove.id,
+    })
+    setNotice(`Over-Rank! Aprendeu "${newMove.name}". (−${overRankTp} TP)`)
+    setOverRankMoveIdSel('')
+    setOverRankForgetId('')
+  }
+
+  // 3) TM/TR (qualquer golpe, 5 TP fixo)
+  const canLearnTm =
+    tp >= TM_TR_COST && Boolean(tmMoveId) && (!atMoveCap || Boolean(tmForgetId))
+
+  const doLearnTm = async () => {
+    if (!canLearnTm) return
+    const newMove = moveById.get(tmMoveId)
+    const oldMove = tmForgetId ? moveById.get(tmForgetId) : null
     if (!newMove) return
     const question = oldMove
-      ? `Trocar "${oldMove.name}" por "${newMove.name}"? Custa ${LEARN_MOVE_COST} TP.`
-      : `Aprender "${newMove.name}"? Custa ${LEARN_MOVE_COST} TP.`
+      ? `TM/TR: trocar "${oldMove.name}" por "${newMove.name}"? Custa ${TM_TR_COST} TP (+ o custo em dinheiro da TM/TR, a critério do Mestre).`
+      : `TM/TR: aprender "${newMove.name}"? Custa ${TM_TR_COST} TP (+ o custo em dinheiro da TM/TR, a critério do Mestre).`
     if (!confirm(question)) return
     const knownMoves = oldMove
       ? sheet.knownMoves.map((id) => (id === oldMove.id ? newMove.id : id))
       : [...sheet.knownMoves, newMove.id]
-    await apply({ knownMoves, trainingPoints: tp - LEARN_MOVE_COST })
+    await apply({ knownMoves, trainingPoints: tp - TM_TR_COST })
     setNotice(
       oldMove
-        ? `Trocou "${oldMove.name}" por "${newMove.name}"! (−${LEARN_MOVE_COST} TP)`
-        : `Aprendeu "${newMove.name}"! (−${LEARN_MOVE_COST} TP)`,
+        ? `Trocou "${oldMove.name}" por "${newMove.name}"! (−${TM_TR_COST} TP)`
+        : `Aprendeu "${newMove.name}"! (−${TM_TR_COST} TP)`,
     )
-    setLearnMoveId('')
-    setForgetMoveId('')
-    setMoveSearch('')
+    setTmMoveId('')
+    setTmForgetId('')
+    setTmSearch('')
   }
 
   return (
@@ -182,7 +277,7 @@ export default function PokemonProgression({
         </p>
       )}
 
-      <Section title="Rank Up" icon="⬆️">
+      <Section title="Rank Up" icon="⬆️" page={107}>
         {next && cost !== null ? (
           <div className="flex items-center gap-2">
             <span className="text-sm text-slate-600">
@@ -208,7 +303,7 @@ export default function PokemonProgression({
         )}
       </Section>
 
-      <Section title="Evoluir" icon="✨">
+      <Section title="Evoluir" icon="✨" page={108}>
         {candidates.length === 0 ? (
           <p className="text-xs text-slate-400">
             {species.name} não tem evolução conhecida.
@@ -281,7 +376,7 @@ export default function PokemonProgression({
         )}
       </Section>
 
-      <Section title="Re-Treinar" icon="🔄">
+      <Section title="Re-Treinar" icon="🔄" page={114}>
         <p className="mb-2 text-[11px] text-slate-400">
           Redistribui Atributos, Sociais e Skills do zero (baseado no Rank
           atual: {sheet.rank}). Golpes conhecidos não mudam.
@@ -295,31 +390,167 @@ export default function PokemonProgression({
         </button>
       </Section>
 
-      <Section title="Aprender/Trocar Golpe (TM/TR)" icon="📀">
+      <Section title={`Trocar Golpe do Rank (Estágio ${stage})`} icon="📖" page={109}>
         <p className="mb-2 text-[11px] text-slate-400">
-          Corebook p.110: {LEARN_MOVE_COST} TP pra aprender qualquer golpe
-          via TM/TR — mesmo um fora do learnset — ou pra trocar um golpe já
-          conhecido por outro do mesmo Rank. Fica a critério do Mestre se o
-          TM/TR está disponível na sua mesa.
+          Corebook p.109: só quando já está no limite de golpes conhecidos
+          ({sheet.knownMoves.length}/{maxMoves}). Golpes de Ranks que o
+          Pokémon já passou custam menos que os do Rank atual.
+        </p>
+        {!atMoveCap ? (
+          <p className="text-xs text-slate-400">
+            Ainda não está no limite — escolha golpes novos direto em
+            "Golpes conhecidos" acima, de graça.
+          </p>
+        ) : rankLearnable.length === 0 ? (
+          <p className="text-xs text-slate-400">
+            Nenhum golpe novo disponível no learnset até o Rank atual.
+          </p>
+        ) : (
+          <div className="flex flex-wrap gap-2">
+            <select
+              value={rankMoveId}
+              onChange={(e) => setRankMoveId(e.target.value)}
+              className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+            >
+              <option value="">Escolha o golpe...</option>
+              {rankLearnable.map((e) => (
+                <option key={e.moveId} value={e.moveId}>
+                  {moveById.get(e.moveId)?.name ?? e.moveId} (Rank {e.rank})
+                </option>
+              ))}
+            </select>
+            <select
+              value={rankForgetId}
+              onChange={(e) => setRankForgetId(e.target.value)}
+              className="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+            >
+              <option value="">Esquecer qual golpe?</option>
+              {sheet.knownMoves.map((id) => (
+                <option key={id} value={id}>
+                  {moveById.get(id)?.name ?? id}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={doRankLearn}
+              disabled={!canRankLearn}
+              className="rounded-lg bg-slate-800 px-3 py-1.5 text-xs font-bold text-white hover:bg-slate-700 disabled:opacity-40"
+            >
+              {rankLearnTier
+                ? `Trocar (${rankLearnCost} TP${rankLearnTier === 'previous' ? ' · Rank anterior' : ''})`
+                : 'Trocar'}
+            </button>
+          </div>
+        )}
+      </Section>
+
+      <Section title={`Over-Rank (Estágio ${stage})`} icon="🌟" page={111}>
+        <p className="mb-2 text-[11px] text-slate-400">
+          Corebook p.111: aprende um golpe ACIMA do Rank atual. Exige
+          Happiness + Loyalty ≥ 7. Só um golpe Over-Rank por vez — aprender
+          outro esquece o anterior automaticamente.
+        </p>
+        <div className="mb-2 flex flex-wrap items-center gap-3 rounded-lg bg-slate-50 p-2">
+          <label className="flex items-center gap-1.5 text-xs text-slate-600">
+            Happiness
+            <input
+              type="number"
+              min={0}
+              value={happiness}
+              onChange={(e) => apply({ happiness: Math.max(0, Number(e.target.value) || 0) })}
+              className="w-14 rounded border border-slate-300 px-1.5 py-0.5 text-center text-xs font-bold focus:border-red-400 focus:outline-none"
+            />
+          </label>
+          <label className="flex items-center gap-1.5 text-xs text-slate-600">
+            Loyalty
+            <input
+              type="number"
+              min={0}
+              value={loyalty}
+              onChange={(e) => apply({ loyalty: Math.max(0, Number(e.target.value) || 0) })}
+              className="w-14 rounded border border-slate-300 px-1.5 py-0.5 text-center text-xs font-bold focus:border-red-400 focus:outline-none"
+            />
+          </label>
+          <span
+            className={`rounded-full px-2 py-0.5 text-xs font-bold ${meetsBond ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-600'}`}
+          >
+            Total {happiness + loyalty} {meetsBond ? '✓' : '(precisa ≥ 7)'}
+          </span>
+        </div>
+        {autoForgetMove && (
+          <p className="mb-2 text-[11px] text-slate-500">
+            Golpe Over-Rank atual: <b>{autoForgetMove.name}</b> — será
+            esquecido se você aprender outro.
+          </p>
+        )}
+        {overRankCandidates.length === 0 ? (
+          <p className="text-xs text-slate-400">
+            Nenhum golpe de Rank mais alto disponível no learnset (ou você
+            já é {RANKS[RANKS.length - 1]}).
+          </p>
+        ) : (
+          <div className="flex flex-wrap gap-2">
+            <select
+              value={overRankMoveId}
+              onChange={(e) => setOverRankMoveIdSel(e.target.value)}
+              className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+            >
+              <option value="">Escolha o golpe...</option>
+              {overRankCandidates.map((e) => (
+                <option key={e.moveId} value={e.moveId}>
+                  {moveById.get(e.moveId)?.name ?? e.moveId} (Rank {e.rank})
+                </option>
+              ))}
+            </select>
+            {needsManualForget && (
+              <select
+                value={overRankForgetId}
+                onChange={(e) => setOverRankForgetId(e.target.value)}
+                className="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+              >
+                <option value="">Esquecer qual golpe?</option>
+                {sheet.knownMoves.map((id) => (
+                  <option key={id} value={id}>
+                    {moveById.get(id)?.name ?? id}
+                  </option>
+                ))}
+              </select>
+            )}
+            <button
+              onClick={doOverRank}
+              disabled={!canOverRank}
+              className="rounded-lg bg-purple-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-purple-800 disabled:opacity-40"
+            >
+              {overRankEntry ? `Over-Rank (${overRankTp} TP)` : 'Over-Rank'}
+            </button>
+          </div>
+        )}
+      </Section>
+
+      <Section title="TM/TR (qualquer golpe)" icon="📀" page={110}>
+        <p className="mb-2 text-[11px] text-slate-400">
+          Corebook p.110: {TM_TR_COST} TP fixo pra qualquer golpe, dentro ou
+          fora do learnset — mas custa dinheiro pela TM/TR em si e fica a
+          critério do Mestre disponibilizar.
         </p>
         <input
-          value={moveSearch}
-          onChange={(e) => setMoveSearch(e.target.value)}
+          value={tmSearch}
+          onChange={(e) => setTmSearch(e.target.value)}
           placeholder="Buscar golpe..."
           className="mb-2 w-full rounded-lg border border-slate-300 px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
         />
         <div className="flex flex-wrap gap-2">
           <select
-            value={learnMoveId}
-            onChange={(e) => setLearnMoveId(e.target.value)}
+            value={tmMoveId}
+            onChange={(e) => setTmMoveId(e.target.value)}
             className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
           >
             <option value="">Escolha o novo golpe...</option>
             {MOVES.filter(
-              (m) =>
-                !sheet.knownMoves.includes(m.id) &&
-                m.name.toLowerCase().includes(moveSearch.toLowerCase()),
-            )
+                (m) =>
+                  !sheet.knownMoves.includes(m.id) &&
+                  m.name.toLowerCase().includes(tmSearch.toLowerCase()),
+              )
               .slice(0, 40)
               .map((m) => (
                 <option key={m.id} value={m.id}>
@@ -329,8 +560,8 @@ export default function PokemonProgression({
           </select>
           {atMoveCap && (
             <select
-              value={forgetMoveId}
-              onChange={(e) => setForgetMoveId(e.target.value)}
+              value={tmForgetId}
+              onChange={(e) => setTmForgetId(e.target.value)}
               className="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
             >
               <option value="">Esquecer qual golpe?</option>
@@ -342,11 +573,11 @@ export default function PokemonProgression({
             </select>
           )}
           <button
-            onClick={doLearnMove}
-            disabled={!canLearnMove}
+            onClick={doLearnTm}
+            disabled={!canLearnTm}
             className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-indigo-700 disabled:opacity-40"
           >
-            Aprender ({LEARN_MOVE_COST} TP)
+            Aprender ({TM_TR_COST} TP)
           </button>
         </div>
         {atMoveCap && (

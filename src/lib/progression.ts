@@ -1,4 +1,4 @@
-import type { Rank } from '../types'
+import type { EvolutionInfo, Rank } from '../types'
 import { RANKS, rankIndex } from '../types'
 
 // Custos em Training Points (Corebook 3.0, p. 107-112).
@@ -54,14 +54,42 @@ export function evolveCost(speed: EvolutionSpeed): number {
   return EVOLVE_COST[speed]
 }
 
-// Pontos de atributo acumulados por Rank (o livro não fixa uma tabela — aqui
-// usamos +2 por degrau de Rank, começando do zero em Starter). Válido pra
-// qualquer Pokémon (capturado ou selvagem): não é um bônus especial, então é
-// totalmente realocável via Re-Treino.
-const ATTR_POINTS_PER_RANK_STEP = 2
+// Benefícios por Rank (Corebook 3.0, p.30-31) — vale pra Treinador e
+// Pokémon. NÃO é uma progressão linear: Master repete o total de
+// atributos/sociais de Ace (o extra vira +2 dados em rolagens de skill),
+// só Champion salta de novo. Válido pra qualquer Pokémon (capturado ou
+// selvagem): não é bônus especial, então é totalmente realocável via
+// Re-Treino.
+const RANK_BENEFITS: Record<
+  Rank,
+  { attr: number; skill: number; skillLimit: number }
+> = {
+  Starter: { attr: 0, skill: 5, skillLimit: 1 },
+  Rookie: { attr: 2, skill: 10, skillLimit: 2 },
+  Standard: { attr: 4, skill: 14, skillLimit: 3 },
+  Advanced: { attr: 6, skill: 17, skillLimit: 4 },
+  Expert: { attr: 8, skill: 19, skillLimit: 5 },
+  Ace: { attr: 10, skill: 20, skillLimit: 5 },
+  Master: { attr: 10, skill: 22, skillLimit: 5 },
+  Champion: { attr: 14, skill: 25, skillLimit: 5 },
+}
 
 export function rankAttributePoints(rank: Rank): number {
-  return rankIndex(rank) * ATTR_POINTS_PER_RANK_STEP
+  return RANK_BENEFITS[rank].attr
+}
+
+// Mesmo valor que os atributos físicos, por regra (p.30-31).
+export function rankSocialPoints(rank: Rank): number {
+  return RANK_BENEFITS[rank].attr
+}
+
+export function rankSkillPoints(rank: Rank): number {
+  return RANK_BENEFITS[rank].skill
+}
+
+// Máximo de pontos numa única Skill nesse Rank.
+export function rankSkillLimit(rank: Rank): number {
+  return RANK_BENEFITS[rank].skillLimit
 }
 
 // Física apenas — Special fica de fora da distribuição por Rank (Pokérole
@@ -80,4 +108,50 @@ export function parseEvolutionSpeed(detail: string): EvolutionSpeed | null {
   if (!m) return null
   const s = m[1]
   return (s[0].toUpperCase() + s.slice(1).toLowerCase()) as EvolutionSpeed
+}
+
+// ── Aprender Golpes (Corebook 3.0, p.109-111) ───────────────────────
+// Três mecânicas DIFERENTES, cada uma com seu próprio custo — nenhuma é
+// "5 TP fixo pra tudo":
+//  1. Golpe do Rank atual/anterior (já no learnset, só quando no limite
+//     de golpes): custo por Estágio Evolutivo, mais barato se o golpe for
+//     de um Rank anterior ao atual (p.109).
+//  2. Over-Rank (golpe ACIMA do Rank atual, ainda dentro do learnset):
+//     custo por Estágio Evolutivo × quantos Ranks acima; exige
+//     Happiness+Loyalty >= 7; só 1 golpe Over-Rank por vez (p.111).
+//  3. TM/TR (qualquer golpe, dentro ou fora do learnset): 5 TP fixo,
+//     independe de Rank/Estágio (p.110) — já implementado à parte.
+
+export type EvolutiveStage = 'First' | 'Second' | 'Final'
+
+// Primeiro Estágio: nada evolui PRA essa espécie. Estágio Final: essa
+// espécie não evolui PRA mais nada (Mega não conta como estágio).
+export function evolutiveStage(evolutions: EvolutionInfo[]): EvolutiveStage {
+  const evolvesFrom = evolutions.some((e) => e.direction === 'from' && e.kind !== 'Mega')
+  const evolvesTo = evolutions.some((e) => e.direction === 'to' && e.kind !== 'Mega')
+  if (!evolvesFrom) return 'First'
+  if (evolvesTo) return 'Second'
+  return 'Final'
+}
+
+const LEARN_MOVE_COST: Record<EvolutiveStage, { current: number; previous: number }> = {
+  First: { current: 2, previous: 1 },
+  Second: { current: 4, previous: 2 },
+  Final: { current: 6, previous: 3 },
+}
+
+// tier: "current" = golpe do Rank atual do Pokémon; "previous" = golpe de
+// um Rank que ele já passou (mais barato de relembrar/trocar).
+export function learnMoveCost(stage: EvolutiveStage, tier: 'current' | 'previous'): number {
+  return LEARN_MOVE_COST[stage][tier]
+}
+
+const OVER_RANK_COST_PER_STEP: Record<EvolutiveStage, number> = {
+  First: 5,
+  Second: 15,
+  Final: 20,
+}
+
+export function overRankCost(stage: EvolutiveStage, ranksAbove: number): number {
+  return OVER_RANK_COST_PER_STEP[stage] * Math.max(1, ranksAbove)
 }
