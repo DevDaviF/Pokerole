@@ -139,7 +139,6 @@ export interface Trainer {
   skills: Record<string, number>
   hp: number
   currentHp: number
-  items: string[]
   notes: string
   money?: number
   inventory?: InventoryEntry[]

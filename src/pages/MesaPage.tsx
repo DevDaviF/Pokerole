@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db'
-import type { PokemonSheet } from '../types'
+import type { PokemonSheet, InventoryEntry } from '../types'
 import { supabase, supabaseConfigured } from '../lib/supabase'
 import { useMesa } from '../lib/mesa'
 import { pokemonById, moveById, spriteUrl, typeColor } from '../data'
@@ -19,8 +19,10 @@ import SheetTransfers from '../components/SheetTransfers'
 import DayPassPanel from '../components/DayPassPanel'
 import ItemGifts from '../components/ItemGifts'
 import ErrorBoundary from '../components/ErrorBoundary'
+import Shop from '../components/Shop'
 import GmToolsPanel from './MesaGmTools'
 import { getActiveTrainerId } from './TrainersPage'
+import { useCustomItems, customItemToItem } from '../lib/customItems'
 
 // Cor determinística por usuário (hash simples do id → matiz), pra
 // identificar quem falou o quê de relance no chat.
@@ -606,6 +608,14 @@ export default function MesaPage() {
   const myTrainers = useLiveQuery(() => db.trainers.toArray(), []) ?? []
   const myActiveTrainer =
     myTrainers.find((t) => t.id === getActiveTrainerId()) ?? myTrainers[0]
+  const [shopOpen, setShopOpen] = useState(false)
+  const customItemRows = useCustomItems(activeMesa?.id ?? null)
+  const customShopItems = customItemRows.map(customItemToItem)
+
+  const updateMyTrainerEconomy = async (money: number, inventory: InventoryEntry[]) => {
+    if (!myActiveTrainer?.id) return
+    await db.trainers.update(myActiveTrainer.id, { money, inventory })
+  }
 
   const loadMesas = async () => {
     if (!supabase || !session) return
@@ -1332,6 +1342,35 @@ export default function MesaPage() {
 
           <ErrorBoundary label="Passar o dia">
             <DayPassPanel myTrainer={myActiveTrainer} myPokemonSheets={myOwnPokemonSheets} />
+          </ErrorBoundary>
+
+          <ErrorBoundary label="Loja">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm">
+              <button
+                type="button"
+                onClick={() => setShopOpen((v) => !v)}
+                className="flex w-full items-center justify-between px-5 py-3 text-left font-bold text-slate-800"
+              >
+                🛒 Loja {myActiveTrainer && `· ${myActiveTrainer.money ?? 0} P$`}
+                <span className="text-sm text-slate-400">{shopOpen ? '▲' : '▼'}</span>
+              </button>
+              {shopOpen && (
+                <div className="border-t border-slate-100 p-5">
+                  {!myActiveTrainer ? (
+                    <p className="text-sm text-slate-400">
+                      Crie um Treinador e marque como ativo (★) pra usar a loja.
+                    </p>
+                  ) : (
+                    <Shop
+                      money={myActiveTrainer.money ?? 0}
+                      inventory={myActiveTrainer.inventory ?? []}
+                      onChange={updateMyTrainerEconomy}
+                      customItems={customShopItems}
+                    />
+                  )}
+                </div>
+              )}
+            </div>
           </ErrorBoundary>
 
           <div className="grid gap-4 lg:grid-cols-3">

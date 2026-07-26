@@ -111,6 +111,8 @@ export function generateNpcSheet(
     statusConditions: [],
     inTeam: false,
     trainingPoints: 0,
+    happiness: 2, // "In the wild, Pokémon usually have 2 points on each" (p.28)
+    loyalty: 2,
     isNpc: true,
     npcKind,
     notes: `Gerado automaticamente pelo Mestre (${npcKind === 'wild' ? 'encontro selvagem' : 'Pokémon de ginásio'}). Atributos = base da espécie + pontos de Rank distribuídos aleatoriamente (mesma regra de qualquer Pokémon, totalmente re-treinável).`,

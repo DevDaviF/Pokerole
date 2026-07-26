@@ -34,8 +34,8 @@ export const SOCIAL_LABELS: Array<{
   { key: 'tough', label: 'Tough' },
   { key: 'cool', label: 'Cool' },
   { key: 'beauty', label: 'Beauty' },
-  { key: 'cute', label: 'Cute' },
   { key: 'clever', label: 'Clever' },
+  { key: 'cute', label: 'Cute' },
 ]
 
 // Skills de treinador (Corebook 3.0, p. 25-26; Channel/Clash são de Pokémon,

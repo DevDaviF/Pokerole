@@ -49,6 +49,8 @@ const emptySheet = (): PokemonSheet => ({
   statusConditions: [],
   inTeam: false,
   trainingPoints: 0,
+  happiness: 2,
+  loyalty: 2,
   notes: '',
 })
 
@@ -459,6 +461,34 @@ export default function PokemonSheetsPage() {
                     />
                   ))}
                 </div>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+              <h2 className="mb-1 font-bold text-slate-800">
+                Vínculo com o Treinador
+              </h2>
+              <p className="mb-3 text-xs text-slate-400">
+                Vão de 0 a 5. Selvagens começam com 2 em cada; não crescem
+                por Rank, só via role-play (p.28-29).
+              </p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <Stepper
+                  label="Happiness"
+                  value={editing.happiness ?? 2}
+                  min={0}
+                  max={5}
+                  dotMax={5}
+                  onChange={(v) => setEditing({ ...editing, happiness: v })}
+                />
+                <Stepper
+                  label="Loyalty"
+                  value={editing.loyalty ?? 2}
+                  min={0}
+                  max={5}
+                  dotMax={5}
+                  onChange={(v) => setEditing({ ...editing, loyalty: v })}
+                />
               </div>
             </div>
 

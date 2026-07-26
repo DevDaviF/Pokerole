@@ -195,8 +195,8 @@ export default function PokemonProgression({
   const overRankEntry = overRankCandidates.find((e) => e.moveId === overRankMoveId)
   const ranksAbove = overRankEntry ? rankIndex(overRankEntry.rank) - rankIndex(sheet.rank) : 0
   const overRankTp = overRankEntry ? overRankCost(stage, ranksAbove) : 0
-  const happiness = sheet.happiness ?? 0
-  const loyalty = sheet.loyalty ?? 0
+  const happiness = sheet.happiness ?? 2
+  const loyalty = sheet.loyalty ?? 2
   const meetsBond = happiness + loyalty >= 7
   // se já existe um golpe Over-Rank ativo, aprender outro esquece ELE
   // automaticamente (p.111); senão, só precisa escolher o que esquecer se
@@ -450,26 +450,10 @@ export default function PokemonProgression({
           outro esquece o anterior automaticamente.
         </p>
         <div className="mb-2 flex flex-wrap items-center gap-3 rounded-lg bg-slate-50 p-2">
-          <label className="flex items-center gap-1.5 text-xs text-slate-600">
-            Happiness
-            <input
-              type="number"
-              min={0}
-              value={happiness}
-              onChange={(e) => apply({ happiness: Math.max(0, Number(e.target.value) || 0) })}
-              className="w-14 rounded border border-slate-300 px-1.5 py-0.5 text-center text-xs font-bold focus:border-red-400 focus:outline-none"
-            />
-          </label>
-          <label className="flex items-center gap-1.5 text-xs text-slate-600">
-            Loyalty
-            <input
-              type="number"
-              min={0}
-              value={loyalty}
-              onChange={(e) => apply({ loyalty: Math.max(0, Number(e.target.value) || 0) })}
-              className="w-14 rounded border border-slate-300 px-1.5 py-0.5 text-center text-xs font-bold focus:border-red-400 focus:outline-none"
-            />
-          </label>
+          <span className="text-xs text-slate-600">
+            Happiness {happiness} + Loyalty {loyalty}
+            <span className="text-[11px] text-slate-400"> (edite lá em cima, em "Vínculo com o Treinador")</span>
+          </span>
           <span
             className={`rounded-full px-2 py-0.5 text-xs font-bold ${meetsBond ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-600'}`}
           >

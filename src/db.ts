@@ -29,6 +29,23 @@ function openDb(name: string): PokeroleDb {
           delete sheet.imageUrl
         })
     })
+  // v3: a lista de texto livre "Itens (um por linha)" do Treinador foi
+  // substituída pelo inventário estruturado da Loja — limpa o campo
+  // morto de quem ainda tinha isso salvo.
+  instance
+    .version(3)
+    .stores({
+      trainers: '++id, name',
+      pokemonSheets: '++id, trainerId, species, nickname',
+    })
+    .upgrade(async (tx) => {
+      await tx
+        .table('trainers')
+        .toCollection()
+        .modify((trainer: { items?: string[] }) => {
+          delete trainer.items
+        })
+    })
   return instance
 }
 

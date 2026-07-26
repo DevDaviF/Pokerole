@@ -23,6 +23,13 @@ export default function Shop({
   const [pocket, setPocket] = useState('Pokeballs')
   const [search, setSearch] = useState('')
   const [qty, setQty] = useState<Record<string, number>>({})
+  const [addAmount, setAddAmount] = useState(0)
+
+  const addFunds = (delta: number) => {
+    if (!delta) return
+    onChange(Math.max(0, money + delta), inventory)
+    setAddAmount(0)
+  }
 
   const purchasable = allItems.filter((i) => parsePrice(i.price) != null)
   const filtered = purchasable.filter(
@@ -59,10 +66,34 @@ export default function Shop({
         <input
           type="number"
           value={money}
-          onChange={(e) => onChange(Number(e.target.value) || 0, inventory)}
+          onChange={(e) => onChange(Math.max(0, Number(e.target.value) || 0), inventory)}
           className="w-24 rounded-lg border border-slate-300 px-2 py-1 text-sm font-bold focus:border-red-400 focus:outline-none"
         />
         <span className="text-xs text-slate-400">P$</span>
+        <span className="mx-1 h-5 w-px bg-slate-200" />
+        <input
+          type="number"
+          value={addAmount || ''}
+          placeholder="quantia"
+          onChange={(e) => setAddAmount(Number(e.target.value) || 0)}
+          className="w-24 rounded-lg border border-slate-300 px-2 py-1 text-sm focus:border-red-400 focus:outline-none"
+        />
+        <button
+          type="button"
+          onClick={() => addFunds(addAmount)}
+          disabled={!addAmount}
+          className="rounded-lg border border-emerald-300 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700 hover:bg-emerald-100 disabled:opacity-40"
+        >
+          + Adicionar
+        </button>
+        <button
+          type="button"
+          onClick={() => addFunds(-addAmount)}
+          disabled={!addAmount}
+          className="rounded-lg border border-red-200 px-2.5 py-1 text-xs font-bold text-red-500 hover:bg-red-50 disabled:opacity-40"
+        >
+          − Remover
+        </button>
       </div>
 
       {inventory.length > 0 && (
