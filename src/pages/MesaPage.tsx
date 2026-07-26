@@ -16,7 +16,9 @@ import BattleTracker from '../components/BattleTracker'
 import ScoutRollWidget from '../components/ScoutRollWidget'
 import CaptureRoll from '../components/CaptureRoll'
 import SheetTransfers from '../components/SheetTransfers'
+import PlayerSheetGift from '../components/PlayerSheetGift'
 import DayPassPanel from '../components/DayPassPanel'
+import WillPointsPanel from '../components/WillPointsPanel'
 import ItemGifts from '../components/ItemGifts'
 import MoneyAdjustments from '../components/MoneyAdjustments'
 import ErrorBoundary from '../components/ErrorBoundary'
@@ -1325,8 +1327,19 @@ export default function MesaPage() {
             />
           </ErrorBoundary>
 
-          {/* Presentes do Mestre — Pokémon e itens que ele te mandou. A
-              criação fica em "Ferramentas do Mestre" → 🎁 Presentear. */}
+          {/* Presentes de Pokémon/item pendentes pra mim — de qualquer
+              membro da mesa, não só do Mestre (que ainda tem seu atalho em
+              "Ferramentas do Mestre" → 🎁 Presentear). */}
+          <ErrorBoundary label="Passar Pokémon pra outro jogador">
+            <PlayerSheetGift
+              mesaId={activeMesa.id}
+              myId={myId}
+              myPokemonSheets={myPokemonSheets}
+              members={members}
+              usernames={usernames}
+            />
+          </ErrorBoundary>
+
           <div className="grid gap-4 lg:grid-cols-2">
             <ErrorBoundary label="Presentes de Pokémon">
               <SheetTransfers
@@ -1361,6 +1374,10 @@ export default function MesaPage() {
               myPokemonSheets={myOwnPokemonSheets}
               isGm={myRole === 'gm'}
             />
+          </ErrorBoundary>
+
+          <ErrorBoundary label="Will Points">
+            <WillPointsPanel myTrainer={myActiveTrainer} myPokemonSheets={myOwnPokemonSheets} />
           </ErrorBoundary>
 
           <ErrorBoundary label="Loja">

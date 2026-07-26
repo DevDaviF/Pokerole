@@ -139,6 +139,7 @@ export interface Trainer {
   skills: Record<string, number>
   hp: number
   currentHp: number
+  currentWill?: number // Will Points atuais (Score = Insight + 3, p.28); undefined = cheio
   notes: string
   money?: number
   inventory?: InventoryEntry[]
@@ -167,6 +168,7 @@ export interface PokemonSheet {
   isStarter?: boolean // Pokémon inicial do treinador (1 por treinador)
   happiness?: number
   loyalty?: number
+  currentWill?: number // Will Points atuais (Score = Insight + 3, p.28); undefined = cheio
   overRankMoveId?: string // golpe atual aprendido via Over-Rank (só 1 por vez)
   notes: string
 }

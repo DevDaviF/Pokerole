@@ -137,9 +137,13 @@ export default function DayPassPanel({
       await db.trainers.update(myTrainer.id, {
         inventory: nextInventory,
         currentHp: myTrainer.hp,
+        currentWill: myTrainer.attributes.insight + 3, // descansar recupera WP (p.28)
       })
     } else {
-      await db.trainers.update(myTrainer.id, { currentHp: myTrainer.hp })
+      await db.trainers.update(myTrainer.id, {
+        currentHp: myTrainer.hp,
+        currentWill: myTrainer.attributes.insight + 3,
+      })
     }
 
     for (const s of team) {
@@ -148,6 +152,7 @@ export default function DayPassPanel({
       await db.pokemonSheets.update(s.id!, {
         currentHp: maxHp,
         statusConditions: [],
+        currentWill: s.attributes.insight + 3,
       })
     }
 

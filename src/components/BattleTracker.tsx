@@ -15,6 +15,8 @@ export interface Combatant {
   ownerLabel?: string
   currentHp: number
   maxHp: number
+  def?: number // Vitality — usado pra reduzir o pool de Dano físico (p.60)
+  spDef?: number // Insight — usado pra reduzir o pool de Dano especial
   statusConditions: string[]
   // permitem "escrever de volta" na ficha de origem quando quem edita o HP
   // é o próprio dono (viewer local) — ver updateHp()
@@ -286,6 +288,8 @@ export default function BattleTracker({
                       ownerLabel: myUsername,
                       currentHp: myTrainer.currentHp,
                       maxHp: myTrainer.hp,
+                      def: myTrainer.attributes.vitality,
+                      spDef: myTrainer.attributes.insight,
                       statusConditions: [],
                       ownerId: myId,
                       localId: myTrainer.id,
@@ -313,6 +317,8 @@ export default function BattleTracker({
                         ownerLabel: myUsername,
                         currentHp: s.currentHp,
                         maxHp: pokemonMaxHp(s.attributes, s.species),
+                        def: s.attributes.vitality,
+                        spDef: s.attributes.insight,
                         statusConditions: s.statusConditions,
                         ownerId: myId,
                         localId: s.id,
@@ -351,6 +357,8 @@ export default function BattleTracker({
                         ownerLabel: 'NPC',
                         currentHp: n.payload.currentHp,
                         maxHp: pokemonMaxHp(n.payload.attributes, n.payload.species),
+                        def: n.payload.attributes.vitality,
+                        spDef: n.payload.attributes.insight,
                         statusConditions: n.payload.statusConditions,
                         ownerId: n.ownerId,
                         localId: n.payload.id,

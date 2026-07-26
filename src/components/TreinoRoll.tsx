@@ -97,8 +97,15 @@ export function TreinoPanel({
     }
     setTrainResult(labeled)
     postRoll(labeled)
+    // p.105 Passo 5: depois do treino, Treinador e Pokémon recuperam 2 WP
+    const pokWillMax = sheet.attributes.insight + 3
+    const trWillMax = trainer.attributes.insight + 3
     await db.pokemonSheets.update(sheet.id!, {
       trainingPoints: (sheet.trainingPoints ?? 0) + total,
+      currentWill: Math.min(pokWillMax, (sheet.currentWill ?? pokWillMax) + 2),
+    })
+    await db.trainers.update(trainer.id!, {
+      currentWill: Math.min(trWillMax, (trainer.currentWill ?? trWillMax) + 2),
     })
     setAwarded(total)
   }

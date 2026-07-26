@@ -13,9 +13,9 @@ interface TransferRow {
   created_at: string
 }
 
-// Ofertas de Pokémon do Mestre pendentes pra mim nesta mesa (ele entrega
-// pela aba "Ferramentas do Mestre" → Presentear). Aceitar soma a ficha no
-// meu Dexie local; recusar só descarta a oferta.
+// Ofertas de Pokémon pendentes pra mim nesta mesa — de qualquer membro,
+// não só do Mestre (RLS de sheet_transfers já permite jogador → jogador).
+// Aceitar soma a ficha no meu Dexie local; recusar só descarta a oferta.
 export default function SheetTransfers({
   mesaId,
   myId,
@@ -109,7 +109,7 @@ export default function SheetTransfers({
   return (
     <div className="overflow-hidden rounded-xl border border-purple-300 bg-white shadow-sm">
       <div className="flex items-center gap-2 bg-purple-600 px-4 py-2.5 text-white">
-        <b>🎁 Pokémon do Mestre</b>
+        <b>🎁 Pokémon recebidos</b>
       </div>
       <div className="space-y-1.5 p-4">
         {pending.map((t) => {
@@ -129,7 +129,7 @@ export default function SheetTransfers({
               )}
               <span className="flex-1 text-sm text-slate-700">
                 <b>{t.payload.nickname || sp?.name}</b> · {t.payload.rank} — de{' '}
-                {usernames[t.from_user_id] ?? 'Mestre'}
+                {usernames[t.from_user_id] ?? 'alguém'}
               </span>
               <button
                 onClick={() => accept(t)}
