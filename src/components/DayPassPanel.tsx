@@ -70,12 +70,13 @@ export default function DayPassPanel({
 
     if (short > 0) {
       await announce(
-        `⚠️ ${myTrainer.name} não tinha ração suficiente hoje! Faltaram ${short} de ${needed}. O time descansou mesmo assim.`,
+        `⚠️ ${myTrainer.name} não tinha ração suficiente hoje! Faltaram ${short} de ${needed}.`,
+      )
+    } else {
+      await announce(
+        `🌙 ${myTrainer.name} passou o dia e descansou${consumed > 0 ? ` (−${consumed} ${RATION_NAME}${consumed > 1 ? 'ões' : ''})` : ''}. Time totalmente recuperado.`,
       )
     }
-    await announce(
-      `🌙 ${myTrainer.name} passou o dia e descansou${consumed > 0 ? ` (−${consumed} ${RATION_NAME}${consumed > 1 ? 'ões' : ''})` : ''}. Time totalmente recuperado.`,
-    )
     setNotice(
       short > 0
         ? `Dia passado, mas faltou ração (${short}). Time recuperado mesmo assim.`

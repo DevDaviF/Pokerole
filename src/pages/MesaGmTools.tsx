@@ -324,6 +324,13 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
               >
                 {d.done ? '✓ Publicada' : d.generating ? 'Gerando...' : '✨ Gerar ficha'}
               </button>
+              <button
+                onClick={() => setDrawn((prev) => prev.filter((x) => x.key !== d.key))}
+                title="Tirar da lista (não quero gerar ficha pra este)"
+                className="text-slate-300 hover:text-red-500"
+              >
+                ×
+              </button>
               {d.sheet && (
                 <p
                   className="w-full text-xs text-slate-500"

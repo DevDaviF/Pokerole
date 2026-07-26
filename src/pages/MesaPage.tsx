@@ -32,6 +32,19 @@ function colorForUser(userId: string): string {
   return `hsl(${hash % 360}, 60%, 38%)`
 }
 
+// Rótulos de roll seguem o padrão "Personagem · ação" em todo o app
+// (ex: "Faísca · Iniciativa", "Davi F · Arremesso..."). Separa o nome do
+// personagem do resto pra mostrar em cor diferente do nome de usuário.
+function splitRollLabel(
+  content: string,
+  poolFallback: string,
+): { actor: string | null; rest: string } {
+  if (!content) return { actor: null, rest: poolFallback }
+  const idx = content.indexOf(' · ')
+  if (idx === -1) return { actor: null, rest: content }
+  return { actor: content.slice(0, idx), rest: content.slice(idx + 3) }
+}
+
 // Rolagem rápida pelas fichas locais, sem sair do chat da mesa
 function QuickRollCard() {
   const sheets = useLiveQuery(() => db.pokemonSheets.toArray(), []) ?? []
@@ -582,10 +595,13 @@ export default function MesaPage() {
 
   const myPokemonSheets = useLiveQuery(() => db.pokemonSheets.toArray(), []) ?? []
   // NPCs gerados nas Ferramentas do Mestre também ficam salvos no Dexie
-  // local dele (pra poder rolar pela ficha) — sem filtrar isNpc, eles
-  // apareceriam duplicados: uma vez aqui como "meu Pokémon", outra via
-  // sharedNpcs (fichas compartilhadas). Aqui na Mesa, "meu Pokémon" é só
-  // o que não é NPC.
+  // local dele (pra poder rolar pela ficha) — usado sem filtro eles
+  // apareceriam duplicados na Ordem de Combate (uma vez como "meu
+  // Pokémon", outra via sharedNpcs/fichas compartilhadas). Essa versão
+  // filtrada é só pra ali e pra Captura/Passar o dia — em "Compartilhar
+  // minhas fichas" e em "Presentear" (Ferramentas do Mestre) o Mestre
+  // precisa ver os selvagens também, então esses usam myPokemonSheets
+  // sem filtro.
   const myOwnPokemonSheets = myPokemonSheets.filter((s) => !s.isNpc)
   const myTrainers = useLiveQuery(() => db.trainers.toArray(), []) ?? []
   const myActiveTrainer =
@@ -1041,7 +1057,7 @@ export default function MesaPage() {
                 myId={myId}
                 members={members}
                 usernames={usernames}
-                gmPokemonSheets={myOwnPokemonSheets}
+                gmPokemonSheets={myPokemonSheets}
               />
             </ErrorBoundary>
           )}
@@ -1119,25 +1135,40 @@ export default function MesaPage() {
                         {usernames[m.user_id] ?? '???'}
                       </span>{' '}
                       {m.kind === 'roll' && m.roll ? (
-                        <span className="text-slate-600">
-                          rolou <b>{m.content || `${m.roll.pool}d6`}</b>:{' '}
-                          <span className="inline-block align-middle">
-                            <DiceRow
-                              r={{
-                                label: '',
-                                at: 0,
-                                pool: m.roll.pool,
-                                dice: m.roll.dice,
-                                successes: m.roll.successes,
-                                sixes: m.roll.sixes,
-                                mode: m.roll.mode,
-                                triggered: m.roll.triggered,
-                                bonus: m.roll.bonus,
-                                total: m.roll.total,
-                              }}
-                            />
-                          </span>
-                        </span>
+                        (() => {
+                          const { actor, rest } = splitRollLabel(
+                            m.content,
+                            `${m.roll.pool}d6`,
+                          )
+                          return (
+                            <span className="text-slate-600">
+                              {actor && (
+                                <>
+                                  <span className="font-semibold text-indigo-600">
+                                    {actor}
+                                  </span>{' '}
+                                </>
+                              )}
+                              rolou <b>{rest}</b>:{' '}
+                              <span className="inline-block align-middle">
+                                <DiceRow
+                                  r={{
+                                    label: '',
+                                    at: 0,
+                                    pool: m.roll.pool,
+                                    dice: m.roll.dice,
+                                    successes: m.roll.successes,
+                                    sixes: m.roll.sixes,
+                                    mode: m.roll.mode,
+                                    triggered: m.roll.triggered,
+                                    bonus: m.roll.bonus,
+                                    total: m.roll.total,
+                                  }}
+                                />
+                              </span>
+                            </span>
+                          )
+                        })()
                       ) : (
                         <span
                           className={isWarning ? 'font-semibold text-amber-800' : 'text-slate-600'}
@@ -1251,7 +1282,7 @@ export default function MesaPage() {
                       </span>
                     </button>
                   ))}
-                  {myOwnPokemonSheets.map((s) => (
+                  {myPokemonSheets.map((s) => (
                     <button
                       key={`p${s.id}`}
                       onClick={() => shareSheet('pokemon', s.id!)}
@@ -1263,7 +1294,7 @@ export default function MesaPage() {
                       </span>
                     </button>
                   ))}
-                  {myTrainers.length === 0 && myOwnPokemonSheets.length === 0 && (
+                  {myTrainers.length === 0 && myPokemonSheets.length === 0 && (
                     <p className="text-slate-400">
                       Crie fichas em "Treinadores" e "Meus Pokémon".
                     </p>
