@@ -133,6 +133,7 @@ export interface Trainer {
   id?: number
   name: string
   rank: Rank
+  age?: 'Child' | 'Teen' | 'Adult' | 'Senior'
   attributes: Attributes
   social: SocialAttributes
   skills: Record<string, number>

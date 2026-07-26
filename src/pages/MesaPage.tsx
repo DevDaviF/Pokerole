@@ -978,6 +978,11 @@ export default function MesaPage() {
       setNotice(demoteError.message)
       return
     }
+    // owner_id acompanha o Mestre atual — é o que a policy de "excluir a
+    // mesa" usa pra decidir quem pode apagar, então sem isso o dono
+    // original ficaria pra sempre com esse poder mesmo depois de repassar
+    // o cargo.
+    await supabase.from('mesas').update({ owner_id: targetUserId }).eq('id', activeMesa.id)
     setMembers((prev) =>
       prev.map((m) =>
         m.user_id === targetUserId
@@ -988,6 +993,9 @@ export default function MesaPage() {
       ),
     )
     setMyRole('player')
+    setMesas((prev) =>
+      prev.map((m) => (m.id === activeMesa.id ? { ...m, owner_id: targetUserId } : m)),
+    )
     setNotice(
       `${usernames[targetUserId] ?? target?.user_id} agora é o Mestre da mesa.`,
     )
@@ -1012,11 +1020,50 @@ export default function MesaPage() {
 
   const leaveMesa = async () => {
     if (!supabase || !activeMesa) return
-    const warning =
-      myRole === 'gm'
-        ? 'Você é o Mestre desta mesa. Se sair, ela fica sem Mestre até alguém assumir. Transfira o cargo antes se quiser continuar a campanha. Sair mesmo assim?'
-        : `Sair da mesa "${activeMesa.name}"?`
-    if (!confirm(warning)) return
+    const others = members.filter((m) => m.user_id !== myId)
+
+    if (myRole === 'gm' && others.length === 0) {
+      // único membro: sair como Mestre não pode deixar a mesa "órfã" por
+      // aí — apaga ela inteira (chat, fichas compartilhadas, notas, tudo
+      // via cascade) em vez de deixar lixo pra trás.
+      if (
+        !confirm(
+          `Você é o único membro da mesa "${activeMesa.name}". Sair vai excluir a mesa e tudo nela (chat, fichas compartilhadas, notas de sessão). Não dá pra desfazer. Excluir mesmo assim?`,
+        )
+      )
+        return
+      const { error } = await supabase.from('mesas').delete().eq('id', activeMesa.id)
+      if (error) {
+        setNotice(error.message)
+        return
+      }
+      setActiveMesa(null)
+      await loadMesas()
+      return
+    }
+
+    if (myRole === 'gm') {
+      if (
+        !confirm(
+          `Você é o Mestre desta mesa. Ao sair, o cargo passa automaticamente para ${usernames[others[0].user_id] ?? 'outro membro'}. Sair mesmo assim?`,
+        )
+      )
+        return
+      const nextGm = others[0]
+      const { error: promoteError } = await supabase
+        .from('mesa_members')
+        .update({ role: 'gm' })
+        .eq('mesa_id', activeMesa.id)
+        .eq('user_id', nextGm.user_id)
+      if (promoteError) {
+        setNotice(promoteError.message)
+        return
+      }
+      await supabase.from('mesas').update({ owner_id: nextGm.user_id }).eq('id', activeMesa.id)
+    } else {
+      if (!confirm(`Sair da mesa "${activeMesa.name}"?`)) return
+    }
+
     const { error } = await supabase
       .from('mesa_members')
       .delete()
@@ -1027,6 +1074,23 @@ export default function MesaPage() {
       return
     }
     setActiveMesa(null)
+    await loadMesas()
+  }
+
+  const deleteMesaOwned = async (mesaId: string, name: string) => {
+    if (!supabase) return
+    if (
+      !confirm(
+        `Excluir a mesa "${name}" permanentemente? Isso apaga chat, fichas compartilhadas e tudo mais dela. Não dá pra desfazer.`,
+      )
+    )
+      return
+    const { error } = await supabase.from('mesas').delete().eq('id', mesaId)
+    if (error) {
+      setNotice(error.message)
+      return
+    }
+    if (activeMesa?.id === mesaId) setActiveMesa(null)
     await loadMesas()
   }
 
@@ -1066,28 +1130,41 @@ export default function MesaPage() {
           )}
           <div className="space-y-1.5">
             {mesas.map((m) => (
-              <button
+              <div
                 key={m.id}
-                onClick={() =>
-                  setActiveMesa({
-                    id: m.id,
-                    name: m.name,
-                    inviteCode: m.invite_code,
-                  })
-                }
-                className={`flex w-full items-center justify-between rounded-lg border px-3 py-1.5 text-sm ${
+                className={`flex w-full items-center gap-1 rounded-lg border px-1.5 py-1.5 text-sm ${
                   activeMesa?.id === m.id
                     ? 'border-red-400 bg-red-50 font-semibold text-red-700'
-                    : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                    : 'border-slate-200 text-slate-600'
                 }`}
               >
-                {m.name}
+                <button
+                  onClick={() =>
+                    setActiveMesa({
+                      id: m.id,
+                      name: m.name,
+                      inviteCode: m.invite_code,
+                    })
+                  }
+                  className="flex flex-1 items-center justify-between overflow-hidden px-1.5 hover:opacity-75"
+                >
+                  <span className="truncate">{m.name}</span>
+                  {m.owner_id === myId && (
+                    <span className="ml-1 shrink-0 text-[10px] text-slate-400 uppercase">
+                      dono
+                    </span>
+                  )}
+                </button>
                 {m.owner_id === myId && (
-                  <span className="text-[10px] text-slate-400 uppercase">
-                    dono
-                  </span>
+                  <button
+                    onClick={() => deleteMesaOwned(m.id, m.name)}
+                    title="Excluir esta mesa permanentemente"
+                    className="shrink-0 rounded-md px-1.5 py-1 text-slate-400 hover:bg-red-100 hover:text-red-600"
+                  >
+                    🗑
+                  </button>
                 )}
-              </button>
+              </div>
             ))}
           </div>
         </div>
@@ -1137,11 +1214,22 @@ export default function MesaPage() {
                 Mestre
               </span>
             )}
-            <span className="text-sm text-slate-300">
+            <span className="flex items-center gap-1 text-sm text-slate-300">
               Convite:{' '}
               <code className="rounded bg-slate-700 px-1.5 font-mono">
                 {activeMesa.inviteCode}
               </code>
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard.writeText(activeMesa.inviteCode)
+                  setNotice('Código de convite copiado!')
+                }}
+                title="Copiar código de convite"
+                className="rounded p-1 text-slate-300 hover:bg-slate-700 hover:text-white"
+              >
+                📋
+              </button>
             </span>
             <div className="ml-auto flex flex-wrap items-center gap-1.5">
               {members.map((m) => (

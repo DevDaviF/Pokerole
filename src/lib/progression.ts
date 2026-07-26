@@ -101,6 +101,36 @@ export const RANK_POINT_ATTRIBUTES = [
   'insight',
 ] as const
 
+// ── Idade do Treinador (Corebook 3.0, p.41) ─────────────────────────
+// Só Treinadores (humanos) recebem pontos extra por idade — Pokémon não
+// (p.41: "Humans get their Attributes and Social Attributes affected by
+// how old they are"). Esses pontos SOMAM aos pontos de Rank no mesmo
+// orçamento livre pra distribuir.
+export const AGES = ['Child', 'Teen', 'Adult', 'Senior'] as const
+export type Age = (typeof AGES)[number]
+
+export const AGE_LABELS: Record<Age, string> = {
+  Child: 'Criança',
+  Teen: 'Adolescente',
+  Adult: 'Adulto',
+  Senior: 'Idoso',
+}
+
+const AGE_BENEFITS: Record<Age, { attr: number; social: number }> = {
+  Child: { attr: 0, social: 0 },
+  Teen: { attr: 2, social: 2 }, // padrão pra novos jogos (p.41)
+  Adult: { attr: 4, social: 4 },
+  Senior: { attr: 3, social: 6 },
+}
+
+export function ageAttributePoints(age: Age): number {
+  return AGE_BENEFITS[age].attr
+}
+
+export function ageSocialPoints(age: Age): number {
+  return AGE_BENEFITS[age].social
+}
+
 // O import guarda "Speed: Fast/Medium/Slow" dentro do texto livre `detail`
 // de cada evolução (nem toda evolução tem isso — Stone/Trade não têm).
 export function parseEvolutionSpeed(detail: string): EvolutionSpeed | null {

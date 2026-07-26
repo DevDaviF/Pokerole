@@ -1,33 +1,12 @@
 import { useRef, useState } from 'react'
+import { PIXEL_AVATARS, DEFAULT_PIXEL_AVATAR } from '../lib/pixelAvatars'
 
 // Tamanho máximo do lado maior da imagem — mantém o data URL bem abaixo do
 // limite de 64KB do payload de ficha compartilhada (shared_sheets).
 const MAX_SIDE = 160
 const JPEG_QUALITY = 0.72
 
-// Presets = sprites que já existem em /public/sprites (mesmos usados no
-// Pokédex), então não gastam espaço no armazenamento local — é só uma
-// string curta de caminho, não uma imagem embutida.
-const AVATAR_PRESETS = [
-  'pikachu',
-  'eevee',
-  'charmander',
-  'bulbasaur',
-  'squirtle',
-  'umbreon',
-  'gengar',
-  'lucario',
-  'snorlax',
-  'sylveon',
-  'riolu',
-  'vulpix',
-]
-
-function presetUrl(name: string): string {
-  return `/sprites/${name}.png`
-}
-
-export const DEFAULT_AVATAR = presetUrl(AVATAR_PRESETS[0])
+export const DEFAULT_AVATAR = DEFAULT_PIXEL_AVATAR
 
 function resizeToDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -113,15 +92,15 @@ export default function ImagePicker({
         />
         <p className="text-[11px] text-slate-400">Ou escolha um avatar:</p>
         <div className="flex flex-wrap gap-1.5">
-          {AVATAR_PRESETS.map((name) => (
+          {PIXEL_AVATARS.map((a) => (
             <button
-              key={name}
+              key={a.id}
               type="button"
-              title={name}
-              onClick={() => onChange(presetUrl(name))}
+              title={a.label}
+              onClick={() => onChange(a.uri)}
               className="h-8 w-8 overflow-hidden rounded-full border border-slate-200 bg-slate-50 hover:scale-110 hover:border-red-300"
             >
-              <img src={presetUrl(name)} alt={name} className="h-full w-full object-contain" />
+              <img src={a.uri} alt={a.label} className="h-full w-full object-contain" />
             </button>
           ))}
         </div>

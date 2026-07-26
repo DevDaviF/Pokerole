@@ -8,6 +8,16 @@ import {
   SOCIAL_LABELS,
   TRAINER_SKILL_GROUPS,
 } from '../constants'
+import {
+  rankAttributePoints,
+  rankSocialPoints,
+  rankSkillPoints,
+  rankSkillLimit,
+  ageAttributePoints,
+  ageSocialPoints,
+  AGES,
+  AGE_LABELS,
+} from '../lib/progression'
 import Stepper from '../components/Stepper'
 import SkillRoll from '../components/SkillRoll'
 import Shop from '../components/Shop'
@@ -23,6 +33,7 @@ export const getActiveTrainerId = (): number | null => {
 const emptyTrainer = (): Trainer => ({
   name: '',
   rank: 'Starter',
+  age: 'Teen', // padrão pra novos jogos (Corebook 3.0 p.41)
   // humanos não têm Special (Corebook 3.0 p. 34)
   attributes: { strength: 1, dexterity: 1, vitality: 1, special: 0, insight: 1 },
   social: { tough: 1, cool: 1, beauty: 1, cute: 1, clever: 1 },
@@ -48,6 +59,44 @@ export default function TrainersPage() {
 
   const trainerHp = editing ? 4 + editing.attributes.vitality : 0
   const willPoints = editing ? editing.attributes.insight + 3 : 0
+  const age = editing?.age ?? 'Teen'
+
+  // Pontos de Atributo/Social = Rank + Idade, somados no mesmo orçamento
+  // livre pra distribuir (Corebook 3.0 p.30-31 e p.41). Humanos sempre
+  // partem de 1 em cada Atributo/Social, sem variação por espécie.
+  const attrBudget = editing ? rankAttributePoints(editing.rank) + ageAttributePoints(age) : 0
+  const attrSpent = editing
+    ? TRAINER_ATTRIBUTE_LABELS.reduce(
+        (sum, { key }) => sum + Math.max(0, editing.attributes[key] - 1),
+        0,
+      )
+    : 0
+  const attrRemaining = Math.max(0, attrBudget - attrSpent)
+  // Champion (p.31): Atributos podem passar do limite de 5 em até 2 pontos
+  // — a exceção fala só de "Attribute Scores", não de Social.
+  const attrCap = 5 + (editing?.rank === 'Champion' ? 2 : 0)
+  const attrMax = (key: keyof Trainer['attributes']) =>
+    editing ? Math.min(attrCap, editing.attributes[key] + attrRemaining) : attrCap
+
+  const socialBudget = editing ? rankSocialPoints(editing.rank) + ageSocialPoints(age) : 0
+  const socialSpent = editing
+    ? SOCIAL_LABELS.reduce((sum, { key }) => sum + Math.max(0, editing.social[key] - 1), 0)
+    : 0
+  const socialRemaining = Math.max(0, socialBudget - socialSpent)
+  const socialMax = (key: keyof Trainer['social']) =>
+    editing ? Math.min(5, editing.social[key] + socialRemaining) : 5
+
+  const skillBudget = editing ? rankSkillPoints(editing.rank) : 0
+  const skillSpent = editing
+    ? Object.values(editing.skills).reduce((sum, v) => sum + (v ?? 0), 0)
+    : 0
+  const skillRemaining = Math.max(0, skillBudget - skillSpent)
+  const skillLimit = editing ? rankSkillLimit(editing.rank) : 5
+  const skillMax = (skillName: string) => {
+    if (!editing) return skillLimit
+    const current = editing.skills[skillName] ?? 0
+    return Math.min(skillLimit, current + skillRemaining)
+  }
 
   const save = async () => {
     if (!editing || !editing.name.trim()) return
@@ -114,6 +163,27 @@ export default function TrainersPage() {
               ))}
             </select>
           </label>
+          <label className="block">
+            <span className="mb-1 block text-sm font-medium text-slate-600">
+              Idade
+            </span>
+            <select
+              value={age}
+              onChange={(e) =>
+                setEditing({ ...editing, age: e.target.value as Trainer['age'] })
+              }
+              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-red-400 focus:outline-none"
+            >
+              {AGES.map((a) => (
+                <option key={a} value={a}>
+                  {AGE_LABELS[a]}
+                </option>
+              ))}
+            </select>
+            <p className="mt-1 text-xs text-slate-400">
+              Afeta os pontos de Atributo/Social junto com o Rank (p.41).
+            </p>
+          </label>
           <div className="flex gap-4 text-sm text-slate-600 sm:col-span-2">
             <span>
               HP: <b className="text-slate-800">{trainerHp}</b>{' '}
@@ -128,7 +198,19 @@ export default function TrainersPage() {
 
         <div className="grid gap-5 sm:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="mb-3 font-bold text-slate-800">Atributos</h2>
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="font-bold text-slate-800">Atributos</h2>
+              <span
+                className={`rounded-full px-2 py-0.5 text-xs font-bold ${
+                  attrRemaining > 0
+                    ? 'bg-emerald-100 text-emerald-700'
+                    : 'bg-slate-100 text-slate-500'
+                }`}
+                title="Pontos ganhos por Rank + Idade (p.30-31 e p.41), livres pra distribuir"
+              >
+                {attrRemaining}/{attrBudget} pontos (Rank + Idade)
+              </span>
+            </div>
             <div className="space-y-2">
               {TRAINER_ATTRIBUTE_LABELS.map(({ key, label }) => (
                 <Stepper
@@ -136,7 +218,7 @@ export default function TrainersPage() {
                   label={label}
                   value={editing.attributes[key]}
                   min={1}
-                  max={12}
+                  max={attrMax(key)}
                   dotMax={5}
                   onChange={(v) =>
                     setEditing({
@@ -149,7 +231,18 @@ export default function TrainersPage() {
             </div>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="mb-3 font-bold text-slate-800">Atributos Sociais</h2>
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="font-bold text-slate-800">Atributos Sociais</h2>
+              <span
+                className={`rounded-full px-2 py-0.5 text-xs font-bold ${
+                  socialRemaining > 0
+                    ? 'bg-emerald-100 text-emerald-700'
+                    : 'bg-slate-100 text-slate-500'
+                }`}
+              >
+                {socialRemaining}/{socialBudget} pontos (Rank + Idade)
+              </span>
+            </div>
             <div className="space-y-2">
               {SOCIAL_LABELS.map(({ key, label }) => (
                 <Stepper
@@ -157,7 +250,7 @@ export default function TrainersPage() {
                   label={label}
                   value={editing.social[key]}
                   min={1}
-                  max={12}
+                  max={socialMax(key)}
                   dotMax={5}
                   onChange={(v) =>
                     setEditing({
@@ -172,7 +265,18 @@ export default function TrainersPage() {
         </div>
 
         <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-          <h2 className="mb-3 font-bold text-slate-800">Skills</h2>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="font-bold text-slate-800">Skills</h2>
+            <span
+              className={`rounded-full px-2 py-0.5 text-xs font-bold ${
+                skillRemaining > 0
+                  ? 'bg-emerald-100 text-emerald-700'
+                  : 'bg-slate-100 text-slate-500'
+              }`}
+            >
+              {skillRemaining}/{skillBudget} Skill Points · limite {skillLimit}/skill
+            </span>
+          </div>
           <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
             {TRAINER_SKILL_GROUPS.map(({ group, skills }) => (
               <div key={group}>
@@ -185,8 +289,8 @@ export default function TrainersPage() {
                       key={s}
                       label={s}
                       value={editing.skills[s] ?? 0}
-                      max={5}
-                      dotMax={5}
+                      max={skillMax(s)}
+                      dotMax={skillLimit}
                       onChange={(v) =>
                         setEditing({
                           ...editing,
