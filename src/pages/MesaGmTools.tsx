@@ -151,6 +151,10 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
 
   const draw = async () => {
     const picks = weightedDraw(selectedHabitats, tiers, includeLegendary, quantity)
+    // O sorteio em si fica só com o Mestre — mandar os nomes pro chat aqui
+    // entregava o encontro inteiro pros jogadores antes de qualquer ficha
+    // existir. O anúncio público só acontece depois, quando o Mestre gera
+    // e publica a ficha de um Pokémon específico (ver publishNpc/announce).
     setDrawn(
       picks.map((p, i) => ({
         key: `${p.id}-${i}`,
@@ -161,12 +165,6 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
         generating: false,
         done: false,
       })),
-    )
-    const habitatLabel = selectedHabitats.map((h) => `${h.icon} ${h.label}`).join(' + ')
-    await announce(
-      mesaId,
-      myId,
-      `${habitatLabel}: ${picks.length ? picks.map((p) => p.name).join(', ') : 'nada por aqui...'}`,
     )
   }
 
