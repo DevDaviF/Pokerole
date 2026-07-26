@@ -10,7 +10,7 @@ import {
   type RollResult,
 } from './DiceRoller'
 import { useMesa } from '../lib/mesa'
-import { pokemonById, typeColor } from '../data'
+import { pokemonById, typeColor, spriteUrl } from '../data'
 
 export { DiceRow }
 
@@ -138,6 +138,7 @@ export function MoveRollPanel({
       Math.max(1, pool),
       `${displayName} · ${move.name} · ${kind} (${formula})`,
     )
+    if (species) r.icon = spriteUrl(species.id)
     setLast(r)
     postRoll(r)
   }
@@ -149,6 +150,7 @@ export function MoveRollPanel({
       chancePool,
       `${displayName} · ${move.name} · Chance Dice`,
     )
+    if (species) r.icon = spriteUrl(species.id)
     setLast(r)
     postRoll(r)
   }

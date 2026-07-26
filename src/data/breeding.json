@@ -1,0 +1,7509 @@
+{
+"bulbasaur": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"ivysaur": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"venusaur": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"venusaur-mega-form": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"charmander": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"charmeleon": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"charizard": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"charizard-mega-y-form": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"charizard-mega-x-form": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"squirtle": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"wartortle": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"blastoise": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"blastoise-mega-form": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"caterpie": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"metapod": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"butterfree": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"weedle": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"kakuna": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"beedrill": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"beedrill-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"pidgey": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"pidgeotto": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"pidgeot": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"pidgeot-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"rattata": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"rattata-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"raticate": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"raticate-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"spearow": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"fearow": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"ekans": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"dragon"
+]
+},
+"arbok": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"dragon"
+]
+},
+"pikachu": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"raichu": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"raichu-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"sandshrew": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"sandshrew-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"sandslash": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"sandslash-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"nidoran-f": {
+"genderRate": 8,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"nidorina": {
+"genderRate": 8,
+"eggGroups": [
+"no-eggs"
+]
+},
+"nidoqueen": {
+"genderRate": 8,
+"eggGroups": [
+"no-eggs"
+]
+},
+"nidoran-m": {
+"genderRate": 0,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"nidorino": {
+"genderRate": 0,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"nidoking": {
+"genderRate": 0,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"clefairy": {
+"genderRate": 6,
+"eggGroups": [
+"fairy"
+]
+},
+"clefable": {
+"genderRate": 6,
+"eggGroups": [
+"fairy"
+]
+},
+"vulpix": {
+"genderRate": 6,
+"eggGroups": [
+"ground"
+]
+},
+"vulpix-alolan-form": {
+"genderRate": 6,
+"eggGroups": [
+"ground"
+]
+},
+"ninetales": {
+"genderRate": 6,
+"eggGroups": [
+"ground"
+]
+},
+"ninetales-alolan-form": {
+"genderRate": 6,
+"eggGroups": [
+"ground"
+]
+},
+"jigglypuff": {
+"genderRate": 6,
+"eggGroups": [
+"fairy"
+]
+},
+"wigglytuff": {
+"genderRate": 6,
+"eggGroups": [
+"fairy"
+]
+},
+"zubat": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"golbat": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"oddish": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"gloom": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"vileplume": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"paras": {
+"genderRate": 4,
+"eggGroups": [
+"bug",
+"plant"
+]
+},
+"parasect": {
+"genderRate": 4,
+"eggGroups": [
+"bug",
+"plant"
+]
+},
+"venonat": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"venomoth": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"diglett": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"diglett-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"dugtrio": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"dugtrio-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"meowth": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"meowth-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"meowth-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"persian": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"persian-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"psyduck": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"golduck": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"mankey": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"primeape": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"growlithe": {
+"genderRate": 2,
+"eggGroups": [
+"ground"
+]
+},
+"growlithe-hisuian-form": {
+"genderRate": 2,
+"eggGroups": [
+"ground"
+]
+},
+"arcanine": {
+"genderRate": 2,
+"eggGroups": [
+"ground"
+]
+},
+"arcanine-hisuian-form": {
+"genderRate": 2,
+"eggGroups": [
+"ground"
+]
+},
+"poliwag": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"poliwhirl": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"poliwrath": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"abra": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"kadabra": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"alakazam": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"alakazam-mega-form": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"machop": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"machoke": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"machamp": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"bellsprout": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"weepinbell": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"victreebel": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"tentacool": {
+"genderRate": 4,
+"eggGroups": [
+"water3"
+]
+},
+"tentacruel": {
+"genderRate": 4,
+"eggGroups": [
+"water3"
+]
+},
+"geodude": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"geodude-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"graveler": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"graveler-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"golem": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"golem-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"ponyta": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"ponyta-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"rapidash": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"rapidash-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"slowpoke": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"slowpoke-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"slowbro": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"slowbro-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"slowbro-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"magnemite": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"magneton": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"farfetch-d": {
+"genderRate": 4,
+"eggGroups": [
+"flying",
+"ground"
+]
+},
+"farfetch-d-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"flying",
+"ground"
+]
+},
+"doduo": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"dodrio": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"seel": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"dewgong": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"grimer": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"grimer-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"muk": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"muk-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"shellder": {
+"genderRate": 4,
+"eggGroups": [
+"water3"
+]
+},
+"cloyster": {
+"genderRate": 4,
+"eggGroups": [
+"water3"
+]
+},
+"gastly": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"haunter": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"gengar": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"gengar-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"onix": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"drowzee": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"hypno": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"krabby": {
+"genderRate": 4,
+"eggGroups": [
+"water3"
+]
+},
+"kingler": {
+"genderRate": 4,
+"eggGroups": [
+"water3"
+]
+},
+"voltorb": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"voltorb-hisuian-form": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"electrode": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"electrode-hisuian-form": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"exeggcute": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"exeggutor": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"exeggutor-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"cubone": {
+"genderRate": 4,
+"eggGroups": [
+"monster"
+]
+},
+"marowak": {
+"genderRate": 4,
+"eggGroups": [
+"monster"
+]
+},
+"marowak-alolan-form": {
+"genderRate": 4,
+"eggGroups": [
+"monster"
+]
+},
+"hitmonlee": {
+"genderRate": 0,
+"eggGroups": [
+"humanshape"
+]
+},
+"hitmonchan": {
+"genderRate": 0,
+"eggGroups": [
+"humanshape"
+]
+},
+"lickitung": {
+"genderRate": 4,
+"eggGroups": [
+"monster"
+]
+},
+"koffing": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"weezing": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"weezing-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"rhyhorn": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"rhydon": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"chansey": {
+"genderRate": 8,
+"eggGroups": [
+"fairy"
+]
+},
+"tangela": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"kangaskhan": {
+"genderRate": 8,
+"eggGroups": [
+"monster"
+]
+},
+"kangaskhan-mega-form": {
+"genderRate": 8,
+"eggGroups": [
+"monster"
+]
+},
+"horsea": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"dragon"
+]
+},
+"seadra": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"dragon"
+]
+},
+"goldeen": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"seaking": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"staryu": {
+"genderRate": -1,
+"eggGroups": [
+"water3"
+]
+},
+"starmie": {
+"genderRate": -1,
+"eggGroups": [
+"water3"
+]
+},
+"mr-mime": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"mr-mime-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"scyther": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"jynx": {
+"genderRate": 8,
+"eggGroups": [
+"humanshape"
+]
+},
+"electabuzz": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"magmar": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"pinsir": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"pinsir-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"tauros": {
+"genderRate": 0,
+"eggGroups": [
+"ground"
+]
+},
+"magikarp": {
+"genderRate": 4,
+"eggGroups": [
+"water2",
+"dragon"
+]
+},
+"gyarados": {
+"genderRate": 4,
+"eggGroups": [
+"water2",
+"dragon"
+]
+},
+"gyarados-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"water2",
+"dragon"
+]
+},
+"lapras": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"ditto": {
+"genderRate": -1,
+"eggGroups": [
+"ditto"
+]
+},
+"eevee": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"vaporeon": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"jolteon": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"flareon": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"porygon": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"omanyte": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"water3"
+]
+},
+"omastar": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"water3"
+]
+},
+"kabuto": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"water3"
+]
+},
+"kabutops": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"water3"
+]
+},
+"aerodactyl": {
+"genderRate": 1,
+"eggGroups": [
+"flying"
+]
+},
+"aerodactyl-mega-form": {
+"genderRate": 1,
+"eggGroups": [
+"flying"
+]
+},
+"snorlax": {
+"genderRate": 1,
+"eggGroups": [
+"monster"
+]
+},
+"articuno": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"articuno-galarian-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"zapdos": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"zapdos-galarian-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"moltres": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"moltres-galarian-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"dratini": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"dragon"
+]
+},
+"dragonair": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"dragon"
+]
+},
+"dragonite": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"dragon"
+]
+},
+"mewtwo": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"mewtwo-mega-x-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"mewtwo-mega-y-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"mew": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"chikorita": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"bayleef": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"meganium": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"cyndaquil": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"quilava": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"typhlosion": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"typhlosion-hisuian-form": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"totodile": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"croconaw": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"feraligatr": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"sentret": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"furret": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"hoothoot": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"noctowl": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"ledyba": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"ledian": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"spinarak": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"ariados": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"crobat": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"chinchou": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"lanturn": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"pichu": {
+"genderRate": 4,
+"eggGroups": [
+"no-eggs"
+]
+},
+"cleffa": {
+"genderRate": 6,
+"eggGroups": [
+"no-eggs"
+]
+},
+"igglybuff": {
+"genderRate": 6,
+"eggGroups": [
+"no-eggs"
+]
+},
+"togepi": {
+"genderRate": 1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"togetic": {
+"genderRate": 1,
+"eggGroups": [
+"flying",
+"fairy"
+]
+},
+"natu": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"xatu": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"mareep": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"flaaffy": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"ampharos": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"ampharos-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"bellossom": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"marill": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"fairy"
+]
+},
+"azumarill": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"fairy"
+]
+},
+"sudowoodo": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"politoed": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"hoppip": {
+"genderRate": 4,
+"eggGroups": [
+"fairy",
+"plant"
+]
+},
+"skiploom": {
+"genderRate": 4,
+"eggGroups": [
+"fairy",
+"plant"
+]
+},
+"jumpluff": {
+"genderRate": 4,
+"eggGroups": [
+"fairy",
+"plant"
+]
+},
+"aipom": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"sunkern": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"sunflora": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"yanma": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"wooper": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"wooper-paldean-form": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"quagsire": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"espeon": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"umbreon": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"murkrow": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"slowking": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"slowking-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"misdreavus": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"unown": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"wobbuffet": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"girafarig": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"pineco": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"forretress": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"dunsparce": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"gligar": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"steelix": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"steelix-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"snubbull": {
+"genderRate": 6,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"granbull": {
+"genderRate": 6,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"qwilfish": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"qwilfish-hisuian-form": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"scizor": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"scizor-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"shuckle": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"heracross": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"heracross-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"sneasel": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"sneasel-hisuian-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"teddiursa": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"ursaring": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"slugma": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"magcargo": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"swinub": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"piloswine": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"corsola": {
+"genderRate": 6,
+"eggGroups": [
+"water1",
+"water3"
+]
+},
+"corsola-galarian-form": {
+"genderRate": 6,
+"eggGroups": [
+"water1",
+"water3"
+]
+},
+"remoraid": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"water2"
+]
+},
+"octillery": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"water2"
+]
+},
+"delibird": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"mantine": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"skarmory": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"houndour": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"houndoom": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"houndoom-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"kingdra": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"dragon"
+]
+},
+"phanpy": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"donphan": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"porygon2": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"stantler": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"smeargle": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"tyrogue": {
+"genderRate": 0,
+"eggGroups": [
+"no-eggs"
+]
+},
+"hitmontop": {
+"genderRate": 0,
+"eggGroups": [
+"humanshape"
+]
+},
+"smoochum": {
+"genderRate": 8,
+"eggGroups": [
+"no-eggs"
+]
+},
+"elekid": {
+"genderRate": 2,
+"eggGroups": [
+"no-eggs"
+]
+},
+"magby": {
+"genderRate": 2,
+"eggGroups": [
+"no-eggs"
+]
+},
+"miltank": {
+"genderRate": 8,
+"eggGroups": [
+"ground"
+]
+},
+"blissey": {
+"genderRate": 8,
+"eggGroups": [
+"fairy"
+]
+},
+"raikou": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"entei": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"suicune": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"larvitar": {
+"genderRate": 4,
+"eggGroups": [
+"monster"
+]
+},
+"pupitar": {
+"genderRate": 4,
+"eggGroups": [
+"monster"
+]
+},
+"tyranitar": {
+"genderRate": 4,
+"eggGroups": [
+"monster"
+]
+},
+"tyranitar-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"monster"
+]
+},
+"lugia": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"ho-oh": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"celebi": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"treecko": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"grovyle": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"sceptile": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"sceptile-mega-form": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"torchic": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"combusken": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"blaziken": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"blaziken-mega-form": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"mudkip": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"marshtomp": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"swampert": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"swampert-mega-form": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"poochyena": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"mightyena": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"zigzagoon": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"zigzagoon-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"linoone": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"linoone-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"wurmple": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"silcoon": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"beautifly": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"cascoon": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"dustox": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"lotad": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"plant"
+]
+},
+"lombre": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"plant"
+]
+},
+"ludicolo": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"plant"
+]
+},
+"seedot": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"plant"
+]
+},
+"nuzleaf": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"plant"
+]
+},
+"shiftry": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"plant"
+]
+},
+"taillow": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"swellow": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"wingull": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"flying"
+]
+},
+"pelipper": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"flying"
+]
+},
+"ralts": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape",
+"indeterminate"
+]
+},
+"kirlia": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape",
+"indeterminate"
+]
+},
+"gardevoir": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape",
+"indeterminate"
+]
+},
+"gardevoir-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape",
+"indeterminate"
+]
+},
+"surskit": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"bug"
+]
+},
+"masquerain": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"bug"
+]
+},
+"shroomish": {
+"genderRate": 4,
+"eggGroups": [
+"fairy",
+"plant"
+]
+},
+"breloom": {
+"genderRate": 4,
+"eggGroups": [
+"fairy",
+"plant"
+]
+},
+"slakoth": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"vigoroth": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"slaking": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"nincada": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"ninjask": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"shedinja": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"whismur": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"loudred": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"exploud": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"makuhita": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"hariyama": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"azurill": {
+"genderRate": 6,
+"eggGroups": [
+"no-eggs"
+]
+},
+"nosepass": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"skitty": {
+"genderRate": 6,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"delcatty": {
+"genderRate": 6,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"sableye": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"sableye-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"mawile": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"mawile-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"aron": {
+"genderRate": 4,
+"eggGroups": [
+"monster"
+]
+},
+"lairon": {
+"genderRate": 4,
+"eggGroups": [
+"monster"
+]
+},
+"aggron": {
+"genderRate": 4,
+"eggGroups": [
+"monster"
+]
+},
+"aggron-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"monster"
+]
+},
+"meditite": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"medicham": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"medicham-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"electrike": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"manectric": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"manectric-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"plusle": {
+"genderRate": 4,
+"eggGroups": [
+"fairy"
+]
+},
+"minun": {
+"genderRate": 4,
+"eggGroups": [
+"fairy"
+]
+},
+"volbeat": {
+"genderRate": 0,
+"eggGroups": [
+"bug",
+"humanshape"
+]
+},
+"illumise": {
+"genderRate": 8,
+"eggGroups": [
+"bug",
+"humanshape"
+]
+},
+"roselia": {
+"genderRate": 4,
+"eggGroups": [
+"fairy",
+"plant"
+]
+},
+"gulpin": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"swalot": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"carvanha": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"sharpedo": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"sharpedo-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"wailmer": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"water2"
+]
+},
+"wailord": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"water2"
+]
+},
+"numel": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"camerupt": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"camerupt-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"torkoal": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"spoink": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"grumpig": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"spinda": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"trapinch": {
+"genderRate": 4,
+"eggGroups": [
+"bug",
+"dragon"
+]
+},
+"vibrava": {
+"genderRate": 4,
+"eggGroups": [
+"bug",
+"dragon"
+]
+},
+"flygon": {
+"genderRate": 4,
+"eggGroups": [
+"bug",
+"dragon"
+]
+},
+"cacnea": {
+"genderRate": 4,
+"eggGroups": [
+"plant",
+"humanshape"
+]
+},
+"cacturne": {
+"genderRate": 4,
+"eggGroups": [
+"plant",
+"humanshape"
+]
+},
+"swablu": {
+"genderRate": 4,
+"eggGroups": [
+"flying",
+"dragon"
+]
+},
+"altaria": {
+"genderRate": 4,
+"eggGroups": [
+"flying",
+"dragon"
+]
+},
+"altaria-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"flying",
+"dragon"
+]
+},
+"zangoose": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"seviper": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"dragon"
+]
+},
+"lunatone": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"solrock": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"barboach": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"whiscash": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"corphish": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"water3"
+]
+},
+"crawdaunt": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"water3"
+]
+},
+"baltoy": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"claydol": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"lileep": {
+"genderRate": 1,
+"eggGroups": [
+"water3"
+]
+},
+"cradily": {
+"genderRate": 1,
+"eggGroups": [
+"water3"
+]
+},
+"anorith": {
+"genderRate": 1,
+"eggGroups": [
+"water3"
+]
+},
+"armaldo": {
+"genderRate": 1,
+"eggGroups": [
+"water3"
+]
+},
+"feebas": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"dragon"
+]
+},
+"milotic": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"dragon"
+]
+},
+"castform": {
+"genderRate": 4,
+"eggGroups": [
+"fairy",
+"indeterminate"
+]
+},
+"kecleon": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"shuppet": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"banette": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"banette-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"duskull": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"dusclops": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"tropius": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"chimecho": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"absol": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"absol-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"wynaut": {
+"genderRate": 4,
+"eggGroups": [
+"no-eggs"
+]
+},
+"snorunt": {
+"genderRate": 4,
+"eggGroups": [
+"fairy",
+"mineral"
+]
+},
+"glalie": {
+"genderRate": 4,
+"eggGroups": [
+"fairy",
+"mineral"
+]
+},
+"glalie-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"fairy",
+"mineral"
+]
+},
+"spheal": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"sealeo": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"walrein": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"clamperl": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"huntail": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"gorebyss": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"relicanth": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"water2"
+]
+},
+"luvdisc": {
+"genderRate": 6,
+"eggGroups": [
+"water2"
+]
+},
+"bagon": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"shelgon": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"salamence": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"salamence-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"beldum": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"metang": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"metagross": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"metagross-mega-form": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"regirock": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"regice": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"registeel": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"latias": {
+"genderRate": 8,
+"eggGroups": [
+"no-eggs"
+]
+},
+"latias-mega-form": {
+"genderRate": 8,
+"eggGroups": [
+"no-eggs"
+]
+},
+"latios": {
+"genderRate": 0,
+"eggGroups": [
+"no-eggs"
+]
+},
+"latios-mega-form": {
+"genderRate": 0,
+"eggGroups": [
+"no-eggs"
+]
+},
+"kyogre": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"kyogre-primal-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"groudon": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"groudon-primal-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"rayquaza": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"rayquaza-mega-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"jirachi": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"deoxys": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"deoxys-attack-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"deoxys-defense-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"deoxys-speed-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"turtwig": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"grotle": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"torterra": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"chimchar": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"monferno": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"infernape": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"piplup": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"prinplup": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"empoleon": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"starly": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"staravia": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"staraptor": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"bidoof": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"bibarel": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"kricketot": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"kricketune": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"shinx": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"luxio": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"luxray": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"budew": {
+"genderRate": 4,
+"eggGroups": [
+"no-eggs"
+]
+},
+"roserade": {
+"genderRate": 4,
+"eggGroups": [
+"fairy",
+"plant"
+]
+},
+"cranidos": {
+"genderRate": 1,
+"eggGroups": [
+"monster"
+]
+},
+"rampardos": {
+"genderRate": 1,
+"eggGroups": [
+"monster"
+]
+},
+"shieldon": {
+"genderRate": 1,
+"eggGroups": [
+"monster"
+]
+},
+"bastiodon": {
+"genderRate": 1,
+"eggGroups": [
+"monster"
+]
+},
+"burmy": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"mothim": {
+"genderRate": 0,
+"eggGroups": [
+"bug"
+]
+},
+"combee": {
+"genderRate": 1,
+"eggGroups": [
+"bug"
+]
+},
+"vespiquen": {
+"genderRate": 8,
+"eggGroups": [
+"bug"
+]
+},
+"pachirisu": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"buizel": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"floatzel": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"cherubi": {
+"genderRate": 4,
+"eggGroups": [
+"fairy",
+"plant"
+]
+},
+"cherrim": {
+"genderRate": 4,
+"eggGroups": [
+"fairy",
+"plant"
+]
+},
+"shellos": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"indeterminate"
+]
+},
+"gastrodon": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"indeterminate"
+]
+},
+"ambipom": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"drifloon": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"drifblim": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"buneary": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"lopunny": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"lopunny-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"mismagius": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"honchkrow": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"glameow": {
+"genderRate": 6,
+"eggGroups": [
+"ground"
+]
+},
+"purugly": {
+"genderRate": 6,
+"eggGroups": [
+"ground"
+]
+},
+"chingling": {
+"genderRate": 4,
+"eggGroups": [
+"no-eggs"
+]
+},
+"stunky": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"skuntank": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"bronzor": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"bronzong": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"bonsly": {
+"genderRate": 4,
+"eggGroups": [
+"no-eggs"
+]
+},
+"mime-jr": {
+"genderRate": 4,
+"eggGroups": [
+"no-eggs"
+]
+},
+"happiny": {
+"genderRate": 8,
+"eggGroups": [
+"no-eggs"
+]
+},
+"chatot": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"spiritomb": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"gible": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"gabite": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"garchomp": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"garchomp-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"munchlax": {
+"genderRate": 1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"riolu": {
+"genderRate": 1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"lucario": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"lucario-mega-form": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"hippopotas": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"hippowdon": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"skorupi": {
+"genderRate": 4,
+"eggGroups": [
+"bug",
+"water3"
+]
+},
+"drapion": {
+"genderRate": 4,
+"eggGroups": [
+"bug",
+"water3"
+]
+},
+"croagunk": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"toxicroak": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"carnivine": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"finneon": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"lumineon": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"mantyke": {
+"genderRate": 4,
+"eggGroups": [
+"no-eggs"
+]
+},
+"snover": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"abomasnow": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"abomasnow-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"plant"
+]
+},
+"weavile": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"magnezone": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"lickilicky": {
+"genderRate": 4,
+"eggGroups": [
+"monster"
+]
+},
+"rhyperior": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"ground"
+]
+},
+"tangrowth": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"electivire": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"magmortar": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"togekiss": {
+"genderRate": 1,
+"eggGroups": [
+"flying",
+"fairy"
+]
+},
+"yanmega": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"leafeon": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"glaceon": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"gliscor": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"mamoswine": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"porygon-z": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"gallade": {
+"genderRate": 0,
+"eggGroups": [
+"humanshape",
+"indeterminate"
+]
+},
+"gallade-mega-form": {
+"genderRate": 0,
+"eggGroups": [
+"humanshape",
+"indeterminate"
+]
+},
+"probopass": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"dusknoir": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"froslass": {
+"genderRate": 8,
+"eggGroups": [
+"fairy",
+"mineral"
+]
+},
+"rotom": {
+"genderRate": -1,
+"eggGroups": [
+"indeterminate"
+]
+},
+"rotom-heat-form": {
+"genderRate": -1,
+"eggGroups": [
+"indeterminate"
+]
+},
+"rotom-fan-form": {
+"genderRate": -1,
+"eggGroups": [
+"indeterminate"
+]
+},
+"rotom-mow-form": {
+"genderRate": -1,
+"eggGroups": [
+"indeterminate"
+]
+},
+"rotom-frost-form": {
+"genderRate": -1,
+"eggGroups": [
+"indeterminate"
+]
+},
+"rotom-wash-form": {
+"genderRate": -1,
+"eggGroups": [
+"indeterminate"
+]
+},
+"uxie": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"mesprit": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"azelf": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"dialga": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"dialga-origin-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"palkia": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"palkia-origin-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"heatran": {
+"genderRate": 4,
+"eggGroups": [
+"no-eggs"
+]
+},
+"regigigas": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"giratina": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"giratina-origin-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"cresselia": {
+"genderRate": 8,
+"eggGroups": [
+"no-eggs"
+]
+},
+"phione": {
+"genderRate": -1,
+"eggGroups": [
+"water1",
+"fairy"
+]
+},
+"manaphy": {
+"genderRate": -1,
+"eggGroups": [
+"water1",
+"fairy"
+]
+},
+"darkrai": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"shaymin": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"shaymin-sky-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"arceus": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"victini": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"snivy": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"plant"
+]
+},
+"servine": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"plant"
+]
+},
+"serperior": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"plant"
+]
+},
+"tepig": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"pignite": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"emboar": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"oshawott": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"dewott": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"samurott": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"samurott-hisuian-form": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"patrat": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"watchog": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"lillipup": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"herdier": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"stoutland": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"purrloin": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"liepard": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"pansage": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"simisage": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"pansear": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"simisear": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"panpour": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"simipour": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"munna": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"musharna": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"pidove": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"tranquill": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"unfezant": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"blitzle": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"zebstrika": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"roggenrola": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"boldore": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"gigalith": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"woobat": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"flying"
+]
+},
+"swoobat": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"flying"
+]
+},
+"drilbur": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"excadrill": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"audino": {
+"genderRate": 4,
+"eggGroups": [
+"fairy"
+]
+},
+"audino-mega-form": {
+"genderRate": 4,
+"eggGroups": [
+"fairy"
+]
+},
+"timburr": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"gurdurr": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"conkeldurr": {
+"genderRate": 2,
+"eggGroups": [
+"humanshape"
+]
+},
+"tympole": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"palpitoad": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"seismitoad": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"throh": {
+"genderRate": 0,
+"eggGroups": [
+"humanshape"
+]
+},
+"sawk": {
+"genderRate": 0,
+"eggGroups": [
+"humanshape"
+]
+},
+"sewaddle": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"swadloon": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"leavanny": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"venipede": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"whirlipede": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"scolipede": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"cottonee": {
+"genderRate": 4,
+"eggGroups": [
+"plant",
+"fairy"
+]
+},
+"whimsicott": {
+"genderRate": 4,
+"eggGroups": [
+"plant",
+"fairy"
+]
+},
+"petilil": {
+"genderRate": 8,
+"eggGroups": [
+"plant"
+]
+},
+"lilligant": {
+"genderRate": 8,
+"eggGroups": [
+"plant"
+]
+},
+"basculin": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"basculin-hisuian-form": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"sandile": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"krokorok": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"krookodile": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"darumaka": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"darumaka-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"darmanitan": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"darmanitan-zen-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"darmanitan-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"maractus": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"dwebble": {
+"genderRate": 4,
+"eggGroups": [
+"bug",
+"mineral"
+]
+},
+"crustle": {
+"genderRate": 4,
+"eggGroups": [
+"bug",
+"mineral"
+]
+},
+"scraggy": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"dragon"
+]
+},
+"scrafty": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"dragon"
+]
+},
+"sigilyph": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"yamask": {
+"genderRate": 4,
+"eggGroups": [
+"mineral",
+"indeterminate"
+]
+},
+"yamask-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"mineral",
+"indeterminate"
+]
+},
+"cofagrigus": {
+"genderRate": 4,
+"eggGroups": [
+"mineral",
+"indeterminate"
+]
+},
+"tirtouga": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"water3"
+]
+},
+"carracosta": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"water3"
+]
+},
+"archen": {
+"genderRate": 1,
+"eggGroups": [
+"flying",
+"water3"
+]
+},
+"archeops": {
+"genderRate": 1,
+"eggGroups": [
+"flying",
+"water3"
+]
+},
+"trubbish": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"garbodor": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"zorua": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"zorua-hisuian-form": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"zoroark": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"zoroark-hisuian-form": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"minccino": {
+"genderRate": 6,
+"eggGroups": [
+"ground"
+]
+},
+"cinccino": {
+"genderRate": 6,
+"eggGroups": [
+"ground"
+]
+},
+"gothita": {
+"genderRate": 6,
+"eggGroups": [
+"humanshape"
+]
+},
+"gothorita": {
+"genderRate": 6,
+"eggGroups": [
+"humanshape"
+]
+},
+"gothitelle": {
+"genderRate": 6,
+"eggGroups": [
+"humanshape"
+]
+},
+"solosis": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"duosion": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"reuniclus": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"ducklett": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"flying"
+]
+},
+"swanna": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"flying"
+]
+},
+"vanillite": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"vanillish": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"vanilluxe": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"deerling": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"sawsbuck": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"emolga": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"karrablast": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"escavalier": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"foongus": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"amoonguss": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"frillish": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"jellicent": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"alomomola": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"water2"
+]
+},
+"joltik": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"galvantula": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"ferroseed": {
+"genderRate": 4,
+"eggGroups": [
+"plant",
+"mineral"
+]
+},
+"ferrothorn": {
+"genderRate": 4,
+"eggGroups": [
+"plant",
+"mineral"
+]
+},
+"klink": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"klang": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"klinklang": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"tynamo": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"eelektrik": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"eelektross": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"elgyem": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"beheeyem": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"litwick": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"lampent": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"chandelure": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"axew": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"fraxure": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"haxorus": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"cubchoo": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"beartic": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"cryogonal": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"shelmet": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"accelgor": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"stunfisk": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"indeterminate"
+]
+},
+"stunfisk-galarian-form": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"indeterminate"
+]
+},
+"mienfoo": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"mienshao": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"druddigon": {
+"genderRate": 4,
+"eggGroups": [
+"dragon",
+"monster"
+]
+},
+"golett": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"golurk": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"pawniard": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"bisharp": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"bouffalant": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"rufflet": {
+"genderRate": 0,
+"eggGroups": [
+"flying"
+]
+},
+"braviary": {
+"genderRate": 0,
+"eggGroups": [
+"flying"
+]
+},
+"braviary-hisuian-form": {
+"genderRate": 0,
+"eggGroups": [
+"flying"
+]
+},
+"vullaby": {
+"genderRate": 8,
+"eggGroups": [
+"flying"
+]
+},
+"mandibuzz": {
+"genderRate": 8,
+"eggGroups": [
+"flying"
+]
+},
+"heatmor": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"durant": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"deino": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"zweilous": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"hydreigon": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"larvesta": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"volcarona": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"cobalion": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"terrakion": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"virizion": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"tornadus": {
+"genderRate": 0,
+"eggGroups": [
+"no-eggs"
+]
+},
+"tornadus-therian-form": {
+"genderRate": 0,
+"eggGroups": [
+"no-eggs"
+]
+},
+"thundurus": {
+"genderRate": 0,
+"eggGroups": [
+"no-eggs"
+]
+},
+"thundurus-therian-form": {
+"genderRate": 0,
+"eggGroups": [
+"no-eggs"
+]
+},
+"reshiram": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"zekrom": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"landorus": {
+"genderRate": 0,
+"eggGroups": [
+"no-eggs"
+]
+},
+"landorus-therian-form": {
+"genderRate": 0,
+"eggGroups": [
+"no-eggs"
+]
+},
+"kyurem": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"kyurem-black-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"kyurem-white-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"keldeo": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"keldeo-resolute-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"meloetta": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"meloetta-pirouette-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"genesect": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"chespin": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"quilladin": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"chesnaught": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"fennekin": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"braixen": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"delphox": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"froakie": {
+"genderRate": 1,
+"eggGroups": [
+"water1"
+]
+},
+"frogadier": {
+"genderRate": 1,
+"eggGroups": [
+"water1"
+]
+},
+"greninja": {
+"genderRate": 1,
+"eggGroups": [
+"water1"
+]
+},
+"bunnelby": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"diggersby": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"fletchling": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"fletchinder": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"talonflame": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"scatterbug": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"spewpa": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"vivillon": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"litleo": {
+"genderRate": 7,
+"eggGroups": [
+"ground"
+]
+},
+"pyroar": {
+"genderRate": 7,
+"eggGroups": [
+"ground"
+]
+},
+"flabebe": {
+"genderRate": 8,
+"eggGroups": [
+"fairy"
+]
+},
+"floette": {
+"genderRate": 8,
+"eggGroups": [
+"fairy"
+]
+},
+"florges": {
+"genderRate": 8,
+"eggGroups": [
+"fairy"
+]
+},
+"skiddo": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"gogoat": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"pancham": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"pangoro": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"furfrou": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"espurr": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"meowstic": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"honedge": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"doublade": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"aegislash": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"aegislash-blade-form": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"spritzee": {
+"genderRate": 4,
+"eggGroups": [
+"fairy"
+]
+},
+"aromatisse": {
+"genderRate": 4,
+"eggGroups": [
+"fairy"
+]
+},
+"swirlix": {
+"genderRate": 4,
+"eggGroups": [
+"fairy"
+]
+},
+"slurpuff": {
+"genderRate": 4,
+"eggGroups": [
+"fairy"
+]
+},
+"inkay": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"water2"
+]
+},
+"malamar": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"water2"
+]
+},
+"binacle": {
+"genderRate": 4,
+"eggGroups": [
+"water3"
+]
+},
+"barbaracle": {
+"genderRate": 4,
+"eggGroups": [
+"water3"
+]
+},
+"skrelp": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"dragon"
+]
+},
+"dragalge": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"dragon"
+]
+},
+"clauncher": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"water3"
+]
+},
+"clawitzer": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"water3"
+]
+},
+"helioptile": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"heliolisk": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"tyrunt": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"tyrantrum": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"amaura": {
+"genderRate": 1,
+"eggGroups": [
+"monster"
+]
+},
+"aurorus": {
+"genderRate": 1,
+"eggGroups": [
+"monster"
+]
+},
+"sylveon": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"hawlucha": {
+"genderRate": 4,
+"eggGroups": [
+"flying",
+"humanshape"
+]
+},
+"dedenne": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"carbink": {
+"genderRate": -1,
+"eggGroups": [
+"fairy",
+"mineral"
+]
+},
+"goomy": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"sliggoo": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"sliggoo-hisuian-form": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"goodra": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"goodra-hisuian-form": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"klefki": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"phantump": {
+"genderRate": 4,
+"eggGroups": [
+"plant",
+"indeterminate"
+]
+},
+"trevenant": {
+"genderRate": 4,
+"eggGroups": [
+"plant",
+"indeterminate"
+]
+},
+"pumpkaboo": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"gourgeist": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"bergmite": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"mineral"
+]
+},
+"avalugg": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"mineral"
+]
+},
+"avalugg-hisuian-form": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"mineral"
+]
+},
+"noibat": {
+"genderRate": 4,
+"eggGroups": [
+"flying",
+"dragon"
+]
+},
+"noivern": {
+"genderRate": 4,
+"eggGroups": [
+"flying",
+"dragon"
+]
+},
+"xerneas": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"yveltal": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"diancie": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"diancie-mega-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"hoopa": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"volcanion": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"rowlet": {
+"genderRate": 1,
+"eggGroups": [
+"flying"
+]
+},
+"dartrix": {
+"genderRate": 1,
+"eggGroups": [
+"flying"
+]
+},
+"decidueye": {
+"genderRate": 1,
+"eggGroups": [
+"flying"
+]
+},
+"decidueye-hisuian-form": {
+"genderRate": 1,
+"eggGroups": [
+"flying"
+]
+},
+"litten": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"torracat": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"incineroar": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"popplio": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"brionne": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"primarina": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"pikipek": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"trumbeak": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"toucannon": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"yungoos": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"gumshoos": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"grubbin": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"charjabug": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"vikavolt": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"crabrawler": {
+"genderRate": 4,
+"eggGroups": [
+"water3"
+]
+},
+"crabominable": {
+"genderRate": 4,
+"eggGroups": [
+"water3"
+]
+},
+"cutiefly": {
+"genderRate": 4,
+"eggGroups": [
+"bug",
+"fairy"
+]
+},
+"ribombee": {
+"genderRate": 4,
+"eggGroups": [
+"bug",
+"fairy"
+]
+},
+"rockruff": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"lycanroc-midday-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"lycanroc-midnight-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"lycanroc-dusk-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"wishiwashi": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"mareanie": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"toxapex": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"mudbray": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"mudsdale": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"dewpider": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"bug"
+]
+},
+"araquanid": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"bug"
+]
+},
+"fomantis": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"lurantis": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"morelull": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"shiinotic": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"salandit": {
+"genderRate": 1,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"salazzle": {
+"genderRate": 8,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"stufful": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"bewear": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"bounsweet": {
+"genderRate": 8,
+"eggGroups": [
+"plant"
+]
+},
+"steenee": {
+"genderRate": 8,
+"eggGroups": [
+"plant"
+]
+},
+"tsareena": {
+"genderRate": 8,
+"eggGroups": [
+"plant"
+]
+},
+"comfey": {
+"genderRate": 6,
+"eggGroups": [
+"plant"
+]
+},
+"oranguru": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"passimian": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"wimpod": {
+"genderRate": 4,
+"eggGroups": [
+"bug",
+"water3"
+]
+},
+"golisopod": {
+"genderRate": 4,
+"eggGroups": [
+"bug",
+"water3"
+]
+},
+"sandygast": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"palossand": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"pyukumuku": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"type-null": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"silvally": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"minior": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"minior-core": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"komala": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"turtonator": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"togedemaru": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"mimikyu": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate"
+]
+},
+"bruxish": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"drampa": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"dragon"
+]
+},
+"dhelmise": {
+"genderRate": -1,
+"eggGroups": [
+"mineral"
+]
+},
+"jangmo-o": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"hakamo-o": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"kommo-o": {
+"genderRate": 4,
+"eggGroups": [
+"dragon"
+]
+},
+"tapu-koko": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"tapu-lele": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"tapu-bulu": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"tapu-fini": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"cosmog": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"cosmoem": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"solgaleo": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"lunala": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"nihilego": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"buzzwole": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"pheromosa": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"xurkitree": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"celesteela": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"kartana": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"guzzlord": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"necrozma": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"necrozma-dusk-mane-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"necrozma-dawn-wings-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"magearna": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"marshadow": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"poipole": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"naganadel": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"stakataka": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"blacephalon": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"zeraora": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"meltan": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"melmetal": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"grookey": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"plant"
+]
+},
+"thwackey": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"plant"
+]
+},
+"rillaboom": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"plant"
+]
+},
+"scorbunny": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"raboot": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"cinderace": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"humanshape"
+]
+},
+"sobble": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"drizzile": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"inteleon": {
+"genderRate": 1,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"skwovet": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"greedent": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"rookidee": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"corvisquire": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"corviknight": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"blipbug": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"dottler": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"orbeetle": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"nickit": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"thievul": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"gossifleur": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"eldegoss": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"wooloo": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"dubwool": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"chewtle": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"drednaw": {
+"genderRate": 4,
+"eggGroups": [
+"monster",
+"water1"
+]
+},
+"yamper": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"boltund": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"rolycoly": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"carkol": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"coalossal": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"applin": {
+"genderRate": 4,
+"eggGroups": [
+"plant",
+"dragon"
+]
+},
+"flapple": {
+"genderRate": 4,
+"eggGroups": [
+"plant",
+"dragon"
+]
+},
+"appletun": {
+"genderRate": 4,
+"eggGroups": [
+"plant",
+"dragon"
+]
+},
+"silicobra": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"dragon"
+]
+},
+"sandaconda": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"dragon"
+]
+},
+"cramorant": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"flying"
+]
+},
+"arrokuda": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"barraskewda": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"toxel": {
+"genderRate": 4,
+"eggGroups": [
+"no-eggs"
+]
+},
+"toxtricity-amped-form": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"sizzlipede": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"centiskorch": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"clobbopus": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"humanshape"
+]
+},
+"grapploct": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"humanshape"
+]
+},
+"sinistea": {
+"genderRate": -1,
+"eggGroups": [
+"mineral",
+"indeterminate"
+]
+},
+"polteageist": {
+"genderRate": -1,
+"eggGroups": [
+"mineral",
+"indeterminate"
+]
+},
+"hatenna": {
+"genderRate": 8,
+"eggGroups": [
+"fairy"
+]
+},
+"hattrem": {
+"genderRate": 8,
+"eggGroups": [
+"fairy"
+]
+},
+"hatterene": {
+"genderRate": 8,
+"eggGroups": [
+"fairy"
+]
+},
+"impidimp": {
+"genderRate": 0,
+"eggGroups": [
+"fairy",
+"humanshape"
+]
+},
+"morgrem": {
+"genderRate": 0,
+"eggGroups": [
+"fairy",
+"humanshape"
+]
+},
+"grimmsnarl": {
+"genderRate": 0,
+"eggGroups": [
+"fairy",
+"humanshape"
+]
+},
+"obstagoon": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"perrserker": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"cursola": {
+"genderRate": 6,
+"eggGroups": [
+"water1",
+"water3"
+]
+},
+"sirfetch-d": {
+"genderRate": 4,
+"eggGroups": [
+"flying",
+"ground"
+]
+},
+"mr-rime": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"runerigus": {
+"genderRate": 4,
+"eggGroups": [
+"mineral",
+"indeterminate"
+]
+},
+"milcery": {
+"genderRate": 8,
+"eggGroups": [
+"fairy",
+"indeterminate"
+]
+},
+"alcremie": {
+"genderRate": 8,
+"eggGroups": [
+"fairy",
+"indeterminate"
+]
+},
+"falinks": {
+"genderRate": -1,
+"eggGroups": [
+"fairy",
+"mineral"
+]
+},
+"pincurchin": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"indeterminate"
+]
+},
+"snom": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"frosmoth": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"stonjourner": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"eiscue": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"indeedee-female-form": {
+"genderRate": 4,
+"eggGroups": [
+"fairy"
+]
+},
+"indeedee-male-form": {
+"genderRate": 4,
+"eggGroups": [
+"fairy"
+]
+},
+"morpeko": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"cufant": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"mineral"
+]
+},
+"copperajah": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"mineral"
+]
+},
+"dracozolt": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"arctozolt": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"dracovish": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"arctovish": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"duraludon": {
+"genderRate": 4,
+"eggGroups": [
+"mineral",
+"dragon"
+]
+},
+"dreepy": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate",
+"dragon"
+]
+},
+"drakloak": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate",
+"dragon"
+]
+},
+"dragapult": {
+"genderRate": 4,
+"eggGroups": [
+"indeterminate",
+"dragon"
+]
+},
+"zacian": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"zamazenta": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"eternatus": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"eternatus-eternamax-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"kubfu": {
+"genderRate": 1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"zarude": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"regieleki": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"regidrago": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"glastrier": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"spectrier": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"calyrex": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"wyrdeer": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"kleavor": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"ursaluna": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"basculegion-female-form": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"basculegion-male-form": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"sneasler": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"overqwil": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"enamorus": {
+"genderRate": 8,
+"eggGroups": [
+"no-eggs"
+]
+},
+"enamorus-therian-form": {
+"genderRate": 8,
+"eggGroups": [
+"no-eggs"
+]
+},
+"sprigatito": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"plant"
+]
+},
+"floragato": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"plant"
+]
+},
+"meowscarada": {
+"genderRate": 1,
+"eggGroups": [
+"ground",
+"plant"
+]
+},
+"fuecoco": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"crocalor": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"skeledirge": {
+"genderRate": 1,
+"eggGroups": [
+"ground"
+]
+},
+"quaxly": {
+"genderRate": 1,
+"eggGroups": [
+"flying",
+"water1"
+]
+},
+"quaxwell": {
+"genderRate": 1,
+"eggGroups": [
+"flying",
+"water1"
+]
+},
+"quaquaval": {
+"genderRate": 1,
+"eggGroups": [
+"flying",
+"water1"
+]
+},
+"lechonk": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"oinkologne-female-form": {
+"genderRate": 0,
+"eggGroups": [
+"ground"
+]
+},
+"oinkologne-male-form": {
+"genderRate": 0,
+"eggGroups": [
+"ground"
+]
+},
+"tarountula": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"spidops": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"nymble": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"lokix": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"pawmi": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"pawmo": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"pawmot": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"tandemaus": {
+"genderRate": -1,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"maushold": {
+"genderRate": -1,
+"eggGroups": [
+"ground",
+"fairy"
+]
+},
+"fidough": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"mineral"
+]
+},
+"dachsbun": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"mineral"
+]
+},
+"smoliv": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"dolliv": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"arboliva": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"squawkabilly": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"nacli": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"naclstack": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"garganacl": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"charcadet": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"armarouge": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"ceruledge": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"tadbulb": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"bellibolt": {
+"genderRate": 4,
+"eggGroups": [
+"water1"
+]
+},
+"wattrel": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"flying"
+]
+},
+"kilowattrel": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"flying"
+]
+},
+"maschiff": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"mabosstiff": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"shroodle": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"grafaiai": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"bramblin": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"brambleghast": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"toedscool": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"toedscruel": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"klawf": {
+"genderRate": 4,
+"eggGroups": [
+"water3"
+]
+},
+"capsakid": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"scovillain": {
+"genderRate": 4,
+"eggGroups": [
+"plant"
+]
+},
+"rellor": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"rabsca": {
+"genderRate": 4,
+"eggGroups": [
+"bug"
+]
+},
+"flittle": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"espathra": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"tinkatink": {
+"genderRate": 8,
+"eggGroups": [
+"fairy"
+]
+},
+"tinkatuff": {
+"genderRate": 8,
+"eggGroups": [
+"fairy"
+]
+},
+"tinkaton": {
+"genderRate": 8,
+"eggGroups": [
+"fairy"
+]
+},
+"wiglett": {
+"genderRate": 4,
+"eggGroups": [
+"water3"
+]
+},
+"wugtrio": {
+"genderRate": 4,
+"eggGroups": [
+"water3"
+]
+},
+"bombirdier": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"finizen": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"water2"
+]
+},
+"palafin-hero-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"water2"
+]
+},
+"varoom": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"revavroom": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"cyclizar": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"orthworm": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"glimmet": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"glimmora": {
+"genderRate": 4,
+"eggGroups": [
+"mineral"
+]
+},
+"greavard": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"houndstone": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"flamigo": {
+"genderRate": 4,
+"eggGroups": [
+"flying"
+]
+},
+"cetoddle": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"cetitan": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"veluza": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"dondozo": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"annihilape": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"clodsire": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"farigiraf": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"dudunsparce": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"kingambit": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"great-tusk": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"scream-tail": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"brute-bonnet": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"flutter-mane": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"slither-wing": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"sandy-shocks": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"iron-treads": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"iron-bundle": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"iron-hands": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"iron-jugulis": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"iron-moth": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"iron-thorns": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"frigibax": {
+"genderRate": 4,
+"eggGroups": [
+"dragon",
+"mineral"
+]
+},
+"arctibax": {
+"genderRate": 4,
+"eggGroups": [
+"dragon",
+"mineral"
+]
+},
+"baxcalibur": {
+"genderRate": 4,
+"eggGroups": [
+"dragon",
+"mineral"
+]
+},
+"gholdengo": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"wo-chien": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"chien-pao": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"ting-lu": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"chi-yu": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"roaring-moon": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"iron-valiant": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"koraidon": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"miraidon": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"walking-wake": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"iron-leaves": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"dipplin": {
+"genderRate": 4,
+"eggGroups": [
+"plant",
+"dragon"
+]
+},
+"okidogi": {
+"genderRate": 0,
+"eggGroups": [
+"no-eggs"
+]
+},
+"munkidori": {
+"genderRate": 0,
+"eggGroups": [
+"no-eggs"
+]
+},
+"fezandipiti": {
+"genderRate": 0,
+"eggGroups": [
+"no-eggs"
+]
+},
+"archaludon": {
+"genderRate": 4,
+"eggGroups": [
+"mineral",
+"dragon"
+]
+},
+"hydrapple": {
+"genderRate": 4,
+"eggGroups": [
+"plant",
+"dragon"
+]
+},
+"gouging-fire": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"raging-bolt": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"iron-boulder": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"iron-crown": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"pecharunt": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"calyrex-ice-rider-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"calyrex-shadow-rider-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"cramorant-gorging-form": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"flying"
+]
+},
+"cramorant-gulping-form": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"flying"
+]
+},
+"darmanitan-galarian": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"eiscue-no-ice-form": {
+"genderRate": 4,
+"eggGroups": [
+"water1",
+"ground"
+]
+},
+"gimmighoul-chest-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"gimmighoul-roaming-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"greninja-battle-bond-form": {
+"genderRate": 1,
+"eggGroups": [
+"water1"
+]
+},
+"hoopa-unbound-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"lilligant-hisiuan-form": {
+"genderRate": 8,
+"eggGroups": [
+"plant"
+]
+},
+"necrozma-ultra-burst-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"ogerpon-cornerstone-mask-form": {
+"genderRate": 8,
+"eggGroups": [
+"no-eggs"
+]
+},
+"ogerpon-hearthflame-mask-form": {
+"genderRate": 8,
+"eggGroups": [
+"no-eggs"
+]
+},
+"ogerpon-teal-mask-form": {
+"genderRate": 8,
+"eggGroups": [
+"no-eggs"
+]
+},
+"ogerpon-wellspring-mask-form": {
+"genderRate": 8,
+"eggGroups": [
+"no-eggs"
+]
+},
+"oricorio-baile-form": {
+"genderRate": 6,
+"eggGroups": [
+"flying"
+]
+},
+"oricorio-pa-u-form": {
+"genderRate": 6,
+"eggGroups": [
+"flying"
+]
+},
+"oricorio-pom-pom-form": {
+"genderRate": 6,
+"eggGroups": [
+"flying"
+]
+},
+"oricorio-sensu-form": {
+"genderRate": 6,
+"eggGroups": [
+"flying"
+]
+},
+"palafin-zero-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground",
+"water2"
+]
+},
+"poltchageist-artisan-form": {
+"genderRate": -1,
+"eggGroups": [
+"mineral",
+"indeterminate"
+]
+},
+"poltchageist-counterfeit-form": {
+"genderRate": -1,
+"eggGroups": [
+"mineral",
+"indeterminate"
+]
+},
+"rotom-dex-form": {
+"genderRate": -1,
+"eggGroups": [
+"indeterminate"
+]
+},
+"sinistcha-masterpiece-form": {
+"genderRate": -1,
+"eggGroups": [
+"mineral",
+"indeterminate"
+]
+},
+"sinistcha-unremarkable-form": {
+"genderRate": -1,
+"eggGroups": [
+"mineral",
+"indeterminate"
+]
+},
+"tatsugiri-curly-form": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"tatsugiri-droopy-form": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"tatsugiri-stretchy-form": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"tauros-paldean-form-aqua-form": {
+"genderRate": 0,
+"eggGroups": [
+"ground"
+]
+},
+"tauros-paldean-form-blaze-form": {
+"genderRate": 0,
+"eggGroups": [
+"ground"
+]
+},
+"tauros-paldean-form-combat-form": {
+"genderRate": 0,
+"eggGroups": [
+"ground"
+]
+},
+"terapagos-normal-form": {
+"genderRate": 4,
+"eggGroups": [
+"no-eggs"
+]
+},
+"terapagos-stellar-form": {
+"genderRate": 4,
+"eggGroups": [
+"no-eggs"
+]
+},
+"terapagos-terastal-form": {
+"genderRate": 4,
+"eggGroups": [
+"no-eggs"
+]
+},
+"toxtricity-low-key-form": {
+"genderRate": 4,
+"eggGroups": [
+"humanshape"
+]
+},
+"ursaluna-kitakami-form": {
+"genderRate": 4,
+"eggGroups": [
+"ground"
+]
+},
+"urshifu-rapid-strike-style-form": {
+"genderRate": 1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"urshifu-single-strike-style-form": {
+"genderRate": 1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"wishiwashi-swarm-form": {
+"genderRate": 4,
+"eggGroups": [
+"water2"
+]
+},
+"wormadam-grass-form": {
+"genderRate": 8,
+"eggGroups": [
+"bug"
+]
+},
+"wormadam-ground-form": {
+"genderRate": 8,
+"eggGroups": [
+"bug"
+]
+},
+"wormadam-steel-form": {
+"genderRate": 8,
+"eggGroups": [
+"bug"
+]
+},
+"zacian-crown-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"zamazenta-crown-form": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"zygarde-10": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"zygarde-100": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"zygarde-50": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+},
+"zygarde-cell": {
+"genderRate": -1,
+"eggGroups": [
+"no-eggs"
+]
+}
+}

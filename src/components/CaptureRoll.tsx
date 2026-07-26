@@ -7,6 +7,7 @@ import { sheetAttrValue } from './MoveRoll'
 import { rollDice, DiceRow, type RollResult } from './DiceRoller'
 import { useMesa } from '../lib/mesa'
 import { pokemonById } from '../data'
+import { DEFAULT_AVATAR } from './ImagePicker'
 import {
   POKEBALLS,
   CAPTURE_REQUIRED_SUCCESSES,
@@ -136,6 +137,7 @@ export default function CaptureRoll({
       Math.max(1, throwPool),
       `${myTrainer.name} · Arremesso (${ball.label}) vs ${targetName}`,
     )
+    r.icon = myTrainer.imageUrl || DEFAULT_AVATAR
     setLastThrow(r)
     postRoll(r)
   }
@@ -155,6 +157,7 @@ export default function CaptureRoll({
       rollPool(),
       `${myTrainer?.name ?? 'Treinador'} · Captura (${ball.label}) vs ${targetName}`,
     )
+    r.icon = myTrainer?.imageUrl || DEFAULT_AVATAR
     setLastCapture(r)
     postRoll(r)
     setOutcome(null)

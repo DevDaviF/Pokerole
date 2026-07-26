@@ -163,6 +163,7 @@ export default function BattleTracker({
   const addCombatant = async (combatant: Omit<Combatant, 'key' | 'initiative'>, bonus: number) => {
     if (!row) return
     const r = rollAdditive(bonus, `${combatant.name} · Iniciativa`)
+    if (combatant.spriteId) r.icon = spriteUrl(combatant.spriteId)
     postRoll(r)
     const full: Combatant = { ...combatant, key: newKey(), initiative: r.total! }
     // antes do combate começar, a lista toda é reordenada por iniciativa;

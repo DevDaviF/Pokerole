@@ -3,6 +3,8 @@ import type { PokemonSheet, Trainer } from '../types'
 import { sheetAttrValue } from './MoveRoll'
 import { rollDice, rollAdditive, DiceRow, type RollResult } from './DiceRoller'
 import { useMesa } from '../lib/mesa'
+import { spriteUrl } from '../data'
+import { DEFAULT_AVATAR } from './ImagePicker'
 import {
   POKEMON_ATTRIBUTE_LABELS,
   TRAINER_ATTRIBUTE_LABELS,
@@ -46,10 +48,17 @@ export default function SkillRoll({
   const pool = (a: string, s: string) =>
     Math.max(1, sheetAttrValue(sheet, a) + (sheet.skills[s] ?? 0) + bonus)
 
+  // ícone do dono do roll (sprite da espécie ou avatar do Treinador) —
+  // guardado junto do roll pra aparecer no chat da mesa.
+  const rollIcon = isPokemon
+    ? spriteUrl((sheet as PokemonSheet).species)
+    : (sheet as Trainer).imageUrl || DEFAULT_AVATAR
+
   const roll = (a: string, s: string, presetName?: string) => {
     const formula = `${a} + ${s}${bonus ? ` ${bonus > 0 ? '+' : ''}${bonus}` : ''}`
     const label = `${displayName} · ${presetName ?? formula}`
     const r = rollDice(pool(a, s), label)
+    r.icon = rollIcon
     setLast(r)
     setLastLabel(presetName ? `${presetName} (${formula})` : formula)
     postRoll(r)
@@ -60,6 +69,7 @@ export default function SkillRoll({
   const initiativeBonus = sheetAttrValue(sheet, 'Dexterity') + (sheet.skills['Alert'] ?? 0)
   const rollInitiative = () => {
     const r = rollAdditive(initiativeBonus, `${displayName} · Iniciativa`)
+    r.icon = rollIcon
     setLast(r)
     setLastLabel(`Iniciativa (1d6 + Dex + Alert)`)
     postRoll(r)

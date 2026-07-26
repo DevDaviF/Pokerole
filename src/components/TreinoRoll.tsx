@@ -4,6 +4,8 @@ import type { PokemonSheet, Trainer } from '../types'
 import { rollDice, type RollResult } from './DiceRoller'
 import { DiceRow, sheetAttrValue } from './MoveRoll'
 import { useMesa } from '../lib/mesa'
+import { spriteUrl } from '../data'
+import { DEFAULT_AVATAR } from './ImagePicker'
 import {
   POKEMON_ATTRIBUTE_LABELS,
   TRAINER_ATTRIBUTE_LABELS,
@@ -73,6 +75,7 @@ export function TreinoPanel({
     const passed = r.successes >= difficulty
     const labeled = {
       ...r,
+      icon: spriteUrl(sheet.species),
       label: `${displayName} · Treino: tarefa dif. ${difficulty} (${pokAttr} + ${pokSkill}) → ${
         passed ? 'completou! ✅' : 'falhou ❌'
       }`,
@@ -89,6 +92,7 @@ export function TreinoPanel({
     const total = r.successes + difficulty
     const labeled = {
       ...r,
+      icon: trainer.imageUrl || DEFAULT_AVATAR,
       label: `${trainer.name} · Treino: rolagem do treinador (${trAttr} + ${trSkill}) + ${difficulty} bônus → ${total} Pontos de Treino`,
     }
     setTrainResult(labeled)

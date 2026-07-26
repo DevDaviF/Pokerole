@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getDiceDisplay, setDiceDisplay, onDiceDisplayChange } from '../lib/diceDisplay'
 
 // Regra 3.0 (Corebook p. 35): dados que caem em 4, 5 ou 6 são sucessos.
 //
@@ -18,6 +19,7 @@ export interface RollResult {
   triggered?: boolean // para mode 'chance': algum dado saiu 6?
   bonus?: number // para mode 'additive': número fixo somado ao dado
   total?: number // para mode 'additive': dado + bonus
+  icon?: string // sprite do Pokémon ou avatar do Treinador dono do roll
 }
 
 export function rollDice(pool: number, label = ''): RollResult {
@@ -84,13 +86,19 @@ const DIE_FACE = ['', '⚀', '⚁', '⚂', '⚃', '⚄', '⚅']
 export function DiceRow({ r }: { r: RollResult }) {
   const isChance = r.mode === 'chance'
   const isAdditive = r.mode === 'additive'
+  const [display, setDisplay] = useState(getDiceDisplay())
+
+  useEffect(() => onDiceDisplayChange(() => setDisplay(getDiceDisplay())), [])
+
   return (
     <div className="flex flex-wrap items-center gap-2">
       <div className="flex flex-wrap gap-1">
         {r.dice.map((d, i) => (
           <span
             key={i}
-            className={`flex h-7 w-7 items-center justify-center rounded-md text-lg leading-none shadow-sm ${
+            className={`flex h-7 min-w-7 items-center justify-center rounded-md px-1 leading-none shadow-sm ${
+              display === 'numbers' ? 'text-sm font-bold' : 'text-lg'
+            } ${
               d === 6
                 ? 'bg-amber-400 text-white'
                 : isChance
@@ -100,7 +108,7 @@ export function DiceRow({ r }: { r: RollResult }) {
                     : 'bg-slate-200 text-slate-500'
             }`}
           >
-            {DIE_FACE[d]}
+            {display === 'icons' ? DIE_FACE[d] : display === 'numbers' ? d : `${DIE_FACE[d]} ${d}`}
           </span>
         ))}
       </div>
@@ -136,6 +144,7 @@ export default function DiceRoller({
   const [pool, setPool] = useState(3)
   const [label, setLabel] = useState('')
   const [history, setHistory] = useState<RollResult[]>([])
+  const [display, setDisplay] = useState(getDiceDisplay())
 
   const roll = () => {
     const r = rollDice(pool, label.trim())
@@ -156,7 +165,26 @@ export default function DiceRoller({
       {open && (
         <div className="fixed right-4 bottom-20 z-40 w-80 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
           <div className="bg-gradient-to-r from-slate-800 to-slate-700 px-4 py-3 text-white">
-            <p className="text-sm font-bold">🎲 Rolador de dados</p>
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-bold">🎲 Rolador de dados</p>
+              <div className="flex overflow-hidden rounded-lg border border-white/30 text-[10px] font-bold">
+                {(['icons', 'numbers', 'both'] as const).map((d) => (
+                  <button
+                    key={d}
+                    onClick={() => {
+                      setDiceDisplay(d)
+                      setDisplay(d)
+                    }}
+                    className={`px-1.5 py-0.5 ${
+                      display === d ? 'bg-white text-slate-800' : 'hover:bg-white/10'
+                    }`}
+                    title="Como mostrar os dados no chat e aqui"
+                  >
+                    {d === 'icons' ? '⚄' : d === 'numbers' ? '123' : '⚄123'}
+                  </button>
+                ))}
+              </div>
+            </div>
             <p className="text-xs text-slate-300">sucesso em 4, 5 ou 6</p>
           </div>
           <div className="space-y-3 p-4">

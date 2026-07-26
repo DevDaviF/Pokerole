@@ -4,6 +4,7 @@ import { sheetAttrValue } from './MoveRoll'
 import { rollDice } from './DiceRoller'
 import { useMesa } from '../lib/mesa'
 import { useScoutRolls, contributeScoutRoll } from '../lib/scoutRolls'
+import { DEFAULT_AVATAR } from './ImagePicker'
 
 export default function ScoutRollWidget({
   mesaId,
@@ -27,6 +28,7 @@ export default function ScoutRollWidget({
       sheetAttrValue(myTrainer, 'Insight') + (myTrainer.skills['Alert'] ?? 0),
     )
     const r = rollDice(pool, `${myTrainer.name} · Insight + Alert (batedor)`)
+    r.icon = myTrainer.imageUrl || DEFAULT_AVATAR
     postRoll(r)
     const applied = await contributeScoutRoll(mesaId, row, myTrainer.name, r.successes)
     if (!applied) setNotice('Você já contribuiu nesta rodada de batedores.')

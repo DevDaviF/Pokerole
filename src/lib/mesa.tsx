@@ -111,6 +111,7 @@ export function MesaProvider({ children }: { children: ReactNode }) {
           dice: r.dice,
           successes: r.successes,
           sixes: r.sixes,
+          ...(r.icon ? { icon: r.icon } : {}),
           ...(r.mode === 'chance' ? { mode: r.mode, triggered: r.triggered } : {}),
           ...(r.mode === 'additive'
             ? { mode: r.mode, bonus: r.bonus, total: r.total }

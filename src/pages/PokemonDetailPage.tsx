@@ -12,6 +12,11 @@ import {
 } from '../data'
 import TypeBadge from '../components/TypeBadge'
 import MoveDetailModal, { CategoryBadge } from '../components/MoveDetailModal'
+import TypeMatchups from '../components/TypeMatchups'
+import UnitToggle, { useUnitSystem } from '../components/UnitToggle'
+import { formatHeight, formatWeight } from '../lib/units'
+import { breedingInfoFor, eggGroupLabel, genderLabel } from '../lib/breeding'
+import SendToChatButton from '../components/SendToChatButton'
 
 const nameToId = new Map(POKEDEX.map((p) => [p.name, p.id]))
 
@@ -56,6 +61,8 @@ export default function PokemonDetailPage() {
   const { id } = useParams()
   const pokemon = id ? pokemonById.get(id) : undefined
   const [selectedMove, setSelectedMove] = useState<Move | null>(null)
+  const [unitSystem, setUnitSystem] = useUnitSystem()
+  const breeding = pokemon ? breedingInfoFor(pokemon.id) : null
 
   const learnsetByRank = useMemo(() => {
     if (!pokemon) return []
@@ -112,15 +119,30 @@ export default function PokemonDetailPage() {
             ))}
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm">
-          <span className="opacity-80">HP Base</span>
-          <span className="font-bold">{pokemon.baseHp}</span>
-          <span className="opacity-80">Rank sugerido</span>
-          <span className="font-bold">{pokemon.suggestedRank}</span>
-          <span className="opacity-80">Altura</span>
-          <span className="font-bold">{pokemon.height}</span>
-          <span className="opacity-80">Peso</span>
-          <span className="font-bold">{pokemon.weight}</span>
+        <div className="text-sm">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-1">
+            <span className="opacity-80">HP Base</span>
+            <span className="font-bold">{pokemon.baseHp}</span>
+            <span className="opacity-80">Rank sugerido</span>
+            <span className="font-bold">{pokemon.suggestedRank}</span>
+            <span className="opacity-80">Altura</span>
+            <span className="font-bold">{formatHeight(pokemon.height, unitSystem)}</span>
+            <span className="opacity-80">Peso</span>
+            <span className="font-bold">{formatWeight(pokemon.weight, unitSystem)}</span>
+            {breeding && (
+              <>
+                <span className="opacity-80">Gênero</span>
+                <span className="font-bold">{genderLabel(breeding.genderRate)}</span>
+                <span className="opacity-80">Grupo de Ovo</span>
+                <span className="font-bold">
+                  {breeding.eggGroups.map(eggGroupLabel).join(' / ') || '—'}
+                </span>
+              </>
+            )}
+          </div>
+          <div className="mt-2">
+            <UnitToggle value={unitSystem} onChange={setUnitSystem} />
+          </div>
         </div>
       </div>
 
@@ -159,7 +181,12 @@ export default function PokemonDetailPage() {
             <ul className="space-y-2">
               {pokemon.abilities.map((a) => (
                 <li key={a}>
-                  <span className="font-semibold text-slate-700">{a}</span>
+                  <div className="flex items-start justify-between gap-2">
+                    <span className="font-semibold text-slate-700">{a}</span>
+                    <SendToChatButton
+                      text={`💡 ${a}: ${abilityByName.get(a)?.effect ?? ''}`}
+                    />
+                  </div>
                   <p className="text-xs text-slate-500">
                     {abilityByName.get(a)?.effect}
                   </p>
@@ -167,12 +194,21 @@ export default function PokemonDetailPage() {
               ))}
               {pokemon.hiddenAbility && (
                 <li>
-                  <span className="font-semibold text-slate-700">
-                    {pokemon.hiddenAbility}
-                  </span>{' '}
-                  <span className="rounded bg-purple-100 px-1.5 py-0.5 text-[10px] font-semibold text-purple-700 uppercase">
-                    Oculta
-                  </span>
+                  <div className="flex items-start justify-between gap-2">
+                    <span>
+                      <span className="font-semibold text-slate-700">
+                        {pokemon.hiddenAbility}
+                      </span>{' '}
+                      <span className="rounded bg-purple-100 px-1.5 py-0.5 text-[10px] font-semibold text-purple-700 uppercase">
+                        Oculta
+                      </span>
+                    </span>
+                    <SendToChatButton
+                      text={`💡 ${pokemon.hiddenAbility}: ${
+                        abilityByName.get(pokemon.hiddenAbility)?.effect ?? ''
+                      }`}
+                    />
+                  </div>
                   <p className="text-xs text-slate-500">
                     {abilityByName.get(pokemon.hiddenAbility)?.effect}
                   </p>
@@ -214,6 +250,14 @@ export default function PokemonDetailPage() {
             </div>
           )}
         </div>
+      </div>
+
+      {/* Fraquezas/Resistências/Imunidades */}
+      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 className="mb-3 font-bold text-slate-800">
+          Fraquezas, Resistências e Imunidades
+        </h2>
+        <TypeMatchups types={pokemon.types} />
       </div>
 
       {/* Descrição */}

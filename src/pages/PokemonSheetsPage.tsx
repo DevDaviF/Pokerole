@@ -32,8 +32,13 @@ import MoveDetailModal from '../components/MoveDetailModal'
 import TrainingPointsBadge from '../components/TrainingPoints'
 import SpeciesPicker from '../components/SpeciesPicker'
 import PokemonProgression from '../components/PokemonProgression'
+import TypeMatchups from '../components/TypeMatchups'
+import UnitToggle, { useUnitSystem } from '../components/UnitToggle'
+import SendToChatButton from '../components/SendToChatButton'
 import { useMesa } from '../lib/mesa'
 import { supabaseConfigured } from '../lib/supabase'
+import { formatHeight, formatWeight } from '../lib/units'
+import { breedingInfoFor, eggGroupLabel, genderLabel } from '../lib/breeding'
 
 const emptySheet = (): PokemonSheet => ({
   trainerId: 0,
@@ -64,8 +69,10 @@ export default function PokemonSheetsPage() {
   const [moveInfo, setMoveInfo] = useState<Move | null>(null)
   const { session } = useMesa()
   const needsAccount = supabaseConfigured && !session
+  const [unitSystem, setUnitSystem] = useUnitSystem()
 
   const species = editing?.species ? pokemonById.get(editing.species) : undefined
+  const speciesBreeding = species ? breedingInfoFor(species.id) : null
 
   const totalHp = species && editing ? species.baseHp + editing.attributes.vitality : 0
   const willPoints = editing ? editing.attributes.insight + 3 : 0
@@ -251,6 +258,43 @@ export default function PokemonSheetsPage() {
               </button>
             </div>
 
+            <div className="grid gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:grid-cols-2">
+              <div>
+                <div className="mb-2 flex items-center justify-between">
+                  <h2 className="font-bold text-slate-800">Dados da espécie</h2>
+                  <UnitToggle value={unitSystem} onChange={setUnitSystem} />
+                </div>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                  <span className="text-slate-400">Altura</span>
+                  <b className="text-slate-700">
+                    {formatHeight(species.height, unitSystem)}
+                  </b>
+                  <span className="text-slate-400">Peso</span>
+                  <b className="text-slate-700">
+                    {formatWeight(species.weight, unitSystem)}
+                  </b>
+                  {speciesBreeding && (
+                    <>
+                      <span className="text-slate-400">Gênero</span>
+                      <b className="text-slate-700">
+                        {genderLabel(speciesBreeding.genderRate)}
+                      </b>
+                      <span className="text-slate-400">Grupo de Ovo</span>
+                      <b className="text-slate-700">
+                        {speciesBreeding.eggGroups.map(eggGroupLabel).join(' / ') || '—'}
+                      </b>
+                    </>
+                  )}
+                </div>
+              </div>
+              <div>
+                <h2 className="mb-2 font-bold text-slate-800">
+                  Fraquezas, Resistências e Imunidades
+                </h2>
+                <TypeMatchups types={species.types} />
+              </div>
+            </div>
+
             <div className="grid gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:grid-cols-2 lg:grid-cols-3">
               <label className="block">
                 <span className="mb-1 block text-sm font-medium text-slate-600">
@@ -325,10 +369,18 @@ export default function PokemonSheetsPage() {
                   )}
                 </select>
                 {editing.ability && (
-                  <p className="mt-1 text-xs text-slate-400">
-                    {abilityByName.get(editing.ability.replace(' (Oculta)', ''))
-                      ?.effect ?? ''}
-                  </p>
+                  <div className="mt-1 flex items-start justify-between gap-2">
+                    <p className="text-xs text-slate-400">
+                      {abilityByName.get(editing.ability.replace(' (Oculta)', ''))
+                        ?.effect ?? ''}
+                    </p>
+                    <SendToChatButton
+                      text={`💡 ${editing.ability}: ${
+                        abilityByName.get(editing.ability.replace(' (Oculta)', ''))
+                          ?.effect ?? ''
+                      }`}
+                    />
+                  </div>
                 )}
               </label>
               <label className="block">

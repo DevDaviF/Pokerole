@@ -271,6 +271,7 @@ interface Message {
     triggered?: boolean
     bonus?: number
     total?: number
+    icon?: string
   } | null
   created_at: string
 }
@@ -1425,6 +1426,14 @@ export default function MesaPage() {
                           )
                           return (
                             <span className="text-slate-600">
+                              {m.roll.icon && (
+                                <img
+                                  src={m.roll.icon}
+                                  alt=""
+                                  className="mr-1 inline-block h-5 w-5 rounded-full object-contain align-middle [image-rendering:pixelated]"
+                                  onError={(e) => (e.currentTarget.style.display = 'none')}
+                                />
+                              )}
                               {actor && (
                                 <>
                                   <span className="font-semibold text-indigo-600">
