@@ -1,5 +1,5 @@
 import type { Move } from '../types'
-import { typeColor } from '../data'
+import { typeColor, moveAccuracyLabel, moveDamageLabel } from '../data'
 import TypeBadge from './TypeBadge'
 
 const CATEGORY_STYLES: Record<string, string> = {
@@ -76,8 +76,7 @@ export default function MoveDetailModal({
                 Accuracy
               </div>
               <div className="text-sm font-bold text-slate-800">
-                {move.accuracy.attribute}
-                {move.accuracy.skill && ` + ${move.accuracy.skill}`}
+                {moveAccuracyLabel(move)}
               </div>
             </div>
             <div className="rounded-lg bg-slate-50 p-3">
@@ -85,12 +84,7 @@ export default function MoveDetailModal({
                 Damage Pool
               </div>
               <div className="text-sm font-bold text-slate-800">
-                {move.damagePool
-                  ? `${move.damagePool.attribute} + ${move.damagePool.bonus}` +
-                    (move.damagePool.attribute2
-                      ? ` + ${move.damagePool.attribute2}`
-                      : '')
-                  : '—'}
+                {moveDamageLabel(move)}
               </div>
             </div>
           </div>

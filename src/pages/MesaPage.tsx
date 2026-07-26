@@ -1041,6 +1041,7 @@ export default function MesaPage() {
                 myId={myId}
                 members={members}
                 usernames={usernames}
+                gmPokemonSheets={myOwnPokemonSheets}
               />
             </ErrorBoundary>
           )}
@@ -1057,37 +1058,36 @@ export default function MesaPage() {
             />
           </ErrorBoundary>
 
+          <ErrorBoundary label="Captura">
+            <CaptureRoll
+              mesaId={activeMesa.id}
+              myTrainer={myActiveTrainer}
+              myPokemonSheets={myOwnPokemonSheets}
+              sharedNpcs={sharedNpcs}
+              isGm={myRole === 'gm'}
+            />
+          </ErrorBoundary>
+
+          {/* Presentes do Mestre — Pokémon e itens que ele te mandou. A
+              criação fica em "Ferramentas do Mestre" → 🎁 Presentear. */}
           <div className="grid gap-4 lg:grid-cols-2">
-            <ErrorBoundary label="Captura">
-              <CaptureRoll
-                mesaId={activeMesa.id}
-                myTrainer={myActiveTrainer}
-                myPokemonSheets={myOwnPokemonSheets}
-                sharedNpcs={sharedNpcs}
-                isGm={myRole === 'gm'}
-              />
-            </ErrorBoundary>
-            <ErrorBoundary label="Transferência de fichas">
+            <ErrorBoundary label="Presentes de Pokémon">
               <SheetTransfers
                 mesaId={activeMesa.id}
                 myId={myId}
-                myRole={myRole}
-                members={members}
-                usernames={usernames}
                 myActiveTrainerId={myActiveTrainer?.id}
-                gmPokemonSheets={myOwnPokemonSheets}
+                usernames={usernames}
+              />
+            </ErrorBoundary>
+            <ErrorBoundary label="Presentes de item">
+              <ItemGifts
+                mesaId={activeMesa.id}
+                myId={myId}
+                myTrainer={myActiveTrainer}
+                usernames={usernames}
               />
             </ErrorBoundary>
           </div>
-
-          <ErrorBoundary label="Presentes de item">
-            <ItemGifts
-              mesaId={activeMesa.id}
-              myId={myId}
-              myTrainer={myActiveTrainer}
-              usernames={usernames}
-            />
-          </ErrorBoundary>
 
           <ErrorBoundary label="Passar o dia">
             <DayPassPanel myTrainer={myActiveTrainer} myPokemonSheets={myOwnPokemonSheets} />

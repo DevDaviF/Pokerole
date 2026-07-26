@@ -62,6 +62,46 @@ export const TYPE_COLORS: Record<string, string> = {
 
 export const typeColor = (type: string) => TYPE_COLORS[type] ?? '#68a090'
 
+// Alguns golpes (Z-Moves, Max Moves, Copycat) têm Accuracy/Damage Pool que
+// os dados de origem marcam como "SameAsBaseMove"/"SameAsBasePower"/
+// "SameAsCopiedMove" — texto interno, não pra mostrar cru. Z-Moves usam
+// powerLabel (ex: "Happiness + Loyalty") pros três campos igual; os outros
+// ganham um texto amigável explicando que depende do golpe base/copiado.
+const SAME_AS_FALLBACK: Record<string, string> = {
+  SameAsBaseMove: 'Mesmo do golpe base',
+  SameAsBasePower: 'Mesmo do golpe base',
+  SameAsCopiedMove: 'Mesmo do golpe copiado',
+}
+
+function resolveSameAs(value: string, powerLabel?: string): string | null {
+  if (!(value in SAME_AS_FALLBACK)) return null
+  return powerLabel ?? SAME_AS_FALLBACK[value]
+}
+
+export function moveAccuracyLabel(move: {
+  accuracy: { attribute: string; skill: string }
+  powerLabel?: string
+}): string {
+  const resolved = resolveSameAs(move.accuracy.attribute, move.powerLabel)
+  if (resolved) return resolved
+  return move.accuracy.skill
+    ? `${move.accuracy.attribute} + ${move.accuracy.skill}`
+    : move.accuracy.attribute
+}
+
+export function moveDamageLabel(move: {
+  damagePool: { attribute: string; bonus: number; attribute2?: string } | null
+  powerLabel?: string
+}): string {
+  if (!move.damagePool) return '—'
+  const resolved = resolveSameAs(move.damagePool.attribute, move.powerLabel)
+  if (resolved) return resolved
+  return (
+    `${move.damagePool.attribute} + ${move.damagePool.bonus}` +
+    (move.damagePool.attribute2 ? ` + ${move.damagePool.attribute2}` : '')
+  )
+}
+
 // Nomes de arquivo do BookSprites que não seguem o mesmo slug do nosso id
 // (apóstrofo removido em vez de virar hífen, grafias alternativas etc.)
 const SPRITE_ALIASES: Record<string, string> = {

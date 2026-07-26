@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { db } from '../db'
 import type { PokemonSheet, Trainer } from '../types'
 import { rankIndex } from '../types'
-import { pokemonById, spriteUrl } from '../data'
+import { pokemonById, spriteUrl, MOVES, moveById } from '../data'
 import {
   nextRank,
   rankUpCost,
@@ -13,6 +13,13 @@ import {
 } from '../lib/progression'
 
 const SPEEDS: EvolutionSpeed[] = ['Fast', 'Medium', 'Slow']
+
+// Corebook 3.0 p.110: aprender um golpe via TM/TR custa sempre 5 TP, seja
+// qual for o Rank/estágio evolutivo. Se o Pokémon já estiver no limite de
+// golpes conhecidos (Insight+3), precisa esquecer um pra aprender o novo —
+// e serve tanto pra golpes fora do learnset (via TM) quanto pra trocar um
+// golpe já conhecido por outro do mesmo Rank.
+const LEARN_MOVE_COST = 5
 
 function Section({
   title,
@@ -56,6 +63,9 @@ export default function PokemonProgression({
   const [evoSpeedOverride, setEvoSpeedOverride] = useState<
     Record<string, EvolutionSpeed>
   >({})
+  const [moveSearch, setMoveSearch] = useState('')
+  const [learnMoveId, setLearnMoveId] = useState('')
+  const [forgetMoveId, setForgetMoveId] = useState('')
 
   if (!species) return null
 
@@ -124,6 +134,35 @@ export default function PokemonProgression({
     setNotice(
       `Re-treinado! (−${retrCost} TP) Role a ficha até Atributos/Skills para redistribuir.`,
     )
+  }
+
+  // ── Aprender/Trocar Golpe (TM/TR) ───────────────────────────────
+  const maxMoves = sheet.attributes.insight + 3
+  const atMoveCap = sheet.knownMoves.length >= maxMoves
+  const canLearnMove =
+    tp >= LEARN_MOVE_COST && Boolean(learnMoveId) && (!atMoveCap || Boolean(forgetMoveId))
+
+  const doLearnMove = async () => {
+    if (!canLearnMove) return
+    const newMove = moveById.get(learnMoveId)
+    const oldMove = forgetMoveId ? moveById.get(forgetMoveId) : null
+    if (!newMove) return
+    const question = oldMove
+      ? `Trocar "${oldMove.name}" por "${newMove.name}"? Custa ${LEARN_MOVE_COST} TP.`
+      : `Aprender "${newMove.name}"? Custa ${LEARN_MOVE_COST} TP.`
+    if (!confirm(question)) return
+    const knownMoves = oldMove
+      ? sheet.knownMoves.map((id) => (id === oldMove.id ? newMove.id : id))
+      : [...sheet.knownMoves, newMove.id]
+    await apply({ knownMoves, trainingPoints: tp - LEARN_MOVE_COST })
+    setNotice(
+      oldMove
+        ? `Trocou "${oldMove.name}" por "${newMove.name}"! (−${LEARN_MOVE_COST} TP)`
+        : `Aprendeu "${newMove.name}"! (−${LEARN_MOVE_COST} TP)`,
+    )
+    setLearnMoveId('')
+    setForgetMoveId('')
+    setMoveSearch('')
   }
 
   return (
@@ -254,6 +293,68 @@ export default function PokemonProgression({
         >
           Re-treinar ({retrCost} TP)
         </button>
+      </Section>
+
+      <Section title="Aprender/Trocar Golpe (TM/TR)" icon="📀">
+        <p className="mb-2 text-[11px] text-slate-400">
+          Corebook p.110: {LEARN_MOVE_COST} TP pra aprender qualquer golpe
+          via TM/TR — mesmo um fora do learnset — ou pra trocar um golpe já
+          conhecido por outro do mesmo Rank. Fica a critério do Mestre se o
+          TM/TR está disponível na sua mesa.
+        </p>
+        <input
+          value={moveSearch}
+          onChange={(e) => setMoveSearch(e.target.value)}
+          placeholder="Buscar golpe..."
+          className="mb-2 w-full rounded-lg border border-slate-300 px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+        />
+        <div className="flex flex-wrap gap-2">
+          <select
+            value={learnMoveId}
+            onChange={(e) => setLearnMoveId(e.target.value)}
+            className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+          >
+            <option value="">Escolha o novo golpe...</option>
+            {MOVES.filter(
+              (m) =>
+                !sheet.knownMoves.includes(m.id) &&
+                m.name.toLowerCase().includes(moveSearch.toLowerCase()),
+            )
+              .slice(0, 40)
+              .map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.name}
+                </option>
+              ))}
+          </select>
+          {atMoveCap && (
+            <select
+              value={forgetMoveId}
+              onChange={(e) => setForgetMoveId(e.target.value)}
+              className="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+            >
+              <option value="">Esquecer qual golpe?</option>
+              {sheet.knownMoves.map((id) => (
+                <option key={id} value={id}>
+                  {moveById.get(id)?.name ?? id}
+                </option>
+              ))}
+            </select>
+          )}
+          <button
+            onClick={doLearnMove}
+            disabled={!canLearnMove}
+            className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-indigo-700 disabled:opacity-40"
+          >
+            Aprender ({LEARN_MOVE_COST} TP)
+          </button>
+        </div>
+        {atMoveCap && (
+          <p className="mt-1.5 text-[11px] text-amber-600">
+            Já está no limite de golpes conhecidos ({sheet.knownMoves.length}/
+            {maxMoves}) — escolha um golpe pra esquecer.
+          </p>
+        )}
       </Section>
     </div>
   )

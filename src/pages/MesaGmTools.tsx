@@ -3,7 +3,7 @@ import { db } from '../db'
 import { supabase } from '../lib/supabase'
 import type { Pokemon, PokemonSheet, Rank } from '../types'
 import { RANKS } from '../types'
-import { POKEDEX, spriteUrl } from '../data'
+import { POKEDEX, spriteUrl, pokemonById, ITEMS } from '../data'
 import { generateNpcSheet } from '../lib/npcGen'
 import {
   HABITATS,
@@ -15,7 +15,7 @@ import {
 import { useScoutRolls, resetScoutRolls } from '../lib/scoutRolls'
 import { useCustomItems, createCustomItem, deleteCustomItem, customItemToItem } from '../lib/customItems'
 import { sendItemGift } from '../lib/itemGifts'
-import { ITEMS } from '../data'
+import { sendSheetTransfer } from '../lib/sheetTransfers'
 import TypeBadge from '../components/TypeBadge'
 import SpeciesPicker from '../components/SpeciesPicker'
 
@@ -531,14 +531,110 @@ function GiftTab({
   )
 }
 
-function ItemsTab({
+function PokemonGiftSection({
   mesaId,
   members,
   usernames,
+  gmPokemonSheets,
 }: {
   mesaId: string
   members: Array<{ user_id: string; role: 'gm' | 'player' }>
   usernames: Record<string, string>
+  gmPokemonSheets: PokemonSheet[]
+}) {
+  const [offeringId, setOfferingId] = useState<number | ''>('')
+  const [targetUser, setTargetUser] = useState('')
+  const [notice, setNotice] = useState('')
+  const players = members.filter((m) => m.role === 'player')
+
+  const send = async () => {
+    if (!offeringId || !targetUser) return
+    const sheet = gmPokemonSheets.find((s) => s.id === offeringId)
+    if (!sheet) return
+    const { error } = await sendSheetTransfer(mesaId, targetUser, sheet)
+    if (error) setNotice(error)
+    else {
+      setNotice('Ficha oferecida! Aguardando o jogador aceitar.')
+      setOfferingId('')
+    }
+  }
+
+  return (
+    <div className="space-y-2 rounded-lg bg-slate-50 p-3">
+      <p className="text-xs font-bold text-slate-500 uppercase">
+        Entregar Pokémon a um jogador
+      </p>
+      {players.length === 0 ? (
+        <p className="text-xs text-slate-400">Nenhum jogador na mesa ainda.</p>
+      ) : gmPokemonSheets.length === 0 ? (
+        <p className="text-xs text-slate-400">
+          Você não tem nenhum Pokémon próprio pra entregar ainda (crie um em
+          "Meus Pokémon" — capturas de jogadores já entram direto no
+          inventário deles, não precisam passar por aqui).
+        </p>
+      ) : (
+        <div className="flex flex-wrap items-center gap-2">
+          <select
+            value={offeringId}
+            onChange={(e) =>
+              setOfferingId(e.target.value === '' ? '' : Number(e.target.value))
+            }
+            className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+          >
+            <option value="">Escolha um Pokémon...</option>
+            {gmPokemonSheets.map((s) => {
+              const sp = pokemonById.get(s.species)
+              return (
+                <option key={s.id} value={s.id}>
+                  {s.nickname || sp?.name} · {s.rank}
+                </option>
+              )
+            })}
+          </select>
+          <span className="text-xs text-slate-400">para</span>
+          <select
+            value={targetUser}
+            onChange={(e) => setTargetUser(e.target.value)}
+            className="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+          >
+            <option value="">Escolha o jogador...</option>
+            {players.map((m) => (
+              <option key={m.user_id} value={m.user_id}>
+                {usernames[m.user_id] ?? m.user_id}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={send}
+            disabled={!offeringId || !targetUser}
+            className="rounded-lg bg-purple-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-purple-800 disabled:opacity-40"
+          >
+            Entregar
+          </button>
+        </div>
+      )}
+      {notice && (
+        <p
+          className="cursor-pointer text-xs text-emerald-600"
+          onClick={() => setNotice('')}
+        >
+          {notice}
+        </p>
+      )}
+    </div>
+  )
+}
+
+function ItemsTab({
+  mesaId,
+  members,
+  usernames,
+  gmPokemonSheets,
+}: {
+  mesaId: string
+  members: Array<{ user_id: string; role: 'gm' | 'player' }>
+  usernames: Record<string, string>
+  gmPokemonSheets: PokemonSheet[]
 }) {
   const items = useCustomItems(mesaId)
   const [name, setName] = useState('')
@@ -571,6 +667,13 @@ function ItemsTab({
         members={members}
         usernames={usernames}
         customItems={items.map(customItemToItem)}
+      />
+
+      <PokemonGiftSection
+        mesaId={mesaId}
+        members={members}
+        usernames={usernames}
+        gmPokemonSheets={gmPokemonSheets}
       />
 
       <div className="space-y-2 rounded-lg bg-slate-50 p-3">
@@ -669,11 +772,13 @@ export default function GmToolsPanel({
   myId,
   members,
   usernames,
+  gmPokemonSheets,
 }: {
   mesaId: string
   myId: string
   members: Array<{ user_id: string; role: 'gm' | 'player' }>
   usernames: Record<string, string>
+  gmPokemonSheets: PokemonSheet[]
 }) {
   const [tab, setTab] = useState<'encounter' | 'gym' | 'items'>('encounter')
 
@@ -692,7 +797,7 @@ export default function GmToolsPanel({
                   : 'bg-black/15 text-white hover:bg-black/25'
               }`}
             >
-              {t === 'encounter' ? '🐾 Encontro' : t === 'gym' ? '🏋️ Ginásio' : '🛒 Itens'}
+              {t === 'encounter' ? '🐾 Encontro' : t === 'gym' ? '🏋️ Ginásio' : '🎁 Presentear'}
             </button>
           ))}
         </div>
@@ -701,7 +806,12 @@ export default function GmToolsPanel({
         {tab === 'encounter' && <EncounterTab mesaId={mesaId} myId={myId} />}
         {tab === 'gym' && <GymTab mesaId={mesaId} myId={myId} />}
         {tab === 'items' && (
-          <ItemsTab mesaId={mesaId} members={members} usernames={usernames} />
+          <ItemsTab
+            mesaId={mesaId}
+            members={members}
+            usernames={usernames}
+            gmPokemonSheets={gmPokemonSheets}
+          />
         )}
       </div>
     </div>

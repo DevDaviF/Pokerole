@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { Move } from '../types'
-import { MOVES, POKEMON_TYPES, typeColor } from '../data'
+import { MOVES, POKEMON_TYPES, typeColor, moveAccuracyLabel } from '../data'
 import TypeBadge from '../components/TypeBadge'
 import MoveDetailModal, { CategoryBadge } from '../components/MoveDetailModal'
 
@@ -101,8 +101,7 @@ export default function MovedexPage() {
                   {m.powerLabel ? '✱' : (m.power ?? '—')}
                 </td>
                 <td className="hidden px-2 py-2 text-xs text-slate-500 sm:table-cell">
-                  {m.accuracy.attribute}
-                  {m.accuracy.skill && ` + ${m.accuracy.skill}`}
+                  {moveAccuracyLabel(m)}
                 </td>
               </tr>
             ))}
