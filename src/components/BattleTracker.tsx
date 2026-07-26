@@ -166,7 +166,11 @@ export default function BattleTracker({
     if (!row) return
     const r = rollAdditive(bonus, `${combatant.name} · Iniciativa`)
     if (combatant.spriteId) r.icon = spriteUrl(combatant.spriteId)
-    postRoll(r)
+    // NPC (selvagem/ginásio): a rolagem soma Destreza+Alert ocultos do
+    // Pokémon gerado pelo Mestre — anunciar "dado + bônus = total" no chat
+    // entregaria esses atributos escondidos pros jogadores. A iniciativa em
+    // si continua valendo pra ordenar o combate, só não vai pro chat.
+    if (combatant.kind !== 'npc') postRoll(r)
     const full: Combatant = { ...combatant, key: newKey(), initiative: r.total! }
     // antes do combate começar, a lista toda é reordenada por iniciativa;
     // depois de começado, reforços entram no fim da fila (agem na próxima
@@ -405,6 +409,9 @@ export default function BattleTracker({
             {row.combatants.map((c, index) => {
               const isCurrent = index === 0
               const hideExactHp = c.kind === 'npc' && !isGm
+              // só o Mestre ou o dono do combatente mexe nele — evita
+              // jogador remover ou curar/ferir o Pokémon de outra pessoa
+              const canManage = isGm || c.ownerId === myId
               return (
                 <div
                   key={c.key}
@@ -449,7 +456,7 @@ export default function BattleTracker({
                     <span className="ml-auto rounded-full bg-cyan-100 px-2 py-0.5 text-xs font-bold text-cyan-700">
                       ⚡ {c.initiative}
                     </span>
-                    {(isGm || c.ownerId === myId) && (
+                    {canManage && (
                       <button
                         onClick={() => removeCombatant(c.key)}
                         title="Remover (fugiu, desmaiou, saiu da batalha...)"
@@ -460,12 +467,14 @@ export default function BattleTracker({
                     )}
                   </div>
                   <div className="mt-1.5 flex items-center gap-2 pl-1">
-                    <button
-                      onClick={() => adjustHp(c.key, -1)}
-                      className="h-5 w-5 shrink-0 rounded border border-slate-300 text-xs font-bold text-slate-500 hover:bg-slate-100"
-                    >
-                      −
-                    </button>
+                    {canManage && (
+                      <button
+                        onClick={() => adjustHp(c.key, -1)}
+                        className="h-5 w-5 shrink-0 rounded border border-slate-300 text-xs font-bold text-slate-500 hover:bg-slate-100"
+                      >
+                        −
+                      </button>
+                    )}
                     {hideExactHp ? (
                       <span className="flex-1 text-center text-[11px] font-semibold text-slate-500">
                         {hpStatusLabel(c.currentHp, c.maxHp)}
@@ -475,12 +484,14 @@ export default function BattleTracker({
                         <HpBar current={c.currentHp} max={c.maxHp} />
                       </div>
                     )}
-                    <button
-                      onClick={() => adjustHp(c.key, 1)}
-                      className="h-5 w-5 shrink-0 rounded border border-slate-300 text-xs font-bold text-slate-500 hover:bg-slate-100"
-                    >
-                      +
-                    </button>
+                    {canManage && (
+                      <button
+                        onClick={() => adjustHp(c.key, 1)}
+                        className="h-5 w-5 shrink-0 rounded border border-slate-300 text-xs font-bold text-slate-500 hover:bg-slate-100"
+                      >
+                        +
+                      </button>
+                    )}
                     {!hideExactHp && (
                       <span className="w-14 shrink-0 text-right text-[11px] font-semibold text-slate-500">
                         {c.currentHp}/{c.maxHp} HP
