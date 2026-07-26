@@ -96,6 +96,18 @@ export function MesaProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  // A coluna `roll` no banco tem check(pg_column_size(roll) <= 4096) — o
+  // ícone do Treinador (avatar pixel-art ou foto enviada) é um data: URI que
+  // frequentemente passa de 5-13KB, bem maior que esse limite. Sprite de
+  // Pokémon é só uma URL curta, por isso só o roll do Treinador quebrava:
+  // o insert falhava no constraint e o erro só ia pro console, nunca pro
+  // chat — o roll simplesmente sumia sem aviso nenhum. O ícone é cosmético,
+  // então em vez de travar o roll inteiro só descartamos ele quando pesado
+  // demais pra caber no limite da coluna.
+  const MAX_ROLL_ICON_BYTES = 3000
+  const iconFits = (icon?: string) =>
+    Boolean(icon) && new TextEncoder().encode(icon).length <= MAX_ROLL_ICON_BYTES
+
   const postRoll = (r: RollResult) => {
     if (!supabase || !session || !activeMesa) return
     // atenção: a query do supabase-js só executa no await/.then
@@ -111,7 +123,7 @@ export function MesaProvider({ children }: { children: ReactNode }) {
           dice: r.dice,
           successes: r.successes,
           sixes: r.sixes,
-          ...(r.icon ? { icon: r.icon } : {}),
+          ...(iconFits(r.icon) ? { icon: r.icon } : {}),
           ...(r.mode === 'chance' ? { mode: r.mode, triggered: r.triggered } : {}),
           ...(r.mode === 'additive'
             ? { mode: r.mode, bonus: r.bonus, total: r.total }
