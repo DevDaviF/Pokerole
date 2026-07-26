@@ -1,0 +1,90 @@
+import { useEffect, useState } from 'react'
+import { supabase } from './supabase'
+
+export interface ScoutContributor {
+  name: string
+  successes: number
+  at: number
+}
+
+export interface ScoutRollsRow {
+  mesa_id: string
+  total: number
+  contributors: ScoutContributor[]
+}
+
+// Lê e sincroniza em tempo real a contagem de batedores da mesa (soma dos
+// sucessos de Insight + Alert de vários Treinadores, conforme o costume da
+// mesa — não é regra fixa do livro).
+export function useScoutRolls(mesaId: string | null) {
+  const [row, setRow] = useState<ScoutRollsRow | null>(null)
+
+  useEffect(() => {
+    if (!supabase || !mesaId) return
+    let cancelled = false
+
+    supabase
+      .from('scout_rolls')
+      .select('mesa_id, total, contributors')
+      .eq('mesa_id', mesaId)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (cancelled || !data) return
+        setRow(data as ScoutRollsRow)
+      })
+
+    const channel = supabase
+      .channel(`scouts-${mesaId}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'scout_rolls',
+          filter: `mesa_id=eq.${mesaId}`,
+        },
+        (payload) => setRow(payload.new as ScoutRollsRow),
+      )
+      .subscribe()
+
+    return () => {
+      cancelled = true
+      supabase?.removeChannel(channel)
+    }
+  }, [mesaId])
+
+  return row
+}
+
+export async function contributeScoutRoll(
+  mesaId: string,
+  current: ScoutRollsRow,
+  name: string,
+  successes: number,
+) {
+  if (!supabase) return
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  const contributors = [
+    ...current.contributors,
+    { name, successes, at: Date.now() },
+  ].slice(-30)
+  await supabase
+    .from('scout_rolls')
+    .update({
+      total: current.total + successes,
+      contributors,
+      updated_at: new Date().toISOString(),
+      updated_by: user?.id,
+    })
+    .eq('mesa_id', mesaId)
+}
+
+export async function resetScoutRolls(mesaId: string) {
+  if (!supabase) return
+  await supabase
+    .from('scout_rolls')
+    .update({ total: 0, contributors: [], updated_at: new Date().toISOString() })
+    .eq('mesa_id', mesaId)
+}

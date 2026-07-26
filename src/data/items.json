@@ -1,0 +1,2126 @@
+[
+ {
+  "id": "abomasite",
+  "name": "Abomasite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Abomasnow Mega-evolve into Mega-Abomasnow",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "absolite",
+  "name": "Absolite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Absol Mega-evolve into Mega-Absol",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "aerodactylite",
+  "name": "Aerodactylite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Aerodactyl Mega-evolve into Mega-Aerodactyl",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "aggronite",
+  "name": "Aggronite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Aggron Mega-evolve into Mega-Aggron",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "air-balloon",
+  "name": "Air Balloon",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "A helium balloon that grants immunity to Ground. Careful as it is very fragile and will pop upon the user receiving damage.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "alakazite",
+  "name": "Alakazite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Alakazam Mega-evolve into Mega-Alakazam",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "aloraichium-z",
+  "name": "Aloraichium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Alolan Raichu's Thunderbolt to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "altarianite",
+  "name": "Altarianite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Altaria Mega-evolve into Mega-Altaria",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "ampharosite",
+  "name": "Ampharosite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Ampharos Mega-evolve into Mega-Ampharos",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "amulet-coin",
+  "name": "Amulet Coin",
+  "pocket": "HeldItems",
+  "category": "",
+  "description": "Doubles prize money from battles",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "antidote",
+  "name": "Antidote",
+  "pocket": "Medicine",
+  "category": "Status",
+  "description": "A shot that quickly eliminates toxins, reduces fever, and relieves the pain. Heal Poison & Badly Poison.",
+  "price": "100",
+  "oneUse": false
+ },
+ {
+  "id": "aspear-berry",
+  "name": "Aspear Berry",
+  "pocket": "Medicine",
+  "category": "Berry",
+  "description": "This sour berry shakes the body and rises its temperature, thawing any ice surrounding it. Heal Frozen Solid.",
+  "price": "Rare",
+  "oneUse": true
+ },
+ {
+  "id": "audinite",
+  "name": "Audinite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Audino Mega-evolve into Mega-Audino",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "awakening",
+  "name": "Awakening",
+  "pocket": "Medicine",
+  "category": "Status",
+  "description": "Sprays a water-based solution to awake a drowsy pokemon. Heal Sleep.",
+  "price": "250",
+  "oneUse": true
+ },
+ {
+  "id": "baked-goods",
+  "name": "Baked Goods",
+  "pocket": "Medicine",
+  "category": "Status",
+  "description": "Malasadas, Lava Cookies, Lumiose Galette, Jubilife Muffins, Pewter Crunchies, and More! Right out of the oven! Cannot be used in Battle.",
+  "price": "100",
+  "oneUse": true
+ },
+ {
+  "id": "banettite",
+  "name": "Banettite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Banette Mega-evolve into Mega-Banette",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "beedrillite",
+  "name": "Beedrillite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Beedrill Mega-evolve into Mega-Beedrill",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "berry-juice",
+  "name": "Berry Juice",
+  "pocket": "Medicine",
+  "category": "Berry",
+  "description": "This mixed drink of various berries is also quite refreshing. Some Pokémon produce it naturally. Cannot be used in Battle.",
+  "price": "100",
+  "oneUse": false
+ },
+ {
+  "id": "big-camping-tent",
+  "name": "Big Camping Tent",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "A spacious tent for a group to spend a cozy night. Made with repellent materials against wild Pokémon.",
+  "price": "10000",
+  "oneUse": false
+ },
+ {
+  "id": "black-belt",
+  "name": "Black Belt",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "The symbol of an outstanding martial artist. Add 1 Extra die to the Damage pool of Fight-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "black-glasses",
+  "name": "Black Glasses",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "No self-respecting ruffian can go without these. Add 1 Extra die to the Damage pool of Dark-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "blastoisinite",
+  "name": "Blastoisinite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Blastoise Mega-evolve into Mega-Blastoise",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "blazikenite",
+  "name": "Blazikenite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Blaziken Mega-evolve into Mega-Blaziken",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "bright-powder",
+  "name": "Bright Powder",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "A glittler powder that hurs the foe’s eyes. Add an Extra “Low Accuracy 1” on the Moves targeting this Pokémon.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "buginium-z",
+  "name": "Buginium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Bug-type moves to Bug-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "burn-heal",
+  "name": "Burn Heal",
+  "pocket": "Medicine",
+  "category": "Status",
+  "description": "A powder that extinguishes the fire and aids with the healing of the burnt area. Heal all Burn degrees.",
+  "price": "250",
+  "oneUse": true
+ },
+ {
+  "id": "calcium",
+  "name": "Calcium",
+  "pocket": "Medicine",
+  "category": "Vitamin",
+  "description": "Add this effervescent pills in a drink to help grow stronger bones.",
+  "price": "9800",
+  "oneUse": true
+ },
+ {
+  "id": "cameruptite",
+  "name": "Cameruptite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Camerupt Mega-evolve into Mega-Camerupt",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "camping-stove-&-cookware",
+  "name": "Camping Stove & Cookware",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "Forget about hunting and eating roots like a savage. With this luxury set you'll always have a gourmet meal.",
+  "price": "10000",
+  "oneUse": false
+ },
+ {
+  "id": "carbos",
+  "name": "Carbos",
+  "pocket": "Medicine",
+  "category": "Vitamin",
+  "description": "A healthy syrup that fills you with energy!",
+  "price": "9800",
+  "oneUse": true
+ },
+ {
+  "id": "charcoal",
+  "name": "Charcoal",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "Special charcoal to keep a flame strong. Add 1 Extra die to the Damage pool of Fire-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "charizardite-x",
+  "name": "Charizardite X",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Charizard Mega-Evolve into Mega-Charizard X",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "charizardite-y",
+  "name": "Charizardite Y",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Charizard Mega-Evolve into Mega-Charizard Y",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "cheri-berry",
+  "name": "Cheri Berry",
+  "pocket": "Medicine",
+  "category": "Berry",
+  "description": "Its spicy flavor reinvigorates the muscles and stops the cramping. Heal Paralysis.",
+  "price": "Uncommon",
+  "oneUse": true
+ },
+ {
+  "id": "chesto-berry",
+  "name": "Chesto Berry",
+  "pocket": "Medicine",
+  "category": "Berry",
+  "description": "It is difficult to eat, so tough and dry that it will heal the drowsiness. Heal Sleep.",
+  "price": "Common",
+  "oneUse": true
+ },
+ {
+  "id": "chocolate",
+  "name": "Chocolate",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "A sweet treat to gain the affection of someone special. It melts in your mouth with each bite. Cannot be used in Battle.",
+  "price": "100",
+  "oneUse": false
+ },
+ {
+  "id": "choice-band",
+  "name": "Choice Band",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "Hit hard! Choose a Physical Move, increase its Power by 3. All other Moves get their Power reduced by 3.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "choice-scarf",
+  "name": "Choice Scarf",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "Hit fast! Increase initiative by 3. Choose a Move, it gets the effect Reaction 5. All other Moves get their Power reduced by 3",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "choice-specs",
+  "name": "Choice Specs",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "Hit fabulously! Choose a Special Move, increase its Power by 3. All other Moves get their Power reduced by 3.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "clear-amulet",
+  "name": "Clear Amulet",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "An amulet of protection against evil. Attributes and traits of the user can't be lowered by other Pokémon.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "compass",
+  "name": "Compass",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "A useful compass to point you in the right direction. Warning: Keep away from magnets.",
+  "price": "100",
+  "oneUse": false
+ },
+ {
+  "id": "darkinium-z",
+  "name": "Darkinium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Dark-type moves to Dark-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "dawn-stone",
+  "name": "Dawn Stone",
+  "pocket": "EvolutionItem",
+  "category": "",
+  "description": "This cerulean stone shines with blinding light for a minute during sunrise. Very rare to find.",
+  "price": "10000",
+  "oneUse": true
+ },
+ {
+  "id": "decidium-z",
+  "name": "Decidium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Decidueye's Spirit Shackle to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "destiny-knot",
+  "name": "Destiny Knot",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "The red string of fate may never break. If this Pokémon falls in love the foe will fall in love with them in return.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "diancite",
+  "name": "Diancite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Diancie Mega-evolve into Mega-Diancie",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "dragon-fang",
+  "name": "Dragon Fang",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "The fang of a fierce dragon fuels your inner rage. Add 1 Extra die to the Damage pool of Dragon-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "dragonium-z",
+  "name": "Dragonium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Dragon-type moves to Dragon-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "dry-food",
+  "name": "Dry Food",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "Dry kibble for your Pokémon. Nothing special. Enough for one day.",
+  "price": "10",
+  "oneUse": true
+ },
+ {
+  "id": "dusk-ball",
+  "name": "Dusk Ball",
+  "pocket": "Pokeballs",
+  "category": "",
+  "description": "Uncommon. The seal on this ball gets stronger the darker it gets. Increase seal potency by 4 if you are in a cave and/or by 5 if it's night time.",
+  "price": "Not for Sale",
+  "oneUse": true
+ },
+ {
+  "id": "dusk-stone",
+  "name": "Dusk Stone",
+  "pocket": "EvolutionItem",
+  "category": "",
+  "description": "This stone seems to suck the light and happiness off a room like a small dark hole. Very rare to find.",
+  "price": "10000",
+  "oneUse": true
+ },
+ {
+  "id": "eevium-z",
+  "name": "Eevium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Eevee's Last Resort to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "eject-button",
+  "name": "Eject Button",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "A tempting big red button. Do not push. After receiving damage, activate the Switcher effect for the user. Effect activates only once per Round.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "electrium-z",
+  "name": "Electrium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Electric-type moves to Electric-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "energy-root",
+  "name": "Energy Root",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "A nasty-tasting root with healing properties. It can be eaten whole or turned into up to 4 batches of Remedy. (Requires Medicine Skill check)",
+  "price": "800",
+  "oneUse": true
+ },
+ {
+  "id": "eviolite",
+  "name": "Eviolite",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "A mineral that reacts to raw potential. Increase by 1 the Defense and Sp. Defense of a 1st or 2nd stage Pokémon.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "expert-belt",
+  "name": "Expert Belt",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "The symbol of a true martial artist. Super-Effective Moves used by this Pokémon deal 1 extra damage.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "fairium-z",
+  "name": "Fairium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Fairy-type moves to Fairy-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "fairy-wings",
+  "name": "Fairy Wings",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "Frolic like a fae through an enchanted forest. Add 1 Extra die to the Damage pool of Fairy-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "fast-ball",
+  "name": "Fast Ball",
+  "pocket": "Pokeballs",
+  "category": "",
+  "description": "Uncommon. This seal potency is equal to the Dexterity Score of the Pokémon you are trying to catch. Up to 9 dice.",
+  "price": "Not for Sale",
+  "oneUse": true
+ },
+ {
+  "id": "fightinium-z",
+  "name": "Fightinium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Fighting-type moves to Fighting-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "fire-stone",
+  "name": "Fire Stone",
+  "pocket": "EvolutionItem",
+  "category": "",
+  "description": "This Stone has a flame inside, it's hot to the touch. Usually found at the base of volcanoes.",
+  "price": "5000",
+  "oneUse": true
+ },
+ {
+  "id": "firium-z",
+  "name": "Firium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Fire-type moves to Fire-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "fishing-rod",
+  "name": "Fishing Rod",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "A fishing rod to catch Pokémon living underwater. Make sure to get the right bait or they won't bite.",
+  "price": "300",
+  "oneUse": false
+ },
+ {
+  "id": "flame-orb",
+  "name": "Flame Orb",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "A magical orb that casts a small fire. Warning: keep away from children & pets. User gets a 1st degree burn when they come out.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "flyinium-z",
+  "name": "Flyinium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Flying-type moves to Flying-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "focus-sash",
+  "name": "Focus Sash",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "Remain concious until the end. The first time the user would faint due to damage from a move, remain at 1 HP instead.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "fresh-water",
+  "name": "Fresh Water",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "Pure H2O and just the right amount of sodium. Remember to drink 8 glasses daily! Cannot be used in Battle.",
+  "price": "200",
+  "oneUse": true
+ },
+ {
+  "id": "full-heal",
+  "name": "Full Heal",
+  "pocket": "Medicine",
+  "category": "Status",
+  "description": "A superior spray formula that can heal any and all Status Ailments in a second. Heal all Status Ailments.",
+  "price": "600",
+  "oneUse": true
+ },
+ {
+  "id": "full-restore",
+  "name": "Full Restore",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "A single-use capsule of deluxe formula. The Pokémon won't be able to restore health further until the next day. Restore Full HP & Heal Status.",
+  "price": "2000",
+  "oneUse": true
+ },
+ {
+  "id": "galladite",
+  "name": "Galladite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Gallade Mega-evolve into Mega-Gallade",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "garchompite",
+  "name": "Garchompite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Garchomp Mega-evolve into Mega-Garchomp",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "gardevoirite",
+  "name": "Gardevoirite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Gardevoir Mega-evolve into Mega-Gardevoir",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "gengarite",
+  "name": "Gengarite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Gengar Mega-evolve into Mega-Gengar",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "ghostium-z",
+  "name": "Ghostium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Ghost-type moves to Ghost-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "glalitite",
+  "name": "Glalitite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Glalie Mega-evolve into Mega-Glalie",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "gourmet-food",
+  "name": "Gourmet Food",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "Made with Premium ingredients. If you feed this on a regular basis the Pokémon's happiness will increase faster.",
+  "price": "1500",
+  "oneUse": true
+ },
+ {
+  "id": "grassium-z",
+  "name": "Grassium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Grass-type moves to Grass-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "greatball",
+  "name": "Greatball",
+  "pocket": "Pokeballs",
+  "category": "",
+  "description": "Seal potency of 6 dice. A sturdier barrier protects the seal so you have an easier time catching Pokémon.",
+  "price": "600",
+  "oneUse": true
+ },
+ {
+  "id": "grooming-kit",
+  "name": "Grooming Kit",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "No more matted hair, unruly leaves, flaky scales, rough rocks, unpolished steel ...you get the idea.",
+  "price": "100",
+  "oneUse": false
+ },
+ {
+  "id": "groundium-z",
+  "name": "Groundium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Ground-type moves to Ground-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "gyaradosite",
+  "name": "Gyaradosite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Gyarados Mega-evolve into Mega-Gyarados",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "hang-glider",
+  "name": "Hang Glider",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "You will catch more Pokemon with honey than with vinegar. Wild Pokemon will come in hordes tracking it's scent, or you can enjoy it as a sweet treat!",
+  "price": "200",
+  "oneUse": false
+ },
+ {
+  "id": "hard-stone",
+  "name": "Hard Stone",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "Good ol' rock! Nothing beats that! Add 1 Extra die to the Damage pool of Rock-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "heal-powder",
+  "name": "Heal Powder",
+  "pocket": "Medicine",
+  "category": "Status",
+  "description": "A mix of the most foul-tasting herbs you can find can make this cure-all powder. Heal all Status Ailments.",
+  "price": "500",
+  "oneUse": true
+ },
+ {
+  "id": "heavy-ball",
+  "name": "Heavy Ball",
+  "pocket": "Pokeballs",
+  "category": "",
+  "description": "Uncommon. Increase seal potency by 1 for every 50 lbs/25kg, on the Pokémon you are trying to catch. Up to 5 dice may be added this way.",
+  "price": "Not for Sale",
+  "oneUse": true
+ },
+ {
+  "id": "heavy-duty-boots",
+  "name": "Heavy-Duty Boots",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "These metal-plated boots will protect your feet even from a bear trap. The user is immune to Entry Hazards.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "heracronite",
+  "name": "Heracronite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Heracross Mega-evolve into Mega-Heracross",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "high-performance-food",
+  "name": "High-Performance Food",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "High-protein kibble, made for athletes! Add 2 dice to the next Training Roll of the Pokémon.",
+  "price": "200",
+  "oneUse": true
+ },
+ {
+  "id": "honey",
+  "name": "Honey",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "A sweet treat to gain the affection of someone special. It melts in your mouth with each bite. Cannot be used in Battle.",
+  "price": "100",
+  "oneUse": false
+ },
+ {
+  "id": "houndoominite",
+  "name": "Houndoominite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Houndoom Mega-evolve into Mega-Houndoom",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "hp-up",
+  "name": "HP Up",
+  "pocket": "Medicine",
+  "category": "Vitamin",
+  "description": "A compendium of vitamins and minerals to help your Pokémon grow as big and healthy as it can be.",
+  "price": "9800",
+  "oneUse": true
+ },
+ {
+  "id": "hyper-potion",
+  "name": "Hyper Potion",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "Best value pack. It can be rationed for smaller injuries on the team, or used all at once on a serious wound.",
+  "price": "1200",
+  "oneUse": true
+ },
+ {
+  "id": "ice-cream",
+  "name": "Ice Cream",
+  "pocket": "Medicine",
+  "category": "Status",
+  "description": "A delicious vanilla cone that looks just like a Vanillish. Perfect for a sunny day at the park. Cannot be used in Battle.",
+  "price": "100",
+  "oneUse": true
+ },
+ {
+  "id": "ice-heal",
+  "name": "Ice Heal",
+  "pocket": "Medicine",
+  "category": "Status",
+  "description": "A heat-inducing device that recovers the normal temperature of the Pokémon and heals frost biting. Heal Frozen Solid.",
+  "price": "250",
+  "oneUse": false
+ },
+ {
+  "id": "ice-stone",
+  "name": "Ice Stone",
+  "pocket": "EvolutionItem",
+  "category": "",
+  "description": "Looks like a piece of ice that won't melt, very cold to the touch. Only found near artic regions.",
+  "price": "10000",
+  "oneUse": true
+ },
+ {
+  "id": "icium-z",
+  "name": "Icium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Ice-type moves to Ice-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "incinium-z",
+  "name": "Incinium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Incineroar's Darkest Lariat to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "inflatable-boat",
+  "name": "Inflatable Boat",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "A small boat for two persons. Your Pokémon can pull you through the water or you can use the oars.",
+  "price": "1000",
+  "oneUse": false
+ },
+ {
+  "id": "iron",
+  "name": "Iron",
+  "pocket": "Medicine",
+  "category": "Vitamin",
+  "description": "An iron capsule that reduces feebleness and gives you a healthy glow.",
+  "price": "9800",
+  "oneUse": true
+ },
+ {
+  "id": "iron-ball",
+  "name": "Iron Ball",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "A heavy ball chain that drags you down. Reduce the user’s Dexterity by 1, and remove immunity to Ground-Type",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "kangaskhanite",
+  "name": "Kangaskhanite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Kangaskhan Mega-evolve into Mega-Kangaskhan",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "king's-rock",
+  "name": "King's Rock",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "A crown-shaped rock. May trigger Evolution on certain Pokémon. Add 1 Chance dice to Flinch on all Special Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "kommonium-z",
+  "name": "Kommonium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Kommo-o's Clanging Scales to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "latiasite",
+  "name": "Latiasite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Latias Mega-evolve into Mega-Latias",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "latiosite",
+  "name": "Latiosite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Latios Mega-evolve into Mega-Latios",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "leaf-stone",
+  "name": "Leaf Stone",
+  "pocket": "EvolutionItem",
+  "category": "",
+  "description": "It is said that the leaf encrusted into it came from a tree of life. Relatively common in forests and jungles.",
+  "price": "Not for Sale",
+  "oneUse": true
+ },
+ {
+  "id": "leek",
+  "name": "Leek",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "A common leek. It is loved by Farfetch'd and gives the High Critical Effect to all their Physical and Special Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "leftovers",
+  "name": "Leftovers",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "Don’t waste food. Heal 1 Damage at the end of the Round. Consumed after healing 3 Damage.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "lemonade",
+  "name": "Lemonade",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "The citric boost and added vitamins make this a favorite after exercise. Cannot be used in Battle.",
+  "price": "300",
+  "oneUse": true
+ },
+ {
+  "id": "life-orb",
+  "name": "Life Orb",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "A cursed item that promises power. Add the Recoil effect and 2 Extra dice to the damage pool of Physical and Special Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "light-ball",
+  "name": "Light Ball",
+  "pocket": "HeldItems",
+  "category": "MonBoosting",
+  "description": "A bright ball that harnesses electricity. Pikachu loves it and they get their Strength and Special Attributes increased by 1.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "loaded-dice",
+  "name": "Loaded Dice",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "Sometimes you have to coax lady luck. Moves with Chance Dice effects get 2 Extra Chance dice on each effect",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "lopunnite",
+  "name": "Lopunnite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Lopunny Mega-evolve into Mega-Lopunny",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "lucarionite",
+  "name": "Lucarionite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Lucario Mega-evolve into Mega-Lucario",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "lucky-punch",
+  "name": "Lucky Punch",
+  "pocket": "HeldItems",
+  "category": "MonBoosting",
+  "description": "Boxing gloves. Chansey loves them and gets the High Critical Effect to all Physical Moves and Strength increased by 2.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "lum-berry",
+  "name": "Lum Berry",
+  "pocket": "Medicine",
+  "category": "Berry",
+  "description": "This berry is said to cure everything; however it's very rare to find. Heal all Status Ailments.",
+  "price": "Rare",
+  "oneUse": true
+ },
+ {
+  "id": "lunalium-z",
+  "name": "Lunalium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Lunala's Moongeist Beam to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "luxury-ball",
+  "name": "Luxury Ball",
+  "pocket": "Pokeballs",
+  "category": "",
+  "description": "Very Rare. Any Pokémon caught with this ball will have their Happiness Score increased by 1.",
+  "price": "Not for Sale",
+  "oneUse": true
+ },
+ {
+  "id": "lycanium-z",
+  "name": "Lycanium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Lycanroc's Stone Edge to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "magnet",
+  "name": "Magnet",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "These magnets... how do they work? Add 1 Extra die to the Damage pool of Electric-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "manectite",
+  "name": "Manectite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Manectric Mega-evolve into Mega-Manectric",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "marshadium-z",
+  "name": "Marshadium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Marshadow's Spectral Thief to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "masterball",
+  "name": "Masterball",
+  "pocket": "Pokeballs",
+  "category": "",
+  "description": "It's been long rumored that a mighty pokeball with the strongest seal in existance is in development. But no one has truly seen it in action.",
+  "price": "Not for Sale",
+  "oneUse": true
+ },
+ {
+  "id": "mawilite",
+  "name": "Mawilite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Mawile Mega-evolve into Mega-Mawile",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "max-honey",
+  "name": "Max Honey",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "An exquisite honey made by a Vespiquen. It's unbelievably healthy and said to grant true happiness. But the only way to obtain it is to defeat the whole swarm in battle. Cannot be used in Battle.",
+  "price": "Not for Sale",
+  "oneUse": true
+ },
+ {
+  "id": "max-potion",
+  "name": "Max Potion",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "A single-use capsule of formula. The Pokémon won't be able to restore health further until the next day.",
+  "price": "1700",
+  "oneUse": true
+ },
+ {
+  "id": "max-revive",
+  "name": "Max Revive",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "A bigger rock shard with enhaced effects. Found raw in deep caves. Very rare to find. Not available in stores. Restore conciousness & Full HP.",
+  "price": "Not for Sale",
+  "oneUse": true
+ },
+ {
+  "id": "meal-rations",
+  "name": "Meal Rations",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "Nothing fancy but there's no need to travel on an empty stomach. One ration is enough for one day.",
+  "price": "75",
+  "oneUse": true
+ },
+ {
+  "id": "medichamite",
+  "name": "Medichamite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Medicham Mega-evolve into Mega-Medicham",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "metagrossite",
+  "name": "Metagrossite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Metagross Mega-evolve into Mega-Metagross",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "metal-coat",
+  "name": "Metal Coat",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "Leave any surface coated in a shiny chrome. Add 1 Extra die to the Damage pool of Steel-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "metronome",
+  "name": "Metronome",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "Follow the rhythm to attack in succession. Add 1 Extra die to the damage pool of Double, Triple, and Successive Actions.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "mewnium-z",
+  "name": "Mewnium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Mew's Psychic to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "mewtwonite-x",
+  "name": "Mewtwonite X",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Mewtwo Mega-Evolve into Mega-Mewtwo X",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "mewtwonite-y",
+  "name": "Mewtwonite Y",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Mewtwo Mega-Evolve into Mega-Mewtwo Y",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "mimikium-z",
+  "name": "Mimikium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Mimikyu's Play Rough to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "miracle-seed",
+  "name": "Miracle Seed",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "A seed that is said to flourish into a tree of life. Add 1 Extra die to the Damage pool of Grass-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "moomoo-milk",
+  "name": "Moomoo Milk",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": " Right out of the Miltank! Fresh and organic. Excellent to grow healthy! Cannot be used in Battle.",
+  "price": "350",
+  "oneUse": true
+ },
+ {
+  "id": "moon-stone",
+  "name": "Moon Stone",
+  "pocket": "EvolutionItem",
+  "category": "",
+  "description": "Looks like a common rock until the moon shines upon it, giving it a aether glow. Commonly found in caves.",
+  "price": "3500",
+  "oneUse": true
+ },
+ {
+  "id": "mountain-bike",
+  "name": "Mountain Bike",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "You will travel twice as fast with this awesome all-terrain bike. Now at an insane price!",
+  "price": "1500",
+  "oneUse": false
+ },
+ {
+  "id": "mystic-water",
+  "name": "Mystic Water",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "Water that emits a mysterious glow. Add 1 Extra die to the Damage pool of Water-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "never-melt-ice",
+  "name": "Never-Melt Ice",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "This magical piece of ice never melts. Add 1 Extra die to the Damage pool of Ice-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "normalium-z",
+  "name": "Normalium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Normal-type moves to Normal-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "old-pokeball",
+  "name": "Old Pokeball",
+  "pocket": "Pokeballs",
+  "category": "",
+  "description": "Rare. An old model of Pokéball, now a collector's item.",
+  "price": "Not for Sale",
+  "oneUse": true
+ },
+ {
+  "id": "oran-berry",
+  "name": "Oran Berry",
+  "pocket": "Medicine",
+  "category": "Berry",
+  "description": "A delicious citric berry that numbs pain away.",
+  "price": "Uncommon",
+  "oneUse": true
+ },
+ {
+  "id": "paralyze-heal",
+  "name": "Paralyze Heal",
+  "pocket": "Medicine",
+  "category": "Status",
+  "description": "This ointment relaxes the muscles and stops the cramping. Heal Paralysis.",
+  "price": "200",
+  "oneUse": true
+ },
+ {
+  "id": "pecha-berry",
+  "name": "Pecha Berry",
+  "pocket": "Medicine",
+  "category": "Berry",
+  "description": "This berry's sweet pulp will absorb simple poison out of the bloodstream. Heal Poison.",
+  "price": "Uncommon",
+  "oneUse": false
+ },
+ {
+  "id": "pepper-spray-can",
+  "name": "Pepper Spray Can",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "Scares away small Pokémon, but it may enrage the bigger ones. Good for 5 uses.",
+  "price": "50",
+  "oneUse": true
+ },
+ {
+  "id": "persim-berry",
+  "name": "Persim Berry",
+  "pocket": "Medicine",
+  "category": "Berry",
+  "description": "A multi-flavored berry to snap out of confusion. Heal Confusion.",
+  "price": "Common",
+  "oneUse": true
+ },
+ {
+  "id": "pidgeotite",
+  "name": "Pidgeotite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Pidgeot Mega-evolve into Mega-Pidgeot",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "piece-of-accessory",
+  "name": "Piece of Accessory",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "Ribbons, hats, collars and everything you need to make your companion look super special.",
+  "price": "400",
+  "oneUse": false
+ },
+ {
+  "id": "pikanium-z",
+  "name": "Pikanium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Pikachu's Volt Tackle to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "pikashunium-z",
+  "name": "Pikashunium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Pikachu's Thunderbolt to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "pinsirite",
+  "name": "Pinsirite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Pinsir Mega-evolve into Mega-Pinsir",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "poison-barb",
+  "name": "Poison Barb",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "A toxin-infused barb to ensure complete saturation. Add 1 Extra die to the Damage pool of Poison-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "poisonium-z",
+  "name": "Poisonium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Poison-type moves to Poison-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "pokeball",
+  "name": "Pokeball",
+  "pocket": "Pokeballs",
+  "category": "",
+  "description": "Seal potency of 4 dice. A basic ball used for catching Pokémon and carrying heavy items.",
+  "price": "200",
+  "oneUse": true
+ },
+ {
+  "id": "pokedex",
+  "name": "Pokedex",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "A digital encyclopedia with basic information about regional Pokémon. You may add your own research.",
+  "price": "5000",
+  "oneUse": false
+ },
+ {
+  "id": "pokedex-upgrade",
+  "name": "Pokedex Upgrade",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "Upgrade your Pokédex with the information of the Pokémon on a new region.",
+  "price": "2500",
+  "oneUse": false
+ },
+ {
+  "id": "pokedoll",
+  "name": "PokeDoll",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "Life-size decoy used to escape wild Pokémon. Some people like to collect them.",
+  "price": "1000",
+  "oneUse": true
+ },
+ {
+  "id": "pokemon-costume",
+  "name": "Pokemon Costume",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "Fashionable clothes. Your companions will look amazing in these costumes and they will love it too!",
+  "price": "3500",
+  "oneUse": false
+ },
+ {
+  "id": "pokemon-repel",
+  "name": "Pokémon Repel",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "Most Pokémon won't come near you for about eight hours. The smell is now machine-washable.",
+  "price": "350",
+  "oneUse": true
+ },
+ {
+  "id": "potion",
+  "name": "Potion",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "A pocket sized spray potion to relieve the pain and heal bruises.",
+  "price": "400",
+  "oneUse": true
+ },
+ {
+  "id": "power-herb",
+  "name": "Power Herb",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "This Herb infuses a red energy. Remove the need to charge from a Charge Move. Single use",
+  "price": "Not for Sale",
+  "oneUse": true
+ },
+ {
+  "id": "power-increasers",
+  "name": "Power Increasers",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "Weighted gear, that Reduce Dexterity by 1 but grant an Increase of 2 on another Attribute/Trait of your choice.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "pp-up",
+  "name": "PP Up",
+  "pocket": "Medicine",
+  "category": "Vitamin",
+  "description": "It is rumored they are just sugar pills. Who really knows?",
+  "price": "9800",
+  "oneUse": true
+ },
+ {
+  "id": "primarium-z",
+  "name": "Primarium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Primarina's Sparkling Aria to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "protective-pads",
+  "name": "Protective Pads",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "With this pads on you won't come into direct contact with the foe during close-range combat. Moves and Abilities that activate due to a Non-Ranged Physical Move do not trigger for the user.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "protein",
+  "name": "Protein",
+  "pocket": "Medicine",
+  "category": "Vitamin",
+  "description": "A tasty milkshake that aids in the growth of bigger and stronger muscles.",
+  "price": "9800",
+  "oneUse": true
+ },
+ {
+  "id": "psychium-z",
+  "name": "Psychium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Psychic-type moves to Psychic-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "quick-ball",
+  "name": "Quick Ball",
+  "pocket": "Pokeballs",
+  "category": "",
+  "description": "Uncommon. The seal on this ball works on a timer. Starting with a max potency of 9 dice on the first Round of battle and reducing the seal potency by 2 each Round that passes.",
+  "price": "Not for Sale",
+  "oneUse": true
+ },
+ {
+  "id": "quick-claw",
+  "name": "Quick Claw",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "These light and sharp claws make you excited to test them out in combat. Increase user's Initiative roll by 2.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "rare-candy",
+  "name": "Rare Candy",
+  "pocket": "Medicine",
+  "category": "Vitamin",
+  "description": "You should never accept candy from strangers. ...but maybe just this once.",
+  "price": "Not for Sale",
+  "oneUse": true
+ },
+ {
+  "id": "rawst-berry",
+  "name": "Rawst Berry",
+  "pocket": "Medicine",
+  "category": "Berry",
+  "description": "Its liquid pulp is ideal to stop fire from spreading and numbs the pain on the area. It is quite bitter, though. Heal 1st & 2nd Degree Burn.",
+  "price": "Uncommon",
+  "oneUse": true
+ },
+ {
+  "id": "razor-claw",
+  "name": "Razor Claw",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "Deadly claws that trigger Evolution on certain Pokémon. All Physical and Special Moves get the High Critical Effect.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "razor-fang",
+  "name": "Razor Fang",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "Sharp fangs that trigger Evolution on certain Pokémon. Add 1 Chance dice to Flinch on all Physical Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "red-card",
+  "name": "Red Card",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "Send an offending Pokémon to the bench! After receiving damage, activate the Switcher effect for the foe. Effect activates only once per Round.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "regional-map",
+  "name": "Regional Map",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "A map with the marked routes, cities and Pokémon Centers of the region you are in.",
+  "price": "150",
+  "oneUse": false
+ },
+ {
+  "id": "remedy",
+  "name": "Remedy",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "This powder leaves a horrid aftertaste. Pokémon will only eat it if they are injured, and even so, they'll resent you for days.",
+  "price": "450",
+  "oneUse": true
+ },
+ {
+  "id": "revival-herb",
+  "name": "Revival Herb",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "It may be its magical properties or just its awful flavor, but this herb will get you back into consciousness numbing all the pain away. Very rare to find. Restore conciousness & Full HP.",
+  "price": "2800",
+  "oneUse": true
+ },
+ {
+  "id": "revive",
+  "name": "Revive",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "A small energy shard that brings a fainted Human or Pokémon back into conciousness and stabilizes all their wounds. Restore conciousness & 1 HP.",
+  "price": "1500",
+  "oneUse": true
+ },
+ {
+  "id": "ring-target",
+  "name": "Ring Target",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "There is no escaping harm when you have a target on your back. Remove all immunities of the user.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "rockium-z",
+  "name": "Rockium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Rock-type moves to Rock-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "rocky-helmet",
+  "name": "Rocky Helmet",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "The best defense is a good offense Deal 1 damage to a foe hitting the user with a Non-Ranged Physical Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "sablenite",
+  "name": "Sablenite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Sableye Mega-evolve into Mega-Sableye",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "saddle",
+  "name": "Saddle",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "A secure seat to strap on a Pokémon large enough to carry you. Riding a Pokémon sure is exciting!",
+  "price": "500",
+  "oneUse": false
+ },
+ {
+  "id": "safety-goggles",
+  "name": "Safety Goggles",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "No more pesky allergies. The user is immune to the Added Effects of Moves with the words \"Spore\", \"Powder\" & \"Pollen\".",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "salamencite",
+  "name": "Salamencite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Salamence Mega-evolve into Mega-Salamence",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "sceptilite",
+  "name": "Sceptilite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Sceptile Mega-evolve into Mega-Sceptile",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "scizorite",
+  "name": "Scizorite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Scizor Mega-evolve into Mega-Scizor",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "sharp-beak",
+  "name": "Sharp Beak",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "A sharp metal cover to reinforce beaks. Add 1 Extra die to the Damage pool of Flying-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "sharpedonite",
+  "name": "Sharpedonite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Sharpedo Mega-evolve into Mega-Sharpedo",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "shiny-stone",
+  "name": "Shiny Stone",
+  "pocket": "EvolutionItem",
+  "category": "",
+  "description": "Its polished surface allows you to see a ball of light inside. Rare to find, considered a good luck charm.",
+  "price": "10000",
+  "oneUse": true
+ },
+ {
+  "id": "silk-scarf",
+  "name": "Silk Scarf",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "A basic scarf, simple, but fashionable. Add 1 Extra die to the Damage pool of Normal-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "silver-powder",
+  "name": "Silver Powder",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "An itchy powder that induces allergies. Add 1 Extra die to the Damage pool of Bug-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "sitrus-berry",
+  "name": "Sitrus Berry",
+  "pocket": "Medicine",
+  "category": "Berry",
+  "description": "A bigger berry from the Oran family but scarcer in the wild. It can also heal up to 1 Lethal Damage.",
+  "price": "Rare",
+  "oneUse": true
+ },
+ {
+  "id": "sled",
+  "name": "Sled",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "Strap one large Pokémon or several small ones to pull you through snow, sand or any smooth surface!",
+  "price": "400",
+  "oneUse": false
+ },
+ {
+  "id": "sleeping-bag",
+  "name": "Sleeping Bag",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "Not too comfortable. You'll be able to sleep warm and dry but after a few nights your back may hurt.",
+  "price": "1000",
+  "oneUse": false
+ },
+ {
+  "id": "slowbronite",
+  "name": "Slowbronite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Slowbro Mega-evolve into Mega-Slowbro",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "small-camping-tent",
+  "name": "Small Camping Tent",
+  "pocket": "TrainerItems",
+  "category": "",
+  "description": "A comfortable space for one or two people. Made with repellent materials against wild Pokémon.",
+  "price": "2500",
+  "oneUse": false
+ },
+ {
+  "id": "snorlium-z",
+  "name": "Snorlium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Snorlax's Giga Impact to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "soda-pop",
+  "name": "Soda Pop",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "This sugary drink gives you a quick shot of energy. Enjoy the fizz on a hot day. Cannot be used in Battle.",
+  "price": "250",
+  "oneUse": true
+ },
+ {
+  "id": "soft-sand",
+  "name": "Soft Sand",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "Finely grounded sand, soft to the touch. Add 1 Extra die to the Damage pool of Ground-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "solganium-z",
+  "name": "Solganium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Solgaleo's Sunsteel Strike to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "spell-tag",
+  "name": "Spell Tag",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "An old piece of paper used to seal evil spirits. Add 1 Extra die to the Damage pool of Ghost-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "steelium-z",
+  "name": "Steelium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Steel-type moves to Steel-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "steelixite",
+  "name": "Steelixite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Steelix Mega-evolve into Mega-Steelix",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "sticky-barb",
+  "name": "Sticky Barb",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "Deal 1 Damage to the user at the end of the Round. If hit with a Non-Ranged Physical Move, transfer the sticky Barb.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "sun-stone",
+  "name": "Sun Stone",
+  "pocket": "EvolutionItem",
+  "category": "",
+  "description": "A red stone, that becomes extra bright when the sun shines on it. Can be found at deserts and plains.",
+  "price": "3500",
+  "oneUse": true
+ },
+ {
+  "id": "super-potion",
+  "name": "Super Potion",
+  "pocket": "Medicine",
+  "category": "Healing",
+  "description": "A regular can of concentrated formula spray. This potion can close open wounds and even heal a cracked bone.",
+  "price": "700",
+  "oneUse": true
+ },
+ {
+  "id": "swampertite",
+  "name": "Swampertite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Swampert Mega-evolve into Mega-Swampert",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "tapunium-z",
+  "name": "Tapunium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades the tapu's Nature's Madness to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "thick-club",
+  "name": "Thick Club",
+  "pocket": "HeldItems",
+  "category": "MonBoosting",
+  "description": "A strong club made with dried bone. Cubone & Marowak love it and get their Strength Increased by 2.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "throat-spray",
+  "name": "Throat Spray",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "This spray relaxes vocal cords. Increase Special by 1 after using a Sound-Based Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "thunder-stone",
+  "name": "Thunder Stone",
+  "pocket": "EvolutionItem",
+  "category": "",
+  "description": "It glows in the dark and can be used to power small electronics. They are created after thunder strikes.",
+  "price": "5000",
+  "oneUse": true
+ },
+ {
+  "id": "tm---basic",
+  "name": "TM - Basic",
+  "pocket": "TechnicalMachine",
+  "category": "",
+  "description": "Technical Machine that contains the guide on how to teach a basic Physical or Special to several Pokémon.",
+  "price": "20000",
+  "oneUse": true
+ },
+ {
+  "id": "tm---high-power",
+  "name": "TM - High Power",
+  "pocket": "TechnicalMachine",
+  "category": "",
+  "description": "A Technical Machine that contains the guide on how to teach a high powered Physical or Special to several Pokémon.",
+  "price": "50000",
+  "oneUse": true
+ },
+ {
+  "id": "tm---support",
+  "name": "TM - Support",
+  "pocket": "TechnicalMachine",
+  "category": "",
+  "description": "A Technical Machine that contains the guide on how to teach a Support Move to several Pokémon.",
+  "price": "15000",
+  "oneUse": true
+ },
+ {
+  "id": "toxic-orb",
+  "name": "Toxic Orb",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "A magical orb that oozes venom. Warning: keep away from children & pets. User gets poisoned. when they come out.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "tr---basic",
+  "name": "TR - Basic",
+  "pocket": "TechnicalMachine",
+  "category": "",
+  "description": "A Technical Machine that contains the guide on how to teach a basic Physical or Special to a single Pokémon.",
+  "price": "10000",
+  "oneUse": true
+ },
+ {
+  "id": "tr---high-power",
+  "name": "TR - High Power",
+  "pocket": "TechnicalMachine",
+  "category": "",
+  "description": "A Technical Machine that contains the guide on how to teach a high powered Physical or Special to a single Pokémon.",
+  "price": "25000",
+  "oneUse": true
+ },
+ {
+  "id": "tr---support",
+  "name": "TR - Support",
+  "pocket": "TechnicalMachine",
+  "category": "",
+  "description": "A Technical Machine that contains the guide on how to teach a Support Move to a single Pokémon",
+  "price": "5000",
+  "oneUse": true
+ },
+ {
+  "id": "twisted-spoon",
+  "name": "Twisted Spoon",
+  "pocket": "HeldItems",
+  "category": "TypeBoosting",
+  "description": "A spoon used to practice one's mind prowess. Add 1 Extra die to the Damage pool of Psychic-Type Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "tyranitarite",
+  "name": "Tyranitarite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Tyranitar Mega-evolve into Mega-Tyranitar",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "ultraball",
+  "name": "Ultraball",
+  "pocket": "Pokeballs",
+  "category": "",
+  "description": "Seal potency of 8 dice. The best seal in the market to ensure the catch of stronger Pokémon.",
+  "price": "1200",
+  "oneUse": true
+ },
+ {
+  "id": "ultranecrozium-z",
+  "name": "Ultranecrozium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "This is a crystallized form of Z-Power. It upgrades Necrozma's Photon Geyser to a Z-Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "umbrella",
+  "name": "Umbrella",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "Rain or shine, you should be prepared. The user ignores the effects of Sunny, Rain and Hail weather.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "venusaurite",
+  "name": "Venusaurite",
+  "pocket": "HeldItems",
+  "category": "MegaStone",
+  "description": "Makes Venusaur Mega-evolve into Mega-Venusaur",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "water-stone",
+  "name": "Water Stone",
+  "pocket": "EvolutionItem",
+  "category": "",
+  "description": "Sparkly fresh water is trapped inside. This stone can be found at the bottom of the sea and some lakes.",
+  "price": "5000",
+  "oneUse": true
+ },
+ {
+  "id": "waterium-z",
+  "name": "Waterium Z",
+  "pocket": "HeldItems",
+  "category": "ZCrystal",
+  "description": "It converts Z-Power into crystals that upgrade Water-type moves to Water-type Z-Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "weakness-policy",
+  "name": "Weakness Policy",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "A policy of compensation for damages. Increase user's Strength and Special by 1 after being hit with a Super-Effective Move.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "white-herb",
+  "name": "White Herb",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "This Herb infuses a glowing energy. Restore any lowered Attribute/Trait. Single use.",
+  "price": "Not for Sale",
+  "oneUse": true
+ },
+ {
+  "id": "wide-lens",
+  "name": "Wide Lens",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "These lenses enhace vision so it's easier to see your targets. The user adds 2 Dice to the Accuracy Roll of their Moves.",
+  "price": "Not for Sale",
+  "oneUse": false
+ },
+ {
+  "id": "zinc",
+  "name": "Zinc",
+  "pocket": "Medicine",
+  "category": "Vitamin",
+  "description": "Zinc capsules aid on brain development.",
+  "price": "9800",
+  "oneUse": true
+ },
+ {
+  "id": "zoom-lens",
+  "name": "Zoom Lens",
+  "pocket": "HeldItems",
+  "category": "BattleItem",
+  "description": "No more suffering from short-sight. Reduce Low Accuracy on Moves up to 2 points. (i.e. Low Accuracy 5 becomes 3)",
+  "price": "Not for Sale",
+  "oneUse": false
+ }
+]

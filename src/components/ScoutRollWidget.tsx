@@ -1,0 +1,64 @@
+import type { Trainer } from '../types'
+import { sheetAttrValue } from './MoveRoll'
+import { rollDice } from './DiceRoller'
+import { useMesa } from '../lib/mesa'
+import { useScoutRolls, contributeScoutRoll } from '../lib/scoutRolls'
+
+export default function ScoutRollWidget({
+  mesaId,
+  myTrainer,
+}: {
+  mesaId: string
+  myTrainer: Trainer | undefined
+}) {
+  const { postRoll } = useMesa()
+  const row = useScoutRolls(mesaId)
+
+  const contribute = async () => {
+    if (!myTrainer || !row) return
+    const pool = Math.max(
+      1,
+      sheetAttrValue(myTrainer, 'Insight') + (myTrainer.skills['Alert'] ?? 0),
+    )
+    const r = rollDice(pool, `${myTrainer.name} · Insight + Alert (batedor)`)
+    postRoll(r)
+    await contributeScoutRoll(mesaId, row, myTrainer.name, r.successes)
+  }
+
+  if (!row) return null
+
+  return (
+    <div className="overflow-hidden rounded-xl border border-cyan-200 bg-white shadow-sm">
+      <div className="flex items-center gap-2 bg-cyan-600 px-4 py-2.5 text-white">
+        <b>🔍 Batedores</b>
+        <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs font-bold">
+          {row.total} sucessos somados
+        </span>
+        <button
+          onClick={contribute}
+          disabled={!myTrainer}
+          title={
+            myTrainer
+              ? `Rolar Insight + Alert de ${myTrainer.name}`
+              : 'Crie um Treinador para contribuir'
+          }
+          className="ml-auto rounded-full bg-white/20 px-3 py-1 text-xs font-bold hover:bg-white/30 disabled:opacity-40"
+        >
+          🎲 Contribuir
+        </button>
+      </div>
+      {row.contributors.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 p-3">
+          {row.contributors.map((c, i) => (
+            <span
+              key={i}
+              className="rounded-full bg-cyan-50 px-2.5 py-1 text-xs font-medium text-cyan-700"
+            >
+              {c.name}: {c.successes}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
