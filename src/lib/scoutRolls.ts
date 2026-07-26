@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { supabase } from './supabase'
 
 export interface ScoutContributor {
@@ -18,6 +18,12 @@ export interface ScoutRollsRow {
 // mesa — não é regra fixa do livro).
 export function useScoutRolls(mesaId: string | null) {
   const [row, setRow] = useState<ScoutRollsRow | null>(null)
+  // Vários componentes (widget da mesa + ferramentas do Mestre) podem usar
+  // este hook ao mesmo tempo para o mesmo mesaId. Um nome de canal fixo
+  // colidiria: o supabase-js reaproveita o canal pelo nome e rejeita
+  // registrar um novo callback nele depois do primeiro subscribe(). Um
+  // sufixo aleatório por instância evita a colisão.
+  const instanceId = useRef(Math.random().toString(36).slice(2))
 
   useEffect(() => {
     if (!supabase || !mesaId) return
@@ -34,7 +40,7 @@ export function useScoutRolls(mesaId: string | null) {
       })
 
     const channel = supabase
-      .channel(`scouts-${mesaId}`)
+      .channel(`scouts-${mesaId}-${instanceId.current}`)
       .on(
         'postgres_changes',
         {

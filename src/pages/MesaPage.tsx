@@ -14,6 +14,7 @@ import SkillRoll from '../components/SkillRoll'
 import { DiceRow } from '../components/DiceRoller'
 import BattleTracker from '../components/BattleTracker'
 import ScoutRollWidget from '../components/ScoutRollWidget'
+import ErrorBoundary from '../components/ErrorBoundary'
 import GmToolsPanel from './MesaGmTools'
 import { getActiveTrainerId } from './TrainersPage'
 
@@ -917,28 +918,34 @@ export default function MesaPage() {
             </div>
           </div>
 
-          <ScoutRollWidget mesaId={activeMesa.id} myTrainer={myActiveTrainer} />
+          <ErrorBoundary label="Batedores">
+            <ScoutRollWidget mesaId={activeMesa.id} myTrainer={myActiveTrainer} />
+          </ErrorBoundary>
 
           {myRole === 'gm' && (
-            <GmToolsPanel mesaId={activeMesa.id} myId={myId} />
+            <ErrorBoundary label="Ferramentas do Mestre">
+              <GmToolsPanel mesaId={activeMesa.id} myId={myId} />
+            </ErrorBoundary>
           )}
 
-          <BattleTracker
-            mesaId={activeMesa.id}
-            myPokemonSheets={myPokemonSheets}
-            myTrainer={myActiveTrainer}
-            myUsername={usernames[myId] ?? 'você'}
-            sharedNpcs={sharedSheets
-              .filter(
-                (s) =>
-                  s.kind === 'pokemon' &&
-                  (s.payload as unknown as { isNpc?: boolean }).isNpc,
-              )
-              .map((s) => ({
-                id: s.id,
-                payload: s.payload as unknown as PokemonSheet,
-              }))}
-          />
+          <ErrorBoundary label="Ordem de Combate">
+            <BattleTracker
+              mesaId={activeMesa.id}
+              myPokemonSheets={myPokemonSheets}
+              myTrainer={myActiveTrainer}
+              myUsername={usernames[myId] ?? 'você'}
+              sharedNpcs={sharedSheets
+                .filter(
+                  (s) =>
+                    s.kind === 'pokemon' &&
+                    (s.payload as unknown as { isNpc?: boolean }).isNpc,
+                )
+                .map((s) => ({
+                  id: s.id,
+                  payload: s.payload as unknown as PokemonSheet,
+                }))}
+            />
+          </ErrorBoundary>
 
           <div className="grid gap-4 lg:grid-cols-3">
             {/* Chat */}
@@ -1085,7 +1092,9 @@ export default function MesaPage() {
             </div>
           </div>
 
-          <MesaNotes mesaId={activeMesa.id} />
+          <ErrorBoundary label="Anotações da Mesa">
+            <MesaNotes mesaId={activeMesa.id} />
+          </ErrorBoundary>
         </>
       )}
 

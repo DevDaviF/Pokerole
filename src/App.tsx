@@ -7,6 +7,7 @@ import PokemonSheetsPage from './pages/PokemonSheetsPage'
 import TeamPage from './pages/TeamPage'
 import MesaPage from './pages/MesaPage'
 import DiceRoller from './components/DiceRoller'
+import ErrorBoundary from './components/ErrorBoundary'
 import { MesaProvider, useMesa } from './lib/mesa'
 
 const navItems = [
@@ -49,15 +50,17 @@ function Shell() {
         </div>
       </header>
       <main className="mx-auto max-w-6xl px-4 py-6">
-        <Routes>
-          <Route path="/" element={<PokedexPage />} />
-          <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
-          <Route path="/moves" element={<MovedexPage />} />
-          <Route path="/trainers" element={<TrainersPage />} />
-          <Route path="/sheets" element={<PokemonSheetsPage />} />
-          <Route path="/team" element={<TeamPage />} />
-          <Route path="/mesa" element={<MesaPage />} />
-        </Routes>
+        <ErrorBoundary label="Página">
+          <Routes>
+            <Route path="/" element={<PokedexPage />} />
+            <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
+            <Route path="/moves" element={<MovedexPage />} />
+            <Route path="/trainers" element={<TrainersPage />} />
+            <Route path="/sheets" element={<PokemonSheetsPage />} />
+            <Route path="/team" element={<TeamPage />} />
+            <Route path="/mesa" element={<MesaPage />} />
+          </Routes>
+        </ErrorBoundary>
       </main>
       <DiceRoller onRoll={postRoll} />
     </div>
