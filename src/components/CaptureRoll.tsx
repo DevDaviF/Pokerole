@@ -131,7 +131,7 @@ export default function CaptureRoll({
     : 0
 
   const rollThrow = () => {
-    if (!myTrainer) return
+    if (!myTrainer || ballQty <= 0) return
     const r = rollDice(
       Math.max(1, throwPool),
       `${myTrainer.name} · Arremesso (${ball.label}) vs ${targetName}`,
@@ -468,7 +468,8 @@ export default function CaptureRoll({
           <span className="text-xs text-slate-400">+ Arremesso</span>
           <button
             onClick={rollThrow}
-            disabled={!myTrainer}
+            disabled={!myTrainer || ballQty <= 0}
+            title={ballQty <= 0 ? 'Você não tem essa Pokébola no inventário' : ''}
             className="rounded-lg bg-slate-800 px-3 py-1.5 text-xs font-bold text-white hover:bg-slate-700 disabled:opacity-40"
           >
             Rolar Arremesso ({throwPool}d6)

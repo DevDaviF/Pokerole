@@ -13,7 +13,9 @@ import {
   type RarityTier,
 } from '../lib/habitats'
 import { useScoutRolls, resetScoutRolls } from '../lib/scoutRolls'
-import { useCustomItems, createCustomItem, deleteCustomItem } from '../lib/customItems'
+import { useCustomItems, createCustomItem, deleteCustomItem, customItemToItem } from '../lib/customItems'
+import { sendItemGift } from '../lib/itemGifts'
+import { ITEMS } from '../data'
 import TypeBadge from '../components/TypeBadge'
 import SpeciesPicker from '../components/SpeciesPicker'
 
@@ -188,8 +190,7 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
           ))}
         </div>
         <p className="mt-1 text-[10px] text-slate-400">
-          * habitats sem tabela oficial no livro (p. 595) — extensão nossa,
-          edite src/lib/habitats.ts se quiser outros valores.
+          * habitats sem tabela oficial no livro (p. 595) — sugestão nossa.
         </p>
       </div>
 
@@ -429,7 +430,116 @@ const ITEM_POCKETS = [
   'TechnicalMachine',
 ]
 
-function ItemsTab({ mesaId }: { mesaId: string }) {
+function GiftTab({
+  mesaId,
+  members,
+  usernames,
+  customItems,
+}: {
+  mesaId: string
+  members: Array<{ user_id: string; role: 'gm' | 'player' }>
+  usernames: Record<string, string>
+  customItems: ReturnType<typeof customItemToItem>[]
+}) {
+  const allItems = [...customItems, ...ITEMS]
+  const [search, setSearch] = useState('')
+  const [itemId, setItemId] = useState('')
+  const [targetUser, setTargetUser] = useState('')
+  const [qty, setQty] = useState(1)
+  const [notice, setNotice] = useState('')
+
+  const filtered = allItems.filter((i) =>
+    i.name.toLowerCase().includes(search.toLowerCase()),
+  )
+  const players = members.filter((m) => m.role === 'player')
+
+  const gift = async () => {
+    const item = allItems.find((i) => i.id === itemId)
+    if (!item || !targetUser || qty < 1) return
+    await sendItemGift(mesaId, targetUser, { id: item.id, name: item.name }, qty)
+    setNotice(`${item.name} × ${qty} enviado pra ${usernames[targetUser] ?? 'jogador'}!`)
+    setItemId('')
+    setQty(1)
+  }
+
+  return (
+    <div className="space-y-2 rounded-lg bg-slate-50 p-3">
+      <p className="text-xs font-bold text-slate-500 uppercase">
+        Presentear item (qualquer um do catálogo, mesmo "Not for Sale")
+      </p>
+      {players.length === 0 ? (
+        <p className="text-xs text-slate-400">Nenhum jogador na mesa ainda.</p>
+      ) : (
+        <>
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Buscar item..."
+            className="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+          />
+          <div className="flex flex-wrap gap-2">
+            <select
+              value={itemId}
+              onChange={(e) => setItemId(e.target.value)}
+              className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+            >
+              <option value="">Escolha um item...</option>
+              {filtered.map((i) => (
+                <option key={i.id} value={i.id}>
+                  {i.name}
+                </option>
+              ))}
+            </select>
+            <input
+              type="number"
+              min={1}
+              value={qty}
+              onChange={(e) => setQty(Math.max(1, Number(e.target.value) || 1))}
+              className="w-16 rounded-lg border border-slate-300 px-2 py-1.5 text-center text-xs focus:border-red-400 focus:outline-none"
+            />
+            <select
+              value={targetUser}
+              onChange={(e) => setTargetUser(e.target.value)}
+              className="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+            >
+              <option value="">Pra quem...</option>
+              {players.map((m) => (
+                <option key={m.user_id} value={m.user_id}>
+                  {usernames[m.user_id] ?? m.user_id}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={gift}
+              disabled={!itemId || !targetUser}
+              className="rounded-lg bg-purple-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-purple-800 disabled:opacity-40"
+            >
+              🎁 Presentear
+            </button>
+          </div>
+        </>
+      )}
+      {notice && (
+        <p
+          className="cursor-pointer text-xs text-emerald-600"
+          onClick={() => setNotice('')}
+        >
+          {notice}
+        </p>
+      )}
+    </div>
+  )
+}
+
+function ItemsTab({
+  mesaId,
+  members,
+  usernames,
+}: {
+  mesaId: string
+  members: Array<{ user_id: string; role: 'gm' | 'player' }>
+  usernames: Record<string, string>
+}) {
   const items = useCustomItems(mesaId)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
@@ -456,6 +566,13 @@ function ItemsTab({ mesaId }: { mesaId: string }) {
 
   return (
     <div className="space-y-4">
+      <GiftTab
+        mesaId={mesaId}
+        members={members}
+        usernames={usernames}
+        customItems={items.map(customItemToItem)}
+      />
+
       <div className="space-y-2 rounded-lg bg-slate-50 p-3">
         <p className="text-xs font-bold text-slate-500 uppercase">
           Criar item personalizado
@@ -550,9 +667,13 @@ function ItemsTab({ mesaId }: { mesaId: string }) {
 export default function GmToolsPanel({
   mesaId,
   myId,
+  members,
+  usernames,
 }: {
   mesaId: string
   myId: string
+  members: Array<{ user_id: string; role: 'gm' | 'player' }>
+  usernames: Record<string, string>
 }) {
   const [tab, setTab] = useState<'encounter' | 'gym' | 'items'>('encounter')
 
@@ -579,7 +700,9 @@ export default function GmToolsPanel({
       <div className="p-4">
         {tab === 'encounter' && <EncounterTab mesaId={mesaId} myId={myId} />}
         {tab === 'gym' && <GymTab mesaId={mesaId} myId={myId} />}
-        {tab === 'items' && <ItemsTab mesaId={mesaId} />}
+        {tab === 'items' && (
+          <ItemsTab mesaId={mesaId} members={members} usernames={usernames} />
+        )}
       </div>
     </div>
   )

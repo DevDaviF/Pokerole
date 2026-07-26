@@ -79,6 +79,7 @@ export default function BattleTracker({
   myTrainer,
   sharedNpcs,
   myUsername,
+  isGm,
 }: {
   mesaId: string
   myId: string
@@ -86,6 +87,7 @@ export default function BattleTracker({
   myTrainer: Trainer | undefined
   sharedNpcs: Array<{ id: string; ownerId: string; payload: PokemonSheet }>
   myUsername: string
+  isGm: boolean
 }) {
   const { postRoll } = useMesa()
   const [row, setRow] = useState<BattleRow | null>(null)
@@ -145,57 +147,47 @@ export default function BattleTracker({
       .eq('mesa_id', mesaId)
   }
 
+  // A ordem é o próprio array: quem está no índice 0 é quem tem a vez.
+  // "Passar a vez" tira o primeiro e bota no fim da fila — reordena de
+  // verdade, não só move um ponteiro sobre uma lista fixa por iniciativa.
   const addCombatant = async (combatant: Omit<Combatant, 'key' | 'initiative'>, bonus: number) => {
     if (!row) return
     const r = rollAdditive(bonus, `${combatant.name} · Iniciativa`)
     postRoll(r)
     const full: Combatant = { ...combatant, key: newKey(), initiative: r.total! }
-    const combatants = [...row.combatants, full].sort(
-      (a, b) => b.initiative - a.initiative,
-    )
-    // Antes do combate "começar" (1º Passar a vez), quem tem a vez é
-    // sempre recalculado como a maior iniciativa da lista atual — não
-    // trava em quem foi adicionado primeiro. Depois de começado, novas
-    // entradas (Pokémon trocado em campo, reforços) não atrapalham o
-    // turno de quem já está jogando.
-    await persist({
-      combatants,
-      current_key: row.started
-        ? (row.current_key ?? combatants[0].key)
-        : combatants[0].key,
-    })
+    // antes do combate começar, a lista toda é reordenada por iniciativa;
+    // depois de começado, reforços entram no fim da fila (agem na próxima
+    // rodada, sem atrapalhar quem já está jogando)
+    const combatants = row.started
+      ? [...row.combatants, full]
+      : [...row.combatants, full].sort((a, b) => b.initiative - a.initiative)
+    await persist({ combatants, current_key: combatants[0]?.key ?? null })
     setShowAdd(false)
   }
 
   const removeCombatant = async (key: string) => {
     if (!row) return
     const combatants = row.combatants.filter((c) => c.key !== key)
-    let currentKey = row.current_key
-    if (!row.started) {
-      // ainda montando a lista: a vez sempre acompanha a maior iniciativa
-      currentKey = combatants[0]?.key ?? null
-    } else if (currentKey === key) {
-      const idx = row.combatants.findIndex((c) => c.key === key)
-      currentKey = combatants[idx]?.key ?? combatants[0]?.key ?? null
-    }
-    await persist({ combatants, current_key: currentKey })
+    await persist({ combatants, current_key: combatants[0]?.key ?? null })
   }
 
   const nextTurn = async () => {
     if (!row || row.combatants.length === 0) return
-    const idx = row.combatants.findIndex((c) => c.key === row.current_key)
-    const nextIdx = idx === -1 ? 0 : (idx + 1) % row.combatants.length
-    const wrapped = idx !== -1 && nextIdx === 0
+    const [current, ...rest] = row.combatants
+    const combatants = [...rest, current]
     await persist({
-      current_key: row.combatants[nextIdx].key,
+      combatants,
+      current_key: combatants[0]?.key ?? null,
       started: true,
-      round: wrapped ? row.round + 1 : row.round,
+      // `round` guarda o total de turnos passados (não o número exibido);
+      // o badge calcula Math.floor(round / combatants.length) + 1
+      round: row.round + 1,
     })
   }
 
   const resetBattle = async () => {
     if (!confirm('Encerrar a batalha e limpar a ordem de combate?')) return
-    await persist({ combatants: [], current_key: null, started: false, round: 1 })
+    await persist({ combatants: [], current_key: null, started: false, round: 0 })
   }
 
   // Ajusta o HP de um combatente. Qualquer um na mesa pode ajustar (agiliza
@@ -239,12 +231,15 @@ export default function BattleTracker({
 
   if (!row) return null
 
+  const displayRound =
+    row.combatants.length > 0 ? Math.floor(row.round / row.combatants.length) + 1 : 1
+
   return (
     <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
       <div className="flex items-center gap-2 bg-gradient-to-r from-slate-800 to-slate-700 px-4 py-2.5 text-white">
         <b>⚔️ Ordem de Combate</b>
         <span className="rounded-full bg-white/15 px-2 py-0.5 text-xs font-bold">
-          Round {row.round}
+          Round {displayRound}
         </span>
         <div className="ml-auto flex gap-2">
           <button
@@ -253,7 +248,7 @@ export default function BattleTracker({
           >
             + Adicionar
           </button>
-          {row.combatants.length > 0 && (
+          {isGm && row.combatants.length > 0 && (
             <button
               onClick={resetBattle}
               className="rounded-full bg-white/15 px-2.5 py-0.5 text-xs font-bold hover:bg-white/25"
@@ -388,8 +383,8 @@ export default function BattleTracker({
           </p>
         ) : (
           <div className="space-y-1.5">
-            {row.combatants.map((c) => {
-              const isCurrent = c.key === row.current_key
+            {row.combatants.map((c, index) => {
+              const isCurrent = index === 0
               return (
                 <div
                   key={c.key}
@@ -468,14 +463,19 @@ export default function BattleTracker({
           </div>
         )}
 
-        {row.combatants.length > 0 && (
-          <button
-            onClick={nextTurn}
-            className="mt-3 w-full rounded-xl bg-slate-800 py-2 text-sm font-bold text-white shadow-sm transition-transform hover:scale-[1.01] hover:bg-slate-700 active:scale-[0.99]"
-          >
-            ▶ Passar a vez
-          </button>
-        )}
+        {row.combatants.length > 0 &&
+          (isGm ? (
+            <button
+              onClick={nextTurn}
+              className="mt-3 w-full rounded-xl bg-slate-800 py-2 text-sm font-bold text-white shadow-sm transition-transform hover:scale-[1.01] hover:bg-slate-700 active:scale-[0.99]"
+            >
+              ▶ Passar a vez
+            </button>
+          ) : (
+            <p className="mt-3 text-center text-xs text-slate-400">
+              Só o Mestre passa a vez.
+            </p>
+          ))}
       </div>
     </div>
   )

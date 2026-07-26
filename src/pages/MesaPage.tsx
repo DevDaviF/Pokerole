@@ -17,6 +17,7 @@ import ScoutRollWidget from '../components/ScoutRollWidget'
 import CaptureRoll from '../components/CaptureRoll'
 import SheetTransfers from '../components/SheetTransfers'
 import DayPassPanel from '../components/DayPassPanel'
+import ItemGifts from '../components/ItemGifts'
 import ErrorBoundary from '../components/ErrorBoundary'
 import GmToolsPanel from './MesaGmTools'
 import { getActiveTrainerId } from './TrainersPage'
@@ -1035,7 +1036,12 @@ export default function MesaPage() {
 
           {myRole === 'gm' && (
             <ErrorBoundary label="Ferramentas do Mestre">
-              <GmToolsPanel mesaId={activeMesa.id} myId={myId} />
+              <GmToolsPanel
+                mesaId={activeMesa.id}
+                myId={myId}
+                members={members}
+                usernames={usernames}
+              />
             </ErrorBoundary>
           )}
 
@@ -1047,6 +1053,7 @@ export default function MesaPage() {
               myTrainer={myActiveTrainer}
               myUsername={usernames[myId] ?? 'você'}
               sharedNpcs={sharedNpcs}
+              isGm={myRole === 'gm'}
             />
           </ErrorBoundary>
 
@@ -1072,6 +1079,15 @@ export default function MesaPage() {
               />
             </ErrorBoundary>
           </div>
+
+          <ErrorBoundary label="Presentes de item">
+            <ItemGifts
+              mesaId={activeMesa.id}
+              myId={myId}
+              myTrainer={myActiveTrainer}
+              usernames={usernames}
+            />
+          </ErrorBoundary>
 
           <ErrorBoundary label="Passar o dia">
             <DayPassPanel myTrainer={myActiveTrainer} myPokemonSheets={myOwnPokemonSheets} />

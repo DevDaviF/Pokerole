@@ -417,3 +417,41 @@ create policy "mestre apaga item personalizado" on public.custom_items
 
 alter publication supabase_realtime add table public.custom_items;
 alter table public.custom_items replica identity full;
+
+-- ── Mestre presenteia itens direto pro inventário de um jogador ─
+create table public.item_gifts (
+  id uuid primary key default gen_random_uuid(),
+  mesa_id uuid not null references public.mesas (id) on delete cascade,
+  from_user_id uuid not null references auth.users (id) on delete cascade,
+  to_user_id uuid not null references auth.users (id) on delete cascade,
+  item_id text not null,
+  item_name text not null,
+  qty integer not null check (qty > 0),
+  created_at timestamptz not null default now()
+);
+
+create index item_gifts_to_user on public.item_gifts (to_user_id, mesa_id);
+
+alter table public.item_gifts enable row level security;
+
+create policy "remetente ou destinatario veem o presente" on public.item_gifts
+  for select to authenticated
+  using (to_user_id = auth.uid() or from_user_id = auth.uid());
+
+create policy "mestre presenteia item" on public.item_gifts
+  for insert to authenticated
+  with check (
+    from_user_id = auth.uid()
+    and public.is_mesa_gm(mesa_id)
+    and exists (
+      select 1 from public.mesa_members
+      where mesa_id = item_gifts.mesa_id and user_id = item_gifts.to_user_id
+    )
+  );
+
+create policy "remetente ou destinatario apagam o presente" on public.item_gifts
+  for delete to authenticated
+  using (to_user_id = auth.uid() or from_user_id = auth.uid());
+
+alter publication supabase_realtime add table public.item_gifts;
+alter table public.item_gifts replica identity full;
