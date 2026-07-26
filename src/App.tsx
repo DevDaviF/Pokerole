@@ -6,6 +6,7 @@ import TrainersPage from './pages/TrainersPage'
 import PokemonSheetsPage from './pages/PokemonSheetsPage'
 import TeamPage from './pages/TeamPage'
 import MesaPage from './pages/MesaPage'
+import SessionHistoryPage from './pages/SessionHistoryPage'
 import DiceRoller from './components/DiceRoller'
 import ErrorBoundary from './components/ErrorBoundary'
 import { MesaProvider, useMesa } from './lib/mesa'
@@ -59,6 +60,7 @@ function Shell() {
             <Route path="/sheets" element={<PokemonSheetsPage />} />
             <Route path="/team" element={<TeamPage />} />
             <Route path="/mesa" element={<MesaPage />} />
+            <Route path="/mesa/historico" element={<SessionHistoryPage />} />
           </Routes>
         </ErrorBoundary>
       </main>

@@ -299,3 +299,70 @@ alter publication supabase_realtime add table public.messages;
 alter publication supabase_realtime add table public.mesa_notes;
 alter publication supabase_realtime add table public.battle_order;
 alter publication supabase_realtime add table public.scout_rolls;
+
+-- ── Transferência de fichas de Pokémon entre jogadores ───────
+create table public.sheet_transfers (
+  id uuid primary key default gen_random_uuid(),
+  mesa_id uuid not null references public.mesas (id) on delete cascade,
+  from_user_id uuid not null references auth.users (id) on delete cascade,
+  to_user_id uuid not null references auth.users (id) on delete cascade,
+  payload jsonb not null check (pg_column_size(payload) <= 65536),
+  created_at timestamptz not null default now()
+);
+
+create index sheet_transfers_to_user on public.sheet_transfers (to_user_id, mesa_id);
+
+alter table public.sheet_transfers enable row level security;
+
+create policy "remetente ou destinatario veem a transferencia" on public.sheet_transfers
+  for select to authenticated
+  using (to_user_id = auth.uid() or from_user_id = auth.uid());
+
+create policy "membro cria transferencia" on public.sheet_transfers
+  for insert to authenticated
+  with check (
+    from_user_id = auth.uid()
+    and public.is_mesa_member(mesa_id)
+    and exists (
+      select 1 from public.mesa_members
+      where mesa_id = sheet_transfers.mesa_id and user_id = sheet_transfers.to_user_id
+    )
+  );
+
+create policy "remetente ou destinatario apagam a transferencia" on public.sheet_transfers
+  for delete to authenticated
+  using (to_user_id = auth.uid() or from_user_id = auth.uid());
+
+alter publication supabase_realtime add table public.sheet_transfers;
+
+-- ── Histórico de sessões (anotações arquivadas por data) ─────
+create table public.session_notes (
+  id uuid primary key default gen_random_uuid(),
+  mesa_id uuid not null references public.mesas (id) on delete cascade,
+  title text not null check (char_length(trim(title)) between 1 and 80),
+  content text not null default '' check (char_length(content) <= 20000),
+  created_by uuid references auth.users (id),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index session_notes_mesa on public.session_notes (mesa_id, created_at desc);
+
+alter table public.session_notes enable row level security;
+
+create policy "mesa le o historico" on public.session_notes
+  for select to authenticated
+  using (public.is_mesa_member(mesa_id));
+
+create policy "membro arquiva sessao" on public.session_notes
+  for insert to authenticated
+  with check (public.is_mesa_member(mesa_id) and created_by = auth.uid());
+
+create policy "membro edita sessao arquivada" on public.session_notes
+  for update to authenticated
+  using (public.is_mesa_member(mesa_id))
+  with check (public.is_mesa_member(mesa_id));
+
+create policy "autor ou mestre apaga sessao" on public.session_notes
+  for delete to authenticated
+  using (created_by = auth.uid() or public.is_mesa_gm(mesa_id));

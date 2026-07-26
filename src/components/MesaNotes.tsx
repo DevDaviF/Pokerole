@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 
 export default function MesaNotes({ mesaId }: { mesaId: string }) {
   const [content, setContent] = useState('')
   const [savedAt, setSavedAt] = useState<Date | null>(null)
   const [saving, setSaving] = useState(false)
+  const [archiving, setArchiving] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -71,6 +73,33 @@ export default function MesaNotes({ mesaId }: { mesaId: string }) {
     }, 800)
   }
 
+  const archiveSession = async () => {
+    if (!supabase || !content.trim()) return
+    const title = window.prompt(
+      'Título desta sessão (ex: "Sessão 12 - 25/07/2026"):',
+      `Sessão de ${new Date().toLocaleDateString('pt-BR')}`,
+    )
+    if (!title || !title.trim()) return
+    setArchiving(true)
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+    const { error } = await supabase.from('session_notes').insert({
+      mesa_id: mesaId,
+      title: title.trim().slice(0, 80),
+      content,
+      created_by: user?.id,
+    })
+    setArchiving(false)
+    if (error) {
+      alert(`Não deu para arquivar: ${error.message}`)
+      return
+    }
+    if (confirm('Sessão arquivada! Limpar o quadro para a próxima sessão?')) {
+      scheduleSave('')
+    }
+  }
+
   return (
     <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
       <div className="flex items-center gap-2 bg-amber-500 px-4 py-2.5 text-white">
@@ -82,6 +111,19 @@ export default function MesaNotes({ mesaId }: { mesaId: string }) {
               ? `salvo às ${savedAt.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`
               : ''}
         </span>
+        <Link
+          to="/mesa/historico"
+          className="rounded-full bg-white/15 px-2.5 py-0.5 text-xs font-bold hover:bg-white/25"
+        >
+          📚 Histórico
+        </Link>
+        <button
+          onClick={archiveSession}
+          disabled={archiving || !content.trim()}
+          className="rounded-full bg-white/15 px-2.5 py-0.5 text-xs font-bold hover:bg-white/25 disabled:opacity-40"
+        >
+          {archiving ? 'arquivando...' : '🗄️ Arquivar sessão'}
+        </button>
       </div>
       <textarea
         ref={textareaRef}

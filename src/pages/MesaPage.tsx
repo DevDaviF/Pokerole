@@ -14,6 +14,8 @@ import SkillRoll from '../components/SkillRoll'
 import { DiceRow } from '../components/DiceRoller'
 import BattleTracker from '../components/BattleTracker'
 import ScoutRollWidget from '../components/ScoutRollWidget'
+import CaptureRoll from '../components/CaptureRoll'
+import SheetTransfers from '../components/SheetTransfers'
 import ErrorBoundary from '../components/ErrorBoundary'
 import GmToolsPanel from './MesaGmTools'
 import { getActiveTrainerId } from './TrainersPage'
@@ -661,6 +663,16 @@ export default function MesaPage() {
 
   const myId = session.user.id
 
+  const sharedNpcs = sharedSheets
+    .filter(
+      (s) => s.kind === 'pokemon' && (s.payload as unknown as { isNpc?: boolean }).isNpc,
+    )
+    .map((s) => ({
+      id: s.id,
+      ownerId: s.owner_id,
+      payload: s.payload as unknown as PokemonSheet,
+    }))
+
   const createMesa = async () => {
     if (!supabase || newMesaName.trim().length < 2) return
     const { data, error } = await supabase
@@ -943,21 +955,32 @@ export default function MesaPage() {
           <ErrorBoundary label="Ordem de Combate">
             <BattleTracker
               mesaId={activeMesa.id}
+              myId={myId}
               myPokemonSheets={myPokemonSheets}
               myTrainer={myActiveTrainer}
               myUsername={usernames[myId] ?? 'você'}
-              sharedNpcs={sharedSheets
-                .filter(
-                  (s) =>
-                    s.kind === 'pokemon' &&
-                    (s.payload as unknown as { isNpc?: boolean }).isNpc,
-                )
-                .map((s) => ({
-                  id: s.id,
-                  payload: s.payload as unknown as PokemonSheet,
-                }))}
+              sharedNpcs={sharedNpcs}
             />
           </ErrorBoundary>
+
+          <div className="grid gap-4 lg:grid-cols-2">
+            <ErrorBoundary label="Captura">
+              <CaptureRoll myTrainer={myActiveTrainer} sharedNpcs={sharedNpcs} />
+            </ErrorBoundary>
+            <ErrorBoundary label="Transferência de fichas">
+              <SheetTransfers
+                mesaId={activeMesa.id}
+                myId={myId}
+                myRole={myRole}
+                members={members}
+                usernames={usernames}
+                myActiveTrainerId={myActiveTrainer?.id}
+                gmPokemonSheets={sharedSheets.filter(
+                  (s) => s.kind === 'pokemon' && s.owner_id === myId,
+                )}
+              />
+            </ErrorBoundary>
+          </div>
 
           <div className="grid gap-4 lg:grid-cols-3">
             {/* Chat */}

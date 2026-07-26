@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { db } from '../db'
 import type { PokemonSheet, Trainer } from '../types'
 import { supabase } from '../lib/supabase'
 import { useMesa } from '../lib/mesa'
@@ -12,6 +13,15 @@ export interface Combatant {
   spriteId?: string
   initiative: number
   ownerLabel?: string
+  currentHp: number
+  maxHp: number
+  statusConditions: string[]
+  // permitem "escrever de volta" na ficha de origem quando quem edita o HP
+  // é o próprio dono (viewer local) — ver updateHp()
+  ownerId?: string
+  localId?: number
+  sourceKind?: 'pokemonSheet' | 'trainerSheet' | 'sharedNpc'
+  sharedSheetId?: string
 }
 
 interface BattleRow {
@@ -29,17 +39,35 @@ const dexAlert = (entity: {
 
 const newKey = () => Math.random().toString(36).slice(2, 10)
 
+function pokemonMaxHp(attrs: { vitality: number }, speciesId: string) {
+  const sp = pokemonById.get(speciesId)
+  return (sp?.baseHp ?? 1) + attrs.vitality
+}
+
+function HpBar({ current, max }: { current: number; max: number }) {
+  const pct = max > 0 ? Math.max(0, Math.min(100, (current / max) * 100)) : 0
+  const color =
+    pct > 50 ? 'bg-emerald-500' : pct > 25 ? 'bg-amber-500' : 'bg-red-500'
+  return (
+    <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+      <div className={`h-full ${color}`} style={{ width: `${pct}%` }} />
+    </div>
+  )
+}
+
 export default function BattleTracker({
   mesaId,
+  myId,
   myPokemonSheets,
   myTrainer,
   sharedNpcs,
   myUsername,
 }: {
   mesaId: string
+  myId: string
   myPokemonSheets: PokemonSheet[]
   myTrainer: Trainer | undefined
-  sharedNpcs: Array<{ id: string; payload: PokemonSheet }>
+  sharedNpcs: Array<{ id: string; ownerId: string; payload: PokemonSheet }>
   myUsername: string
 }) {
   const { postRoll } = useMesa()
@@ -100,25 +128,12 @@ export default function BattleTracker({
       .eq('mesa_id', mesaId)
   }
 
-  const addCombatant = async (
-    name: string,
-    kind: Combatant['kind'],
-    spriteId: string | undefined,
-    bonus: number,
-    ownerLabel?: string,
-  ) => {
+  const addCombatant = async (combatant: Omit<Combatant, 'key' | 'initiative'>, bonus: number) => {
     if (!row) return
-    const r = rollAdditive(bonus, `${name} · Iniciativa`)
+    const r = rollAdditive(bonus, `${combatant.name} · Iniciativa`)
     postRoll(r)
-    const combatant: Combatant = {
-      key: newKey(),
-      name,
-      kind,
-      spriteId,
-      initiative: r.total!,
-      ownerLabel,
-    }
-    const combatants = [...row.combatants, combatant].sort(
+    const full: Combatant = { ...combatant, key: newKey(), initiative: r.total! }
+    const combatants = [...row.combatants, full].sort(
       (a, b) => b.initiative - a.initiative,
     )
     // Antes do combate "começar" (1º Passar a vez), quem tem a vez é
@@ -166,6 +181,45 @@ export default function BattleTracker({
     await persist({ combatants: [], current_key: null, started: false, round: 1 })
   }
 
+  // Ajusta o HP de um combatente. Qualquer um na mesa pode ajustar (agiliza
+  // a batalha), e se quem ajusta for o dono da ficha original, o valor
+  // também é gravado na ficha de origem (Dexie local / shared_sheets).
+  const adjustHp = async (key: string, delta: number) => {
+    if (!row) return
+    const target = row.combatants.find((c) => c.key === key)
+    if (!target) return
+    const nextHp = Math.max(0, Math.min(target.maxHp, target.currentHp + delta))
+    const combatants = row.combatants.map((c) =>
+      c.key === key ? { ...c, currentHp: nextHp } : c,
+    )
+    await persist({ combatants })
+
+    if (target.ownerId !== myId || target.localId === undefined) return
+    if (target.sourceKind === 'trainerSheet') {
+      await db.trainers.update(target.localId, { currentHp: nextHp })
+    } else if (target.sourceKind === 'pokemonSheet' || target.sourceKind === 'sharedNpc') {
+      await db.pokemonSheets.update(target.localId, { currentHp: nextHp })
+      if (target.sharedSheetId && supabase) {
+        // não dá pra sobrescrever `payload` só com currentHp — apagaria o
+        // resto da ficha. Busca o payload atual e mescla.
+        const { data: existing } = await supabase
+          .from('shared_sheets')
+          .select('payload')
+          .eq('id', target.sharedSheetId)
+          .single()
+        if (existing) {
+          await supabase
+            .from('shared_sheets')
+            .update({
+              payload: { ...(existing.payload as object), currentHp: nextHp },
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', target.sharedSheetId)
+        }
+      }
+    }
+  }
+
   if (!row) return null
 
   return (
@@ -203,11 +257,18 @@ export default function BattleTracker({
               <button
                 onClick={() =>
                   addCombatant(
-                    myTrainer.name,
-                    'trainer',
-                    undefined,
+                    {
+                      name: myTrainer.name,
+                      kind: 'trainer',
+                      ownerLabel: myUsername,
+                      currentHp: myTrainer.currentHp,
+                      maxHp: myTrainer.hp,
+                      statusConditions: [],
+                      ownerId: myId,
+                      localId: myTrainer.id,
+                      sourceKind: 'trainerSheet',
+                    },
                     dexAlert(myTrainer),
-                    myUsername,
                   )
                 }
                 className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100"
@@ -222,11 +283,19 @@ export default function BattleTracker({
                   key={s.id}
                   onClick={() =>
                     addCombatant(
-                      s.nickname || sp?.name || '?',
-                      'pokemon',
-                      sp?.id,
+                      {
+                        name: s.nickname || sp?.name || '?',
+                        kind: 'pokemon',
+                        spriteId: sp?.id,
+                        ownerLabel: myUsername,
+                        currentHp: s.currentHp,
+                        maxHp: pokemonMaxHp(s.attributes, s.species),
+                        statusConditions: s.statusConditions,
+                        ownerId: myId,
+                        localId: s.id,
+                        sourceKind: 'pokemonSheet',
+                      },
                       dexAlert(s),
-                      myUsername,
                     )
                   }
                   className="flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100"
@@ -252,11 +321,20 @@ export default function BattleTracker({
                   key={n.id}
                   onClick={() =>
                     addCombatant(
-                      n.payload.nickname || sp?.name || '?',
-                      'npc',
-                      sp?.id,
+                      {
+                        name: n.payload.nickname || sp?.name || '?',
+                        kind: 'npc',
+                        spriteId: sp?.id,
+                        ownerLabel: 'NPC',
+                        currentHp: n.payload.currentHp,
+                        maxHp: pokemonMaxHp(n.payload.attributes, n.payload.species),
+                        statusConditions: n.payload.statusConditions,
+                        ownerId: n.ownerId,
+                        localId: n.payload.id,
+                        sourceKind: 'sharedNpc',
+                        sharedSheetId: n.id,
+                      },
                       dexAlert(n.payload),
-                      'NPC',
                     )
                   }
                   className="flex items-center gap-1 rounded-lg border border-purple-200 bg-white px-3 py-1.5 text-xs font-semibold text-purple-700 hover:bg-purple-50"
@@ -298,41 +376,75 @@ export default function BattleTracker({
               return (
                 <div
                   key={c.key}
-                  className={`flex items-center gap-2 rounded-lg border px-3 py-2 transition-colors ${
+                  className={`rounded-lg border px-3 py-2 transition-colors ${
                     isCurrent
                       ? 'border-amber-400 bg-amber-50 shadow-sm'
                       : 'border-slate-100 bg-white'
                   }`}
                 >
-                  {isCurrent && <span>▶</span>}
-                  {c.spriteId && (
-                    <img
-                      src={spriteUrl(c.spriteId)}
-                      alt=""
-                      className="h-7 w-7 object-contain [image-rendering:pixelated]"
-                      onError={(e) =>
-                        (e.currentTarget.style.visibility = 'hidden')
-                      }
-                    />
-                  )}
-                  <span className="text-sm font-semibold text-slate-700">
-                    {c.name}
-                  </span>
-                  {c.ownerLabel && (
-                    <span className="text-xs text-slate-400">
-                      {c.ownerLabel}
+                  <div className="flex items-center gap-2">
+                    {isCurrent && <span>▶</span>}
+                    {c.spriteId && (
+                      <img
+                        src={spriteUrl(c.spriteId)}
+                        alt=""
+                        className="h-7 w-7 object-contain [image-rendering:pixelated]"
+                        onError={(e) =>
+                          (e.currentTarget.style.visibility = 'hidden')
+                        }
+                      />
+                    )}
+                    <span className="text-sm font-semibold text-slate-700">
+                      {c.name}
                     </span>
-                  )}
-                  <span className="ml-auto rounded-full bg-cyan-100 px-2 py-0.5 text-xs font-bold text-cyan-700">
-                    ⚡ {c.initiative}
-                  </span>
-                  <button
-                    onClick={() => removeCombatant(c.key)}
-                    title="Remover (fugiu, desmaiou, saiu da batalha...)"
-                    className="text-slate-300 hover:text-red-500"
-                  >
-                    ×
-                  </button>
+                    {c.ownerLabel && (
+                      <span className="text-xs text-slate-400">
+                        {c.ownerLabel}
+                      </span>
+                    )}
+                    {c.statusConditions.length > 0 && (
+                      <span className="flex gap-1">
+                        {c.statusConditions.map((s) => (
+                          <span
+                            key={s}
+                            className="rounded-full bg-purple-100 px-1.5 py-0.5 text-[10px] font-semibold text-purple-700"
+                          >
+                            {s}
+                          </span>
+                        ))}
+                      </span>
+                    )}
+                    <span className="ml-auto rounded-full bg-cyan-100 px-2 py-0.5 text-xs font-bold text-cyan-700">
+                      ⚡ {c.initiative}
+                    </span>
+                    <button
+                      onClick={() => removeCombatant(c.key)}
+                      title="Remover (fugiu, desmaiou, saiu da batalha...)"
+                      className="text-slate-300 hover:text-red-500"
+                    >
+                      ×
+                    </button>
+                  </div>
+                  <div className="mt-1.5 flex items-center gap-2 pl-1">
+                    <button
+                      onClick={() => adjustHp(c.key, -1)}
+                      className="h-5 w-5 shrink-0 rounded border border-slate-300 text-xs font-bold text-slate-500 hover:bg-slate-100"
+                    >
+                      −
+                    </button>
+                    <div className="flex-1">
+                      <HpBar current={c.currentHp} max={c.maxHp} />
+                    </div>
+                    <button
+                      onClick={() => adjustHp(c.key, 1)}
+                      className="h-5 w-5 shrink-0 rounded border border-slate-300 text-xs font-bold text-slate-500 hover:bg-slate-100"
+                    >
+                      +
+                    </button>
+                    <span className="w-14 shrink-0 text-right text-[11px] font-semibold text-slate-500">
+                      {c.currentHp}/{c.maxHp} HP
+                    </span>
+                  </div>
                 </div>
               )
             })}
