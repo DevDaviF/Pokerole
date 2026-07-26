@@ -165,6 +165,7 @@ export interface PokemonSheet {
   trainingPoints?: number // TP acumulados (treinos somam automático)
   isNpc?: boolean // gerado pelo Mestre (encontro selvagem / Pokémon de ginásio)
   npcKind?: 'wild' | 'gym'
+  mesaId?: string // mesa onde este NPC foi gerado — evita vazar entre mesas diferentes
   isStarter?: boolean // Pokémon inicial do treinador (1 por treinador)
   happiness?: number
   loyalty?: number

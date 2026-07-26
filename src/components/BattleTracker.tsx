@@ -449,13 +449,15 @@ export default function BattleTracker({
                     <span className="ml-auto rounded-full bg-cyan-100 px-2 py-0.5 text-xs font-bold text-cyan-700">
                       ⚡ {c.initiative}
                     </span>
-                    <button
-                      onClick={() => removeCombatant(c.key)}
-                      title="Remover (fugiu, desmaiou, saiu da batalha...)"
-                      className="text-slate-300 hover:text-red-500"
-                    >
-                      ×
-                    </button>
+                    {(isGm || c.ownerId === myId) && (
+                      <button
+                        onClick={() => removeCombatant(c.key)}
+                        title="Remover (fugiu, desmaiou, saiu da batalha...)"
+                        className="text-slate-300 hover:text-red-500"
+                      >
+                        ×
+                      </button>
+                    )}
                   </div>
                   <div className="mt-1.5 flex items-center gap-2 pl-1">
                     <button

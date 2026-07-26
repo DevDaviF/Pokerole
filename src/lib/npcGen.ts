@@ -90,6 +90,7 @@ export function generateNpcSheet(
   species: Pokemon,
   rank: Rank,
   npcKind: 'wild' | 'gym',
+  mesaId: string,
 ): PokemonSheet {
   const attributes = randomizeAttributes(species, rank)
   // Corebook 3.0 p. 114: golpes conhecidos = Insight + 3
@@ -116,6 +117,7 @@ export function generateNpcSheet(
     loyalty: 2,
     isNpc: true,
     npcKind,
+    mesaId,
     notes: `Gerado automaticamente pelo Mestre (${npcKind === 'wild' ? 'encontro selvagem' : 'Pokémon de ginásio'}). Atributos = base da espécie + pontos de Rank distribuídos aleatoriamente (mesma regra de qualquer Pokémon, totalmente re-treinável).`,
   }
 }

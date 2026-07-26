@@ -453,8 +453,15 @@ export default function CaptureRoll({
                 />
               </label>
             )}
-            <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">
-              Captura: {rollPool()}d6
+            <span
+              className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700"
+              title={
+                isGm
+                  ? undefined
+                  : 'A quantidade de dados denunciaria atributos ocultos do alvo (Destreza, HP, status) — só o Mestre vê antes de rolar'
+              }
+            >
+              Captura: {isGm ? `${rollPool()}d6` : '🔒 oculto'}
             </span>
           </div>
         </div>
@@ -483,7 +490,7 @@ export default function CaptureRoll({
             title={ballQty <= 0 ? 'Você não tem essa Pokébola no inventário' : ''}
             className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700 disabled:opacity-40"
           >
-            Rolar Captura ({rollPool()}d6)
+            Rolar Captura{isGm ? ` (${rollPool()}d6)` : ''}
           </button>
         </div>
 

@@ -613,15 +613,21 @@ export default function MesaPage() {
     wasNearBottomRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 80
   }
 
-  const myPokemonSheets = useLiveQuery(() => db.pokemonSheets.toArray(), []) ?? []
+  // NPCs (isNpc) carregam o mesaId de onde foram gerados — sem esse filtro,
+  // selvagens/ginásio de uma mesa vazavam pra "Compartilhar minhas fichas"
+  // e "Presentear" de QUALQUER outra mesa que o Mestre visitasse depois,
+  // já que o Dexie local não é isolado por mesa (só por conta).
+  const myPokemonSheets = (useLiveQuery(() => db.pokemonSheets.toArray(), []) ?? []).filter(
+    (s) => !s.isNpc || s.mesaId === activeMesa?.id,
+  )
   // NPCs gerados nas Ferramentas do Mestre também ficam salvos no Dexie
   // local dele (pra poder rolar pela ficha) — usado sem filtro eles
   // apareceriam duplicados na Ordem de Combate (uma vez como "meu
   // Pokémon", outra via sharedNpcs/fichas compartilhadas). Essa versão
   // filtrada é só pra ali e pra Captura/Passar o dia — em "Compartilhar
   // minhas fichas" e em "Presentear" (Ferramentas do Mestre) o Mestre
-  // precisa ver os selvagens também, então esses usam myPokemonSheets
-  // sem filtro.
+  // precisa ver os selvagens desta mesa também, então esses usam
+  // myPokemonSheets (já restrito à mesa ativa acima).
   const myOwnPokemonSheets = myPokemonSheets.filter((s) => !s.isNpc)
   const myTrainers = useLiveQuery(() => db.trainers.toArray(), []) ?? []
   const myActiveTrainer =

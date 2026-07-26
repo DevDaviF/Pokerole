@@ -43,7 +43,7 @@ async function publishNpc(
   rank: Rank,
   npcKind: 'wild' | 'gym',
 ) {
-  const sheet = generateNpcSheet(species, rank, npcKind)
+  const sheet = generateNpcSheet(species, rank, npcKind, mesaId)
   const localId = await db.pokemonSheets.add(sheet)
   if (supabase) {
     await supabase.from('shared_sheets').upsert(
