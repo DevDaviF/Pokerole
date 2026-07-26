@@ -7,6 +7,7 @@ import { useMesa } from '../lib/mesa'
 import { pokemonById, moveById, spriteUrl, typeColor } from '../data'
 import { POKEMON_ATTRIBUTE_LABELS, TRAINER_ATTRIBUTE_LABELS } from '../constants'
 import { MoveRollPanel } from '../components/MoveRoll'
+import TypeMatchups from '../components/TypeMatchups'
 import { TreinoPanel } from '../components/TreinoRoll'
 import TrainingPointsBadge from '../components/TrainingPoints'
 import MesaNotes from '../components/MesaNotes'
@@ -558,6 +559,15 @@ function SheetViewer({
                 </span>
               ))}
             </div>
+          </div>
+        )}
+
+        {sheet.kind === 'pokemon' && species && (
+          <div className="mt-3">
+            <h3 className="mb-1 text-xs font-bold text-slate-400 uppercase">
+              Fraquezas, Resistências e Imunidades
+            </h3>
+            <TypeMatchups types={species.types} />
           </div>
         )}
 
