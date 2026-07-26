@@ -679,7 +679,7 @@ export default function MesaPage() {
 
   const joinMesa = async () => {
     if (!supabase || !joinCode.trim()) return
-    const { error } = await supabase.rpc('join_mesa', {
+    const { data: mesaId, error } = await supabase.rpc('join_mesa', {
       _code: joinCode.trim(),
     })
     if (error) setNotice(error.message)
@@ -687,6 +687,18 @@ export default function MesaPage() {
       setJoinCode('')
       setNotice('Você entrou na mesa!')
       await loadMesas()
+      const { data: m } = await supabase
+        .from('mesas')
+        .select('*')
+        .eq('id', mesaId)
+        .single()
+      if (m) {
+        setActiveMesa({
+          id: m.id,
+          name: m.name,
+          inviteCode: m.invite_code,
+        })
+      }
     }
   }
 
