@@ -93,7 +93,7 @@ export default function TeamPage() {
 
       {team.length === 0 ? (
         <p className="rounded-xl border border-slate-200 bg-white p-10 text-center text-slate-400 shadow-sm">
-          Time vazio. Adicione Pokémon da reserva abaixo (ou crie fichas em
+          Time vazio. Adicione Pokémon do computador abaixo (ou crie fichas em
           "Meus Pokémon").
         </p>
       ) : (
@@ -131,7 +131,7 @@ export default function TeamPage() {
                   </div>
                   <button
                     onClick={() => toggleTeam(s)}
-                    title="Mandar para a reserva"
+                    title="Mandar para o computador"
                     className="ml-auto rounded bg-white/20 px-2 py-0.5 text-xs hover:bg-white/30"
                   >
                     ↩
@@ -246,7 +246,7 @@ export default function TeamPage() {
 
       {reserve.length > 0 && (
         <div>
-          <h2 className="mb-3 font-bold text-slate-700">Reserva</h2>
+          <h2 className="mb-3 font-bold text-slate-700">Computador</h2>
           <div className="flex flex-wrap gap-2">
             {reserve.map((s) => {
               const sp = pokemonById.get(s.species)

@@ -72,6 +72,16 @@ function HpBar({ current, max }: { current: number; max: number }) {
   )
 }
 
+// Estado grosseiro de HP pra quem não pode ver o número exato (Pokémon
+// selvagem visto por um Jogador) — dá uma noção sem revelar o HP real.
+function hpStatusLabel(current: number, max: number): string {
+  if (current <= 0) return '💀 Desmaiado'
+  const pct = max > 0 ? current / max : 0
+  if (pct > 0.5) return '🟢 Firme'
+  if (pct > 0.25) return '🟡 Ferido'
+  return '🔴 Crítico'
+}
+
 export default function BattleTracker({
   mesaId,
   myId,
@@ -326,7 +336,7 @@ export default function BattleTracker({
                 </button>
               )
             })}
-            {sharedNpcs.map((n) => {
+            {isGm && sharedNpcs.map((n) => {
               const sp = pokemonById.get(n.payload.species)
               return (
                 <button
@@ -385,6 +395,7 @@ export default function BattleTracker({
           <div className="space-y-1.5">
             {row.combatants.map((c, index) => {
               const isCurrent = index === 0
+              const hideExactHp = c.kind === 'npc' && !isGm
               return (
                 <div
                   key={c.key}
@@ -444,18 +455,26 @@ export default function BattleTracker({
                     >
                       −
                     </button>
-                    <div className="flex-1">
-                      <HpBar current={c.currentHp} max={c.maxHp} />
-                    </div>
+                    {hideExactHp ? (
+                      <span className="flex-1 text-center text-[11px] font-semibold text-slate-500">
+                        {hpStatusLabel(c.currentHp, c.maxHp)}
+                      </span>
+                    ) : (
+                      <div className="flex-1">
+                        <HpBar current={c.currentHp} max={c.maxHp} />
+                      </div>
+                    )}
                     <button
                       onClick={() => adjustHp(c.key, 1)}
                       className="h-5 w-5 shrink-0 rounded border border-slate-300 text-xs font-bold text-slate-500 hover:bg-slate-100"
                     >
                       +
                     </button>
-                    <span className="w-14 shrink-0 text-right text-[11px] font-semibold text-slate-500">
-                      {c.currentHp}/{c.maxHp} HP
-                    </span>
+                    {!hideExactHp && (
+                      <span className="w-14 shrink-0 text-right text-[11px] font-semibold text-slate-500">
+                        {c.currentHp}/{c.maxHp} HP
+                      </span>
+                    )}
                   </div>
                 </div>
               )

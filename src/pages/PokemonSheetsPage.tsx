@@ -406,8 +406,8 @@ export default function PokemonSheetsPage() {
                   </span>
                 </div>
                 <p className="mb-3 text-xs text-slate-400">
-                  Limites da espécie entre parênteses. Não dá pra baixar um
-                  atributo abaixo da base da espécie — só via Re-Treino.
+                  Limites da espécie entre parênteses. Só dá pra aumentar —
+                  reduzir um atributo já alocado exige Re-Treino.
                 </p>
                 <div className="space-y-2">
                   {POKEMON_ATTRIBUTE_LABELS.map(({ key, label }) => (
@@ -415,7 +415,7 @@ export default function PokemonSheetsPage() {
                       key={key}
                       label={`${label} (${species.maxAttributes[key]})`}
                       value={editing.attributes[key]}
-                      min={species.attributes[key]}
+                      min={editing.attributes[key]}
                       max={attrMax(key)}
                       dotMax={species.maxAttributes[key]}
                       onChange={(v) =>
@@ -443,13 +443,16 @@ export default function PokemonSheetsPage() {
                     {socialRemaining}/{socialBudget} pontos de Rank
                   </span>
                 </div>
+                <p className="mb-2 text-xs text-slate-400">
+                  Só dá pra aumentar — reduzir exige Re-Treino.
+                </p>
                 <div className="space-y-2">
                   {SOCIAL_LABELS.map(({ key, label }) => (
                     <Stepper
                       key={key}
                       label={label}
                       value={editing.social[key]}
-                      min={1}
+                      min={editing.social[key]}
                       max={socialMax(key)}
                       dotMax={5}
                       onChange={(v) =>
@@ -665,6 +668,10 @@ export default function PokemonSheetsPage() {
   }
 
   // ── Lista ──────────────────────────────────────────────────────────
+  // NPCs gerados pelo Mestre (selvagem/ginásio) não aparecem aqui — são
+  // fichas descartáveis, ficam só nas ferramentas da Mesa e no combate.
+  const displaySheets = sheets.filter((s) => !s.isNpc)
+
   return (
     <div>
       <div className="mb-5 flex items-center justify-between">
@@ -677,13 +684,13 @@ export default function PokemonSheetsPage() {
         </button>
       </div>
 
-      {sheets.length === 0 ? (
+      {displaySheets.length === 0 ? (
         <p className="rounded-xl border border-slate-200 bg-white p-10 text-center text-slate-400 shadow-sm">
           Nenhuma ficha ainda. Crie a primeira!
         </p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {sheets.map((s) => {
+          {displaySheets.map((s) => {
             const sp = pokemonById.get(s.species)
             const trainer = trainers.find((t) => t.id === s.trainerId)
             const maxHp = sp ? sp.baseHp + s.attributes.vitality : 0

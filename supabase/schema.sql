@@ -84,6 +84,9 @@ begin
   insert into public.scout_rolls (mesa_id)
   values (new.id);
 
+  insert into public.day_pass_triggers (mesa_id)
+  values (new.id);
+
   return new;
 end;
 $$;
@@ -173,6 +176,14 @@ create table public.scout_rolls (
   updated_by uuid references auth.users (id)
 );
 
+-- ── "Passar o dia": o Mestre decreta pra mesa toda, cada jogador
+-- aplica o descanso na própria ficha local ao ver o gatilho mudar ─
+create table public.day_pass_triggers (
+  mesa_id uuid primary key references public.mesas (id) on delete cascade,
+  triggered_at timestamptz,
+  triggered_by uuid references auth.users (id)
+);
+
 -- Helper: caller é Mestre desta mesa? (usado para transferir o cargo)
 create or replace function public.is_mesa_gm(_mesa uuid)
 returns boolean
@@ -193,6 +204,7 @@ alter table public.shared_sheets enable row level security;
 alter table public.mesa_notes enable row level security;
 alter table public.battle_order enable row level security;
 alter table public.scout_rolls enable row level security;
+alter table public.day_pass_triggers enable row level security;
 
 -- profiles: você vê o seu e o de quem divide mesa com você
 create policy "ver perfis da mesa" on public.profiles
@@ -307,6 +319,16 @@ create policy "mesa contribui com batedores" on public.scout_rolls
   using (public.is_mesa_member(mesa_id))
   with check (public.is_mesa_member(mesa_id));
 
+-- day_pass_triggers: mesa lê; só o Mestre decreta o dia
+create policy "mesa lê o gatilho de passar o dia" on public.day_pass_triggers
+  for select to authenticated
+  using (public.is_mesa_member(mesa_id));
+
+create policy "mestre decreta o dia" on public.day_pass_triggers
+  for update to authenticated
+  using (public.is_mesa_gm(mesa_id))
+  with check (public.is_mesa_gm(mesa_id));
+
 -- ── Realtime no chat, anotações, combate, batedores e fichas ───
 alter publication supabase_realtime add table public.messages;
 alter publication supabase_realtime add table public.mesa_notes;
@@ -315,6 +337,7 @@ alter publication supabase_realtime add table public.scout_rolls;
 alter publication supabase_realtime add table public.shared_sheets;
 alter publication supabase_realtime add table public.mesas;
 alter publication supabase_realtime add table public.mesa_members;
+alter publication supabase_realtime add table public.day_pass_triggers;
 alter table public.mesa_members replica identity full;
 
 -- REPLICA IDENTITY FULL: colunas jsonb grandes (TOAST) podem chegar
@@ -324,6 +347,7 @@ alter table public.battle_order replica identity full;
 alter table public.shared_sheets replica identity full;
 alter table public.scout_rolls replica identity full;
 alter table public.mesa_notes replica identity full;
+alter table public.day_pass_triggers replica identity full;
 
 -- ── Transferência de fichas de Pokémon entre jogadores ───────
 create table public.sheet_transfers (
@@ -461,3 +485,32 @@ create policy "remetente ou destinatario apagam o presente" on public.item_gifts
 
 alter publication supabase_realtime add table public.item_gifts;
 alter table public.item_gifts replica identity full;
+
+-- ── Mestre ajusta o dinheiro de um jogador (adicionar ou remover) ─
+-- É uma correção autoritativa, não um presente pra recusar: o cliente
+-- do destinatário aplica sozinho e apaga a linha.
+create table public.money_adjustments (
+  id uuid primary key default gen_random_uuid(),
+  mesa_id uuid not null references public.mesas (id) on delete cascade,
+  from_user_id uuid not null references auth.users (id) on delete cascade,
+  to_user_id uuid not null references auth.users (id) on delete cascade,
+  amount integer not null check (amount <> 0),
+  created_at timestamptz not null default now()
+);
+
+alter table public.money_adjustments enable row level security;
+
+create policy "mestre ajusta dinheiro de jogador" on public.money_adjustments
+  for insert to authenticated
+  with check (from_user_id = auth.uid() and public.is_mesa_gm(mesa_id));
+
+create policy "destinatario ve e apaga o ajuste aplicado" on public.money_adjustments
+  for select to authenticated
+  using (to_user_id = auth.uid() or from_user_id = auth.uid());
+
+create policy "destinatario apaga apos aplicar" on public.money_adjustments
+  for delete to authenticated
+  using (to_user_id = auth.uid() or from_user_id = auth.uid());
+
+alter publication supabase_realtime add table public.money_adjustments;
+alter table public.money_adjustments replica identity full;

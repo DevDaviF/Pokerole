@@ -18,11 +18,13 @@ import CaptureRoll from '../components/CaptureRoll'
 import SheetTransfers from '../components/SheetTransfers'
 import DayPassPanel from '../components/DayPassPanel'
 import ItemGifts from '../components/ItemGifts'
+import MoneyAdjustments from '../components/MoneyAdjustments'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Shop from '../components/Shop'
 import GmToolsPanel from './MesaGmTools'
 import { getActiveTrainerId } from './TrainersPage'
 import { useCustomItems, customItemToItem } from '../lib/customItems'
+import { friendlyError } from '../lib/errors'
 
 // Cor determinística por usuário (hash simples do id → matiz), pra
 // identificar quem falou o quê de relance no chat.
@@ -74,6 +76,16 @@ function QuickRollCard() {
     trainers.find((t) => t.id === trainerId) ?? trainers[0]
   const move = moveId ? moveById.get(moveId) : undefined
   const sheetSpecies = sheet ? pokemonById.get(sheet.species) : undefined
+  // "actor" do roll no chat = 1º segmento antes de " · " no rótulo — prefixar
+  // o nome do Treinador aqui faz o chat mostrar o dono do Pokémon em vez de
+  // só o apelido dele (evita depender do username da conta pra saber de
+  // quem é o bicho).
+  const pokemonDisplayName = sheet
+    ? sheet.nickname || sheetSpecies?.name || '?'
+    : ''
+  const rollDisplayName = activeTrainer
+    ? `${activeTrainer.name} · ${pokemonDisplayName}`
+    : pokemonDisplayName
 
   if (ordered.length === 0 && trainers.length === 0) return null
 
@@ -218,11 +230,7 @@ function QuickRollCard() {
                   <MoveRollPanel
                     sheet={sheet}
                     move={move}
-                    displayName={
-                      sheet.nickname ||
-                      pokemonById.get(sheet.species)?.name ||
-                      '?'
-                    }
+                    displayName={rollDisplayName}
                   />
                 )}
               </>
@@ -230,20 +238,12 @@ function QuickRollCard() {
             {tab === 'treino' && (
               <TreinoPanel
                 sheet={sheet}
-                displayName={
-                  sheet.nickname || pokemonById.get(sheet.species)?.name || '?'
-                }
+                displayName={rollDisplayName}
                 trainer={activeTrainer}
               />
             )}
             {tab === 'skill' && (
-              <SkillRoll
-                sheet={sheet}
-                displayName={
-                  sheet.nickname || pokemonById.get(sheet.species)?.name || '?'
-                }
-                isPokemon
-              />
+              <SkillRoll sheet={sheet} displayName={rollDisplayName} isPokemon />
             )}
           </>
         )}
@@ -311,7 +311,7 @@ function AuthPanel() {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: window.location.origin,
       })
-      if (error) setError(error.message)
+      if (error) setError(friendlyError(error.message))
       else
         setInfo(
           'Email de recuperação enviado! Abra o link com o app rodando nesta máquina.',
@@ -325,7 +325,7 @@ function AuthPanel() {
               password,
               options: { data: { username: username.trim() } },
             })
-      if (error) setError(error.message)
+      if (error) setError(friendlyError(error.message))
     }
     setBusy(false)
   }
@@ -420,7 +420,7 @@ function NewPasswordPanel({ onDone }: { onDone: () => void }) {
     setBusy(true)
     const { error } = await supabase.auth.updateUser({ password })
     setBusy(false)
-    if (error) setError(error.message)
+    if (error) setError(friendlyError(error.message))
     else onDone()
   }
 
@@ -883,7 +883,7 @@ export default function MesaPage() {
       .insert({ name: newMesaName.trim(), owner_id: myId })
       .select()
       .single()
-    if (error) setNotice(error.message)
+    if (error) setNotice(friendlyError(error.message))
     else {
       setNewMesaName('')
       await loadMesas()
@@ -897,7 +897,7 @@ export default function MesaPage() {
     const { data: mesaId, error } = await supabase.rpc('join_mesa', {
       _code: joinCode.trim(),
     })
-    if (error) setNotice(error.message)
+    if (error) setNotice(friendlyError(error.message))
     else {
       setJoinCode('')
       setNotice('Você entrou na mesa!')
@@ -927,7 +927,7 @@ export default function MesaPage() {
       kind: 'chat',
       content,
     })
-    if (error) setNotice(error.message)
+    if (error) setNotice(friendlyError(error.message))
   }
 
   const shareSheet = async (kind: 'pokemon' | 'trainer', localId: number) => {
@@ -948,7 +948,7 @@ export default function MesaPage() {
       },
       { onConflict: 'mesa_id,owner_id,kind,local_id' },
     )
-    if (error) setNotice(error.message)
+    if (error) setNotice(friendlyError(error.message))
     else {
       const { data } = await supabase
         .from('shared_sheets')
@@ -981,7 +981,7 @@ export default function MesaPage() {
       .eq('mesa_id', activeMesa.id)
       .eq('user_id', targetUserId)
     if (promoteError) {
-      setNotice(promoteError.message)
+      setNotice(friendlyError(promoteError.message))
       return
     }
     const { error: demoteError } = await supabase
@@ -990,7 +990,7 @@ export default function MesaPage() {
       .eq('mesa_id', activeMesa.id)
       .eq('user_id', myId)
     if (demoteError) {
-      setNotice(demoteError.message)
+      setNotice(friendlyError(demoteError.message))
       return
     }
     // owner_id acompanha o Mestre atual — é o que a policy de "excluir a
@@ -1029,7 +1029,7 @@ export default function MesaPage() {
       .delete()
       .eq('mesa_id', activeMesa.id)
       .eq('user_id', targetUserId)
-    if (error) setNotice(error.message)
+    if (error) setNotice(friendlyError(error.message))
     else setMembers((prev) => prev.filter((m) => m.user_id !== targetUserId))
   }
 
@@ -1049,7 +1049,7 @@ export default function MesaPage() {
         return
       const { error } = await supabase.from('mesas').delete().eq('id', activeMesa.id)
       if (error) {
-        setNotice(error.message)
+        setNotice(friendlyError(error.message))
         return
       }
       setActiveMesa(null)
@@ -1071,7 +1071,7 @@ export default function MesaPage() {
         .eq('mesa_id', activeMesa.id)
         .eq('user_id', nextGm.user_id)
       if (promoteError) {
-        setNotice(promoteError.message)
+        setNotice(friendlyError(promoteError.message))
         return
       }
       await supabase.from('mesas').update({ owner_id: nextGm.user_id }).eq('id', activeMesa.id)
@@ -1085,7 +1085,7 @@ export default function MesaPage() {
       .eq('mesa_id', activeMesa.id)
       .eq('user_id', myId)
     if (error) {
-      setNotice(error.message)
+      setNotice(friendlyError(error.message))
       return
     }
     setActiveMesa(null)
@@ -1102,7 +1102,7 @@ export default function MesaPage() {
       return
     const { error } = await supabase.from('mesas').delete().eq('id', mesaId)
     if (error) {
-      setNotice(error.message)
+      setNotice(friendlyError(error.message))
       return
     }
     if (activeMesa?.id === mesaId) setActiveMesa(null)
@@ -1343,10 +1343,23 @@ export default function MesaPage() {
                 usernames={usernames}
               />
             </ErrorBoundary>
+            <ErrorBoundary label="Ajustes de dinheiro">
+              <MoneyAdjustments
+                mesaId={activeMesa.id}
+                myId={myId}
+                myTrainer={myActiveTrainer}
+                usernames={usernames}
+                onApplied={setNotice}
+              />
+            </ErrorBoundary>
           </div>
 
           <ErrorBoundary label="Passar o dia">
-            <DayPassPanel myTrainer={myActiveTrainer} myPokemonSheets={myOwnPokemonSheets} />
+            <DayPassPanel
+              myTrainer={myActiveTrainer}
+              myPokemonSheets={myOwnPokemonSheets}
+              isGm={myRole === 'gm'}
+            />
           </ErrorBoundary>
 
           <ErrorBoundary label="Loja">
@@ -1371,6 +1384,7 @@ export default function MesaPage() {
                       inventory={myActiveTrainer.inventory ?? []}
                       onChange={updateMyTrainerEconomy}
                       customItems={customShopItems}
+                      editMoney={myRole === 'gm'}
                     />
                   )}
                 </div>

@@ -15,6 +15,7 @@ import {
 import { useScoutRolls, resetScoutRolls } from '../lib/scoutRolls'
 import { useCustomItems, createCustomItem, deleteCustomItem, customItemToItem } from '../lib/customItems'
 import { sendItemGift } from '../lib/itemGifts'
+import { sendMoneyAdjustment } from '../lib/moneyAdjustments'
 import { sendSheetTransfer } from '../lib/sheetTransfers'
 import TypeBadge from '../components/TypeBadge'
 import SpeciesPicker from '../components/SpeciesPicker'
@@ -66,19 +67,26 @@ async function publishNpc(
 }
 
 function weightedDraw(
-  habitat: Habitat,
+  habitats: Habitat[],
   tiers: RarityTier[],
   includeLegendary: boolean,
   quantity: number,
 ): Pokemon[] {
   const candidates = new Map<string, { p: Pokemon; weight: number }>()
+  // com mais de um habitat selecionado, uma espécie entra pelo tier mais
+  // generoso em que aparece em QUALQUER um deles (ex: comum na floresta e
+  // rara na cidade — conta como comum, é uma zona de transição entre os
+  // dois biomas)
   for (const tier of tiers) {
-    const tierTypes = habitat[tier]
-    for (const p of WILD_POOL) {
-      if (!includeLegendary && p.legendary) continue
-      if (candidates.has(p.id)) continue
-      if (p.types.some((t) => tierTypes.includes(t))) {
-        candidates.set(p.id, { p, weight: TIER_WEIGHT[tier] })
+    for (const habitat of habitats) {
+      const tierTypes = habitat[tier]
+      for (const p of WILD_POOL) {
+        if (!includeLegendary && p.legendary) continue
+        const existing = candidates.get(p.id)
+        if (existing && existing.weight >= TIER_WEIGHT[tier]) continue
+        if (p.types.some((t) => tierTypes.includes(t))) {
+          candidates.set(p.id, { p, weight: TIER_WEIGHT[tier] })
+        }
       }
     }
   }
@@ -110,14 +118,23 @@ interface Drawn {
 
 function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
   const scouts = useScoutRolls(mesaId)
-  const [habitatId, setHabitatId] = useState(HABITATS[0].id)
+  const [habitatIds, setHabitatIds] = useState<string[]>([HABITATS[0].id])
   const [includeLegendary, setIncludeLegendary] = useState(false)
   const [quantity, setQuantity] = useState(1)
   const [tiers, setTiers] = useState<RarityTier[]>(['common'])
   const [drawn, setDrawn] = useState<Drawn[]>([])
   const [appliedTotal, setAppliedTotal] = useState<number | null>(null)
 
-  const habitat = HABITATS.find((h) => h.id === habitatId)!
+  const selectedHabitats = HABITATS.filter((h) => habitatIds.includes(h.id))
+
+  const toggleHabitat = (id: string) =>
+    setHabitatIds((prev) =>
+      prev.includes(id)
+        ? prev.length > 1
+          ? prev.filter((x) => x !== id) // sempre deixa pelo menos 1 selecionado
+          : prev
+        : [...prev, id],
+    )
 
   const toggleTier = (t: RarityTier) =>
     setTiers((prev) =>
@@ -133,7 +150,7 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
   }
 
   const draw = async () => {
-    const picks = weightedDraw(habitat, tiers, includeLegendary, quantity)
+    const picks = weightedDraw(selectedHabitats, tiers, includeLegendary, quantity)
     setDrawn(
       picks.map((p, i) => ({
         key: `${p.id}-${i}`,
@@ -145,10 +162,11 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
         done: false,
       })),
     )
+    const habitatLabel = selectedHabitats.map((h) => `${h.icon} ${h.label}`).join(' + ')
     await announce(
       mesaId,
       myId,
-      `${habitat.icon} Encontro em ${habitat.label}: ${picks.length ? picks.map((p) => p.name).join(', ') : 'nada por aqui...'}`,
+      `${habitatLabel}: ${picks.length ? picks.map((p) => p.name).join(', ') : 'nada por aqui...'}`,
     )
   }
 
@@ -170,16 +188,19 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
     <div className="space-y-4">
       <div>
         <p className="mb-1.5 text-xs font-bold text-slate-500 uppercase">
-          Habitat
+          Habitat{' '}
+          <span className="normal-case text-slate-400">
+            (clique pra somar mais de um — ex: beira de floresta perto da cidade)
+          </span>
         </p>
         <div className="flex flex-wrap gap-1.5">
           {HABITATS.map((h) => (
             <button
               key={h.id}
-              onClick={() => setHabitatId(h.id)}
+              onClick={() => toggleHabitat(h.id)}
               title={h.official ? 'Tabela oficial do Corebook' : 'Sugestão nossa (o livro só detalha 2 habitats)'}
               className={`rounded-lg border px-2.5 py-1.5 text-xs font-semibold ${
-                habitatId === h.id
+                habitatIds.includes(h.id)
                   ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
                   : 'border-slate-200 text-slate-600 hover:bg-slate-50'
               }`}
@@ -538,6 +559,87 @@ function GiftTab({
   )
 }
 
+function MoneyGiftSection({
+  mesaId,
+  members,
+  usernames,
+}: {
+  mesaId: string
+  members: Array<{ user_id: string; role: 'gm' | 'player' }>
+  usernames: Record<string, string>
+}) {
+  const [targetUser, setTargetUser] = useState('')
+  const [amount, setAmount] = useState(0)
+  const [notice, setNotice] = useState('')
+  const players = members.filter((m) => m.role === 'player')
+
+  const send = async (sign: 1 | -1) => {
+    if (!targetUser || !amount) return
+    const value = sign * Math.abs(amount)
+    await sendMoneyAdjustment(mesaId, targetUser, value)
+    setNotice(
+      `${value > 0 ? '+' : ''}${value} P$ pra ${usernames[targetUser] ?? 'jogador'}.`,
+    )
+    setAmount(0)
+  }
+
+  return (
+    <div className="space-y-2 rounded-lg bg-slate-50 p-3">
+      <p className="text-xs font-bold text-slate-500 uppercase">
+        Ajustar dinheiro de um jogador
+      </p>
+      {players.length === 0 ? (
+        <p className="text-xs text-slate-400">Nenhum jogador na mesa ainda.</p>
+      ) : (
+        <div className="flex flex-wrap gap-2">
+          <select
+            value={targetUser}
+            onChange={(e) => setTargetUser(e.target.value)}
+            className="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+          >
+            <option value="">Pra quem...</option>
+            {players.map((m) => (
+              <option key={m.user_id} value={m.user_id}>
+                {usernames[m.user_id] ?? m.user_id}
+              </option>
+            ))}
+          </select>
+          <input
+            type="number"
+            min={0}
+            value={amount || ''}
+            placeholder="quantia P$"
+            onChange={(e) => setAmount(Math.max(0, Number(e.target.value) || 0))}
+            className="w-28 rounded-lg border border-slate-300 px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+          />
+          <button
+            onClick={() => send(1)}
+            disabled={!targetUser || !amount}
+            className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700 disabled:opacity-40"
+          >
+            + Dar
+          </button>
+          <button
+            onClick={() => send(-1)}
+            disabled={!targetUser || !amount}
+            className="rounded-lg border border-red-200 px-3 py-1.5 text-xs font-bold text-red-500 hover:bg-red-50 disabled:opacity-40"
+          >
+            − Tirar
+          </button>
+        </div>
+      )}
+      {notice && (
+        <p
+          className="cursor-pointer text-xs text-emerald-600"
+          onClick={() => setNotice('')}
+        >
+          {notice}
+        </p>
+      )}
+    </div>
+  )
+}
+
 function PokemonGiftSection({
   mesaId,
   members,
@@ -682,6 +784,8 @@ function ItemsTab({
         usernames={usernames}
         gmPokemonSheets={gmPokemonSheets}
       />
+
+      <MoneyGiftSection mesaId={mesaId} members={members} usernames={usernames} />
 
       <div className="space-y-2 rounded-lg bg-slate-50 p-3">
         <p className="text-xs font-bold text-slate-500 uppercase">
