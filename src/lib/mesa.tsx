@@ -26,7 +26,10 @@ interface MesaContextValue {
   session: Session | null
   activeMesa: ActiveMesa | null
   setActiveMesa: (m: ActiveMesa | null) => void
-  postRoll: (r: RollResult) => void
+  // resolve depois que o insert termina — quem precisa mandar outra
+  // mensagem LOGO DEPOIS (ex: descrição de efeito de Chance Dice) pode dar
+  // await pra garantir que ela vai aparecer depois no chat, não antes.
+  postRoll: (r: RollResult) => Promise<void>
   passwordRecovery: boolean
   clearPasswordRecovery: () => void
 }
@@ -35,7 +38,7 @@ const MesaContext = createContext<MesaContextValue>({
   session: null,
   activeMesa: null,
   setActiveMesa: () => {},
-  postRoll: () => {},
+  postRoll: () => Promise.resolve(),
   passwordRecovery: false,
   clearPasswordRecovery: () => {},
 })
@@ -108,31 +111,35 @@ export function MesaProvider({ children }: { children: ReactNode }) {
   const iconFits = (icon?: string) =>
     Boolean(icon) && new TextEncoder().encode(icon).length <= MAX_ROLL_ICON_BYTES
 
-  const postRoll = (r: RollResult) => {
-    if (!supabase || !session || !activeMesa) return
-    // atenção: a query do supabase-js só executa no await/.then
-    supabase
-      .from('messages')
-      .insert({
-        mesa_id: activeMesa.id,
-        user_id: session.user.id,
-        kind: 'roll',
-        content: r.label,
-        roll: {
-          pool: r.pool,
-          dice: r.dice,
-          successes: r.successes,
-          sixes: r.sixes,
-          ...(iconFits(r.icon) ? { icon: r.icon } : {}),
-          ...(r.mode === 'chance' ? { mode: r.mode, triggered: r.triggered } : {}),
-          ...(r.mode === 'additive'
-            ? { mode: r.mode, bonus: r.bonus, total: r.total }
-            : {}),
-        },
-      })
-      .then(({ error }) => {
-        if (error) console.error('Roll não enviado à mesa:', error.message)
-      })
+  const postRoll = (r: RollResult): Promise<void> => {
+    if (!supabase || !session || !activeMesa) return Promise.resolve()
+    // atenção: a query do supabase-js só executa no await/.then. Promise.resolve
+    // porque o builder do supabase-js só é "thenable" (PromiseLike), não uma
+    // Promise de verdade — sem isso o tipo de retorno não bate.
+    return Promise.resolve(
+      supabase
+        .from('messages')
+        .insert({
+          mesa_id: activeMesa.id,
+          user_id: session.user.id,
+          kind: 'roll',
+          content: r.label,
+          roll: {
+            pool: r.pool,
+            dice: r.dice,
+            successes: r.successes,
+            sixes: r.sixes,
+            ...(iconFits(r.icon) ? { icon: r.icon } : {}),
+            ...(r.mode === 'chance' ? { mode: r.mode, triggered: r.triggered } : {}),
+            ...(r.mode === 'additive'
+              ? { mode: r.mode, bonus: r.bonus, total: r.total }
+              : {}),
+          },
+        })
+        .then(({ error }) => {
+          if (error) console.error('Roll não enviado à mesa:', error.message)
+        }),
+    )
   }
 
   return (

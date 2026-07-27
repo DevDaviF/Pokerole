@@ -81,6 +81,15 @@ export function parseChanceDiceCount(addedEffect: string): number | null {
   return m ? Number(m[1]) : null
 }
 
+// Isola só a cláusula do efeito em si (ex: "Flinch the Foe" de "Roll 3
+// Chance Dice to Flinch the Foe.") pra poder destacar visualmente no
+// chat, sem o resto do texto de regras do golpe. null se não achar o
+// padrão "Roll N Chance Dice to <efeito>." (texto não-padrão).
+export function parseChanceDiceEffect(addedEffect: string): string | null {
+  const m = addedEffect.match(/Roll \d+ Chance Dic?e[a-z\s]*? to ([^.]+)\.?/i)
+  return m ? m[1].trim() : null
+}
+
 const DIE_FACE = ['', '⚀', '⚁', '⚂', '⚃', '⚄', '⚅']
 
 export function DiceRow({ r }: { r: RollResult }) {

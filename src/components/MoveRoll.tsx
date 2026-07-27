@@ -146,14 +146,17 @@ export function MoveRollPanel({
 
   const chancePool =
     baseChanceDice !== null ? Math.max(1, baseChanceDice + chanceBonus) : 0
-  const doChanceRoll = () => {
+  const doChanceRoll = async () => {
     const r = rollChanceDice(
       chancePool,
       `${displayName} · ${move.name} · Chance Dice`,
     )
     if (species) r.icon = spriteUrl(species.id)
     setLast(r)
-    postRoll(r)
+    // espera o roll terminar de gravar antes de mandar a descrição, senão
+    // as duas inserções corriam em paralelo e a descrição podia aparecer
+    // no chat ANTES do log do dado, fora de ordem.
+    await postRoll(r)
     // Efeito ativou (algum 6 saiu) — manda o que ele faz pro chat, sem
     // precisar o jogador digitar/explicar de novo. Erro logado no console
     // porque antes essa inserção falhava 100% em silêncio.

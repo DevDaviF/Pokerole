@@ -12,7 +12,7 @@ import { TreinoPanel } from '../components/TreinoRoll'
 import TrainingPointsBadge from '../components/TrainingPoints'
 import MesaNotes from '../components/MesaNotes'
 import SkillRoll from '../components/SkillRoll'
-import { DiceRow } from '../components/DiceRoller'
+import { DiceRow, parseChanceDiceEffect } from '../components/DiceRoller'
 import BattleTracker from '../components/BattleTracker'
 import ScoutRollWidget from '../components/ScoutRollWidget'
 import CaptureRoll from '../components/CaptureRoll'
@@ -49,6 +49,23 @@ function splitRollLabel(
   const idx = content.indexOf(' · ')
   if (idx === -1) return { actor: null, rest: content }
   return { actor: content.slice(0, idx), rest: content.slice(idx + 3) }
+}
+
+// Destaca a cláusula do efeito (ex: "Flinch the Foe") dentro da mensagem
+// "✨ {golpe} ativou! {texto de regras}" que o Chance Dice manda sozinho —
+// sem isso ficava tudo no mesmo tom, difícil de bater o olho e ver o que
+// aconteceu de fato.
+function renderEffectChat(content: string) {
+  const effect = parseChanceDiceEffect(content)
+  const idx = effect ? content.indexOf(effect) : -1
+  if (!effect || idx === -1) return content
+  return (
+    <>
+      {content.slice(0, idx)}
+      <b className="rounded bg-amber-200 px-1 py-0.5 text-amber-900">{effect}</b>
+      {content.slice(idx + effect.length)}
+    </>
+  )
 }
 
 // Rolagem rápida pelas fichas locais, sem sair do chat da mesa
@@ -1613,7 +1630,9 @@ export default function MesaPage() {
                         <span
                           className={isWarning ? 'font-semibold text-amber-800' : 'text-slate-600'}
                         >
-                          {m.content}
+                          {m.kind === 'chat' && m.content.startsWith('✨ ')
+                            ? renderEffectChat(m.content)
+                            : m.content}
                         </span>
                       )}
                     </div>
