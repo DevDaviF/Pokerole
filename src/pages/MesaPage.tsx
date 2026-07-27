@@ -25,7 +25,6 @@ import MoneyAdjustments from '../components/MoneyAdjustments'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Shop from '../components/Shop'
 import GmToolsPanel from './MesaGmTools'
-import { getActiveTrainerId } from './TrainersPage'
 import { useCustomItems, customItemToItem } from '../lib/customItems'
 import { friendlyError } from '../lib/errors'
 
@@ -53,18 +52,23 @@ function splitRollLabel(
 }
 
 // Rolagem rápida pelas fichas locais, sem sair do chat da mesa
-function QuickRollCard() {
+function QuickRollCard({ mesaTrainerId }: { mesaTrainerId: number | null }) {
   const allSheets = useLiveQuery(() => db.pokemonSheets.toArray(), []) ?? []
-  const trainers = useLiveQuery(() => db.trainers.toArray(), []) ?? []
+  // Treinadores NPC (do Mestre) não aparecem aqui — são controlados só
+  // pelas Ferramentas do Mestre, não fazem sentido como "eu" na mesa.
+  const trainers = (useLiveQuery(() => db.trainers.toArray(), []) ?? []).filter(
+    (t) => !t.isNpc,
+  )
   const [source, setSource] = useState<'pokemon' | 'trainer'>('pokemon')
   const [sheetId, setSheetId] = useState<number | null>(null)
   const [trainerId, setTrainerId] = useState<number | null>(null)
   const [moveId, setMoveId] = useState<string | null>(null)
   const [tab, setTab] = useState<'moves' | 'treino' | 'skill'>('moves')
 
-  const activeTrainerId = getActiveTrainerId()
+  // segue o Treinador escolhido pra ESTA mesa (ver MesaTrainerPicker) — não
+  // o "ativo" global de TrainersPage, senão os dois podiam divergir.
   const activeTrainer =
-    trainers.find((t) => t.id === activeTrainerId) ?? trainers[0]
+    trainers.find((t) => t.id === mesaTrainerId) ?? trainers[0]
   // só os Pokémon do Time do Treinador ativo na mesa — não faz sentido
   // rolar por um Pokémon de outro treinador ou que nem está no Time.
   const sheets = allSheets.filter(
@@ -286,12 +290,13 @@ interface MesaRow {
   owner_id: string
 }
 
-interface SharedSheet {
+export interface SharedSheet {
   id: string
   owner_id: string
   kind: 'trainer' | 'pokemon'
   local_id: number
   payload: Record<string, unknown>
+  hidden: boolean
   updated_at: string
 }
 
@@ -629,9 +634,33 @@ export default function MesaPage() {
   // precisa ver os selvagens desta mesa também, então esses usam
   // myPokemonSheets (já restrito à mesa ativa acima).
   const myOwnPokemonSheets = myPokemonSheets.filter((s) => !s.isNpc)
-  const myTrainers = useLiveQuery(() => db.trainers.toArray(), []) ?? []
+  // Treinadores NPC ficam de fora do seletor de personagem da mesa — só
+  // controláveis via Ferramentas do Mestre.
+  const myTrainers = (useLiveQuery(() => db.trainers.toArray(), []) ?? []).filter(
+    (t) => !t.isNpc,
+  )
+  // Qual Treinador eu uso muda por mesa (um personagem por campanha) —
+  // guardado por mesaId, separado do "ativo" global de TrainersPage/Time.
+  // Sem escolha registrada nessa mesa, só assume sozinho se só existir 1
+  // Treinador; com mais de 1, pede pra escolher explicitamente (ver
+  // MesaTrainerPicker abaixo).
+  const [mesaTrainerId, setMesaTrainerIdState] = useState<number | null>(null)
+  useEffect(() => {
+    if (!activeMesa) {
+      setMesaTrainerIdState(null)
+      return
+    }
+    const stored = localStorage.getItem(`mesaTrainerId:${activeMesa.id}`)
+    setMesaTrainerIdState(stored ? Number(stored) : null)
+  }, [activeMesa?.id])
+  const chooseMesaTrainer = (id: number) => {
+    if (!activeMesa) return
+    localStorage.setItem(`mesaTrainerId:${activeMesa.id}`, String(id))
+    setMesaTrainerIdState(id)
+  }
   const myActiveTrainer =
-    myTrainers.find((t) => t.id === getActiveTrainerId()) ?? myTrainers[0]
+    myTrainers.find((t) => t.id === mesaTrainerId) ??
+    (myTrainers.length === 1 ? myTrainers[0] : undefined)
   const [shopOpen, setShopOpen] = useState(false)
   const customItemRows = useCustomItems(activeMesa?.id ?? null)
   const customShopItems = customItemRows.map(customItemToItem)
@@ -979,8 +1008,31 @@ export default function MesaPage() {
 
   const unshareSheet = async (id: string) => {
     if (!supabase) return
-    await supabase.from('shared_sheets').delete().eq('id', id)
+    const { error } = await supabase.from('shared_sheets').delete().eq('id', id)
+    if (error) {
+      setNotice(friendlyError(error.message))
+      return
+    }
     setSharedSheets((prev) => prev.filter((s) => s.id !== id))
+  }
+
+  // Oculta sem parar de compartilhar — a ficha continua existindo pra
+  // quem já depende dela (Rastreador de Combate, Captura), só some da
+  // visão de quem não é o dono até ser mostrada de novo.
+  const toggleHiddenSheet = async (s: SharedSheet) => {
+    if (!supabase) return
+    const nextHidden = !s.hidden
+    const { error } = await supabase
+      .from('shared_sheets')
+      .update({ hidden: nextHidden })
+      .eq('id', s.id)
+    if (error) {
+      setNotice(friendlyError(error.message))
+      return
+    }
+    setSharedSheets((prev) =>
+      prev.map((x) => (x.id === s.id ? { ...x, hidden: nextHidden } : x)),
+    )
   }
 
   const transferGm = async (targetUserId: string) => {
@@ -1305,6 +1357,40 @@ export default function MesaPage() {
             </div>
           </div>
 
+          {myTrainers.length > 0 && (
+            <div
+              className={`flex flex-wrap items-center gap-2 rounded-xl border px-4 py-2.5 ${
+                !myActiveTrainer
+                  ? 'border-amber-300 bg-amber-50'
+                  : 'border-slate-200 bg-white'
+              }`}
+            >
+              <span className="text-sm font-semibold text-slate-600">
+                {myActiveTrainer ? '🧑 Jogando como' : '⚠️ Escolha seu personagem nesta mesa'}
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {myTrainers.map((t) => (
+                  <button
+                    key={t.id}
+                    onClick={() => chooseMesaTrainer(t.id!)}
+                    className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+                      myActiveTrainer?.id === t.id
+                        ? 'border-transparent bg-slate-800 text-white'
+                        : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                    }`}
+                  >
+                    {t.name}
+                  </button>
+                ))}
+              </div>
+              {myTrainers.length > 1 && (
+                <span className="text-xs text-slate-400">
+                  cada mesa lembra o personagem escolhido separadamente
+                </span>
+              )}
+            </div>
+          )}
+
           <ErrorBoundary label="Batedores">
             <ScoutRollWidget mesaId={activeMesa.id} myTrainer={myActiveTrainer} />
           </ErrorBoundary>
@@ -1317,6 +1403,8 @@ export default function MesaPage() {
                 members={members}
                 usernames={usernames}
                 gmPokemonSheets={myPokemonSheets}
+                sharedSheets={sharedSheets}
+                onUnshare={unshareSheet}
               />
             </ErrorBoundary>
           )}
@@ -1439,9 +1527,9 @@ export default function MesaPage() {
                   return (
                     <div
                       key={m.id}
-                      className={`text-sm ${
+                      className={`rounded-lg px-2 py-1 text-sm ${
                         isWarning
-                          ? 'rounded-lg border border-amber-300 bg-amber-50 px-2 py-1.5'
+                          ? 'border border-amber-300 bg-amber-50 py-1.5'
                           : ''
                       }`}
                     >
@@ -1525,7 +1613,7 @@ export default function MesaPage() {
 
             {/* Rolagem rápida + fichas compartilhadas */}
             <div className="space-y-4">
-              <QuickRollCard />
+              <QuickRollCard mesaTrainerId={myActiveTrainer?.id ?? null} />
               <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
                 <h2 className="mb-2 font-bold text-slate-800">
                   Fichas da mesa
@@ -1551,7 +1639,9 @@ export default function MesaPage() {
                     // Def/Sp.Def — pro jogador aparece só o nome, sem clique,
                     // pra não estragar surpresa de captura/ginásio.
                     const isNpc = s.kind === 'pokemon' && Boolean(p.isNpc)
-                    const canView = s.owner_id === myId || !isNpc
+                    const isOwner = s.owner_id === myId
+                    const locked = isNpc || s.hidden
+                    const canView = isOwner || !locked
                     return (
                       <div key={s.id} className="flex items-center gap-2">
                         {canView ? (
@@ -1559,6 +1649,7 @@ export default function MesaPage() {
                             onClick={() => setViewing(s)}
                             className="flex-1 truncate rounded-lg border border-slate-200 px-3 py-1.5 text-left text-sm text-slate-700 hover:bg-slate-50"
                           >
+                            {s.hidden && isOwner && '🙈 '}
                             {label}
                             <span className="ml-1 text-xs text-slate-400">
                               · {usernames[s.owner_id] ?? '?'}
@@ -1566,7 +1657,11 @@ export default function MesaPage() {
                           </button>
                         ) : (
                           <span
-                            title="Ficha do Mestre — atributos ficam ocultos até a captura"
+                            title={
+                              isNpc
+                                ? 'Ficha do Mestre — atributos ficam ocultos até a captura'
+                                : 'Ficha ocultada pelo dono'
+                            }
                             className="flex-1 truncate rounded-lg border border-dashed border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-400"
                           >
                             🔒 {label}
@@ -1575,7 +1670,16 @@ export default function MesaPage() {
                             </span>
                           </span>
                         )}
-                        {s.owner_id === myId && (
+                        {isOwner && !isNpc && (
+                          <button
+                            onClick={() => toggleHiddenSheet(s)}
+                            title={s.hidden ? 'Mostrar pra mesa' : 'Ocultar pra mesa'}
+                            className="text-slate-300 hover:text-slate-600"
+                          >
+                            {s.hidden ? '🙈' : '👁️'}
+                          </button>
+                        )}
+                        {isOwner && (
                           <button
                             onClick={() => unshareSheet(s.id)}
                             title="Parar de compartilhar"

@@ -6,6 +6,8 @@ import { useMesa } from '../lib/mesa'
 import { rollAdditive } from './DiceRoller'
 import { pokemonById, spriteUrl } from '../data'
 
+export type BattleSide = 'A' | 'B'
+
 export interface Combatant {
   key: string
   name: string
@@ -24,6 +26,12 @@ export interface Combatant {
   localId?: number
   sourceKind?: 'pokemonSheet' | 'trainerSheet' | 'sharedNpc'
   sharedSheetId?: string
+  // Lado do combate (opcional — combate 1 grupo só não precisa disso).
+  // Combatentes do lado adversário só mostram HP aproximado pra quem não
+  // é Mestre nem dono, igual já acontecia com selvagem/ginásio (p.60/76
+  // não cobre "fog of war" entre lados — é uma convenção nossa pra PvP e
+  // batalhas com múltiplos grupos).
+  side?: BattleSide
 }
 
 interface BattleRow {
@@ -104,6 +112,9 @@ export default function BattleTracker({
   const { postRoll } = useMesa()
   const [row, setRow] = useState<BattleRow | null>(null)
   const [showAdd, setShowAdd] = useState(false)
+  // lado aplicado ao próximo combatente adicionado — nenhum lado escolhido
+  // (undefined) mantém o comportamento antigo, sem grupos/ocultação
+  const [pendingSide, setPendingSide] = useState<BattleSide | undefined>(undefined)
 
   useEffect(() => {
     if (!supabase) return
@@ -251,6 +262,98 @@ export default function BattleTracker({
   const displayRound =
     row.combatants.length > 0 ? Math.floor(row.round / row.combatants.length) + 1 : 1
 
+  // "Meu lado" = o lado de qualquer combatente meu na ordem — usado só pra
+  // decidir o que ocultar do lado adversário, não trava nada pra o Mestre.
+  const hasSides = row.combatants.some((c) => c.side)
+  const mySide = row.combatants.find((c) => c.ownerId === myId)?.side
+
+  const renderCombatant = (c: Combatant) => {
+    const isCurrent = row.combatants[0]?.key === c.key
+    const isOpponent = hasSides && mySide && c.side && c.side !== mySide
+    const hideExactHp = (c.kind === 'npc' && !isGm) || (isOpponent && !isGm && c.ownerId !== myId)
+    // só o Mestre ou o dono do combatente mexe nele — evita jogador
+    // remover ou curar/ferir o Pokémon de outra pessoa
+    const canManage = isGm || c.ownerId === myId
+    return (
+      <div
+        key={c.key}
+        className={`rounded-lg border px-3 py-2 transition-colors ${
+          isCurrent ? 'border-amber-400 bg-amber-50 shadow-sm' : 'border-slate-100 bg-white'
+        }`}
+      >
+        <div className="flex items-center gap-2">
+          {isCurrent && <span>▶</span>}
+          {c.spriteId && (
+            <img
+              src={spriteUrl(c.spriteId)}
+              alt=""
+              className="h-7 w-7 object-contain [image-rendering:pixelated]"
+              onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
+            />
+          )}
+          <span className="text-sm font-semibold text-slate-700">{c.name}</span>
+          {c.ownerLabel && <span className="text-xs text-slate-400">{c.ownerLabel}</span>}
+          {c.statusConditions.length > 0 && (
+            <span className="flex gap-1">
+              {c.statusConditions.map((s) => (
+                <span
+                  key={s}
+                  className="rounded-full bg-purple-100 px-1.5 py-0.5 text-[10px] font-semibold text-purple-700"
+                >
+                  {s}
+                </span>
+              ))}
+            </span>
+          )}
+          <span className="ml-auto rounded-full bg-cyan-100 px-2 py-0.5 text-xs font-bold text-cyan-700">
+            ⚡ {c.initiative}
+          </span>
+          {canManage && (
+            <button
+              onClick={() => removeCombatant(c.key)}
+              title="Remover (fugiu, desmaiou, saiu da batalha...)"
+              className="text-slate-300 hover:text-red-500"
+            >
+              ×
+            </button>
+          )}
+        </div>
+        <div className="mt-1.5 flex items-center gap-2 pl-1">
+          {canManage && (
+            <button
+              onClick={() => adjustHp(c.key, -1)}
+              className="h-5 w-5 shrink-0 rounded border border-slate-300 text-xs font-bold text-slate-500 hover:bg-slate-100"
+            >
+              −
+            </button>
+          )}
+          {hideExactHp ? (
+            <span className="flex-1 text-center text-[11px] font-semibold text-slate-500">
+              {hpStatusLabel(c.currentHp, c.maxHp)}
+            </span>
+          ) : (
+            <div className="flex-1">
+              <HpBar current={c.currentHp} max={c.maxHp} />
+            </div>
+          )}
+          {canManage && (
+            <button
+              onClick={() => adjustHp(c.key, 1)}
+              className="h-5 w-5 shrink-0 rounded border border-slate-300 text-xs font-bold text-slate-500 hover:bg-slate-100"
+            >
+              +
+            </button>
+          )}
+          {!hideExactHp && (
+            <span className="w-14 shrink-0 text-right text-[11px] font-semibold text-slate-500">
+              {c.currentHp}/{c.maxHp} HP
+            </span>
+          )}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
       <div className="flex items-center gap-2 bg-gradient-to-r from-slate-800 to-slate-700 px-4 py-2.5 text-white">
@@ -278,9 +381,32 @@ export default function BattleTracker({
 
       {showAdd && (
         <div className="space-y-2 border-b border-slate-100 bg-slate-50 p-3">
-          <p className="text-xs font-bold text-slate-500 uppercase">
-            Rolar iniciativa e adicionar
-          </p>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="text-xs font-bold text-slate-500 uppercase">
+              Rolar iniciativa e adicionar
+            </p>
+            <div className="flex items-center gap-1 rounded-full bg-slate-200 p-0.5 text-[11px] font-bold">
+              {(
+                [
+                  [undefined, 'Sem lado'],
+                  ['A', '🔴 Lado A'],
+                  ['B', '🔵 Lado B'],
+                ] as const
+              ).map(([side, label]) => (
+                <button
+                  key={label}
+                  onClick={() => setPendingSide(side)}
+                  className={`rounded-full px-2 py-0.5 ${
+                    pendingSide === side
+                      ? 'bg-white text-slate-800 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-700'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
           <div className="flex flex-wrap gap-1.5">
             {myTrainer && (
               <button
@@ -298,6 +424,7 @@ export default function BattleTracker({
                       ownerId: myId,
                       localId: myTrainer.id,
                       sourceKind: 'trainerSheet',
+                      side: pendingSide,
                     },
                     dexAlert(myTrainer),
                   )
@@ -327,6 +454,7 @@ export default function BattleTracker({
                         ownerId: myId,
                         localId: s.id,
                         sourceKind: 'pokemonSheet',
+                        side: pendingSide,
                       },
                       dexAlert(s),
                     )
@@ -368,6 +496,7 @@ export default function BattleTracker({
                         localId: n.payload.id,
                         sourceKind: 'sharedNpc',
                         sharedSheetId: n.id,
+                        side: pendingSide,
                       },
                       dexAlert(n.payload),
                     )
@@ -404,104 +533,33 @@ export default function BattleTracker({
             Ninguém na ordem de combate. Adicione combatentes para rolar
             iniciativa.
           </p>
-        ) : (
-          <div className="space-y-1.5">
-            {row.combatants.map((c, index) => {
-              const isCurrent = index === 0
-              const hideExactHp = c.kind === 'npc' && !isGm
-              // só o Mestre ou o dono do combatente mexe nele — evita
-              // jogador remover ou curar/ferir o Pokémon de outra pessoa
-              const canManage = isGm || c.ownerId === myId
+        ) : hasSides ? (
+          <div className="grid gap-3 sm:grid-cols-2">
+            {(['A', 'B'] as const).map((side) => {
+              const group = row.combatants.filter((c) => c.side === side)
+              if (group.length === 0) return null
               return (
-                <div
-                  key={c.key}
-                  className={`rounded-lg border px-3 py-2 transition-colors ${
-                    isCurrent
-                      ? 'border-amber-400 bg-amber-50 shadow-sm'
-                      : 'border-slate-100 bg-white'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    {isCurrent && <span>▶</span>}
-                    {c.spriteId && (
-                      <img
-                        src={spriteUrl(c.spriteId)}
-                        alt=""
-                        className="h-7 w-7 object-contain [image-rendering:pixelated]"
-                        onError={(e) =>
-                          (e.currentTarget.style.visibility = 'hidden')
-                        }
-                      />
-                    )}
-                    <span className="text-sm font-semibold text-slate-700">
-                      {c.name}
-                    </span>
-                    {c.ownerLabel && (
-                      <span className="text-xs text-slate-400">
-                        {c.ownerLabel}
-                      </span>
-                    )}
-                    {c.statusConditions.length > 0 && (
-                      <span className="flex gap-1">
-                        {c.statusConditions.map((s) => (
-                          <span
-                            key={s}
-                            className="rounded-full bg-purple-100 px-1.5 py-0.5 text-[10px] font-semibold text-purple-700"
-                          >
-                            {s}
-                          </span>
-                        ))}
-                      </span>
-                    )}
-                    <span className="ml-auto rounded-full bg-cyan-100 px-2 py-0.5 text-xs font-bold text-cyan-700">
-                      ⚡ {c.initiative}
-                    </span>
-                    {canManage && (
-                      <button
-                        onClick={() => removeCombatant(c.key)}
-                        title="Remover (fugiu, desmaiou, saiu da batalha...)"
-                        className="text-slate-300 hover:text-red-500"
-                      >
-                        ×
-                      </button>
-                    )}
-                  </div>
-                  <div className="mt-1.5 flex items-center gap-2 pl-1">
-                    {canManage && (
-                      <button
-                        onClick={() => adjustHp(c.key, -1)}
-                        className="h-5 w-5 shrink-0 rounded border border-slate-300 text-xs font-bold text-slate-500 hover:bg-slate-100"
-                      >
-                        −
-                      </button>
-                    )}
-                    {hideExactHp ? (
-                      <span className="flex-1 text-center text-[11px] font-semibold text-slate-500">
-                        {hpStatusLabel(c.currentHp, c.maxHp)}
-                      </span>
-                    ) : (
-                      <div className="flex-1">
-                        <HpBar current={c.currentHp} max={c.maxHp} />
-                      </div>
-                    )}
-                    {canManage && (
-                      <button
-                        onClick={() => adjustHp(c.key, 1)}
-                        className="h-5 w-5 shrink-0 rounded border border-slate-300 text-xs font-bold text-slate-500 hover:bg-slate-100"
-                      >
-                        +
-                      </button>
-                    )}
-                    {!hideExactHp && (
-                      <span className="w-14 shrink-0 text-right text-[11px] font-semibold text-slate-500">
-                        {c.currentHp}/{c.maxHp} HP
-                      </span>
-                    )}
-                  </div>
+                <div key={side} className="space-y-1.5">
+                  <p
+                    className={`text-xs font-bold uppercase ${
+                      side === 'A' ? 'text-red-600' : 'text-blue-600'
+                    }`}
+                  >
+                    {side === 'A' ? '🔴 Lado A' : '🔵 Lado B'}
+                  </p>
+                  {group.map((c) => renderCombatant(c))}
                 </div>
               )
             })}
+            {row.combatants.some((c) => !c.side) && (
+              <div className="space-y-1.5 sm:col-span-2">
+                <p className="text-xs font-bold text-slate-400 uppercase">Sem lado</p>
+                {row.combatants.filter((c) => !c.side).map((c) => renderCombatant(c))}
+              </div>
+            )}
           </div>
+        ) : (
+          <div className="space-y-1.5">{row.combatants.map((c) => renderCombatant(c))}</div>
         )}
 
         {row.combatants.length > 0 &&

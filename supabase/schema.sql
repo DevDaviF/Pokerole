@@ -142,6 +142,7 @@ create table public.shared_sheets (
   kind text not null check (kind in ('trainer', 'pokemon')),
   local_id integer not null,
   payload jsonb not null check (pg_column_size(payload) <= 65536),
+  hidden boolean not null default false,
   updated_at timestamptz not null default now(),
   unique (mesa_id, owner_id, kind, local_id)
 );

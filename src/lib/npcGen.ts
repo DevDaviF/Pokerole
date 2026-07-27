@@ -1,7 +1,15 @@
-import type { Attributes, Pokemon, PokemonSheet, Rank } from '../types'
+import type { AttributeName, Attributes, Pokemon, PokemonSheet, Rank } from '../types'
 import { MOVES, NATURES, moveById } from '../data'
 import { rankIndex } from '../types'
 import { rankAttributePoints, RANK_POINT_ATTRIBUTES } from './progression'
+
+const ATTR_KEY: Record<AttributeName, keyof Attributes> = {
+  Strength: 'strength',
+  Dexterity: 'dexterity',
+  Vitality: 'vitality',
+  Special: 'special',
+  Insight: 'insight',
+}
 
 /**
  * Atributos de Pokémon selvagem = base da espécie (referência oficial do
@@ -12,12 +20,30 @@ import { rankAttributePoints, RANK_POINT_ATTRIBUTES } from './progression'
  * especial de "selvagem": são pontos comuns, então totalmente
  * re-treináveis depois da captura.
  */
-function randomizeAttributes(species: Pokemon, rank: Rank): Attributes {
+function randomizeAttributes(
+  species: Pokemon,
+  rank: Rank,
+  favoredAttribute?: AttributeName,
+): Attributes {
   const attrs: Attributes = { ...species.attributes }
   let points = rankAttributePoints(rank)
   // pontos distribuídos um de cada vez em atributos sorteados; se um
   // atributo bate no máximo da espécie, os pontos restantes vão pros outros
   let guard = points * 20 // evita loop infinito se todos os atributos baterem no teto
+
+  // Time de ginásio com especialidade: ~60% dos pontos vão direto pro
+  // atributo escolhido (até o teto da espécie), o resto segue aleatório —
+  // dá um time tematicamente coerente sem ficar 100% igual em todo membro.
+  if (favoredAttribute) {
+    const key = ATTR_KEY[favoredAttribute]
+    let favored = Math.ceil(points * 0.6)
+    while (favored > 0 && attrs[key] < species.maxAttributes[key]) {
+      attrs[key] += 1
+      points--
+      favored--
+    }
+  }
+
   while (points > 0 && guard-- > 0) {
     const key = RANK_POINT_ATTRIBUTES[Math.floor(Math.random() * RANK_POINT_ATTRIBUTES.length)]
     if (attrs[key] >= species.maxAttributes[key]) continue
@@ -91,14 +117,15 @@ export function generateNpcSheet(
   rank: Rank,
   npcKind: 'wild' | 'gym',
   mesaId: string,
+  opts?: { trainerId?: number; favoredAttribute?: AttributeName },
 ): PokemonSheet {
-  const attributes = randomizeAttributes(species, rank)
+  const attributes = randomizeAttributes(species, rank, opts?.favoredAttribute)
   // Corebook 3.0 p. 114: golpes conhecidos = Insight + 3
   const knownMoves = pickMovesForRank(species, rank, attributes.insight + 3)
   const nature = NATURES[Math.floor(Math.random() * NATURES.length)]?.name ?? ''
 
   return {
-    trainerId: 0,
+    trainerId: opts?.trainerId ?? 0,
     species: species.id,
     nickname: `${npcKind === 'wild' ? 'Selvagem' : 'Ginásio'} ${species.name}`,
     rank,

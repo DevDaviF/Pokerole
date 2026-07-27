@@ -144,6 +144,8 @@ export interface Trainer {
   money?: number
   inventory?: InventoryEntry[]
   imageUrl?: string
+  isNpc?: boolean // treinador de NPC/ginásio controlado pelo Mestre numa mesa
+  npcMesaId?: string // mesa onde este NPC atua (só faz sentido se isNpc)
 }
 
 export interface PokemonSheet {

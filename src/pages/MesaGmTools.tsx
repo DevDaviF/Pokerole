@@ -19,6 +19,7 @@ import { sendMoneyAdjustment } from '../lib/moneyAdjustments'
 import { sendSheetTransfer } from '../lib/sheetTransfers'
 import TypeBadge from '../components/TypeBadge'
 import SpeciesPicker from '../components/SpeciesPicker'
+import type { SharedSheet } from './MesaPage'
 
 // só espécies "base" (sem Mega/Gmax/formas regionais) entram no sorteio
 const WILD_POOL = POKEDEX.filter((p) => !p.name.includes('('))
@@ -119,6 +120,12 @@ interface Drawn {
 function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
   const scouts = useScoutRolls(mesaId)
   const [habitatIds, setHabitatIds] = useState<string[]>([HABITATS[0].id])
+  // Antes, clicar num bioma sempre SOMAVA à seleção — o padrão inicial
+  // (Planícies) ficava ativo sem querer junto de qualquer outro bioma
+  // escolhido depois, e como Planícies tem Fire no tier raro, dava pra
+  // sortear Pokémon de fogo "em Lagos/Mares" sem o Mestre perceber que
+  // os dois biomas estavam combinados. Combinar agora é opt-in.
+  const [combineMode, setCombineMode] = useState(false)
   const [includeLegendary, setIncludeLegendary] = useState(false)
   const [quantity, setQuantity] = useState(1)
   const [tiers, setTiers] = useState<RarityTier[]>(['common'])
@@ -127,7 +134,11 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
 
   const selectedHabitats = HABITATS.filter((h) => habitatIds.includes(h.id))
 
-  const toggleHabitat = (id: string) =>
+  const toggleHabitat = (id: string) => {
+    if (!combineMode) {
+      setHabitatIds([id])
+      return
+    }
     setHabitatIds((prev) =>
       prev.includes(id)
         ? prev.length > 1
@@ -135,6 +146,7 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
           : prev
         : [...prev, id],
     )
+  }
 
   const toggleTier = (t: RarityTier) =>
     setTiers((prev) =>
@@ -185,12 +197,22 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
   return (
     <div className="space-y-4">
       <div>
-        <p className="mb-1.5 text-xs font-bold text-slate-500 uppercase">
-          Habitat{' '}
-          <span className="normal-case text-slate-400">
-            (clique pra somar mais de um — ex: beira de floresta perto da cidade)
-          </span>
-        </p>
+        <div className="mb-1.5 flex flex-wrap items-center justify-between gap-2">
+          <p className="text-xs font-bold text-slate-500 uppercase">Habitat</p>
+          <label className="flex items-center gap-1.5 text-xs text-slate-500">
+            <input
+              type="checkbox"
+              checked={combineMode}
+              onChange={(e) => {
+                setCombineMode(e.target.checked)
+                // sair do modo combinar sempre volta pra 1 bioma só, sem
+                // deixar uma combinação antiga esquecida ativa por engano
+                if (!e.target.checked) setHabitatIds([habitatIds[0]])
+              }}
+            />
+            🔀 Combinar biomas (zona de transição)
+          </label>
+        </div>
         <div className="flex flex-wrap gap-1.5">
           {HABITATS.map((h) => (
             <button
@@ -208,6 +230,10 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
             </button>
           ))}
         </div>
+        <p className="mt-1.5 text-xs font-semibold text-emerald-700">
+          {combineMode ? 'Combinando: ' : 'Selecionado: '}
+          {selectedHabitats.map((h) => `${h.icon} ${h.label}`).join(' + ')}
+        </p>
         <p className="mt-1 text-[10px] text-slate-400">
           * habitats sem tabela oficial no livro (p. 595) — sugestão nossa.
         </p>
@@ -876,18 +902,80 @@ function ItemsTab({
   )
 }
 
+// Selvagens/de ginásio que o próprio Mestre publicou nesta mesa — fica
+// visível em qualquer aba, pra não depender de achar "Fichas da mesa" lá
+// embaixo pra tirar uma ficha obsoleta (ex: já foi capturada) da mesa.
+function PublishedNpcsBar({
+  myId,
+  sharedSheets,
+  onUnshare,
+}: {
+  myId: string
+  sharedSheets: SharedSheet[]
+  onUnshare: (id: string) => void
+}) {
+  const mine = sharedSheets.filter(
+    (s) =>
+      s.kind === 'pokemon' &&
+      s.owner_id === myId &&
+      Boolean((s.payload as { isNpc?: boolean }).isNpc),
+  )
+  if (mine.length === 0) return null
+
+  return (
+    <div className="border-b border-purple-100 bg-purple-50/60 px-4 py-2.5">
+      <p className="mb-1.5 text-xs font-bold text-purple-700 uppercase">
+        Fichas publicadas nesta mesa
+      </p>
+      <div className="flex flex-wrap gap-1.5">
+        {mine.map((s) => {
+          const p = s.payload as { nickname?: string; species?: string }
+          const sp = p.species ? pokemonById.get(p.species) : undefined
+          return (
+            <span
+              key={s.id}
+              className="flex items-center gap-1.5 rounded-full border border-purple-200 bg-white py-0.5 pr-1 pl-2.5 text-xs font-semibold text-purple-700"
+            >
+              {sp && (
+                <img
+                  src={spriteUrl(sp.id)}
+                  alt=""
+                  className="h-4 w-4 object-contain [image-rendering:pixelated]"
+                  onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
+                />
+              )}
+              {p.nickname || sp?.name || '?'}
+              <button
+                onClick={() => onUnshare(s.id)}
+                title="Remover da mesa (parar de compartilhar)"
+                className="ml-0.5 text-purple-300 hover:text-red-500"
+              >
+                ×
+              </button>
+            </span>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 export default function GmToolsPanel({
   mesaId,
   myId,
   members,
   usernames,
   gmPokemonSheets,
+  sharedSheets,
+  onUnshare,
 }: {
   mesaId: string
   myId: string
   members: Array<{ user_id: string; role: 'gm' | 'player' }>
   usernames: Record<string, string>
   gmPokemonSheets: PokemonSheet[]
+  sharedSheets: SharedSheet[]
+  onUnshare: (id: string) => void
 }) {
   const [tab, setTab] = useState<'encounter' | 'gym' | 'items'>('encounter')
 
@@ -911,6 +999,7 @@ export default function GmToolsPanel({
           ))}
         </div>
       </div>
+      <PublishedNpcsBar myId={myId} sharedSheets={sharedSheets} onUnshare={onUnshare} />
       <div className="p-4">
         {tab === 'encounter' && <EncounterTab mesaId={mesaId} myId={myId} />}
         {tab === 'gym' && <GymTab mesaId={mesaId} myId={myId} />}

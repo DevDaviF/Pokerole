@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db'
-import type { Trainer } from '../types'
+import type { AttributeName, Trainer } from '../types'
 import { RANKS } from '../types'
 import {
   TRAINER_ATTRIBUTE_LABELS,
+  POKEMON_ATTRIBUTE_LABELS,
   SOCIAL_LABELS,
   TRAINER_SKILL_GROUPS,
 } from '../constants'
@@ -24,7 +25,13 @@ import Shop from '../components/Shop'
 import ImagePicker, { DEFAULT_AVATAR } from '../components/ImagePicker'
 import { useMesa } from '../lib/mesa'
 import { useCustomItems, customItemToItem } from '../lib/customItems'
-import { supabaseConfigured } from '../lib/supabase'
+import { supabase, supabaseConfigured } from '../lib/supabase'
+import { generateNpcSheet } from '../lib/npcGen'
+import { POKEDEX, spriteUrl } from '../data'
+
+// mesmo filtro de espécie "base" usado no gerador de encontros — sem
+// formas/Mega/Gmax, que não fazem sentido sortear soltas num time
+const TEAM_POOL = POKEDEX.filter((p) => !p.name.includes('('))
 
 export const getActiveTrainerId = (): number | null => {
   const v = localStorage.getItem('activeTrainerId')
@@ -57,6 +64,54 @@ export default function TrainersPage() {
   const needsAccount = supabaseConfigured && !session
   const customItemRows = useCustomItems(activeMesa?.id ?? null)
   const customItems = customItemRows.map(customItemToItem)
+
+  // mesas onde eu sou Mestre — só nelas faz sentido criar um Treinador NPC
+  // (ele é "meu" localmente, mas representa alguém que só existe pra
+  // aquela mesa específica).
+  const [gmMesas, setGmMesas] = useState<Array<{ id: string; name: string }>>([])
+  useEffect(() => {
+    if (!supabase || !session) return
+    let cancelled = false
+    supabase
+      .from('mesa_members')
+      .select('role, mesas(id, name)')
+      .eq('user_id', session.user.id)
+      .eq('role', 'gm')
+      .then(({ data }) => {
+        if (cancelled || !data) return
+        const rows = data as unknown as Array<{ mesas: { id: string; name: string } | null }>
+        setGmMesas(rows.map((r) => r.mesas).filter((m): m is { id: string; name: string } => Boolean(m)))
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [session])
+
+  const npcTeam =
+    useLiveQuery(
+      () => (editing?.id ? db.pokemonSheets.where('trainerId').equals(editing.id).toArray() : []),
+      [editing?.id],
+    ) ?? []
+
+  const [favoredAttribute, setFavoredAttribute] = useState<AttributeName>('Strength')
+  const [genBusy, setGenBusy] = useState(false)
+  const [genNotice, setGenNotice] = useState('')
+
+  const generateTeam = async () => {
+    if (!editing?.id || !editing.npcMesaId) return
+    setGenBusy(true)
+    setGenNotice('')
+    const picks = [...TEAM_POOL].sort(() => Math.random() - 0.5).slice(0, 6)
+    for (const species of picks) {
+      const sheet = generateNpcSheet(species, editing.rank, 'gym', editing.npcMesaId, {
+        trainerId: editing.id,
+        favoredAttribute,
+      })
+      await db.pokemonSheets.add({ ...sheet, inTeam: true })
+    }
+    setGenBusy(false)
+    setGenNotice(`Time de 6 Pokémon gerado! Veja em "Meus Pokémon".`)
+  }
 
   const trainerHp = editing ? 4 + editing.attributes.vitality : 0
   const willPoints = editing ? editing.attributes.insight + 3 : 0
@@ -195,6 +250,64 @@ export default function TrainersPage() {
               <span className="text-xs text-slate-400">(Insight + 3)</span>
             </span>
           </div>
+          <div className="sm:col-span-2">
+            <span className="mb-1 block text-sm font-medium text-slate-600">
+              Tipo de treinador
+            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="flex gap-1 rounded-full bg-slate-100 p-0.5">
+                {(
+                  [
+                    [false, '🧑 Jogador'],
+                    [true, '🎓 NPC do Mestre'],
+                  ] as const
+                ).map(([isNpc, label]) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() =>
+                      setEditing({
+                        ...editing,
+                        isNpc,
+                        npcMesaId: isNpc ? (editing.npcMesaId ?? gmMesas[0]?.id) : undefined,
+                      })
+                    }
+                    className={`rounded-full px-3 py-1 text-xs font-bold transition-colors ${
+                      Boolean(editing.isNpc) === isNpc
+                        ? 'bg-white text-slate-800 shadow-sm'
+                        : 'text-slate-500 hover:text-slate-700'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {editing.isNpc &&
+                (gmMesas.length > 0 ? (
+                  <select
+                    value={editing.npcMesaId ?? ''}
+                    onChange={(e) => setEditing({ ...editing, npcMesaId: e.target.value })}
+                    className="rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs focus:border-red-400 focus:outline-none"
+                  >
+                    {gmMesas.map((m) => (
+                      <option key={m.id} value={m.id}>
+                        {m.name}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <span className="text-xs text-amber-600">
+                    Você precisa ser Mestre de alguma mesa pra criar um NPC.
+                  </span>
+                ))}
+            </div>
+            {editing.isNpc && (
+              <p className="mt-1 text-xs text-slate-400">
+                Fica de fora do "Rolar pela ficha"/seletor de personagem da
+                mesa — é controlado só por você nas Ferramentas do Mestre.
+              </p>
+            )}
+          </div>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
@@ -323,6 +436,72 @@ export default function TrainersPage() {
           )}
         </div>
 
+        {editing.isNpc && (
+          <div className="rounded-xl border border-purple-200 bg-white p-5 shadow-sm">
+            <h2 className="mb-3 font-bold text-slate-800">🏆 Time do Treinador</h2>
+            {!editing.id ? (
+              <p className="text-sm text-slate-400">
+                Salve o Treinador primeiro pra poder gerar o time dele.
+              </p>
+            ) : (
+              <>
+                <p className="mb-2 text-xs text-slate-500">
+                  Sorteia 6 Pokémon (Rank {editing.rank}, mesmo do Treinador)
+                  com pontos de atributo puxados pra uma especialidade —
+                  espécies aleatórias, então dá pra rodar de novo se a
+                  combinação não agradar.
+                </p>
+                <div className="mb-3 flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-semibold text-slate-500">Especialidade</span>
+                  <div className="flex flex-wrap gap-1">
+                    {POKEMON_ATTRIBUTE_LABELS.map((a) => (
+                      <button
+                        key={a.key}
+                        type="button"
+                        onClick={() => setFavoredAttribute(a.label as AttributeName)}
+                        className={`rounded-full px-2.5 py-1 text-xs font-bold ${
+                          favoredAttribute === a.label
+                            ? 'bg-purple-700 text-white'
+                            : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+                        }`}
+                      >
+                        {a.label}
+                      </button>
+                    ))}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={generateTeam}
+                    disabled={genBusy}
+                    className="ml-auto rounded-lg bg-purple-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-purple-800 disabled:opacity-50"
+                  >
+                    {genBusy ? 'Gerando...' : '✨ Gerar time de 6'}
+                  </button>
+                </div>
+                {genNotice && <p className="mb-2 text-xs text-emerald-600">{genNotice}</p>}
+                {npcTeam.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {npcTeam.map((s) => (
+                      <span
+                        key={s.id}
+                        className="flex items-center gap-1 rounded-full bg-slate-100 py-0.5 pr-2 pl-1 text-xs font-semibold text-slate-600"
+                      >
+                        <img
+                          src={spriteUrl(s.species)}
+                          alt=""
+                          className="h-5 w-5 object-contain [image-rendering:pixelated]"
+                          onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
+                        />
+                        {s.nickname}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        )}
+
         <label className="block rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
           <span className="mb-1 block text-sm font-medium text-slate-600">
             Notas
@@ -405,14 +584,23 @@ export default function TrainersPage() {
                   alt=""
                   className="h-9 w-9 rounded-full border border-slate-200 object-cover"
                 />
-                <h2 className="flex-1 text-lg font-bold text-slate-800">{t.name}</h2>
-                <button
-                  onClick={() => setActive(t.id!)}
-                  title="Definir como treinador ativo"
-                  className={`text-xl ${activeId === t.id ? 'text-amber-400' : 'text-slate-300 hover:text-amber-300'}`}
-                >
-                  ★
-                </button>
+                <h2 className="flex-1 truncate text-lg font-bold text-slate-800">
+                  {t.name}
+                  {t.isNpc && (
+                    <span className="ml-1.5 rounded-full bg-purple-100 px-1.5 py-0.5 align-middle text-[10px] font-bold text-purple-700">
+                      🎓 NPC
+                    </span>
+                  )}
+                </h2>
+                {!t.isNpc && (
+                  <button
+                    onClick={() => setActive(t.id!)}
+                    title="Definir como treinador ativo"
+                    className={`text-xl ${activeId === t.id ? 'text-amber-400' : 'text-slate-300 hover:text-amber-300'}`}
+                  >
+                    ★
+                  </button>
+                )}
               </div>
               <p className="text-sm text-slate-500">
                 Rank {t.rank} · HP {t.hp} · Will {t.attributes.insight + 3} · 💰{' '}
