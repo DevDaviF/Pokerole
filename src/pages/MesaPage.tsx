@@ -9,6 +9,7 @@ import { POKEMON_ATTRIBUTE_LABELS, TRAINER_ATTRIBUTE_LABELS } from '../constants
 import { MoveRollPanel } from '../components/MoveRoll'
 import TypeMatchups from '../components/TypeMatchups'
 import { TreinoPanel } from '../components/TreinoRoll'
+import BatchTraining from '../components/BatchTraining'
 import TrainingPointsBadge from '../components/TrainingPoints'
 import MesaNotes from '../components/MesaNotes'
 import SkillRoll from '../components/SkillRoll'
@@ -300,11 +301,14 @@ function QuickRollCard({
               </>
             )}
             {tab === 'treino' && (
-              <TreinoPanel
-                sheet={sheet}
-                displayName={rollDisplayName}
-                trainer={activeTrainer}
-              />
+              <>
+                <TreinoPanel
+                  sheet={sheet}
+                  displayName={rollDisplayName}
+                  trainer={activeTrainer}
+                />
+                <BatchTraining trainer={activeTrainer} teamSheets={sheets} />
+              </>
             )}
             {tab === 'skill' && (
               <SkillRoll sheet={sheet} displayName={rollDisplayName} isPokemon />

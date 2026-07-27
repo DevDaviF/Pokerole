@@ -18,42 +18,43 @@ const POKEMON_SKILLS = POKEMON_SKILL_GROUPS.flatMap((g) => g.skills)
 const TRAINER_SKILLS = TRAINER_SKILL_GROUPS.flatMap((g) => g.skills)
 
 const selectCls =
-  'rounded-lg border-0 bg-white px-2 py-1 text-xs font-medium text-slate-700 shadow-sm ring-1 ring-slate-200 focus:ring-2 focus:ring-red-400 focus:outline-none'
+  'rounded-lg border-0 bg-white px-1.5 py-1 text-[11px] font-medium text-slate-700 shadow-sm ring-1 ring-slate-200 focus:ring-2 focus:ring-red-400 focus:outline-none'
 
 interface ResultRow {
   sheetId: number
   name: string
+  daysTrained: number
   daysCompleted: number
-  totalDays: number
   tpGained: number
 }
 
 // Roda a sessão de treino (Corebook p.104-105: tarefa do Pokémon vs
 // dificuldade, com 2ª chance em caso de falha; se passar, rolagem do
 // Treinador + dificuldade = Pontos de Treino; os dois recuperam 2 WP)
-// N vezes seguidas pra vários Pokémon de uma vez, sem precisar clicar
-// rolar dia por dia, bicho por bicho — só o resumo final vai pro chat,
-// não cada rolagem individual (ia spammar demais).
+// pra vários Pokémon de uma vez, sem precisar clicar rolar dia por dia,
+// bicho por bicho. Só 1 Pokémon treina por dia — os dias totais do lote
+// são distribuídos em rodízio entre os Pokémon selecionados (dia 1 pro
+// primeiro, dia 2 pro segundo, ...). O atributo/perícia do Treinador
+// pode variar por Pokémon (roleplay: arremesso pra um, incentivo
+// gritado pra outro batendo num tronco...), então cada linha tem sua
+// própria dupla de seletores, tanto do lado do Pokémon quanto do
+// Treinador.
 export default function BatchTraining({
-  trainers,
-  pokemonSheets,
+  trainer,
+  teamSheets,
 }: {
-  trainers: Trainer[]
-  pokemonSheets: PokemonSheet[]
+  trainer: Trainer | undefined
+  teamSheets: PokemonSheet[]
 }) {
   const { session, activeMesa } = useMesa()
   const [open, setOpen] = useState(false)
-  const [trainerId, setTrainerId] = useState<number | null>(trainers[0]?.id ?? null)
-  const trainer = trainers.find((t) => t.id === trainerId)
-  const teamSheets = pokemonSheets.filter((s) => s.trainerId === trainerId)
-
   const [selected, setSelected] = useState<Record<number, boolean>>({})
-  const [attrs, setAttrs] = useState<Record<number, string>>({})
-  const [skills, setSkills] = useState<Record<number, string>>({})
+  const [pokAttrs, setPokAttrs] = useState<Record<number, string>>({})
+  const [pokSkills, setPokSkills] = useState<Record<number, string>>({})
+  const [trAttrs, setTrAttrs] = useState<Record<number, string>>({})
+  const [trSkills, setTrSkills] = useState<Record<number, string>>({})
   const [difficulty, setDifficulty] = useState(2)
-  const [days, setDays] = useState(5)
-  const [trAttr, setTrAttr] = useState('Cool')
-  const [trSkill, setTrSkill] = useState('Athletic')
+  const [totalDays, setTotalDays] = useState(5)
   const [busy, setBusy] = useState(false)
   const [results, setResults] = useState<ResultRow[] | null>(null)
 
@@ -62,110 +63,112 @@ export default function BatchTraining({
   const selectedSheets = teamSheets.filter((s) => selected[s.id!])
 
   const run = async () => {
-    if (!trainer || selectedSheets.length === 0 || days < 1) return
+    if (!trainer || selectedSheets.length === 0 || totalDays < 1) return
     setBusy(true)
     setResults(null)
 
     const trWillMax = trainer.attributes.insight + 3
     let trainerWill = trainer.currentWill ?? trWillMax
-    const rows: ResultRow[] = []
+    const acc = new Map<
+      number,
+      { tpGained: number; daysCompleted: number; daysTrained: number; pokWill: number }
+    >()
+    for (const s of selectedSheets) {
+      acc.set(s.id!, {
+        tpGained: 0,
+        daysCompleted: 0,
+        daysTrained: 0,
+        pokWill: s.currentWill ?? s.attributes.insight + 3,
+      })
+    }
 
-    for (const sheet of selectedSheets) {
-      const pokAttr = attrs[sheet.id!] ?? 'Vitality'
-      const pokSkill = skills[sheet.id!] ?? 'Athletic'
+    // rodízio: dia 0 treina selectedSheets[0], dia 1 treina selectedSheets[1]...
+    // só 1 Pokémon por dia, igual à regra da mesa.
+    for (let day = 0; day < totalDays; day++) {
+      const sheet = selectedSheets[day % selectedSheets.length]
+      const entry = acc.get(sheet.id!)!
+      entry.daysTrained++
+
+      const pokAttr = pokAttrs[sheet.id!] ?? 'Vitality'
+      const pokSkill = pokSkills[sheet.id!] ?? 'Athletic'
       const pokPool = Math.max(
         1,
         sheetAttrValue(sheet, pokAttr) + (sheet.skills[pokSkill] ?? 0),
       )
+      let taskRoll = rollDice(pokPool)
+      let passed = taskRoll.successes >= difficulty
+      if (!passed) {
+        // p.105: falhou, o livro dá uma 2ª chance no mesmo dia
+        taskRoll = rollDice(pokPool)
+        passed = taskRoll.successes >= difficulty
+      }
+      if (!passed) continue
+      entry.daysCompleted++
+
+      const trAttr = trAttrs[sheet.id!] ?? 'Cool'
+      const trSkill = trSkills[sheet.id!] ?? 'Athletic'
       const trPool = Math.max(
         1,
         sheetAttrValue(trainer, trAttr) + (trainer.skills[trSkill] ?? 0),
       )
+      const trRoll = rollDice(trPool)
+      entry.tpGained += trRoll.successes + difficulty
+
       const pokWillMax = sheet.attributes.insight + 3
-      let pokWill = sheet.currentWill ?? pokWillMax
-      let tpGained = 0
-      let daysCompleted = 0
-
-      for (let day = 0; day < days; day++) {
-        let taskRoll = rollDice(pokPool)
-        let passed = taskRoll.successes >= difficulty
-        if (!passed) {
-          // p.105: falhou, o livro dá uma 2ª chance no mesmo dia
-          taskRoll = rollDice(pokPool)
-          passed = taskRoll.successes >= difficulty
-        }
-        if (!passed) continue
-        daysCompleted++
-        const trRoll = rollDice(trPool)
-        tpGained += trRoll.successes + difficulty
-        pokWill = Math.min(pokWillMax, pokWill + 2)
-        trainerWill = Math.min(trWillMax, trainerWill + 2)
-      }
-
-      await db.pokemonSheets.update(sheet.id!, {
-        trainingPoints: (sheet.trainingPoints ?? 0) + tpGained,
-        currentWill: pokWill,
-      })
-      rows.push({
-        sheetId: sheet.id!,
-        name: sheet.nickname || pokemonById.get(sheet.species)?.name || '?',
-        daysCompleted,
-        totalDays: days,
-        tpGained,
-      })
+      entry.pokWill = Math.min(pokWillMax, entry.pokWill + 2)
+      trainerWill = Math.min(trWillMax, trainerWill + 2)
     }
 
+    const rows: ResultRow[] = []
+    for (const s of selectedSheets) {
+      const entry = acc.get(s.id!)!
+      await db.pokemonSheets.update(s.id!, {
+        trainingPoints: (s.trainingPoints ?? 0) + entry.tpGained,
+        currentWill: entry.pokWill,
+      })
+      rows.push({
+        sheetId: s.id!,
+        name: s.nickname || pokemonById.get(s.species)?.name || '?',
+        daysTrained: entry.daysTrained,
+        daysCompleted: entry.daysCompleted,
+        tpGained: entry.tpGained,
+      })
+    }
     await db.trainers.update(trainer.id!, { currentWill: trainerWill })
     setResults(rows)
     setBusy(false)
 
     if (supabase && session && activeMesa) {
       const summary = rows
-        .map((r) => `${r.name} ${r.daysCompleted}/${r.totalDays}d +${r.tpGained}TP`)
+        .map((r) => `${r.name} ${r.daysCompleted}/${r.daysTrained}d +${r.tpGained}TP`)
         .join(' · ')
       await supabase.from('messages').insert({
         mesa_id: activeMesa.id,
         user_id: session.user.id,
         kind: 'chat',
-        content: `🏋️ Treino em lote de ${trainer.name} (dif. ${difficulty}, ${days} dia${days === 1 ? '' : 's'}): ${summary}`,
+        content: `🏋️ Treino em lote de ${trainer.name} (dif. ${difficulty}, ${totalDays} dia${totalDays === 1 ? '' : 's'} no total, 1 Pokémon/dia): ${summary}`,
       })
     }
   }
 
-  if (trainers.length === 0) return null
+  if (!trainer || teamSheets.length === 0) return null
 
   return (
-    <div className="mb-5 overflow-hidden rounded-xl border border-indigo-200 bg-white shadow-sm">
+    <div className="mt-3 overflow-hidden rounded-xl border border-indigo-200 bg-white shadow-sm">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center gap-2 bg-indigo-600 px-4 py-2.5 text-left text-white"
+        className="flex w-full items-center gap-2 bg-indigo-600 px-4 py-2 text-left text-white"
       >
-        <b>🏋️ Treino em Lote</b>
+        <b className="text-sm">🏋️ Treino em Lote</b>
         <span className="text-xs opacity-80">
-          treine vários Pokémon por vários dias de uma vez
+          vários Pokémon, vários dias, 1 clique
         </span>
         <span className="ml-auto">{open ? '▲' : '▼'}</span>
       </button>
       {open && (
-        <div className="space-y-3 p-4">
+        <div className="space-y-3 p-3">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-semibold text-slate-500">Treinador</span>
-            <select
-              value={trainerId ?? ''}
-              onChange={(e) => {
-                setTrainerId(Number(e.target.value))
-                setSelected({})
-                setResults(null)
-              }}
-              className={selectCls}
-            >
-              {trainers.map((t) => (
-                <option key={t.id} value={t.id}>
-                  {t.name}
-                </option>
-              ))}
-            </select>
             <span className="text-xs font-semibold text-slate-500">Dificuldade</span>
             <select
               value={difficulty}
@@ -178,106 +181,118 @@ export default function BatchTraining({
                 </option>
               ))}
             </select>
-            <span className="text-xs font-semibold text-slate-500">Dias</span>
+            <span className="text-xs font-semibold text-slate-500">
+              Dias totais do lote
+            </span>
             <input
               type="number"
               min={1}
-              value={days}
-              onChange={(e) => setDays(Math.max(1, Number(e.target.value) || 1))}
+              value={totalDays}
+              onChange={(e) => setTotalDays(Math.max(1, Number(e.target.value) || 1))}
               className="w-16 rounded-lg border-0 bg-white px-2 py-1 text-center text-xs font-bold shadow-sm ring-1 ring-slate-200 focus:ring-2 focus:ring-red-400 focus:outline-none"
             />
+            {selectedSheets.length > 0 && (
+              <span className="text-[11px] text-slate-400">
+                só 1 Pokémon treina por dia — em rodízio, cada um dos{' '}
+                {selectedSheets.length} selecionados treina{' '}
+                {Math.floor(totalDays / selectedSheets.length)}-
+                {Math.ceil(totalDays / selectedSheets.length)} dias
+              </span>
+            )}
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 rounded-lg bg-slate-50 p-2">
-            <span className="text-xs font-semibold text-slate-500">
-              Rolagem do Treinador (igual em todos os dias/Pokémon)
-            </span>
-            <select value={trAttr} onChange={(e) => setTrAttr(e.target.value)} className={selectCls}>
-              {[...TRAINER_ATTRIBUTE_LABELS, ...SOCIAL_LABELS].map((a) => (
-                <option key={a.label}>{a.label}</option>
-              ))}
-            </select>
-            <span className="text-slate-300">+</span>
-            <select value={trSkill} onChange={(e) => setTrSkill(e.target.value)} className={selectCls}>
-              {TRAINER_SKILLS.map((s) => (
-                <option key={s}>{s}</option>
-              ))}
-            </select>
-          </div>
-
-          {teamSheets.length === 0 ? (
-            <p className="text-xs text-slate-400">
-              {trainer?.name ?? 'Este treinador'} não tem Pokémon.
-            </p>
-          ) : (
-            <div className="space-y-1.5">
-              {teamSheets.map((s) => {
-                const sp = pokemonById.get(s.species)
-                const isSelected = Boolean(selected[s.id!])
-                return (
-                  <div
-                    key={s.id}
-                    className={`flex flex-wrap items-center gap-1.5 rounded-lg border px-2 py-1.5 ${
-                      isSelected ? 'border-indigo-300 bg-indigo-50' : 'border-slate-200'
-                    }`}
-                  >
-                    <label className="flex flex-1 items-center gap-1.5 text-xs font-semibold text-slate-700">
-                      <input
-                        type="checkbox"
-                        checked={isSelected}
-                        onChange={() => toggleSelected(s.id!)}
+          <div className="space-y-1.5">
+            {teamSheets.map((s) => {
+              const sp = pokemonById.get(s.species)
+              const isSelected = Boolean(selected[s.id!])
+              return (
+                <div
+                  key={s.id}
+                  className={`rounded-lg border px-2 py-1.5 ${
+                    isSelected ? 'border-indigo-300 bg-indigo-50' : 'border-slate-200'
+                  }`}
+                >
+                  <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-700">
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={() => toggleSelected(s.id!)}
+                    />
+                    {sp && (
+                      <img
+                        src={spriteUrl(sp.id)}
+                        alt=""
+                        className="h-5 w-5 object-contain [image-rendering:pixelated]"
+                        onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
                       />
-                      {sp && (
-                        <img
-                          src={spriteUrl(sp.id)}
-                          alt=""
-                          className="h-5 w-5 object-contain [image-rendering:pixelated]"
-                          onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
-                        />
-                      )}
-                      {s.nickname || sp?.name}
-                    </label>
-                    {isSelected && (
-                      <>
-                        <select
-                          value={attrs[s.id!] ?? 'Vitality'}
-                          onChange={(e) =>
-                            setAttrs((prev) => ({ ...prev, [s.id!]: e.target.value }))
-                          }
-                          className={selectCls}
-                        >
-                          {[...POKEMON_ATTRIBUTE_LABELS, ...SOCIAL_LABELS].map((a) => (
-                            <option key={a.label}>{a.label}</option>
-                          ))}
-                        </select>
-                        <span className="text-slate-300">+</span>
-                        <select
-                          value={skills[s.id!] ?? 'Athletic'}
-                          onChange={(e) =>
-                            setSkills((prev) => ({ ...prev, [s.id!]: e.target.value }))
-                          }
-                          className={selectCls}
-                        >
-                          {POKEMON_SKILLS.map((sk) => (
-                            <option key={sk}>{sk}</option>
-                          ))}
-                        </select>
-                      </>
                     )}
-                  </div>
-                )
-              })}
-            </div>
-          )}
+                    {s.nickname || sp?.name}
+                  </label>
+                  {isSelected && (
+                    <div className="mt-1.5 flex flex-wrap items-center gap-1.5 pl-5">
+                      <span className="text-[10px] text-slate-400">Pokémon:</span>
+                      <select
+                        value={pokAttrs[s.id!] ?? 'Vitality'}
+                        onChange={(e) =>
+                          setPokAttrs((prev) => ({ ...prev, [s.id!]: e.target.value }))
+                        }
+                        className={selectCls}
+                      >
+                        {[...POKEMON_ATTRIBUTE_LABELS, ...SOCIAL_LABELS].map((a) => (
+                          <option key={a.label}>{a.label}</option>
+                        ))}
+                      </select>
+                      <span className="text-slate-300">+</span>
+                      <select
+                        value={pokSkills[s.id!] ?? 'Athletic'}
+                        onChange={(e) =>
+                          setPokSkills((prev) => ({ ...prev, [s.id!]: e.target.value }))
+                        }
+                        className={selectCls}
+                      >
+                        {POKEMON_SKILLS.map((sk) => (
+                          <option key={sk}>{sk}</option>
+                        ))}
+                      </select>
+                      <span className="ml-2 text-[10px] text-slate-400">Treinador:</span>
+                      <select
+                        value={trAttrs[s.id!] ?? 'Cool'}
+                        onChange={(e) =>
+                          setTrAttrs((prev) => ({ ...prev, [s.id!]: e.target.value }))
+                        }
+                        className={selectCls}
+                      >
+                        {[...TRAINER_ATTRIBUTE_LABELS, ...SOCIAL_LABELS].map((a) => (
+                          <option key={a.label}>{a.label}</option>
+                        ))}
+                      </select>
+                      <span className="text-slate-300">+</span>
+                      <select
+                        value={trSkills[s.id!] ?? 'Athletic'}
+                        onChange={(e) =>
+                          setTrSkills((prev) => ({ ...prev, [s.id!]: e.target.value }))
+                        }
+                        className={selectCls}
+                      >
+                        {TRAINER_SKILLS.map((sk) => (
+                          <option key={sk}>{sk}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
 
           <button
             onClick={run}
-            disabled={!trainer || selectedSheets.length === 0 || busy}
+            disabled={selectedSheets.length === 0 || busy}
             className="w-full rounded-xl bg-indigo-600 py-2 text-sm font-bold text-white shadow-sm transition-transform hover:scale-[1.01] hover:bg-indigo-700 active:scale-[0.99] disabled:opacity-40"
           >
             {busy
               ? 'Rodando...'
-              : `▶ Rodar ${days} dia${days === 1 ? '' : 's'} pra ${selectedSheets.length} Pokémon`}
+              : `▶ Rodar ${totalDays} dia${totalDays === 1 ? '' : 's'} entre ${selectedSheets.length} Pokémon`}
           </button>
 
           {results && (
@@ -285,7 +300,7 @@ export default function BatchTraining({
               <p className="text-xs font-bold text-slate-500 uppercase">Resultado</p>
               {results.map((r) => (
                 <p key={r.sheetId} className="text-xs text-slate-600">
-                  <b>{r.name}</b>: {r.daysCompleted}/{r.totalDays} dias completados ·{' '}
+                  <b>{r.name}</b>: {r.daysCompleted}/{r.daysTrained} dias completados ·{' '}
                   <span className="font-bold text-indigo-600">+{r.tpGained} TP</span>
                 </p>
               ))}
