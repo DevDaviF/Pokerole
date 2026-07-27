@@ -32,6 +32,7 @@ import MoveDetailModal from '../components/MoveDetailModal'
 import TrainingPointsBadge from '../components/TrainingPoints'
 import SpeciesPicker from '../components/SpeciesPicker'
 import PokemonProgression from '../components/PokemonProgression'
+import BatchTraining from '../components/BatchTraining'
 import TypeMatchups from '../components/TypeMatchups'
 import UnitToggle, { useUnitSystem } from '../components/UnitToggle'
 import SendToChatButton from '../components/SendToChatButton'
@@ -801,6 +802,8 @@ export default function PokemonSheetsPage() {
           disponíveis pra editar.
         </p>
       )}
+
+      <BatchTraining trainers={trainers} pokemonSheets={sheets} />
 
       {displaySheets.length === 0 ? (
         <p className="rounded-xl border border-slate-200 bg-white p-10 text-center text-slate-400 shadow-sm">
