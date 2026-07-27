@@ -84,8 +84,13 @@ function weightedDraw(
       for (const p of WILD_POOL) {
         if (!includeLegendary && p.legendary) continue
         const existing = candidates.get(p.id)
-        if (existing && existing.weight >= TIER_WEIGHT[tier]) continue
-        if (p.types.some((t) => tierTypes.includes(t))) {
+        if (existing)
+        {
+          if (existing.weight >= TIER_WEIGHT[tier])
+            continue; // possível bug, se for inválido, é para deletar, e não apenas continuar
+          continue;
+        }
+        if (p.types.some((t) => tierTypes.includes(t)) && p.habitats.includes(habitat.label)) {
           candidates.set(p.id, { p, weight: TIER_WEIGHT[tier] })
         }
       }
