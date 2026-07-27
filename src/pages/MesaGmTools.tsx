@@ -3,7 +3,7 @@ import { db } from '../db'
 import { supabase } from '../lib/supabase'
 import type { Pokemon, PokemonSheet, Rank } from '../types'
 import { RANKS } from '../types'
-import { POKEDEX, spriteUrl, pokemonById, ITEMS } from '../data'
+import { POKEDEX, POKEMON_TYPES, spriteUrl, pokemonById, typeColor, ITEMS } from '../data'
 import { generateNpcSheet } from '../lib/npcGen'
 import {
   HABITATS,
@@ -395,6 +395,105 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
   )
 }
 
+// Cria de uma vez um Treinador NPC (líder de ginásio) + time de 6 Pokémon
+// do tipo escolhido — mesma lógica de "🏆 Time do Treinador" em
+// Treinadores (tipo filtra a espécie, generateNpcSheet sorteia o resto),
+// só que sem sair da mesa pra criar o Treinador manualmente antes.
+function QuickGymNpc({ mesaId }: { mesaId: string }) {
+  const [name, setName] = useState('')
+  const [rank, setRank] = useState<Rank>('Ace')
+  const [type, setType] = useState('Water')
+  const [busy, setBusy] = useState(false)
+  const [notice, setNotice] = useState('')
+
+  const typePool = WILD_POOL.filter((p) => p.types.includes(type))
+
+  const generate = async () => {
+    if (!name.trim() || busy) return
+    setBusy(true)
+    setNotice('')
+    const trainerId = await db.trainers.add({
+      name: name.trim(),
+      rank,
+      age: 'Adult',
+      attributes: { strength: 1, dexterity: 1, vitality: 1, special: 0, insight: 1 },
+      social: { tough: 1, cool: 1, beauty: 1, cute: 1, clever: 1 },
+      skills: {},
+      hp: 5,
+      currentHp: 5,
+      notes: `Líder de ginásio gerado automaticamente (tipo ${type}).`,
+      money: 0,
+      inventory: [],
+      isNpc: true,
+      npcMesaId: mesaId,
+    })
+    const picks = [...typePool].sort(() => Math.random() - 0.5).slice(0, 6)
+    for (const sp of picks) {
+      const sheet = generateNpcSheet(sp, rank, 'gym', mesaId, { trainerId })
+      await db.pokemonSheets.add({ ...sheet, inTeam: true })
+    }
+    setBusy(false)
+    setNotice(
+      picks.length < 6
+        ? `${name} criado com ${picks.length} Pokémon do tipo ${type} (só achei esses). Veja em "Treinadores" e "🎭 Interpretar NPC".`
+        : `${name} criado com um time de 6 Pokémon do tipo ${type}! Veja em "Treinadores" e "🎭 Interpretar NPC".`,
+    )
+    setName('')
+  }
+
+  return (
+    <div className="space-y-2 rounded-lg border border-purple-200 bg-purple-50/60 p-3">
+      <p className="text-xs font-bold text-purple-700 uppercase">
+        ⚡ Criar líder de ginásio rápido
+      </p>
+      <input
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Nome do Treinador NPC..."
+        className="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-xs focus:border-red-400 focus:outline-none"
+      />
+      <div className="flex flex-wrap items-center gap-1.5">
+        <span className="w-full text-xs font-semibold text-slate-500">
+          Tipo do time ({typePool.length} espécie{typePool.length === 1 ? '' : 's'} disponíve
+          {typePool.length === 1 ? 'l' : 'is'})
+        </span>
+        {POKEMON_TYPES.map((t) => (
+          <button
+            key={t}
+            type="button"
+            onClick={() => setType(t)}
+            className={`rounded-full px-2.5 py-1 text-[11px] font-semibold text-white uppercase transition-opacity ${
+              type && type !== t ? 'opacity-30' : 'opacity-100'
+            }`}
+            style={{ backgroundColor: typeColor(t) }}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+      <div className="flex flex-wrap items-center gap-2">
+        <select
+          value={rank}
+          onChange={(e) => setRank(e.target.value as Rank)}
+          className="rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs focus:border-red-400 focus:outline-none"
+        >
+          {RANKS.map((r) => (
+            <option key={r}>{r}</option>
+          ))}
+        </select>
+        <button
+          onClick={generate}
+          disabled={busy || !name.trim() || typePool.length === 0}
+          className="ml-auto rounded-lg bg-purple-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-purple-800 disabled:opacity-50"
+        >
+          {busy ? 'Gerando...' : '✨ Gerar NPC + time de 6'}
+        </button>
+      </div>
+      {notice && <p className="text-xs text-emerald-700">{notice}</p>}
+    </div>
+  )
+}
+
 function GymTab({ mesaId, myId }: { mesaId: string; myId: string }) {
   const [species, setSpecies] = useState<Pokemon | null>(null)
   const [rank, setRank] = useState<Rank>('Ace')
@@ -413,6 +512,10 @@ function GymTab({ mesaId, myId }: { mesaId: string; myId: string }) {
 
   return (
     <div className="space-y-3">
+      <QuickGymNpc mesaId={mesaId} />
+      <p className="text-xs font-bold text-slate-400 uppercase">
+        Ou adicione um Pokémon avulso a um Treinador NPC já existente
+      </p>
       <SpeciesPicker
         onSelect={(p) => {
           setSpecies(p)
