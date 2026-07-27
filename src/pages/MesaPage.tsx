@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db'
 import type { PokemonSheet, InventoryEntry, Trainer } from '../types'
@@ -65,6 +65,42 @@ function renderEffectChat(content: string) {
       <b className="rounded bg-amber-200 px-1 py-0.5 text-amber-900">{effect}</b>
       {content.slice(idx + effect.length)}
     </>
+  )
+}
+
+// "Pasta" retrátil pra listas de fichas — some sozinha se não tiver nada
+// dentro no momento, e começa fechada pra manter a tela limpa quando a
+// mesa acumula muita ficha (selvagem, ginásio, de cada jogador...).
+function CollapsibleGroup({
+  title,
+  icon,
+  count,
+  children,
+}: {
+  title: string
+  icon: string
+  count: number
+  children: ReactNode
+}) {
+  const [open, setOpen] = useState(false)
+  if (count === 0) return null
+  return (
+    <div className="overflow-hidden rounded-lg border border-slate-200">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center gap-2 bg-slate-50 px-3 py-1.5 text-left text-xs font-bold text-slate-600 hover:bg-slate-100"
+      >
+        <span className="text-slate-400">{open ? '▾' : '▸'}</span>
+        <span>
+          {icon} {title}
+        </span>
+        <span className="ml-auto rounded-full bg-white px-2 py-0.5 text-[11px] font-bold text-slate-500 ring-1 ring-slate-200">
+          {count}
+        </span>
+      </button>
+      {open && <div className="space-y-1.5 p-2">{children}</div>}
+    </div>
   )
 }
 
@@ -1226,6 +1262,121 @@ export default function MesaPage() {
     await loadMesas()
   }
 
+  // "Fichas da mesa" agrupada em pastas retráteis — Ginásio, Selvagens e
+  // uma por jogador com ficha compartilhada — pra não virar uma lista
+  // gigante e plana conforme a campanha acumula NPCs e personagens.
+  const sharedSheetGroups: Array<{ key: string; title: string; icon: string; items: SharedSheet[] }> =
+    (() => {
+      const gym: SharedSheet[] = []
+      const wild: SharedSheet[] = []
+      const byOwner = new Map<string, SharedSheet[]>()
+      for (const s of sharedSheets) {
+        const p = s.payload as Record<string, any>
+        if (s.kind === 'pokemon' && p.isNpc) {
+          ;(p.npcKind === 'gym' ? gym : wild).push(s)
+          continue
+        }
+        const list = byOwner.get(s.owner_id) ?? []
+        list.push(s)
+        byOwner.set(s.owner_id, list)
+      }
+      const groups: Array<{ key: string; title: string; icon: string; items: SharedSheet[] }> = []
+      if (gym.length) groups.push({ key: 'gym', title: 'Ginásio', icon: '🏋️', items: gym })
+      if (wild.length) groups.push({ key: 'wild', title: 'Selvagens', icon: '🐾', items: wild })
+      for (const [ownerId, items] of byOwner) {
+        groups.push({
+          key: ownerId,
+          title: ownerId === myId ? 'Minhas fichas' : (usernames[ownerId] ?? '?'),
+          icon: '👤',
+          items,
+        })
+      }
+      return groups
+    })()
+
+  const renderSharedSheetRow = (s: SharedSheet) => {
+    const p = s.payload as Record<string, any>
+    const label =
+      s.kind === 'pokemon'
+        ? String(p.nickname || pokemonById.get(String(p.species))?.name || 'Pokémon')
+        : `${p.name} (Treinador)`
+    // Pokémon selvagem/de ginásio (isNpc): só o Mestre que publicou pode
+    // abrir a ficha e ver atributos como Def/Sp.Def — pro jogador aparece
+    // só o nome, sem clique, pra não estragar surpresa de captura/ginásio.
+    const isNpc = s.kind === 'pokemon' && Boolean(p.isNpc)
+    const isOwner = s.owner_id === myId
+    const canView = isOwner || !isNpc
+    return (
+      <div key={s.id} className="flex items-center gap-2">
+        {canView ? (
+          <button
+            onClick={() => setViewing(s)}
+            className="flex-1 truncate rounded-lg border border-slate-200 px-3 py-1.5 text-left text-sm text-slate-700 hover:bg-slate-50"
+          >
+            {label}
+            <span className="ml-1 text-xs text-slate-400">
+              · {usernames[s.owner_id] ?? '?'}
+            </span>
+          </button>
+        ) : (
+          <span
+            title="Ficha do Mestre — atributos ficam ocultos até a captura"
+            className="flex-1 truncate rounded-lg border border-dashed border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-400"
+          >
+            🔒 {label}
+            <span className="ml-1 text-xs text-slate-400">
+              · {usernames[s.owner_id] ?? '?'}
+            </span>
+          </span>
+        )}
+        {isOwner && (
+          <button
+            onClick={() => unshareSheet(s.id)}
+            title="Parar de compartilhar"
+            className="text-slate-300 hover:text-red-500"
+          >
+            ×
+          </button>
+        )}
+      </div>
+    )
+  }
+
+  // "Compartilhar minhas fichas" também vira pastas — Ginásio/Selvagens
+  // pro Mestre, Treinadores/Meus Pokémon pro jogador.
+  const shareTrainerRow = (t: Trainer) => (
+    <button
+      key={`t${t.id}`}
+      onClick={() => shareSheet('trainer', t.id!)}
+      className="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-left text-sm text-slate-600 hover:bg-slate-50"
+    >
+      {t.name}{' '}
+      <span className="text-xs text-slate-400">— publicar/atualizar</span>
+    </button>
+  )
+  const sharePokemonRow = (s: PokemonSheet) => (
+    <div key={s.id} className="flex items-center gap-2">
+      <button
+        onClick={() => shareSheet('pokemon', s.id!)}
+        className="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-left text-sm text-slate-600 hover:bg-slate-50"
+      >
+        {s.nickname || pokemonById.get(s.species)?.name}{' '}
+        <span className="text-xs text-slate-400">— publicar/atualizar</span>
+      </button>
+      {s.isNpc === true && (
+        <button
+          onClick={() => removePokemonFromIndexDB(s.id!)}
+          title="Remover Pokémon da mesa"
+          className="text-slate-300 hover:text-red-500"
+        >
+          ×
+        </button>
+      )}
+    </div>
+  )
+  const shareGymSheets = myPokemonSheets.filter((s) => s.isNpc && s.npcKind === 'gym')
+  const shareWildSheets = myPokemonSheets.filter((s) => s.isNpc && s.npcKind === 'wild')
+
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -1713,58 +1864,16 @@ export default function MesaPage() {
                   </p>
                 )}
                 <div className="space-y-1.5">
-                  {sharedSheets.map((s) => {
-                    const p = s.payload as Record<string, any>
-                    const label =
-                      s.kind === 'pokemon'
-                        ? String(
-                            p.nickname ||
-                              pokemonById.get(String(p.species))?.name ||
-                              'Pokémon',
-                          )
-                        : `${p.name} (Treinador)`
-                    // Pokémon selvagem/de ginásio (isNpc): só o Mestre que
-                    // publicou pode abrir a ficha e ver atributos como
-                    // Def/Sp.Def — pro jogador aparece só o nome, sem clique,
-                    // pra não estragar surpresa de captura/ginásio.
-                    const isNpc = s.kind === 'pokemon' && Boolean(p.isNpc)
-                    const isOwner = s.owner_id === myId
-                    const canView = isOwner || !isNpc
-                    return (
-                      <div key={s.id} className="flex items-center gap-2">
-                        {canView ? (
-                          <button
-                            onClick={() => setViewing(s)}
-                            className="flex-1 truncate rounded-lg border border-slate-200 px-3 py-1.5 text-left text-sm text-slate-700 hover:bg-slate-50"
-                          >
-                            {label}
-                            <span className="ml-1 text-xs text-slate-400">
-                              · {usernames[s.owner_id] ?? '?'}
-                            </span>
-                          </button>
-                        ) : (
-                          <span
-                            title="Ficha do Mestre — atributos ficam ocultos até a captura"
-                            className="flex-1 truncate rounded-lg border border-dashed border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-400"
-                          >
-                            🔒 {label}
-                            <span className="ml-1 text-xs text-slate-400">
-                              · {usernames[s.owner_id] ?? '?'}
-                            </span>
-                          </span>
-                        )}
-                        {isOwner && (
-                          <button
-                            onClick={() => unshareSheet(s.id)}
-                            title="Parar de compartilhar"
-                            className="text-slate-300 hover:text-red-500"
-                          >
-                            ×
-                          </button>
-                        )}
-                      </div>
-                    )
-                  })}
+                  {sharedSheetGroups.map((g) => (
+                    <CollapsibleGroup
+                      key={g.key}
+                      title={g.title}
+                      icon={g.icon}
+                      count={g.items.length}
+                    >
+                      {g.items.map(renderSharedSheetRow)}
+                    </CollapsibleGroup>
+                  ))}
                 </div>
               </div>
 
@@ -1772,61 +1881,39 @@ export default function MesaPage() {
                 <h2 className="mb-2 font-bold text-slate-800">
                   Compartilhar minhas fichas
                 </h2>
-                <div className="space-y-1.5 text-sm">
-                  {/* Mestre não joga um Treinador fixo nesta mesa — só
-                      selvagens/ginásio (NPC) fazem sentido pra compartilhar
-                      aqui, não o time pessoal dele de outra mesa. */}
-                  {myRole !== 'gm' &&
-                    myTrainers.map((t) => (
-                      <button
-                        key={`t${t.id}`}
-                        onClick={() => shareSheet('trainer', t.id!)}
-                        className="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-left text-slate-600 hover:bg-slate-50"
-                      >
-                        {t.name}{' '}
-                        <span className="text-xs text-slate-400">
-                          (Treinador) — publicar/atualizar
-                        </span>
-                      </button>
-                    ))}
-                  {(myRole === 'gm' ? myPokemonSheets.filter((s) => s.isNpc) : myPokemonSheets).map((s) => (
-                    <div key={s.id} className="flex items-center gap-2">
-                      <button
-                        key={`p${s.id}`}
-                        onClick={() => shareSheet('pokemon', s.id!)}
-                        className="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-left text-slate-600 hover:bg-slate-50"
-                      >
-                        {s.nickname || pokemonById.get(s.species)?.name}{' '}
-                        <span className="text-xs text-slate-400">
-                          — publicar/atualizar
-                        </span>
-                      </button>
-
-                      {s.isNpc === true && (
-                        <button
-                          onClick={() => removePokemonFromIndexDB(s.id!)}
-                          title="Remover Pokémon da mesa"
-                          className="text-slate-300 hover:text-red-500"
-                        >
-                          ×
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                  {myRole === 'gm'
-                    ? myPokemonSheets.filter((s) => s.isNpc).length === 0 && (
-                        <p className="text-slate-400">
-                          Nenhum NPC gerado ainda nesta mesa — use "Encontro"
-                          ou "Ginásio" nas Ferramentas do Mestre.
-                        </p>
-                      )
-                    : myTrainers.length === 0 &&
-                      myPokemonSheets.length === 0 && (
-                        <p className="text-slate-400">
-                          Crie fichas em "Treinadores" e "Meus Pokémon".
-                        </p>
-                      )}
-                </div>
+                {/* Mestre não joga um Treinador fixo nesta mesa — só
+                    selvagens/ginásio (NPC) fazem sentido pra compartilhar
+                    aqui, não o time pessoal dele de outra mesa. */}
+                {myRole === 'gm' ? (
+                  <div className="space-y-1.5 text-sm">
+                    <CollapsibleGroup title="Ginásio" icon="🏋️" count={shareGymSheets.length}>
+                      {shareGymSheets.map(sharePokemonRow)}
+                    </CollapsibleGroup>
+                    <CollapsibleGroup title="Selvagens" icon="🐾" count={shareWildSheets.length}>
+                      {shareWildSheets.map(sharePokemonRow)}
+                    </CollapsibleGroup>
+                    {shareGymSheets.length === 0 && shareWildSheets.length === 0 && (
+                      <p className="text-slate-400">
+                        Nenhum NPC gerado ainda nesta mesa — use "Encontro" ou
+                        "Ginásio" nas Ferramentas do Mestre.
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <div className="space-y-1.5 text-sm">
+                    <CollapsibleGroup title="Treinadores" icon="🧑" count={myTrainers.length}>
+                      {myTrainers.map(shareTrainerRow)}
+                    </CollapsibleGroup>
+                    <CollapsibleGroup title="Meus Pokémon" icon="🐾" count={myPokemonSheets.length}>
+                      {myPokemonSheets.map(sharePokemonRow)}
+                    </CollapsibleGroup>
+                    {myTrainers.length === 0 && myPokemonSheets.length === 0 && (
+                      <p className="text-slate-400">
+                        Crie fichas em "Treinadores" e "Meus Pokémon".
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
