@@ -27,7 +27,7 @@ import { useMesa } from '../lib/mesa'
 import { useCustomItems, customItemToItem } from '../lib/customItems'
 import { supabase, supabaseConfigured } from '../lib/supabase'
 import { generateNpcSheet } from '../lib/npcGen'
-import { POKEDEX, spriteUrl } from '../data'
+import { POKEDEX, POKEMON_TYPES, spriteUrl, typeColor } from '../data'
 
 // mesmo filtro de espécie "base" usado no gerador de encontros — sem
 // formas/Mega/Gmax, que não fazem sentido sortear soltas num time
@@ -93,15 +93,21 @@ export default function TrainersPage() {
       [editing?.id],
     ) ?? []
 
+  const [favoredType, setFavoredType] = useState<string>('Water')
   const [favoredAttribute, setFavoredAttribute] = useState<AttributeName>('Strength')
   const [genBusy, setGenBusy] = useState(false)
   const [genNotice, setGenNotice] = useState('')
+
+  // time temático: só espécies que tenham a tipagem escolhida (mono-tipo
+  // ou combinada com outra) — sorteio livre de tipo não fazia sentido pra
+  // um ginásio, que é definido justamente pelo tipo do líder.
+  const typeTeamPool = TEAM_POOL.filter((p) => p.types.includes(favoredType))
 
   const generateTeam = async () => {
     if (!editing?.id || !editing.npcMesaId) return
     setGenBusy(true)
     setGenNotice('')
-    const picks = [...TEAM_POOL].sort(() => Math.random() - 0.5).slice(0, 6)
+    const picks = [...typeTeamPool].sort(() => Math.random() - 0.5).slice(0, 6)
     for (const species of picks) {
       const sheet = generateNpcSheet(species, editing.rank, 'gym', editing.npcMesaId, {
         trainerId: editing.id,
@@ -110,7 +116,11 @@ export default function TrainersPage() {
       await db.pokemonSheets.add({ ...sheet, inTeam: true })
     }
     setGenBusy(false)
-    setGenNotice(`Time de 6 Pokémon gerado! Veja em "Meus Pokémon".`)
+    setGenNotice(
+      picks.length < 6
+        ? `Só achei ${picks.length} espécie${picks.length === 1 ? '' : 's'} do tipo ${favoredType} — time gerado com o que tinha. Veja em "Meus Pokémon".`
+        : `Time de 6 Pokémon gerado! Veja em "Meus Pokémon".`,
+    )
   }
 
   const trainerHp = editing ? 4 + editing.attributes.vitality : 0
@@ -428,6 +438,7 @@ export default function TrainersPage() {
               setEditing({ ...editing, money, inventory })
             }
             customItems={customItems}
+            editMoney={false}
           />
           {activeMesa && (
             <p className="mt-2 text-xs text-slate-400">
@@ -446,11 +457,32 @@ export default function TrainersPage() {
             ) : (
               <>
                 <p className="mb-2 text-xs text-slate-500">
-                  Sorteia 6 Pokémon (Rank {editing.rank}, mesmo do Treinador)
-                  com pontos de atributo puxados pra uma especialidade —
-                  espécies aleatórias, então dá pra rodar de novo se a
+                  Sorteia até 6 Pokémon (Rank {editing.rank}, mesmo do
+                  Treinador) só entre espécies do tipo escolhido (mono-tipo
+                  ou combinado com outro), com pontos de atributo puxados
+                  pra uma especialidade — dá pra rodar de novo se a
                   combinação não agradar.
                 </p>
+                <div className="mb-2 flex flex-wrap items-center gap-1.5">
+                  <span className="w-full text-xs font-semibold text-slate-500">
+                    Tipo do ginásio ({typeTeamPool.length} espécie
+                    {typeTeamPool.length === 1 ? '' : 's'} disponíve
+                    {typeTeamPool.length === 1 ? 'l' : 'is'})
+                  </span>
+                  {POKEMON_TYPES.map((t) => (
+                    <button
+                      key={t}
+                      type="button"
+                      onClick={() => setFavoredType(t)}
+                      className={`rounded-full px-2.5 py-1 text-[11px] font-semibold text-white uppercase transition-opacity ${
+                        favoredType && favoredType !== t ? 'opacity-30' : 'opacity-100'
+                      }`}
+                      style={{ backgroundColor: typeColor(t) }}
+                    >
+                      {t}
+                    </button>
+                  ))}
+                </div>
                 <div className="mb-3 flex flex-wrap items-center gap-2">
                   <span className="text-xs font-semibold text-slate-500">Especialidade</span>
                   <div className="flex flex-wrap gap-1">
@@ -472,7 +504,7 @@ export default function TrainersPage() {
                   <button
                     type="button"
                     onClick={generateTeam}
-                    disabled={genBusy}
+                    disabled={genBusy || typeTeamPool.length === 0}
                     className="ml-auto rounded-lg bg-purple-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-purple-800 disabled:opacity-50"
                   >
                     {genBusy ? 'Gerando...' : '✨ Gerar time de 6'}
