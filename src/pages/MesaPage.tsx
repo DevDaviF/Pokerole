@@ -1690,19 +1690,23 @@ export default function MesaPage() {
                   Compartilhar minhas fichas
                 </h2>
                 <div className="space-y-1.5 text-sm">
-                  {myTrainers.map((t) => (
-                    <button
-                      key={`t${t.id}`}
-                      onClick={() => shareSheet('trainer', t.id!)}
-                      className="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-left text-slate-600 hover:bg-slate-50"
-                    >
-                      {t.name}{' '}
-                      <span className="text-xs text-slate-400">
-                        (Treinador) — publicar/atualizar
-                      </span>
-                    </button>
-                  ))}
-                  {myPokemonSheets.map((s) => (
+                  {/* Mestre não joga um Treinador fixo nesta mesa — só
+                      selvagens/ginásio (NPC) fazem sentido pra compartilhar
+                      aqui, não o time pessoal dele de outra mesa. */}
+                  {myRole !== 'gm' &&
+                    myTrainers.map((t) => (
+                      <button
+                        key={`t${t.id}`}
+                        onClick={() => shareSheet('trainer', t.id!)}
+                        className="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-left text-slate-600 hover:bg-slate-50"
+                      >
+                        {t.name}{' '}
+                        <span className="text-xs text-slate-400">
+                          (Treinador) — publicar/atualizar
+                        </span>
+                      </button>
+                    ))}
+                  {(myRole === 'gm' ? myPokemonSheets.filter((s) => s.isNpc) : myPokemonSheets).map((s) => (
                     <div key={s.id} className="flex items-center gap-2">
                       <button
                         key={`p${s.id}`}
@@ -1726,11 +1730,19 @@ export default function MesaPage() {
                       )}
                     </div>
                   ))}
-                  {myTrainers.length === 0 && myPokemonSheets.length === 0 && (
-                    <p className="text-slate-400">
-                      Crie fichas em "Treinadores" e "Meus Pokémon".
-                    </p>
-                  )}
+                  {myRole === 'gm'
+                    ? myPokemonSheets.filter((s) => s.isNpc).length === 0 && (
+                        <p className="text-slate-400">
+                          Nenhum NPC gerado ainda nesta mesa — use "Encontro"
+                          ou "Ginásio" nas Ferramentas do Mestre.
+                        </p>
+                      )
+                    : myTrainers.length === 0 &&
+                      myPokemonSheets.length === 0 && (
+                        <p className="text-slate-400">
+                          Crie fichas em "Treinadores" e "Meus Pokémon".
+                        </p>
+                      )}
                 </div>
               </div>
             </div>
