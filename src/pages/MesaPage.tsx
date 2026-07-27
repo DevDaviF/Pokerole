@@ -983,6 +983,12 @@ export default function MesaPage() {
     setSharedSheets((prev) => prev.filter((s) => s.id !== id))
   }
 
+  // Remove pokemon from pokemon sheets indexDB
+  const removePokemonFromIndexDB = async (id: number) => {
+    if (!db) return
+    await db.pokemonSheets.delete(id)
+  }
+
   const transferGm = async (targetUserId: string) => {
     if (!supabase || !activeMesa || myRole !== 'gm') return
     const target = members.find((m) => m.user_id === targetUserId)
@@ -1608,16 +1614,28 @@ export default function MesaPage() {
                     </button>
                   ))}
                   {myPokemonSheets.map((s) => (
-                    <button
-                      key={`p${s.id}`}
-                      onClick={() => shareSheet('pokemon', s.id!)}
-                      className="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-left text-slate-600 hover:bg-slate-50"
-                    >
-                      {s.nickname || pokemonById.get(s.species)?.name}{' '}
-                      <span className="text-xs text-slate-400">
-                        — publicar/atualizar
-                      </span>
-                    </button>
+                    <div key={s.id} className="flex items-center gap-2">
+                      <button
+                        key={`p${s.id}`}
+                        onClick={() => shareSheet('pokemon', s.id!)}
+                        className="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-left text-slate-600 hover:bg-slate-50"
+                      >
+                        {s.nickname || pokemonById.get(s.species)?.name}{' '}
+                        <span className="text-xs text-slate-400">
+                          — publicar/atualizar
+                        </span>
+                      </button>
+
+                      {s.isNpc === true && (
+                        <button
+                          onClick={() => removePokemonFromIndexDB(s.id!)}
+                          title="Remover Pokémon da mesa"
+                          className="text-slate-300 hover:text-red-500"
+                        >
+                          ×
+                        </button>
+                      )}
+                    </div>
                   ))}
                   {myTrainers.length === 0 && myPokemonSheets.length === 0 && (
                     <p className="text-slate-400">
