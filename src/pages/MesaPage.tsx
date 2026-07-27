@@ -296,7 +296,6 @@ export interface SharedSheet {
   kind: 'trainer' | 'pokemon'
   local_id: number
   payload: Record<string, unknown>
-  hidden: boolean
   updated_at: string
 }
 
@@ -1016,25 +1015,6 @@ export default function MesaPage() {
     setSharedSheets((prev) => prev.filter((s) => s.id !== id))
   }
 
-  // Oculta sem parar de compartilhar — a ficha continua existindo pra
-  // quem já depende dela (Rastreador de Combate, Captura), só some da
-  // visão de quem não é o dono até ser mostrada de novo.
-  const toggleHiddenSheet = async (s: SharedSheet) => {
-    if (!supabase) return
-    const nextHidden = !s.hidden
-    const { error } = await supabase
-      .from('shared_sheets')
-      .update({ hidden: nextHidden })
-      .eq('id', s.id)
-    if (error) {
-      setNotice(friendlyError(error.message))
-      return
-    }
-    setSharedSheets((prev) =>
-      prev.map((x) => (x.id === s.id ? { ...x, hidden: nextHidden } : x)),
-    )
-  }
-
   // Apaga de vez uma ficha local (selvagem/ginásio já capturado ou morto,
   // não serve mais) — some do Dexie e, se ainda estava publicada nessa
   // mesa, também para de compartilhar pra não sobrar um "Fichas da mesa"
@@ -1493,9 +1473,11 @@ export default function MesaPage() {
             />
           </ErrorBoundary>
 
-          <ErrorBoundary label="Will Points">
-            <WillPointsPanel myTrainer={myActiveTrainer} myPokemonSheets={myOwnPokemonSheets} />
-          </ErrorBoundary>
+          {myRole !== 'gm' && (
+            <ErrorBoundary label="Will Points">
+              <WillPointsPanel myTrainer={myActiveTrainer} myPokemonSheets={myOwnPokemonSheets} />
+            </ErrorBoundary>
+          )}
 
           <ErrorBoundary label="Loja">
             <div className="rounded-xl border border-slate-200 bg-white shadow-sm">
@@ -1653,8 +1635,7 @@ export default function MesaPage() {
                     // pra não estragar surpresa de captura/ginásio.
                     const isNpc = s.kind === 'pokemon' && Boolean(p.isNpc)
                     const isOwner = s.owner_id === myId
-                    const locked = isNpc || s.hidden
-                    const canView = isOwner || !locked
+                    const canView = isOwner || !isNpc
                     return (
                       <div key={s.id} className="flex items-center gap-2">
                         {canView ? (
@@ -1662,7 +1643,6 @@ export default function MesaPage() {
                             onClick={() => setViewing(s)}
                             className="flex-1 truncate rounded-lg border border-slate-200 px-3 py-1.5 text-left text-sm text-slate-700 hover:bg-slate-50"
                           >
-                            {s.hidden && isOwner && '🙈 '}
                             {label}
                             <span className="ml-1 text-xs text-slate-400">
                               · {usernames[s.owner_id] ?? '?'}
@@ -1670,11 +1650,7 @@ export default function MesaPage() {
                           </button>
                         ) : (
                           <span
-                            title={
-                              isNpc
-                                ? 'Ficha do Mestre — atributos ficam ocultos até a captura'
-                                : 'Ficha ocultada pelo dono'
-                            }
+                            title="Ficha do Mestre — atributos ficam ocultos até a captura"
                             className="flex-1 truncate rounded-lg border border-dashed border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-400"
                           >
                             🔒 {label}
@@ -1682,15 +1658,6 @@ export default function MesaPage() {
                               · {usernames[s.owner_id] ?? '?'}
                             </span>
                           </span>
-                        )}
-                        {isOwner && !isNpc && (
-                          <button
-                            onClick={() => toggleHiddenSheet(s)}
-                            title={s.hidden ? 'Mostrar pra mesa' : 'Ocultar pra mesa'}
-                            className="text-slate-300 hover:text-slate-600"
-                          >
-                            {s.hidden ? '🙈' : '👁️'}
-                          </button>
                         )}
                         {isOwner && (
                           <button

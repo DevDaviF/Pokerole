@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db'
-import type { AttributeName, Trainer } from '../types'
+import type { Trainer } from '../types'
 import { RANKS } from '../types'
 import {
   TRAINER_ATTRIBUTE_LABELS,
-  POKEMON_ATTRIBUTE_LABELS,
   SOCIAL_LABELS,
   TRAINER_SKILL_GROUPS,
 } from '../constants'
@@ -94,7 +93,6 @@ export default function TrainersPage() {
     ) ?? []
 
   const [favoredType, setFavoredType] = useState<string>('Water')
-  const [favoredAttribute, setFavoredAttribute] = useState<AttributeName>('Strength')
   const [genBusy, setGenBusy] = useState(false)
   const [genNotice, setGenNotice] = useState('')
 
@@ -111,7 +109,6 @@ export default function TrainersPage() {
     for (const species of picks) {
       const sheet = generateNpcSheet(species, editing.rank, 'gym', editing.npcMesaId, {
         trainerId: editing.id,
-        favoredAttribute,
       })
       await db.pokemonSheets.add({ ...sheet, inTeam: true })
     }
@@ -459,11 +456,10 @@ export default function TrainersPage() {
                 <p className="mb-2 text-xs text-slate-500">
                   Sorteia até 6 Pokémon (Rank {editing.rank}, mesmo do
                   Treinador) só entre espécies do tipo escolhido (mono-tipo
-                  ou combinado com outro), com pontos de atributo puxados
-                  pra uma especialidade — dá pra rodar de novo se a
+                  ou combinado com outro) — dá pra rodar de novo se a
                   combinação não agradar.
                 </p>
-                <div className="mb-2 flex flex-wrap items-center gap-1.5">
+                <div className="mb-3 flex flex-wrap items-center gap-1.5">
                   <span className="w-full text-xs font-semibold text-slate-500">
                     Tipo do ginásio ({typeTeamPool.length} espécie
                     {typeTeamPool.length === 1 ? '' : 's'} disponíve
@@ -482,25 +478,6 @@ export default function TrainersPage() {
                       {t}
                     </button>
                   ))}
-                </div>
-                <div className="mb-3 flex flex-wrap items-center gap-2">
-                  <span className="text-xs font-semibold text-slate-500">Especialidade</span>
-                  <div className="flex flex-wrap gap-1">
-                    {POKEMON_ATTRIBUTE_LABELS.map((a) => (
-                      <button
-                        key={a.key}
-                        type="button"
-                        onClick={() => setFavoredAttribute(a.label as AttributeName)}
-                        className={`rounded-full px-2.5 py-1 text-xs font-bold ${
-                          favoredAttribute === a.label
-                            ? 'bg-purple-700 text-white'
-                            : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
-                        }`}
-                      >
-                        {a.label}
-                      </button>
-                    ))}
-                  </div>
                   <button
                     type="button"
                     onClick={generateTeam}

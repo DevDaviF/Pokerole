@@ -19,6 +19,7 @@ import { sendMoneyAdjustment } from '../lib/moneyAdjustments'
 import { sendSheetTransfer } from '../lib/sheetTransfers'
 import TypeBadge from '../components/TypeBadge'
 import SpeciesPicker from '../components/SpeciesPicker'
+import NpcRollPanel from '../components/NpcRollPanel'
 import type { SharedSheet } from './MesaPage'
 
 // só espécies "base" (sem Mega/Gmax/formas regionais) entram no sorteio
@@ -977,14 +978,14 @@ export default function GmToolsPanel({
   sharedSheets: SharedSheet[]
   onUnshare: (id: string) => void
 }) {
-  const [tab, setTab] = useState<'encounter' | 'gym' | 'items'>('encounter')
+  const [tab, setTab] = useState<'encounter' | 'gym' | 'npcs' | 'items'>('encounter')
 
   return (
     <div className="overflow-hidden rounded-xl border border-purple-200 bg-white shadow-sm">
       <div className="flex items-center gap-2 bg-gradient-to-r from-purple-700 to-indigo-700 px-4 py-2.5 text-white">
         <b>🎓 Ferramentas do Mestre</b>
         <div className="ml-auto flex gap-1">
-          {(['encounter', 'gym', 'items'] as const).map((t) => (
+          {(['encounter', 'gym', 'npcs', 'items'] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -994,7 +995,13 @@ export default function GmToolsPanel({
                   : 'bg-black/15 text-white hover:bg-black/25'
               }`}
             >
-              {t === 'encounter' ? '🐾 Encontro' : t === 'gym' ? '🏋️ Ginásio' : '🎁 Presentear'}
+              {t === 'encounter'
+                ? '🐾 Encontro'
+                : t === 'gym'
+                  ? '🏋️ Ginásio'
+                  : t === 'npcs'
+                    ? '🎭 Interpretar NPC'
+                    : '🎁 Presentear'}
             </button>
           ))}
         </div>
@@ -1003,6 +1010,7 @@ export default function GmToolsPanel({
       <div className="p-4">
         {tab === 'encounter' && <EncounterTab mesaId={mesaId} myId={myId} />}
         {tab === 'gym' && <GymTab mesaId={mesaId} myId={myId} />}
+        {tab === 'npcs' && <NpcRollPanel mesaId={mesaId} />}
         {tab === 'items' && (
           <ItemsTab
             mesaId={mesaId}
