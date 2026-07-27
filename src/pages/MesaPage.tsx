@@ -1350,38 +1350,47 @@ export default function MesaPage() {
             </div>
           </div>
 
-          {myTrainers.length > 0 && (
-            <div
-              className={`flex flex-wrap items-center gap-2 rounded-xl border px-4 py-2.5 ${
-                !myActiveTrainer
-                  ? 'border-amber-300 bg-amber-50'
-                  : 'border-slate-200 bg-white'
-              }`}
-            >
-              <span className="text-sm font-semibold text-slate-600">
-                {myActiveTrainer ? '🧑 Jogando como' : '⚠️ Escolha seu personagem nesta mesa'}
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                {myTrainers.map((t) => (
-                  <button
-                    key={t.id}
-                    onClick={() => chooseMesaTrainer(t.id!)}
-                    className={`rounded-full border px-3 py-1 text-xs font-semibold ${
-                      myActiveTrainer?.id === t.id
-                        ? 'border-transparent bg-slate-800 text-white'
-                        : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-                    }`}
-                  >
-                    {t.name}
-                  </button>
-                ))}
-              </div>
-              {myTrainers.length > 1 && (
-                <span className="text-xs text-slate-400">
-                  cada mesa lembra o personagem escolhido separadamente
-                </span>
-              )}
+          {myRole === 'gm' ? (
+            // Mestre não interpreta um personagem fixo — controla NPCs
+            // pelas Ferramentas do Mestre ("🎭 Interpretar NPC"), então o
+            // seletor de Treinador não faz sentido aqui.
+            <div className="flex flex-wrap items-center gap-2 rounded-xl border border-purple-200 bg-purple-50 px-4 py-2.5">
+              <span className="text-sm font-semibold text-purple-700">🎓 Jogando como Mestre</span>
             </div>
+          ) : (
+            myTrainers.length > 0 && (
+              <div
+                className={`flex flex-wrap items-center gap-2 rounded-xl border px-4 py-2.5 ${
+                  !myActiveTrainer
+                    ? 'border-amber-300 bg-amber-50'
+                    : 'border-slate-200 bg-white'
+                }`}
+              >
+                <span className="text-sm font-semibold text-slate-600">
+                  {myActiveTrainer ? '🧑 Jogando como' : '⚠️ Escolha seu personagem nesta mesa'}
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {myTrainers.map((t) => (
+                    <button
+                      key={t.id}
+                      onClick={() => chooseMesaTrainer(t.id!)}
+                      className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+                        myActiveTrainer?.id === t.id
+                          ? 'border-transparent bg-slate-800 text-white'
+                          : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      }`}
+                    >
+                      {t.name}
+                    </button>
+                  ))}
+                </div>
+                {myTrainers.length > 1 && (
+                  <span className="text-xs text-slate-400">
+                    cada mesa lembra o personagem escolhido separadamente
+                  </span>
+                )}
+              </div>
+            )
           )}
 
           <ErrorBoundary label="Batedores">
@@ -1608,7 +1617,9 @@ export default function MesaPage() {
 
             {/* Rolagem rápida + fichas compartilhadas */}
             <div className="space-y-4">
-              <QuickRollCard mesaTrainerId={myActiveTrainer?.id ?? null} />
+              {myRole !== 'gm' && (
+                <QuickRollCard mesaTrainerId={myActiveTrainer?.id ?? null} />
+              )}
               <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
                 <h2 className="mb-2 font-bold text-slate-800">
                   Fichas da mesa
