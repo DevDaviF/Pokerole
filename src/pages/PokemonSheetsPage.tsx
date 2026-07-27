@@ -275,7 +275,7 @@ export default function PokemonSheetsPage() {
                   </b>
                   {speciesBreeding && (
                     <>
-                      <span className="text-slate-400">Gênero</span>
+                      <span className="text-slate-400">Gênero (espécie)</span>
                       <b className="text-slate-700">
                         {genderLabel(speciesBreeding.genderRate)}
                       </b>
@@ -308,6 +308,34 @@ export default function PokemonSheetsPage() {
                   placeholder={species.name}
                   className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-red-400 focus:outline-none"
                 />
+              </label>
+              <label className="block">
+                <span className="mb-1 block text-sm font-medium text-slate-600">
+                  Gênero{' '}
+                  <span className="text-xs text-slate-400">
+                    (deste indivíduo — a razão acima é só da espécie)
+                  </span>
+                </span>
+                {speciesBreeding?.genderRate === -1 ? (
+                  <p className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-500">
+                    Sem gênero (espécie)
+                  </p>
+                ) : (
+                  <select
+                    value={editing.gender ?? ''}
+                    onChange={(e) =>
+                      setEditing({
+                        ...editing,
+                        gender: (e.target.value || undefined) as PokemonSheet['gender'],
+                      })
+                    }
+                    className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-red-400 focus:outline-none"
+                  >
+                    <option value="">— não definido —</option>
+                    <option value="M">♂ Macho</option>
+                    <option value="F">♀ Fêmea</option>
+                  </select>
+                )}
               </label>
               <label className="block">
                 <span className="mb-1 block text-sm font-medium text-slate-600">
@@ -354,20 +382,34 @@ export default function PokemonSheetsPage() {
                 <span className="mb-1 block text-sm font-medium text-slate-600">
                   Habilidade
                 </span>
-                <select
-                  value={editing.ability}
-                  onChange={(e) =>
-                    setEditing({ ...editing, ability: e.target.value })
-                  }
-                  className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-red-400 focus:outline-none"
-                >
-                  {species.abilities.map((a) => (
-                    <option key={a}>{a}</option>
-                  ))}
-                  {species.hiddenAbility && (
-                    <option>{species.hiddenAbility} (Oculta)</option>
-                  )}
-                </select>
+                {editing.id ? (
+                  <p
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-600"
+                    title="Habilidade só muda via Re-treino, lá embaixo em Progressão"
+                  >
+                    {editing.ability || '—'}
+                  </p>
+                ) : (
+                  <select
+                    value={editing.ability}
+                    onChange={(e) =>
+                      setEditing({ ...editing, ability: e.target.value })
+                    }
+                    className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-red-400 focus:outline-none"
+                  >
+                    {species.abilities.map((a) => (
+                      <option key={a}>{a}</option>
+                    ))}
+                    {species.hiddenAbility && (
+                      <option>{species.hiddenAbility} (Oculta)</option>
+                    )}
+                  </select>
+                )}
+                {editing.id && (
+                  <p className="mt-1 text-xs text-slate-400">
+                    Só muda via "Re-treinar" em Progressão, lá embaixo.
+                  </p>
+                )}
                 {editing.ability && (
                   <div className="mt-1 flex items-start justify-between gap-2">
                     <p className="text-xs text-slate-400">

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { db } from '../db'
 import type { PokemonSheet, Trainer } from '../types'
 import { rankIndex, RANKS } from '../types'
@@ -75,6 +75,13 @@ export default function PokemonProgression({
   const [rankForgetId, setRankForgetId] = useState('')
   const [overRankMoveId, setOverRankMoveIdSel] = useState('')
   const [overRankForgetId, setOverRankForgetId] = useState('')
+  const [retrainAbility, setRetrainAbility] = useState(sheet.ability)
+  // se a habilidade mudar por baixo dos panos (evoluir pode trocar o
+  // conjunto de habilidades disponíveis), a seleção acompanha — senão o
+  // select ficava preso numa habilidade que nem existe mais na espécie nova
+  useEffect(() => {
+    setRetrainAbility(sheet.ability)
+  }, [sheet.species, sheet.ability])
 
   if (!species) return null
 
@@ -128,9 +135,12 @@ export default function PokemonProgression({
   const canRetrain = tp >= retrCost
 
   const doRetrain = async () => {
+    const abilityChanged = retrainAbility !== sheet.ability
     if (
       !confirm(
-        'Re-treinar reseta Atributos, Sociais e Skills para você redistribuir do zero (os golpes conhecidos NÃO mudam). Continuar?',
+        `Re-treinar reseta Atributos, Sociais e Skills para você redistribuir do zero (os golpes conhecidos NÃO mudam)${
+          abilityChanged ? `. Habilidade também muda pra "${retrainAbility}"` : ''
+        }. Continuar?`,
       )
     )
       return
@@ -138,10 +148,11 @@ export default function PokemonProgression({
       attributes: { ...species.attributes },
       social: { tough: 1, cool: 1, beauty: 1, cute: 1, clever: 1 },
       skills: {},
+      ability: retrainAbility,
       trainingPoints: tp - retrCost,
     })
     setNotice(
-      `Re-treinado! (−${retrCost} TP) Role a ficha até Atributos/Skills para redistribuir.`,
+      `Re-treinado! (−${retrCost} TP)${abilityChanged ? ` Habilidade agora é "${retrainAbility}".` : ''} Role a ficha até Atributos/Skills para redistribuir.`,
     )
   }
 
@@ -378,8 +389,24 @@ export default function PokemonProgression({
       <Section title="Re-Treinar" icon="🔄" page={114}>
         <p className="mb-2 text-[11px] text-slate-400">
           Redistribui Atributos, Sociais e Skills do zero (baseado no Rank
-          atual: {sheet.rank}). Golpes conhecidos não mudam.
+          atual: {sheet.rank}). Golpes conhecidos não mudam. É também o
+          único jeito de trocar a Habilidade.
         </p>
+        <div className="mb-2 flex flex-wrap items-center gap-2">
+          <span className="text-xs text-slate-500">Habilidade</span>
+          <select
+            value={retrainAbility}
+            onChange={(e) => setRetrainAbility(e.target.value)}
+            className="rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs focus:border-red-400 focus:outline-none"
+          >
+            {species.abilities.map((a) => (
+              <option key={a}>{a}</option>
+            ))}
+            {species.hiddenAbility && (
+              <option>{species.hiddenAbility} (Oculta)</option>
+            )}
+          </select>
+        </div>
         <button
           onClick={doRetrain}
           disabled={!canRetrain}

@@ -155,14 +155,20 @@ export function MoveRollPanel({
     setLast(r)
     postRoll(r)
     // Efeito ativou (algum 6 saiu) — manda o que ele faz pro chat, sem
-    // precisar o jogador digitar/explicar de novo.
+    // precisar o jogador digitar/explicar de novo. Erro logado no console
+    // porque antes essa inserção falhava 100% em silêncio.
     if (r.triggered && move.addedEffect && supabase && session && activeMesa) {
-      supabase.from('messages').insert({
-        mesa_id: activeMesa.id,
-        user_id: session.user.id,
-        kind: 'chat',
-        content: `✨ ${move.name} ativou! ${move.addedEffect}`,
-      })
+      supabase
+        .from('messages')
+        .insert({
+          mesa_id: activeMesa.id,
+          user_id: session.user.id,
+          kind: 'chat',
+          content: `✨ ${move.name} ativou! ${move.addedEffect}`,
+        })
+        .then(({ error }) => {
+          if (error) console.error('Descrição do efeito não enviada:', error.message)
+        })
     }
   }
 

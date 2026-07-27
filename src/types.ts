@@ -177,5 +177,8 @@ export interface PokemonSheet {
   loyalty?: number
   currentWill?: number // Will Points atuais (Score = Insight + 3, p.28); undefined = cheio
   overRankMoveId?: string // golpe atual aprendido via Over-Rank (só 1 por vez)
+  // Gênero deste indivíduo — diferente da razão de gênero da espécie (que é
+  // só a probabilidade estatística exibida como referência de RP).
+  gender?: 'M' | 'F' | 'genderless'
   notes: string
 }
