@@ -176,15 +176,20 @@ export default function DayPassPanel({
     setBusy(false)
   }
 
-  if (!myTrainer) return null
+  // Mestre nunca tem Treinador ativo (não joga um personagem fixo), mas
+  // ainda precisa decretar o dia pra mesa toda — antes o early-return
+  // escondia o botão junto, deixando o Mestre sem como avançar o tempo.
+  if (!myTrainer && !isGm) return null
 
   return (
     <div className="overflow-hidden rounded-xl border border-amber-200 bg-white shadow-sm">
       <div className="flex items-center gap-2 bg-amber-600 px-4 py-2.5 text-white">
         <b>🌙 Passar o dia</b>
-        <span className="ml-auto text-xs opacity-90">
-          {needed} Pokémon no time · {haveRations} ração(ões)
-        </span>
+        {myTrainer && (
+          <span className="ml-auto text-xs opacity-90">
+            {needed} Pokémon no time · {haveRations} ração(ões)
+          </span>
+        )}
       </div>
       <div className="space-y-2 p-4">
         <p className="text-xs text-slate-400">
@@ -200,21 +205,22 @@ export default function DayPassPanel({
             🌙 Decretar que o dia passou (mesa toda)
           </button>
         )}
-        {pendingApply ? (
-          <button
-            onClick={applyDayPass}
-            disabled={busy}
-            className="block rounded-lg bg-amber-600 px-4 py-1.5 text-sm font-bold text-white hover:bg-amber-700 disabled:opacity-50"
-          >
-            {busy ? 'Passando o dia...' : '🌙 Aplicar descanso ao meu Treinador'}
-          </button>
-        ) : (
-          !isGm && (
-            <p className="text-xs text-slate-400">
-              Aguardando o Mestre decretar o dia.
-            </p>
-          )
-        )}
+        {myTrainer &&
+          (pendingApply ? (
+            <button
+              onClick={applyDayPass}
+              disabled={busy}
+              className="block rounded-lg bg-amber-600 px-4 py-1.5 text-sm font-bold text-white hover:bg-amber-700 disabled:opacity-50"
+            >
+              {busy ? 'Passando o dia...' : '🌙 Aplicar descanso ao meu Treinador'}
+            </button>
+          ) : (
+            !isGm && (
+              <p className="text-xs text-slate-400">
+                Aguardando o Mestre decretar o dia.
+              </p>
+            )
+          ))}
         {notice && <p className="text-xs text-slate-500">{notice}</p>}
       </div>
     </div>

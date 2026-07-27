@@ -145,7 +145,11 @@ export interface Trainer {
   inventory?: InventoryEntry[]
   imageUrl?: string
   isNpc?: boolean // treinador de NPC/ginásio controlado pelo Mestre numa mesa
-  npcMesaId?: string // mesa onde este NPC atua (só faz sentido se isNpc)
+  // Mesa a que este Treinador pertence — jogador ou NPC. Sem isso, um
+  // personagem de uma mesa vazava pra "minhas fichas"/Ordem de Combate de
+  // qualquer outra mesa que a mesma conta participasse. undefined = ainda
+  // não vinculado a nenhuma mesa (uso local, fora do modo multiplayer).
+  mesaId?: string
 }
 
 export interface PokemonSheet {

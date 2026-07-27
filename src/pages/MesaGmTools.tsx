@@ -425,7 +425,7 @@ function QuickGymNpc({ mesaId }: { mesaId: string }) {
       money: 0,
       inventory: [],
       isNpc: true,
-      npcMesaId: mesaId,
+      mesaId,
     })
     const picks = [...typePool].sort(() => Math.random() - 0.5).slice(0, 6)
     for (const sp of picks) {

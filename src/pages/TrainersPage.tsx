@@ -64,10 +64,12 @@ export default function TrainersPage() {
   const customItemRows = useCustomItems(activeMesa?.id ?? null)
   const customItems = customItemRows.map(customItemToItem)
 
-  // mesas onde eu sou Mestre — só nelas faz sentido criar um Treinador NPC
-  // (ele é "meu" localmente, mas representa alguém que só existe pra
-  // aquela mesa específica).
-  const [gmMesas, setGmMesas] = useState<Array<{ id: string; name: string }>>([])
+  // Toda ficha (jogador ou NPC) pode ser vinculada a uma mesa — sem isso,
+  // um personagem de uma mesa vazava pra "minhas fichas"/Ordem de Combate
+  // de qualquer outra mesa que a mesma conta participasse. Jogador escolhe
+  // entre mesas onde é membro (qualquer papel); NPC só entre as que é
+  // Mestre (ele "pertence" a essa mesa especificamente).
+  const [myMesas, setMyMesas] = useState<Array<{ id: string; name: string; role: 'gm' | 'player' }>>([])
   useEffect(() => {
     if (!supabase || !session) return
     let cancelled = false
@@ -75,16 +77,23 @@ export default function TrainersPage() {
       .from('mesa_members')
       .select('role, mesas(id, name)')
       .eq('user_id', session.user.id)
-      .eq('role', 'gm')
       .then(({ data }) => {
         if (cancelled || !data) return
-        const rows = data as unknown as Array<{ mesas: { id: string; name: string } | null }>
-        setGmMesas(rows.map((r) => r.mesas).filter((m): m is { id: string; name: string } => Boolean(m)))
+        const rows = data as unknown as Array<{
+          role: 'gm' | 'player'
+          mesas: { id: string; name: string } | null
+        }>
+        setMyMesas(
+          rows
+            .filter((r) => r.mesas)
+            .map((r) => ({ ...r.mesas!, role: r.role })),
+        )
       })
     return () => {
       cancelled = true
     }
   }, [session])
+  const gmMesas = myMesas.filter((m) => m.role === 'gm')
 
   const npcTeam =
     useLiveQuery(
@@ -102,12 +111,12 @@ export default function TrainersPage() {
   const typeTeamPool = TEAM_POOL.filter((p) => p.types.includes(favoredType))
 
   const generateTeam = async () => {
-    if (!editing?.id || !editing.npcMesaId) return
+    if (!editing?.id || !editing.mesaId) return
     setGenBusy(true)
     setGenNotice('')
     const picks = [...typeTeamPool].sort(() => Math.random() - 0.5).slice(0, 6)
     for (const species of picks) {
-      const sheet = generateNpcSheet(species, editing.rank, 'gym', editing.npcMesaId, {
+      const sheet = generateNpcSheet(species, editing.rank, 'gym', editing.mesaId, {
         trainerId: editing.id,
       })
       await db.pokemonSheets.add({ ...sheet, inTeam: true })
@@ -272,13 +281,7 @@ export default function TrainersPage() {
                   <button
                     key={label}
                     type="button"
-                    onClick={() =>
-                      setEditing({
-                        ...editing,
-                        isNpc,
-                        npcMesaId: isNpc ? (editing.npcMesaId ?? gmMesas[0]?.id) : undefined,
-                      })
-                    }
+                    onClick={() => setEditing({ ...editing, isNpc })}
                     className={`rounded-full px-3 py-1 text-xs font-bold transition-colors ${
                       Boolean(editing.isNpc) === isNpc
                         ? 'bg-white text-slate-800 shadow-sm'
@@ -289,31 +292,31 @@ export default function TrainersPage() {
                   </button>
                 ))}
               </div>
-              {editing.isNpc &&
-                (gmMesas.length > 0 ? (
-                  <select
-                    value={editing.npcMesaId ?? ''}
-                    onChange={(e) => setEditing({ ...editing, npcMesaId: e.target.value })}
-                    className="rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs focus:border-red-400 focus:outline-none"
-                  >
-                    {gmMesas.map((m) => (
-                      <option key={m.id} value={m.id}>
-                        {m.name}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <span className="text-xs text-amber-600">
-                    Você precisa ser Mestre de alguma mesa pra criar um NPC.
-                  </span>
+              <select
+                value={editing.mesaId ?? ''}
+                onChange={(e) =>
+                  setEditing({ ...editing, mesaId: e.target.value || undefined })
+                }
+                className="rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs focus:border-red-400 focus:outline-none"
+              >
+                <option value="">— Nenhuma (fora de mesa) —</option>
+                {(editing.isNpc ? gmMesas : myMesas).map((m) => (
+                  <option key={m.id} value={m.id}>
+                    {m.name}
+                  </option>
                 ))}
+              </select>
+              {editing.isNpc && gmMesas.length === 0 && (
+                <span className="text-xs text-amber-600">
+                  Você precisa ser Mestre de alguma mesa pra vincular um NPC.
+                </span>
+              )}
             </div>
-            {editing.isNpc && (
-              <p className="mt-1 text-xs text-slate-400">
-                Fica de fora do "Rolar pela ficha"/seletor de personagem da
-                mesa — é controlado só por você nas Ferramentas do Mestre.
-              </p>
-            )}
+            <p className="mt-1 text-xs text-slate-400">
+              {editing.isNpc
+                ? 'Fica de fora do "Rolar pela ficha"/seletor de personagem da mesa — é controlado só por você nas Ferramentas do Mestre.'
+                : 'Um Treinador vinculado a uma mesa só aparece (e só as fichas de Pokémon dele) nessa mesa específica — evita misturar personagens de campanhas diferentes.'}
+            </p>
           </div>
         </div>
 

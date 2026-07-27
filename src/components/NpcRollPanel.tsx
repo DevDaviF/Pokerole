@@ -11,7 +11,7 @@ import SkillRoll from './SkillRoll'
 // mesa (Golpes), sem precisar sair das Ferramentas do Mestre.
 export default function NpcRollPanel({ mesaId }: { mesaId: string }) {
   const npcTrainers = (useLiveQuery(() => db.trainers.toArray(), []) ?? []).filter(
-    (t) => t.isNpc && t.npcMesaId === mesaId,
+    (t) => t.isNpc && t.mesaId === mesaId,
   )
   const npcPokemon = (useLiveQuery(() => db.pokemonSheets.toArray(), []) ?? []).filter(
     (s) => s.isNpc && s.mesaId === mesaId,

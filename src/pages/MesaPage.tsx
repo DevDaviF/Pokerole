@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db'
-import type { PokemonSheet, InventoryEntry } from '../types'
+import type { PokemonSheet, InventoryEntry, Trainer } from '../types'
 import { supabase, supabaseConfigured } from '../lib/supabase'
 import { useMesa } from '../lib/mesa'
 import { pokemonById, moveById, spriteUrl, typeColor } from '../data'
@@ -52,13 +52,17 @@ function splitRollLabel(
 }
 
 // Rolagem rápida pelas fichas locais, sem sair do chat da mesa
-function QuickRollCard({ mesaTrainerId }: { mesaTrainerId: number | null }) {
+function QuickRollCard({
+  mesaTrainerId,
+  trainers,
+}: {
+  mesaTrainerId: number | null
+  // já vem filtrada pelo pai (jogador, vinculada a ESTA mesa) — consultar
+  // Dexie de novo aqui sem esse filtro foi exatamente o bug de fichas de
+  // outra mesa aparecendo onde não deviam.
+  trainers: Trainer[]
+}) {
   const allSheets = useLiveQuery(() => db.pokemonSheets.toArray(), []) ?? []
-  // Treinadores NPC (do Mestre) não aparecem aqui — são controlados só
-  // pelas Ferramentas do Mestre, não fazem sentido como "eu" na mesa.
-  const trainers = (useLiveQuery(() => db.trainers.toArray(), []) ?? []).filter(
-    (t) => !t.isNpc,
-  )
   const [source, setSource] = useState<'pokemon' | 'trainer'>('pokemon')
   const [sheetId, setSheetId] = useState<number | null>(null)
   const [trainerId, setTrainerId] = useState<number | null>(null)
@@ -617,32 +621,33 @@ export default function MesaPage() {
     wasNearBottomRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 80
   }
 
-  // NPCs (isNpc) carregam o mesaId de onde foram gerados — sem esse filtro,
-  // selvagens/ginásio de uma mesa vazavam pra "Compartilhar minhas fichas"
-  // e "Presentear" de QUALQUER outra mesa que o Mestre visitasse depois,
-  // já que o Dexie local não é isolado por mesa (só por conta).
+  // Todo Treinador meu (jogador ou NPC) carrega o mesaId da mesa a que
+  // pertence (ver TrainersPage) — sem isso, um personagem de OUTRA mesa
+  // (inclusive o pessoal do Mestre) vazava pra listas desta mesa: já
+  // aconteceu em "Compartilhar minhas fichas" e na Ordem de Combate.
+  // Treinador sem mesaId (ainda não vinculado) não aparece em mesa nenhuma.
+  const allMyTrainers = useLiveQuery(() => db.trainers.toArray(), []) ?? []
+  const myTrainers = allMyTrainers.filter(
+    (t) => !t.isNpc && t.mesaId === activeMesa?.id,
+  )
+  const myMesaTrainerIds = new Set(
+    allMyTrainers.filter((t) => t.mesaId === activeMesa?.id).map((t) => t.id),
+  )
+  // Fichas de Pokémon relevantes nesta mesa: de qualquer Treinador meu
+  // (jogador ou NPC) vinculado a ela, + selvagens soltos gerados aqui
+  // (sem Treinador — trainerId 0, só carregam o próprio mesaId).
   const myPokemonSheets = (useLiveQuery(() => db.pokemonSheets.toArray(), []) ?? []).filter(
-    (s) => !s.isNpc || s.mesaId === activeMesa?.id,
+    (s) =>
+      (s.trainerId != null && myMesaTrainerIds.has(s.trainerId)) ||
+      (s.isNpc && s.mesaId === activeMesa?.id),
   )
-  // NPCs gerados nas Ferramentas do Mestre também ficam salvos no Dexie
-  // local dele (pra poder rolar pela ficha) — usado sem filtro eles
-  // apareceriam duplicados na Ordem de Combate (uma vez como "meu
-  // Pokémon", outra via sharedNpcs/fichas compartilhadas). Essa versão
-  // filtrada é só pra ali e pra Captura/Passar o dia — em "Compartilhar
-  // minhas fichas" e em "Presentear" (Ferramentas do Mestre) o Mestre
-  // precisa ver os selvagens desta mesa também, então esses usam
-  // myPokemonSheets (já restrito à mesa ativa acima).
-  const myOwnPokemonSheets = myPokemonSheets.filter((s) => !s.isNpc)
-  // Treinadores NPC ficam de fora do seletor de personagem da mesa — só
-  // controláveis via Ferramentas do Mestre.
-  const myTrainers = (useLiveQuery(() => db.trainers.toArray(), []) ?? []).filter(
-    (t) => !t.isNpc,
-  )
+
   // Qual Treinador eu uso muda por mesa (um personagem por campanha) —
   // guardado por mesaId, separado do "ativo" global de TrainersPage/Time.
   // Sem escolha registrada nessa mesa, só assume sozinho se só existir 1
   // Treinador; com mais de 1, pede pra escolher explicitamente (ver
-  // MesaTrainerPicker abaixo).
+  // MesaTrainerPicker abaixo). Mestre nunca tem Treinador ativo — o papel
+  // dele na mesa é controlar NPCs, não jogar um personagem fixo.
   const [mesaTrainerId, setMesaTrainerIdState] = useState<number | null>(null)
   useEffect(() => {
     if (!activeMesa) {
@@ -658,8 +663,16 @@ export default function MesaPage() {
     setMesaTrainerIdState(id)
   }
   const myActiveTrainer =
-    myTrainers.find((t) => t.id === mesaTrainerId) ??
-    (myTrainers.length === 1 ? myTrainers[0] : undefined)
+    myRole === 'gm'
+      ? undefined
+      : (myTrainers.find((t) => t.id === mesaTrainerId) ??
+        (myTrainers.length === 1 ? myTrainers[0] : undefined))
+  // Time do personagem ativo especificamente — usado em Ordem de Combate,
+  // Captura etc. (não confundir com myPokemonSheets, que também inclui
+  // NPCs pra "Compartilhar minhas fichas"/"Presentear").
+  const myOwnPokemonSheets = myPokemonSheets.filter(
+    (s) => !s.isNpc && s.trainerId === myActiveTrainer?.id,
+  )
   const [shopOpen, setShopOpen] = useState(false)
   const customItemRows = useCustomItems(activeMesa?.id ?? null)
   const customShopItems = customItemRows.map(customItemToItem)
@@ -1357,40 +1370,46 @@ export default function MesaPage() {
             <div className="flex flex-wrap items-center gap-2 rounded-xl border border-purple-200 bg-purple-50 px-4 py-2.5">
               <span className="text-sm font-semibold text-purple-700">🎓 Jogando como Mestre</span>
             </div>
-          ) : (
-            myTrainers.length > 0 && (
-              <div
-                className={`flex flex-wrap items-center gap-2 rounded-xl border px-4 py-2.5 ${
-                  !myActiveTrainer
-                    ? 'border-amber-300 bg-amber-50'
-                    : 'border-slate-200 bg-white'
-                }`}
-              >
-                <span className="text-sm font-semibold text-slate-600">
-                  {myActiveTrainer ? '🧑 Jogando como' : '⚠️ Escolha seu personagem nesta mesa'}
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {myTrainers.map((t) => (
-                    <button
-                      key={t.id}
-                      onClick={() => chooseMesaTrainer(t.id!)}
-                      className={`rounded-full border px-3 py-1 text-xs font-semibold ${
-                        myActiveTrainer?.id === t.id
-                          ? 'border-transparent bg-slate-800 text-white'
-                          : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-                      }`}
-                    >
-                      {t.name}
-                    </button>
-                  ))}
-                </div>
-                {myTrainers.length > 1 && (
-                  <span className="text-xs text-slate-400">
-                    cada mesa lembra o personagem escolhido separadamente
-                  </span>
-                )}
+          ) : myTrainers.length > 0 ? (
+            <div
+              className={`flex flex-wrap items-center gap-2 rounded-xl border px-4 py-2.5 ${
+                !myActiveTrainer
+                  ? 'border-amber-300 bg-amber-50'
+                  : 'border-slate-200 bg-white'
+              }`}
+            >
+              <span className="text-sm font-semibold text-slate-600">
+                {myActiveTrainer ? '🧑 Jogando como' : '⚠️ Escolha seu personagem nesta mesa'}
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {myTrainers.map((t) => (
+                  <button
+                    key={t.id}
+                    onClick={() => chooseMesaTrainer(t.id!)}
+                    className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+                      myActiveTrainer?.id === t.id
+                        ? 'border-transparent bg-slate-800 text-white'
+                        : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                    }`}
+                  >
+                    {t.name}
+                  </button>
+                ))}
               </div>
-            )
+              {myTrainers.length > 1 && (
+                <span className="text-xs text-slate-400">
+                  cada mesa lembra o personagem escolhido separadamente
+                </span>
+              )}
+            </div>
+          ) : (
+            <div className="flex flex-wrap items-center gap-2 rounded-xl border border-amber-300 bg-amber-50 px-4 py-2.5">
+              <span className="text-sm text-amber-700">
+                ⚠️ Nenhum Treinador seu está vinculado a esta mesa ainda —
+                edite um em "Treinadores" e escolha esta mesa em "Tipo de
+                treinador".
+              </span>
+            </div>
           )}
 
           <ErrorBoundary label="Batedores">
@@ -1488,35 +1507,38 @@ export default function MesaPage() {
             </ErrorBoundary>
           )}
 
-          <ErrorBoundary label="Loja">
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm">
-              <button
-                type="button"
-                onClick={() => setShopOpen((v) => !v)}
-                className="flex w-full items-center justify-between px-5 py-3 text-left font-bold text-slate-800"
-              >
-                🛒 Loja {myActiveTrainer && `· ${myActiveTrainer.money ?? 0} P$`}
-                <span className="text-sm text-slate-400">{shopOpen ? '▲' : '▼'}</span>
-              </button>
-              {shopOpen && (
-                <div className="border-t border-slate-100 p-5">
-                  {!myActiveTrainer ? (
-                    <p className="text-sm text-slate-400">
-                      Crie um Treinador e marque como ativo (★) pra usar a loja.
-                    </p>
-                  ) : (
-                    <Shop
-                      money={myActiveTrainer.money ?? 0}
-                      inventory={myActiveTrainer.inventory ?? []}
-                      onChange={updateMyTrainerEconomy}
-                      customItems={customShopItems}
-                      editMoney={myRole === 'gm'}
-                    />
-                  )}
-                </div>
-              )}
-            </div>
-          </ErrorBoundary>
+          {myRole !== 'gm' && (
+            <ErrorBoundary label="Loja">
+              <div className="rounded-xl border border-slate-200 bg-white shadow-sm">
+                <button
+                  type="button"
+                  onClick={() => setShopOpen((v) => !v)}
+                  className="flex w-full items-center justify-between px-5 py-3 text-left font-bold text-slate-800"
+                >
+                  🛒 Loja {myActiveTrainer && `· ${myActiveTrainer.money ?? 0} P$`}
+                  <span className="text-sm text-slate-400">{shopOpen ? '▲' : '▼'}</span>
+                </button>
+                {shopOpen && (
+                  <div className="border-t border-slate-100 p-5">
+                    {!myActiveTrainer ? (
+                      <p className="text-sm text-slate-400">
+                        Vincule um Treinador a esta mesa em "Treinadores" pra
+                        usar a loja.
+                      </p>
+                    ) : (
+                      <Shop
+                        money={myActiveTrainer.money ?? 0}
+                        inventory={myActiveTrainer.inventory ?? []}
+                        onChange={updateMyTrainerEconomy}
+                        customItems={customShopItems}
+                        editMoney={false}
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
+            </ErrorBoundary>
+          )}
 
           <div className="grid gap-4 lg:grid-cols-3">
             {/* Chat */}
@@ -1618,7 +1640,10 @@ export default function MesaPage() {
             {/* Rolagem rápida + fichas compartilhadas */}
             <div className="space-y-4">
               {myRole !== 'gm' && (
-                <QuickRollCard mesaTrainerId={myActiveTrainer?.id ?? null} />
+                <QuickRollCard
+                  mesaTrainerId={myActiveTrainer?.id ?? null}
+                  trainers={myTrainers}
+                />
               )}
               <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
                 <h2 className="mb-2 font-bold text-slate-800">
