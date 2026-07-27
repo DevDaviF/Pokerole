@@ -679,6 +679,29 @@ export default function MesaPage() {
     localStorage.setItem(`mesaTrainerId:${activeMesa.id}`, String(id))
     setMesaTrainerIdState(id)
   }
+
+  // "Limpar chat" some só da SUA tela — não apaga nada do banco, então
+  // ninguém mais na mesa perde histórico. Guarda o instante em que você
+  // limpou (por mesa) e esconde tudo que já existia até ali.
+  const [chatClearedAt, setChatClearedAt] = useState<string | null>(null)
+  useEffect(() => {
+    if (!activeMesa) {
+      setChatClearedAt(null)
+      return
+    }
+    setChatClearedAt(localStorage.getItem(`chatClearedAt:${activeMesa.id}`))
+  }, [activeMesa?.id])
+  const clearChat = () => {
+    if (!activeMesa) return
+    if (!confirm('Limpar o chat só na sua tela? As outras pessoas na mesa continuam vendo tudo.'))
+      return
+    const now = new Date().toISOString()
+    localStorage.setItem(`chatClearedAt:${activeMesa.id}`, now)
+    setChatClearedAt(now)
+  }
+  const visibleMessages = chatClearedAt
+    ? messages.filter((m) => m.created_at > chatClearedAt)
+    : messages
   const myActiveTrainer =
     myRole === 'gm'
       ? undefined
@@ -1561,12 +1584,27 @@ export default function MesaPage() {
           <div className="grid gap-4 lg:grid-cols-3">
             {/* Chat */}
             <div className="flex h-96 flex-col rounded-xl border border-slate-200 bg-white shadow-sm lg:col-span-2">
+              <div className="flex items-center justify-between border-b border-slate-100 px-4 py-1.5">
+                <span className="text-xs font-bold text-slate-400 uppercase">Chat</span>
+                <button
+                  onClick={clearChat}
+                  title="Limpar só na sua tela — o resto da mesa continua vendo tudo"
+                  className="text-xs font-semibold text-slate-400 hover:text-red-500"
+                >
+                  🧹 Limpar chat
+                </button>
+              </div>
               <div
                 ref={chatContainerRef}
                 onScroll={handleChatScroll}
                 className="flex-1 space-y-2 overflow-y-auto p-4"
               >
-                {messages.map((m) => {
+                {visibleMessages.length === 0 && (
+                  <p className="text-center text-xs text-slate-300">
+                    {chatClearedAt ? 'Chat limpo — só na sua tela.' : 'Nenhuma mensagem ainda.'}
+                  </p>
+                )}
+                {visibleMessages.map((m) => {
                   const isWarning = m.kind === 'chat' && m.content.startsWith('⚠️')
                   return (
                     <div
