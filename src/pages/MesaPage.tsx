@@ -1035,6 +1035,19 @@ export default function MesaPage() {
     )
   }
 
+  // Apaga de vez uma ficha local (selvagem/ginásio já capturado ou morto,
+  // não serve mais) — some do Dexie e, se ainda estava publicada nessa
+  // mesa, também para de compartilhar pra não sobrar um "Fichas da mesa"
+  // fantasma apontando pra uma ficha que não existe mais.
+  const removePokemonFromIndexDB = async (id: number) => {
+    if (!confirm('Excluir esta ficha de Pokémon definitivamente? Não dá pra desfazer.')) return
+    await db.pokemonSheets.delete(id)
+    const shared = sharedSheets.find(
+      (s) => s.kind === 'pokemon' && s.local_id === id && s.owner_id === myId,
+    )
+    if (shared) await unshareSheet(shared.id)
+  }
+
   const transferGm = async (targetUserId: string) => {
     if (!supabase || !activeMesa || myRole !== 'gm') return
     const target = members.find((m) => m.user_id === targetUserId)
@@ -1712,16 +1725,28 @@ export default function MesaPage() {
                     </button>
                   ))}
                   {myPokemonSheets.map((s) => (
-                    <button
-                      key={`p${s.id}`}
-                      onClick={() => shareSheet('pokemon', s.id!)}
-                      className="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-left text-slate-600 hover:bg-slate-50"
-                    >
-                      {s.nickname || pokemonById.get(s.species)?.name}{' '}
-                      <span className="text-xs text-slate-400">
-                        — publicar/atualizar
-                      </span>
-                    </button>
+                    <div key={s.id} className="flex items-center gap-2">
+                      <button
+                        key={`p${s.id}`}
+                        onClick={() => shareSheet('pokemon', s.id!)}
+                        className="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-left text-slate-600 hover:bg-slate-50"
+                      >
+                        {s.nickname || pokemonById.get(s.species)?.name}{' '}
+                        <span className="text-xs text-slate-400">
+                          — publicar/atualizar
+                        </span>
+                      </button>
+
+                      {s.isNpc === true && (
+                        <button
+                          onClick={() => removePokemonFromIndexDB(s.id!)}
+                          title="Remover Pokémon da mesa"
+                          className="text-slate-300 hover:text-red-500"
+                        >
+                          ×
+                        </button>
+                      )}
+                    </div>
                   ))}
                   {myTrainers.length === 0 && myPokemonSheets.length === 0 && (
                     <p className="text-slate-400">
