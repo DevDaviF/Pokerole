@@ -1426,6 +1426,7 @@ export default function MesaPage() {
                 gmPokemonSheets={myPokemonSheets}
                 sharedSheets={sharedSheets}
                 onUnshare={unshareSheet}
+                onView={setViewing}
               />
             </ErrorBoundary>
           )}

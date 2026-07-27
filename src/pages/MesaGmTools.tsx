@@ -1013,10 +1013,12 @@ function PublishedNpcsBar({
   myId,
   sharedSheets,
   onUnshare,
+  onView,
 }: {
   myId: string
   sharedSheets: SharedSheet[]
   onUnshare: (id: string) => void
+  onView: (s: SharedSheet) => void
 }) {
   const mine = sharedSheets.filter(
     (s) =>
@@ -1040,15 +1042,21 @@ function PublishedNpcsBar({
               key={s.id}
               className="flex items-center gap-1.5 rounded-full border border-purple-200 bg-white py-0.5 pr-1 pl-2.5 text-xs font-semibold text-purple-700"
             >
-              {sp && (
-                <img
-                  src={spriteUrl(sp.id)}
-                  alt=""
-                  className="h-4 w-4 object-contain [image-rendering:pixelated]"
-                  onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
-                />
-              )}
-              {p.nickname || sp?.name || '?'}
+              <button
+                onClick={() => onView(s)}
+                title="Ver ficha"
+                className="flex items-center gap-1.5 hover:text-purple-900"
+              >
+                {sp && (
+                  <img
+                    src={spriteUrl(sp.id)}
+                    alt=""
+                    className="h-4 w-4 object-contain [image-rendering:pixelated]"
+                    onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
+                  />
+                )}
+                {p.nickname || sp?.name || '?'}
+              </button>
               <button
                 onClick={() => onUnshare(s.id)}
                 title="Remover da mesa (parar de compartilhar)"
@@ -1072,6 +1080,7 @@ export default function GmToolsPanel({
   gmPokemonSheets,
   sharedSheets,
   onUnshare,
+  onView,
 }: {
   mesaId: string
   myId: string
@@ -1080,6 +1089,7 @@ export default function GmToolsPanel({
   gmPokemonSheets: PokemonSheet[]
   sharedSheets: SharedSheet[]
   onUnshare: (id: string) => void
+  onView: (s: SharedSheet) => void
 }) {
   const [tab, setTab] = useState<'encounter' | 'gym' | 'npcs' | 'items'>('encounter')
 
@@ -1109,7 +1119,12 @@ export default function GmToolsPanel({
           ))}
         </div>
       </div>
-      <PublishedNpcsBar myId={myId} sharedSheets={sharedSheets} onUnshare={onUnshare} />
+      <PublishedNpcsBar
+        myId={myId}
+        sharedSheets={sharedSheets}
+        onUnshare={onUnshare}
+        onView={onView}
+      />
       <div className="p-4">
         {tab === 'encounter' && <EncounterTab mesaId={mesaId} myId={myId} />}
         {tab === 'gym' && <GymTab mesaId={mesaId} myId={myId} />}
