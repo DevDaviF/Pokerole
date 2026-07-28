@@ -28,17 +28,40 @@ interface ResultRow {
   tpGained: number
 }
 
+function combinations(n: number, k: number): number {
+  if (k < 0 || k > n) return 0
+  let result = 1
+  for (let i = 0; i < k; i++) result = (result * (n - i)) / (i + 1)
+  return result
+}
+
+// Chance de tirar >= difficulty sucessos numa pool de d6 (sucesso em 4/5/6,
+// ou seja p=0.5 por dado).
+function successChance(pool: number, difficulty: number): number {
+  if (difficulty <= 0) return 1
+  if (difficulty > pool) return 0
+  let p = 0
+  for (let k = difficulty; k <= pool; k++) p += combinations(pool, k)
+  return p / 2 ** pool
+}
+
+// Já considerando a 2ª chance do Corebook (falhou, rola de novo).
+function successChanceWithRetry(pool: number, difficulty: number): number {
+  const p1 = successChance(pool, difficulty)
+  return 1 - (1 - p1) ** 2
+}
+
 // Roda a sessão de treino (Corebook p.104-105: tarefa do Pokémon vs
 // dificuldade, com 2ª chance em caso de falha; se passar, rolagem do
 // Treinador + dificuldade = Pontos de Treino; os dois recuperam 2 WP)
 // pra vários Pokémon de uma vez, sem precisar clicar rolar dia por dia,
-// bicho por bicho. Só 1 Pokémon treina por dia — os dias totais do lote
-// são distribuídos em rodízio entre os Pokémon selecionados (dia 1 pro
-// primeiro, dia 2 pro segundo, ...). O atributo/perícia do Treinador
-// pode variar por Pokémon (roleplay: arremesso pra um, incentivo
-// gritado pra outro batendo num tronco...), então cada linha tem sua
-// própria dupla de seletores, tanto do lado do Pokémon quanto do
-// Treinador.
+// bicho por bicho. Cada Pokémon selecionado tem sua própria quantidade de
+// dias de treino (não é dividido igualmente). O atributo/perícia do
+// Treinador também pode variar por Pokémon (roleplay: arremesso pra um,
+// incentivo gritado pra outro batendo num tronco...), então cada linha
+// tem sua própria dupla de seletores, tanto do lado do Pokémon quanto do
+// Treinador — junto com a pool (dados) e a chance de sucesso calculadas
+// ao vivo conforme a seleção muda.
 export default function BatchTraining({
   trainer,
   teamSheets,
@@ -53,87 +76,78 @@ export default function BatchTraining({
   const [pokSkills, setPokSkills] = useState<Record<number, string>>({})
   const [trAttrs, setTrAttrs] = useState<Record<number, string>>({})
   const [trSkills, setTrSkills] = useState<Record<number, string>>({})
+  const [days, setDays] = useState<Record<number, number>>({})
   const [difficulty, setDifficulty] = useState(2)
-  const [totalDays, setTotalDays] = useState(5)
   const [busy, setBusy] = useState(false)
   const [results, setResults] = useState<ResultRow[] | null>(null)
 
   const toggleSelected = (id: number) =>
     setSelected((prev) => ({ ...prev, [id]: !prev[id] }))
   const selectedSheets = teamSheets.filter((s) => selected[s.id!])
+  const totalDaysPlanned = selectedSheets.reduce(
+    (sum, s) => sum + Math.max(1, days[s.id!] ?? 1),
+    0,
+  )
 
   const run = async () => {
-    if (!trainer || selectedSheets.length === 0 || totalDays < 1) return
+    if (!trainer || selectedSheets.length === 0) return
     setBusy(true)
     setResults(null)
 
     const trWillMax = trainer.attributes.insight + 3
     let trainerWill = trainer.currentWill ?? trWillMax
-    const acc = new Map<
-      number,
-      { tpGained: number; daysCompleted: number; daysTrained: number; pokWill: number }
-    >()
+    const rows: ResultRow[] = []
+
     for (const s of selectedSheets) {
-      acc.set(s.id!, {
-        tpGained: 0,
-        daysCompleted: 0,
-        daysTrained: 0,
-        pokWill: s.currentWill ?? s.attributes.insight + 3,
-      })
-    }
+      const daysForThis = Math.max(1, days[s.id!] ?? 1)
+      const pokWillMax = s.attributes.insight + 3
+      let pokWill = s.currentWill ?? pokWillMax
+      let tpGained = 0
+      let daysCompleted = 0
 
-    // rodízio: dia 0 treina selectedSheets[0], dia 1 treina selectedSheets[1]...
-    // só 1 Pokémon por dia, igual à regra da mesa.
-    for (let day = 0; day < totalDays; day++) {
-      const sheet = selectedSheets[day % selectedSheets.length]
-      const entry = acc.get(sheet.id!)!
-      entry.daysTrained++
-
-      const pokAttr = pokAttrs[sheet.id!] ?? 'Vitality'
-      const pokSkill = pokSkills[sheet.id!] ?? 'Athletic'
+      const pokAttr = pokAttrs[s.id!] ?? 'Vitality'
+      const pokSkill = pokSkills[s.id!] ?? 'Athletic'
       const pokPool = Math.max(
         1,
-        sheetAttrValue(sheet, pokAttr) + (sheet.skills[pokSkill] ?? 0),
+        sheetAttrValue(s, pokAttr) + (s.skills[pokSkill] ?? 0),
       )
-      let taskRoll = rollDice(pokPool)
-      let passed = taskRoll.successes >= difficulty
-      if (!passed) {
-        // p.105: falhou, o livro dá uma 2ª chance no mesmo dia
-        taskRoll = rollDice(pokPool)
-        passed = taskRoll.successes >= difficulty
-      }
-      if (!passed) continue
-      entry.daysCompleted++
-
-      const trAttr = trAttrs[sheet.id!] ?? 'Cool'
-      const trSkill = trSkills[sheet.id!] ?? 'Athletic'
+      const trAttr = trAttrs[s.id!] ?? 'Cool'
+      const trSkill = trSkills[s.id!] ?? 'Athletic'
       const trPool = Math.max(
         1,
         sheetAttrValue(trainer, trAttr) + (trainer.skills[trSkill] ?? 0),
       )
-      const trRoll = rollDice(trPool)
-      entry.tpGained += trRoll.successes + difficulty
 
-      const pokWillMax = sheet.attributes.insight + 3
-      entry.pokWill = Math.min(pokWillMax, entry.pokWill + 2)
-      trainerWill = Math.min(trWillMax, trainerWill + 2)
-    }
+      for (let day = 0; day < daysForThis; day++) {
+        let taskRoll = rollDice(pokPool)
+        let passed = taskRoll.successes >= difficulty
+        if (!passed) {
+          // p.105: falhou, o livro dá uma 2ª chance no mesmo dia
+          taskRoll = rollDice(pokPool)
+          passed = taskRoll.successes >= difficulty
+        }
+        if (!passed) continue
+        daysCompleted++
 
-    const rows: ResultRow[] = []
-    for (const s of selectedSheets) {
-      const entry = acc.get(s.id!)!
+        const trRoll = rollDice(trPool)
+        tpGained += trRoll.successes + difficulty
+        pokWill = Math.min(pokWillMax, pokWill + 2)
+        trainerWill = Math.min(trWillMax, trainerWill + 2)
+      }
+
       await db.pokemonSheets.update(s.id!, {
-        trainingPoints: (s.trainingPoints ?? 0) + entry.tpGained,
-        currentWill: entry.pokWill,
+        trainingPoints: (s.trainingPoints ?? 0) + tpGained,
+        currentWill: pokWill,
       })
       rows.push({
         sheetId: s.id!,
         name: s.nickname || pokemonById.get(s.species)?.name || '?',
-        daysTrained: entry.daysTrained,
-        daysCompleted: entry.daysCompleted,
-        tpGained: entry.tpGained,
+        daysTrained: daysForThis,
+        daysCompleted,
+        tpGained,
       })
     }
+
     await db.trainers.update(trainer.id!, { currentWill: trainerWill })
     setResults(rows)
     setBusy(false)
@@ -142,11 +156,12 @@ export default function BatchTraining({
       const summary = rows
         .map((r) => `${r.name} ${r.daysCompleted}/${r.daysTrained}d +${r.tpGained}TP`)
         .join(' · ')
+      const totalDays = rows.reduce((sum, r) => sum + r.daysTrained, 0)
       await supabase.from('messages').insert({
         mesa_id: activeMesa.id,
         user_id: session.user.id,
         kind: 'chat',
-        content: `🏋️ Treino em lote de ${trainer.name} (dif. ${difficulty}, ${totalDays} dia${totalDays === 1 ? '' : 's'} no total, 1 Pokémon/dia): ${summary}`,
+        content: `🏋️ Treino em lote de ${trainer.name} (dif. ${difficulty}, ${totalDays} dia${totalDays === 1 ? '' : 's'} no total entre ${rows.length} Pokémon): ${summary}`,
       })
     }
   }
@@ -181,22 +196,10 @@ export default function BatchTraining({
                 </option>
               ))}
             </select>
-            <span className="text-xs font-semibold text-slate-500">
-              Dias totais do lote
-            </span>
-            <input
-              type="number"
-              min={1}
-              value={totalDays}
-              onChange={(e) => setTotalDays(Math.max(1, Number(e.target.value) || 1))}
-              className="w-16 rounded-lg border-0 bg-white px-2 py-1 text-center text-xs font-bold shadow-sm ring-1 ring-slate-200 focus:ring-2 focus:ring-red-400 focus:outline-none"
-            />
             {selectedSheets.length > 0 && (
               <span className="text-[11px] text-slate-400">
-                só 1 Pokémon treina por dia — em rodízio, cada um dos{' '}
-                {selectedSheets.length} selecionados treina{' '}
-                {Math.floor(totalDays / selectedSheets.length)}-
-                {Math.ceil(totalDays / selectedSheets.length)} dias
+                dias definidos individualmente por Pokémon abaixo — {totalDaysPlanned}{' '}
+                dia{totalDaysPlanned === 1 ? '' : 's'} no total
               </span>
             )}
           </div>
@@ -205,6 +208,21 @@ export default function BatchTraining({
             {teamSheets.map((s) => {
               const sp = pokemonById.get(s.species)
               const isSelected = Boolean(selected[s.id!])
+              const pokAttr = pokAttrs[s.id!] ?? 'Vitality'
+              const pokSkill = pokSkills[s.id!] ?? 'Athletic'
+              const pokPool = Math.max(
+                1,
+                sheetAttrValue(s, pokAttr) + (s.skills[pokSkill] ?? 0),
+              )
+              const pokChance = successChanceWithRetry(pokPool, difficulty)
+              const trAttr = trAttrs[s.id!] ?? 'Cool'
+              const trSkill = trSkills[s.id!] ?? 'Athletic'
+              const trPool = trainer
+                ? Math.max(
+                    1,
+                    sheetAttrValue(trainer, trAttr) + (trainer.skills[trSkill] ?? 0),
+                  )
+                : 0
               return (
                 <div
                   key={s.id}
@@ -212,27 +230,46 @@ export default function BatchTraining({
                     isSelected ? 'border-indigo-300 bg-indigo-50' : 'border-slate-200'
                   }`}
                 >
-                  <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-700">
-                    <input
-                      type="checkbox"
-                      checked={isSelected}
-                      onChange={() => toggleSelected(s.id!)}
-                    />
-                    {sp && (
-                      <img
-                        src={spriteUrl(sp.id)}
-                        alt=""
-                        className="h-5 w-5 object-contain [image-rendering:pixelated]"
-                        onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-700">
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => toggleSelected(s.id!)}
                       />
+                      {sp && (
+                        <img
+                          src={spriteUrl(sp.id)}
+                          alt=""
+                          className="h-5 w-5 object-contain [image-rendering:pixelated]"
+                          onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
+                        />
+                      )}
+                      {s.nickname || sp?.name}
+                    </label>
+                    {isSelected && (
+                      <>
+                        <span className="ml-auto text-[10px] text-slate-400">Dias:</span>
+                        <input
+                          type="number"
+                          min={1}
+                          value={days[s.id!] ?? 1}
+                          onChange={(e) =>
+                            setDays((prev) => ({
+                              ...prev,
+                              [s.id!]: Math.max(1, Number(e.target.value) || 1),
+                            }))
+                          }
+                          className="w-12 rounded-lg border-0 bg-white px-1.5 py-1 text-center text-[11px] font-bold shadow-sm ring-1 ring-slate-200 focus:ring-2 focus:ring-red-400 focus:outline-none"
+                        />
+                      </>
                     )}
-                    {s.nickname || sp?.name}
-                  </label>
+                  </div>
                   {isSelected && (
                     <div className="mt-1.5 flex flex-wrap items-center gap-1.5 pl-5">
                       <span className="text-[10px] text-slate-400">Pokémon:</span>
                       <select
-                        value={pokAttrs[s.id!] ?? 'Vitality'}
+                        value={pokAttr}
                         onChange={(e) =>
                           setPokAttrs((prev) => ({ ...prev, [s.id!]: e.target.value }))
                         }
@@ -244,7 +281,7 @@ export default function BatchTraining({
                       </select>
                       <span className="text-slate-300">+</span>
                       <select
-                        value={pokSkills[s.id!] ?? 'Athletic'}
+                        value={pokSkill}
                         onChange={(e) =>
                           setPokSkills((prev) => ({ ...prev, [s.id!]: e.target.value }))
                         }
@@ -254,9 +291,15 @@ export default function BatchTraining({
                           <option key={sk}>{sk}</option>
                         ))}
                       </select>
+                      <span
+                        className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700"
+                        title="Dados a rolar contra a dificuldade · chance de sucesso já com a 2ª chance"
+                      >
+                        {pokPool}d6 · {Math.round(pokChance * 100)}%
+                      </span>
                       <span className="ml-2 text-[10px] text-slate-400">Treinador:</span>
                       <select
-                        value={trAttrs[s.id!] ?? 'Cool'}
+                        value={trAttr}
                         onChange={(e) =>
                           setTrAttrs((prev) => ({ ...prev, [s.id!]: e.target.value }))
                         }
@@ -268,7 +311,7 @@ export default function BatchTraining({
                       </select>
                       <span className="text-slate-300">+</span>
                       <select
-                        value={trSkills[s.id!] ?? 'Athletic'}
+                        value={trSkill}
                         onChange={(e) =>
                           setTrSkills((prev) => ({ ...prev, [s.id!]: e.target.value }))
                         }
@@ -278,6 +321,12 @@ export default function BatchTraining({
                           <option key={sk}>{sk}</option>
                         ))}
                       </select>
+                      <span
+                        className="rounded-full bg-indigo-100 px-1.5 py-0.5 text-[10px] font-bold text-indigo-700"
+                        title="Dados que o treinador rola para gerar Pontos de Treino"
+                      >
+                        {trPool}d6
+                      </span>
                     </div>
                   )}
                 </div>
@@ -292,7 +341,7 @@ export default function BatchTraining({
           >
             {busy
               ? 'Rodando...'
-              : `▶ Rodar ${totalDays} dia${totalDays === 1 ? '' : 's'} entre ${selectedSheets.length} Pokémon`}
+              : `▶ Rodar treino (${totalDaysPlanned} dia${totalDaysPlanned === 1 ? '' : 's'} entre ${selectedSheets.length} Pokémon)`}
           </button>
 
           {results && (
