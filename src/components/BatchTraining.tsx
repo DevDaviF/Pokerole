@@ -28,6 +28,35 @@ interface ResultRow {
   tpGained: number
 }
 
+function combinations(n: number, k: number): number {
+  if (k < 0 || k > n) return 0
+  let result = 1
+  for (let i = 0; i < k; i++) result = (result * (n - i)) / (i + 1)
+  return result
+}
+
+// Chance de tirar >= difficulty sucessos numa pool de d6 (sucesso em 4/5/6,
+// ou seja p=0.5 por dado).
+function successChance(pool: number, difficulty: number): number {
+  if (difficulty <= 0) return 1
+  if (difficulty > pool) return 0
+  let p = 0
+  for (let k = difficulty; k <= pool; k++) p += combinations(pool, k)
+  return p / 2 ** pool
+}
+
+// Já considerando a 2ª chance do Corebook (falhou, rola de novo).
+function successChanceWithRetry(pool: number, difficulty: number): number {
+  const p1 = successChance(pool, difficulty)
+  return 1 - (1 - p1) ** 2
+}
+
+// Trunca (não arredonda pra cima) pra 1 casa decimal — 99.96% deve
+// aparecer como "99.9%", não "100.0%".
+function truncatedPercent(p: number): string {
+  return (Math.floor(p * 1000) / 10).toFixed(1)
+}
+
 // Roda a sessão de treino (Corebook p.104-105: tarefa do Pokémon vs
 // dificuldade, com 2ª chance em caso de falha; se passar, rolagem do
 // Treinador + dificuldade = Pontos de Treino; os dois recuperam 2 WP)
@@ -190,6 +219,7 @@ export default function BatchTraining({
               const pokAttrValue = sheetAttrValue(s, pokAttr)
               const pokSkillValue = s.skills[pokSkill] ?? 0
               const pokPool = Math.max(1, pokAttrValue + pokSkillValue)
+              const pokChance = successChanceWithRetry(pokPool, difficulty)
               const trAttr = trAttrs[s.id!] ?? 'Cool'
               const trSkill = trSkills[s.id!] ?? 'Athletic'
               const trAttrValue = trainer ? sheetAttrValue(trainer, trAttr) : 0
@@ -238,75 +268,79 @@ export default function BatchTraining({
                     )}
                   </div>
                   {isSelected && (
-                    <div className="mt-1.5 flex flex-wrap items-center gap-1.5 pl-5">
-                      <span className="text-[10px] text-slate-400">Pokémon:</span>
-                      <select
-                        value={pokAttr}
-                        onChange={(e) =>
-                          setPokAttrs((prev) => ({ ...prev, [s.id!]: e.target.value }))
-                        }
-                        className={selectCls}
-                      >
-                        {[...POKEMON_ATTRIBUTE_LABELS, ...SOCIAL_LABELS].map((a) => (
-                          <option key={a.label} value={a.label}>
-                            {a.label} ({sheetAttrValue(s, a.label)})
-                          </option>
-                        ))}
-                      </select>
-                      <span className="text-slate-300">+</span>
-                      <select
-                        value={pokSkill}
-                        onChange={(e) =>
-                          setPokSkills((prev) => ({ ...prev, [s.id!]: e.target.value }))
-                        }
-                        className={selectCls}
-                      >
-                        {POKEMON_SKILLS.map((sk) => (
-                          <option key={sk} value={sk}>
-                            {sk} ({s.skills[sk] ?? 0})
-                          </option>
-                        ))}
-                      </select>
-                      <span
-                        className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700"
-                        title="Atributo + Perícia = dados a rolar contra a dificuldade"
-                      >
-                        {pokAttrValue}+{pokSkillValue}={pokPool}d6
-                      </span>
-                      <span className="ml-2 text-[10px] text-slate-400">Treinador:</span>
-                      <select
-                        value={trAttr}
-                        onChange={(e) =>
-                          setTrAttrs((prev) => ({ ...prev, [s.id!]: e.target.value }))
-                        }
-                        className={selectCls}
-                      >
-                        {[...TRAINER_ATTRIBUTE_LABELS, ...SOCIAL_LABELS].map((a) => (
-                          <option key={a.label} value={a.label}>
-                            {a.label} ({sheetAttrValue(trainer, a.label)})
-                          </option>
-                        ))}
-                      </select>
-                      <span className="text-slate-300">+</span>
-                      <select
-                        value={trSkill}
-                        onChange={(e) =>
-                          setTrSkills((prev) => ({ ...prev, [s.id!]: e.target.value }))
-                        }
-                        className={selectCls}
-                      >
-                        {TRAINER_SKILLS.map((sk) => (
-                          <option key={sk} value={sk}>
-                            {sk} ({trainer.skills[sk] ?? 0})
-                          </option>
-                        ))}
-                      </select>
-                      <span
-                        className="rounded-full bg-indigo-100 px-1.5 py-0.5 text-[10px] font-bold text-indigo-700"
-                        title="Atributo + Perícia = dados que o treinador rola para gerar Pontos de Treino"
-                      >
-                        {trAttrValue}+{trSkillValue}={trPool}d6
-                      </span>
+                    <div className="mt-1.5 space-y-1 pl-5">
+                      <div className="flex flex-nowrap items-center gap-1 overflow-x-auto">
+                        <span className="shrink-0 text-[10px] text-slate-400">Pokémon:</span>
+                        <select
+                          value={pokAttr}
+                          onChange={(e) =>
+                            setPokAttrs((prev) => ({ ...prev, [s.id!]: e.target.value }))
+                          }
+                          className={`${selectCls} shrink-0`}
+                        >
+                          {[...POKEMON_ATTRIBUTE_LABELS, ...SOCIAL_LABELS].map((a) => (
+                            <option key={a.label} value={a.label}>
+                              {a.label} ({sheetAttrValue(s, a.label)})
+                            </option>
+                          ))}
+                        </select>
+                        <span className="shrink-0 text-slate-300">+</span>
+                        <select
+                          value={pokSkill}
+                          onChange={(e) =>
+                            setPokSkills((prev) => ({ ...prev, [s.id!]: e.target.value }))
+                          }
+                          className={`${selectCls} shrink-0`}
+                        >
+                          {POKEMON_SKILLS.map((sk) => (
+                            <option key={sk} value={sk}>
+                              {sk} ({s.skills[sk] ?? 0})
+                            </option>
+                          ))}
+                        </select>
+                        <span
+                          className="shrink-0 rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap text-emerald-700"
+                          title="Dados a rolar contra a dificuldade · chance de sucesso já com a 2ª chance"
+                        >
+                          {pokPool}d6 · {truncatedPercent(pokChance)}%
+                        </span>
+                      </div>
+                      <div className="flex flex-nowrap items-center gap-1 overflow-x-auto">
+                        <span className="shrink-0 text-[10px] text-slate-400">Treinador:</span>
+                        <select
+                          value={trAttr}
+                          onChange={(e) =>
+                            setTrAttrs((prev) => ({ ...prev, [s.id!]: e.target.value }))
+                          }
+                          className={`${selectCls} shrink-0`}
+                        >
+                          {[...TRAINER_ATTRIBUTE_LABELS, ...SOCIAL_LABELS].map((a) => (
+                            <option key={a.label} value={a.label}>
+                              {a.label} ({sheetAttrValue(trainer, a.label)})
+                            </option>
+                          ))}
+                        </select>
+                        <span className="shrink-0 text-slate-300">+</span>
+                        <select
+                          value={trSkill}
+                          onChange={(e) =>
+                            setTrSkills((prev) => ({ ...prev, [s.id!]: e.target.value }))
+                          }
+                          className={`${selectCls} shrink-0`}
+                        >
+                          {TRAINER_SKILLS.map((sk) => (
+                            <option key={sk} value={sk}>
+                              {sk} ({trainer.skills[sk] ?? 0})
+                            </option>
+                          ))}
+                        </select>
+                        <span
+                          className="shrink-0 rounded-full bg-indigo-100 px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap text-indigo-700"
+                          title="Dados que o treinador rola para gerar Pontos de Treino"
+                        >
+                          {trPool}d6
+                        </span>
+                      </div>
                     </div>
                   )}
                 </div>
