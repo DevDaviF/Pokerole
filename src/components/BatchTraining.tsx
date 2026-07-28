@@ -269,14 +269,14 @@ export default function BatchTraining({
                   </div>
                   {isSelected && (
                     <div className="mt-1.5 space-y-1 pl-5">
-                      <div className="flex flex-nowrap items-center gap-1 overflow-x-auto">
+                      <div className="flex flex-wrap items-center gap-1.5">
                         <span className="shrink-0 text-[10px] text-slate-400">Pokémon:</span>
                         <select
                           value={pokAttr}
                           onChange={(e) =>
                             setPokAttrs((prev) => ({ ...prev, [s.id!]: e.target.value }))
                           }
-                          className={`${selectCls} shrink-0`}
+                          className={selectCls}
                         >
                           {[...POKEMON_ATTRIBUTE_LABELS, ...SOCIAL_LABELS].map((a) => (
                             <option key={a.label} value={a.label}>
@@ -290,7 +290,7 @@ export default function BatchTraining({
                           onChange={(e) =>
                             setPokSkills((prev) => ({ ...prev, [s.id!]: e.target.value }))
                           }
-                          className={`${selectCls} shrink-0`}
+                          className={selectCls}
                         >
                           {POKEMON_SKILLS.map((sk) => (
                             <option key={sk} value={sk}>
@@ -305,14 +305,14 @@ export default function BatchTraining({
                           {pokPool}d6 · {truncatedPercent(pokChance)}%
                         </span>
                       </div>
-                      <div className="flex flex-nowrap items-center gap-1 overflow-x-auto">
+                      <div className="flex flex-wrap items-center gap-1.5">
                         <span className="shrink-0 text-[10px] text-slate-400">Treinador:</span>
                         <select
                           value={trAttr}
                           onChange={(e) =>
                             setTrAttrs((prev) => ({ ...prev, [s.id!]: e.target.value }))
                           }
-                          className={`${selectCls} shrink-0`}
+                          className={selectCls}
                         >
                           {[...TRAINER_ATTRIBUTE_LABELS, ...SOCIAL_LABELS].map((a) => (
                             <option key={a.label} value={a.label}>
@@ -326,7 +326,7 @@ export default function BatchTraining({
                           onChange={(e) =>
                             setTrSkills((prev) => ({ ...prev, [s.id!]: e.target.value }))
                           }
-                          className={`${selectCls} shrink-0`}
+                          className={selectCls}
                         >
                           {TRAINER_SKILLS.map((sk) => (
                             <option key={sk} value={sk}>
