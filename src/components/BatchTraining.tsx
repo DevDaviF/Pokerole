@@ -28,29 +28,6 @@ interface ResultRow {
   tpGained: number
 }
 
-function combinations(n: number, k: number): number {
-  if (k < 0 || k > n) return 0
-  let result = 1
-  for (let i = 0; i < k; i++) result = (result * (n - i)) / (i + 1)
-  return result
-}
-
-// Chance de tirar >= difficulty sucessos numa pool de d6 (sucesso em 4/5/6,
-// ou seja p=0.5 por dado).
-function successChance(pool: number, difficulty: number): number {
-  if (difficulty <= 0) return 1
-  if (difficulty > pool) return 0
-  let p = 0
-  for (let k = difficulty; k <= pool; k++) p += combinations(pool, k)
-  return p / 2 ** pool
-}
-
-// Já considerando a 2ª chance do Corebook (falhou, rola de novo).
-function successChanceWithRetry(pool: number, difficulty: number): number {
-  const p1 = successChance(pool, difficulty)
-  return 1 - (1 - p1) ** 2
-}
-
 // Roda a sessão de treino (Corebook p.104-105: tarefa do Pokémon vs
 // dificuldade, com 2ª chance em caso de falha; se passar, rolagem do
 // Treinador + dificuldade = Pontos de Treino; os dois recuperam 2 WP)
@@ -60,8 +37,8 @@ function successChanceWithRetry(pool: number, difficulty: number): number {
 // Treinador também pode variar por Pokémon (roleplay: arremesso pra um,
 // incentivo gritado pra outro batendo num tronco...), então cada linha
 // tem sua própria dupla de seletores, tanto do lado do Pokémon quanto do
-// Treinador — junto com a pool (dados) e a chance de sucesso calculadas
-// ao vivo conforme a seleção muda.
+// Treinador — cada opção já mostra o valor daquele atributo/perícia pra
+// esse Pokémon/Treinador, junto com o total de dados da pool escolhida.
 export default function BatchTraining({
   trainer,
   teamSheets,
@@ -210,19 +187,14 @@ export default function BatchTraining({
               const isSelected = Boolean(selected[s.id!])
               const pokAttr = pokAttrs[s.id!] ?? 'Vitality'
               const pokSkill = pokSkills[s.id!] ?? 'Athletic'
-              const pokPool = Math.max(
-                1,
-                sheetAttrValue(s, pokAttr) + (s.skills[pokSkill] ?? 0),
-              )
-              const pokChance = successChanceWithRetry(pokPool, difficulty)
+              const pokAttrValue = sheetAttrValue(s, pokAttr)
+              const pokSkillValue = s.skills[pokSkill] ?? 0
+              const pokPool = Math.max(1, pokAttrValue + pokSkillValue)
               const trAttr = trAttrs[s.id!] ?? 'Cool'
               const trSkill = trSkills[s.id!] ?? 'Athletic'
-              const trPool = trainer
-                ? Math.max(
-                    1,
-                    sheetAttrValue(trainer, trAttr) + (trainer.skills[trSkill] ?? 0),
-                  )
-                : 0
+              const trAttrValue = trainer ? sheetAttrValue(trainer, trAttr) : 0
+              const trSkillValue = trainer ? (trainer.skills[trSkill] ?? 0) : 0
+              const trPool = Math.max(1, trAttrValue + trSkillValue)
               return (
                 <div
                   key={s.id}
@@ -276,7 +248,9 @@ export default function BatchTraining({
                         className={selectCls}
                       >
                         {[...POKEMON_ATTRIBUTE_LABELS, ...SOCIAL_LABELS].map((a) => (
-                          <option key={a.label}>{a.label}</option>
+                          <option key={a.label} value={a.label}>
+                            {a.label} ({sheetAttrValue(s, a.label)})
+                          </option>
                         ))}
                       </select>
                       <span className="text-slate-300">+</span>
@@ -288,14 +262,16 @@ export default function BatchTraining({
                         className={selectCls}
                       >
                         {POKEMON_SKILLS.map((sk) => (
-                          <option key={sk}>{sk}</option>
+                          <option key={sk} value={sk}>
+                            {sk} ({s.skills[sk] ?? 0})
+                          </option>
                         ))}
                       </select>
                       <span
                         className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700"
-                        title="Dados a rolar contra a dificuldade · chance de sucesso já com a 2ª chance"
+                        title="Atributo + Perícia = dados a rolar contra a dificuldade"
                       >
-                        {pokPool}d6 · {Math.round(pokChance * 100)}%
+                        {pokAttrValue}+{pokSkillValue}={pokPool}d6
                       </span>
                       <span className="ml-2 text-[10px] text-slate-400">Treinador:</span>
                       <select
@@ -306,7 +282,9 @@ export default function BatchTraining({
                         className={selectCls}
                       >
                         {[...TRAINER_ATTRIBUTE_LABELS, ...SOCIAL_LABELS].map((a) => (
-                          <option key={a.label}>{a.label}</option>
+                          <option key={a.label} value={a.label}>
+                            {a.label} ({sheetAttrValue(trainer, a.label)})
+                          </option>
                         ))}
                       </select>
                       <span className="text-slate-300">+</span>
@@ -318,14 +296,16 @@ export default function BatchTraining({
                         className={selectCls}
                       >
                         {TRAINER_SKILLS.map((sk) => (
-                          <option key={sk}>{sk}</option>
+                          <option key={sk} value={sk}>
+                            {sk} ({trainer.skills[sk] ?? 0})
+                          </option>
                         ))}
                       </select>
                       <span
                         className="rounded-full bg-indigo-100 px-1.5 py-0.5 text-[10px] font-bold text-indigo-700"
-                        title="Dados que o treinador rola para gerar Pontos de Treino"
+                        title="Atributo + Perícia = dados que o treinador rola para gerar Pontos de Treino"
                       >
-                        {trPool}d6
+                        {trAttrValue}+{trSkillValue}={trPool}d6
                       </span>
                     </div>
                   )}
