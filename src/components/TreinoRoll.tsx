@@ -1,7 +1,12 @@
 import { useState } from 'react'
 import { db } from '../db'
 import type { PokemonSheet, Trainer } from '../types'
-import { rollDice, type RollResult } from './DiceRoller'
+import {
+  rollDice,
+  successChanceWithRetry,
+  truncatedPercent,
+  type RollResult,
+} from './DiceRoller'
 import { DiceRow, sheetAttrValue } from './MoveRoll'
 import { useMesa } from '../lib/mesa'
 import { spriteUrl } from '../data'
@@ -69,6 +74,7 @@ export function TreinoPanel({
         sheetAttrValue(trainer, trAttr) + (trainer.skills[trSkill] ?? 0),
       )
     : 0
+  const pokChance = successChanceWithRetry(pokPool, difficulty)
 
   const rollTask = () => {
     const r = rollDice(pokPool, '')
@@ -157,6 +163,12 @@ export function TreinoPanel({
                 <option key={s}>{s}</option>
               ))}
             </select>
+            <span
+              className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap text-emerald-700"
+              title="Dados a rolar contra a dificuldade · chance de sucesso já com a 2ª chance"
+            >
+              {pokPool}d6 · {truncatedPercent(pokChance)}%
+            </span>
             <button
               onClick={rollTask}
               className="rounded-xl bg-slate-800 px-4 py-1.5 text-xs font-bold text-white shadow-sm transition-transform hover:scale-[1.02] active:scale-[0.98]"
@@ -208,6 +220,12 @@ export function TreinoPanel({
                   <option key={s}>{s}</option>
                 ))}
               </select>
+              <span
+                className="rounded-full bg-indigo-100 px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap text-indigo-700"
+                title="Dados que o treinador rola para gerar Pontos de Treino"
+              >
+                {trPool}d6
+              </span>
               <button
                 onClick={rollTrainer}
                 disabled={!taskPassed}

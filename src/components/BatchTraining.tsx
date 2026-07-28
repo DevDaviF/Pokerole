@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { db } from '../db'
 import type { PokemonSheet, Trainer } from '../types'
-import { rollDice } from './DiceRoller'
+import { rollDice, successChanceWithRetry, truncatedPercent } from './DiceRoller'
 import { sheetAttrValue } from './MoveRoll'
 import { useMesa } from '../lib/mesa'
 import { supabase } from '../lib/supabase'
@@ -26,35 +26,6 @@ interface ResultRow {
   daysTrained: number
   daysCompleted: number
   tpGained: number
-}
-
-function combinations(n: number, k: number): number {
-  if (k < 0 || k > n) return 0
-  let result = 1
-  for (let i = 0; i < k; i++) result = (result * (n - i)) / (i + 1)
-  return result
-}
-
-// Chance de tirar >= difficulty sucessos numa pool de d6 (sucesso em 4/5/6,
-// ou seja p=0.5 por dado).
-function successChance(pool: number, difficulty: number): number {
-  if (difficulty <= 0) return 1
-  if (difficulty > pool) return 0
-  let p = 0
-  for (let k = difficulty; k <= pool; k++) p += combinations(pool, k)
-  return p / 2 ** pool
-}
-
-// Já considerando a 2ª chance do Corebook (falhou, rola de novo).
-function successChanceWithRetry(pool: number, difficulty: number): number {
-  const p1 = successChance(pool, difficulty)
-  return 1 - (1 - p1) ** 2
-}
-
-// Trunca (não arredonda pra cima) pra 1 casa decimal — 99.96% deve
-// aparecer como "99.9%", não "100.0%".
-function truncatedPercent(p: number): string {
-  return (Math.floor(p * 1000) / 10).toFixed(1)
 }
 
 // Roda a sessão de treino (Corebook p.104-105: tarefa do Pokémon vs
@@ -339,7 +310,7 @@ export default function BatchTraining({
                           </select>
                         </div>
                         <span
-                          className="mt-1 inline-block rounded-full bg-indigo-100 px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap text-indigo-700"
+                          className="mt-1 block w-fit mx-auto rounded-full bg-indigo-100 px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap text-indigo-700"
                           title="Dados que o treinador rola para gerar Pontos de Treino"
                         >
                           {trPool}d6

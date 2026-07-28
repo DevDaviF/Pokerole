@@ -22,6 +22,35 @@ export interface RollResult {
   icon?: string // sprite do Pokémon ou avatar do Treinador dono do roll
 }
 
+function combinations(n: number, k: number): number {
+  if (k < 0 || k > n) return 0
+  let result = 1
+  for (let i = 0; i < k; i++) result = (result * (n - i)) / (i + 1)
+  return result
+}
+
+// Chance de tirar >= difficulty sucessos numa pool de d6 (sucesso em 4/5/6,
+// ou seja p=0.5 por dado).
+function successChance(pool: number, difficulty: number): number {
+  if (difficulty <= 0) return 1
+  if (difficulty > pool) return 0
+  let p = 0
+  for (let k = difficulty; k <= pool; k++) p += combinations(pool, k)
+  return p / 2 ** pool
+}
+
+// Já considerando a 2ª chance do Corebook (falhou, rola de novo).
+export function successChanceWithRetry(pool: number, difficulty: number): number {
+  const p1 = successChance(pool, difficulty)
+  return 1 - (1 - p1) ** 2
+}
+
+// Trunca (não arredonda pra cima) pra 1 casa decimal — 99.96% deve
+// aparecer como "99.9%", não "100.0%".
+export function truncatedPercent(p: number): string {
+  return (Math.floor(p * 1000) / 10).toFixed(1)
+}
+
 export function rollDice(pool: number, label = ''): RollResult {
   const dice = Array.from(
     { length: pool },
