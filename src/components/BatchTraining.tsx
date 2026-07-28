@@ -301,7 +301,7 @@ export default function BatchTraining({
                           </select>
                         </div>
                         <span
-                          className="mt-1 inline-block rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap text-emerald-700"
+                          className="mt-1 block w-fit mx-auto rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap text-emerald-700"
                           title="Dados a rolar contra a dificuldade · chance de sucesso já com a 2ª chance"
                         >
                           {pokPool}d6 · {truncatedPercent(pokChance)}%
