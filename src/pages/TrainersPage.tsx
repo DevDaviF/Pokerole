@@ -22,6 +22,7 @@ import Stepper from '../components/Stepper'
 import SkillRoll from '../components/SkillRoll'
 import Shop from '../components/Shop'
 import ImagePicker, { DEFAULT_AVATAR } from '../components/ImagePicker'
+import FloatingSaveBar from '../components/FloatingSaveBar'
 import { useMesa } from '../lib/mesa'
 import { useCustomItems, customItemToItem } from '../lib/customItems'
 import { supabase, supabaseConfigured } from '../lib/supabase'
@@ -195,7 +196,7 @@ export default function TrainersPage() {
 
   if (editing) {
     return (
-      <div className="mx-auto max-w-3xl space-y-5">
+      <div className="mx-auto max-w-3xl space-y-5 pb-20">
         <h1 className="text-2xl font-bold text-slate-800">
           {editing.id ? `Editando ${editing.name}` : 'Novo Treinador'}
         </h1>
@@ -526,21 +527,11 @@ export default function TrainersPage() {
           />
         </label>
 
-        <div className="flex gap-3">
-          <button
-            onClick={save}
-            disabled={!editing.name.trim()}
-            className="rounded-lg bg-red-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 disabled:opacity-40"
-          >
-            Salvar
-          </button>
-          <button
-            onClick={() => setEditing(null)}
-            className="rounded-lg border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50"
-          >
-            Cancelar
-          </button>
-        </div>
+        <FloatingSaveBar
+          onSave={save}
+          onCancel={() => setEditing(null)}
+          saveDisabled={!editing.name.trim()}
+        />
       </div>
     )
   }

@@ -35,6 +35,7 @@ import PokemonProgression from '../components/PokemonProgression'
 import TypeMatchups from '../components/TypeMatchups'
 import UnitToggle, { useUnitSystem } from '../components/UnitToggle'
 import SendToChatButton from '../components/SendToChatButton'
+import FloatingSaveBar from '../components/FloatingSaveBar'
 import { useMesa } from '../lib/mesa'
 import { supabaseConfigured } from '../lib/supabase'
 import { formatHeight, formatWeight } from '../lib/units'
@@ -201,7 +202,7 @@ export default function PokemonSheetsPage() {
   // ── Formulário ─────────────────────────────────────────────────────
   if (editing) {
     return (
-      <div className="mx-auto max-w-4xl space-y-5">
+      <div className="mx-auto max-w-4xl space-y-5 pb-20">
         <h1 className="text-2xl font-bold text-slate-800">
           {editing.id ? `Editando ${editing.nickname || species?.name}` : 'Nova Ficha de Pokémon'}
         </h1>
@@ -744,21 +745,11 @@ export default function PokemonSheetsPage() {
           </>
         )}
 
-        <div className="flex gap-3">
-          <button
-            onClick={save}
-            disabled={!editing.species}
-            className="rounded-lg bg-red-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 disabled:opacity-40"
-          >
-            Salvar
-          </button>
-          <button
-            onClick={() => setEditing(null)}
-            className="rounded-lg border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50"
-          >
-            Cancelar
-          </button>
-        </div>
+        <FloatingSaveBar
+          onSave={save}
+          onCancel={() => setEditing(null)}
+          saveDisabled={!editing.species}
+        />
 
         <MoveDetailModal move={moveInfo} onClose={() => setMoveInfo(null)} />
       </div>
