@@ -322,7 +322,11 @@ export default function PokemonProgression({
           <div className="space-y-2">
             {candidates.map((c, i) => {
               const detected = parseEvolutionSpeed(c.detail)
-              const speed = evoSpeedOverride[c.name] ?? detected ?? 'Medium'
+              // A velocidade é uma propriedade fixa da espécie — só deixa
+              // escolher manualmente quando os dados não trazem essa info
+              // (senão dava pra escolher "Fast" e pagar menos TP do que a
+              // evolução realmente custa).
+              const speed = detected ?? evoSpeedOverride[c.name] ?? 'Medium'
               const cCost = evolveCost(speed)
               const targetSprite = [...pokemonById.values()].find(
                 (p) => p.name === c.name,
@@ -351,27 +355,32 @@ export default function PokemonProgression({
                       {c.detail ? ` · ${c.detail}` : ''}
                     </p>
                   </div>
-                  <select
-                    value={speed}
-                    onChange={(e) =>
-                      setEvoSpeedOverride((prev) => ({
-                        ...prev,
-                        [c.name]: e.target.value as EvolutionSpeed,
-                      }))
-                    }
-                    title={
-                      detected
-                        ? 'Velocidade detectada automaticamente'
-                        : 'Não achei a velocidade nos dados — escolha manualmente'
-                    }
-                    className="ml-auto rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs focus:border-red-400 focus:outline-none"
-                  >
-                    {SPEEDS.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
-                      </option>
-                    ))}
-                  </select>
+                  {detected ? (
+                    <span
+                      title="Velocidade de evolução da espécie (fixa, detectada automaticamente)"
+                      className="ml-auto rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-semibold text-slate-600"
+                    >
+                      {detected}
+                    </span>
+                  ) : (
+                    <select
+                      value={speed}
+                      onChange={(e) =>
+                        setEvoSpeedOverride((prev) => ({
+                          ...prev,
+                          [c.name]: e.target.value as EvolutionSpeed,
+                        }))
+                      }
+                      title="Não achei a velocidade nos dados — escolha manualmente"
+                      className="ml-auto rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs focus:border-red-400 focus:outline-none"
+                    >
+                      {SPEEDS.map((s) => (
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
+                      ))}
+                    </select>
+                  )}
                   <button
                     onClick={() => doEvolve(c.name, speed)}
                     disabled={tp < cCost}
