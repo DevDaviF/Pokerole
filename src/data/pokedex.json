@@ -2187,8 +2187,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -2261,8 +2261,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -2408,8 +2408,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -2548,8 +2548,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -2678,10 +2678,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -2816,9 +2816,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -2960,9 +2960,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -3097,9 +3097,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -3219,9 +3219,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -3342,9 +3342,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -3475,9 +3475,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -3609,9 +3609,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -4002,9 +4002,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -4156,9 +4156,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -4313,8 +4313,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -4453,8 +4453,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -4593,8 +4593,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -4725,9 +4725,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Planíces/Campos"
     ]
   },
   {
@@ -4863,9 +4863,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Planíces/Campos"
     ]
   },
   {
@@ -5008,9 +5008,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Planíces/Campos"
     ]
   },
   {
@@ -5154,9 +5154,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Planíces/Campos"
     ]
   },
   {
@@ -5280,8 +5280,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -5411,8 +5411,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -5552,8 +5552,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -5677,8 +5677,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -5808,8 +5808,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -5949,8 +5949,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -6411,8 +6411,8 @@
     ],
     "habitats": [
       "Planíces/Campos",
-      "Vulcões",
-      "Ruínas/Cemitérios"
+      "Ruínas/Cemitérios",
+      "Vulcões"
     ]
   },
   {
@@ -6552,8 +6552,8 @@
     ],
     "habitats": [
       "Planíces/Campos",
-      "Vulcões",
-      "Ruínas/Cemitérios"
+      "Ruínas/Cemitérios",
+      "Vulcões"
     ]
   },
   {
@@ -6705,8 +6705,8 @@
     ],
     "habitats": [
       "Planíces/Campos",
-      "Vulcões",
-      "Ruínas/Cemitérios"
+      "Ruínas/Cemitérios",
+      "Vulcões"
     ]
   },
   {
@@ -6859,8 +6859,8 @@
     ],
     "habitats": [
       "Planíces/Campos",
-      "Vulcões",
-      "Ruínas/Cemitérios"
+      "Ruínas/Cemitérios",
+      "Vulcões"
     ]
   },
   {
@@ -7015,8 +7015,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -7165,8 +7165,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -7552,9 +7552,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -7695,9 +7695,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -7833,9 +7833,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -7947,9 +7947,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -8082,9 +8082,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -8205,8 +8205,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -8350,8 +8350,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -9000,8 +9000,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -9125,8 +9125,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -9242,8 +9242,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -9387,8 +9387,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -9532,8 +9532,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -9657,6 +9657,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Lagos/Mares"
     ]
   },
@@ -9792,8 +9793,9 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Beira de Lagos/Rios",
+      "Lagos/Mares",
+      "Praia"
     ]
   },
   {
@@ -9932,8 +9934,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -10087,8 +10089,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -10224,8 +10226,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -10362,8 +10364,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -10504,8 +10506,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -10646,8 +10648,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -10768,6 +10770,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Florestas/Selva",
       "Lagos/Mares"
     ]
@@ -10901,6 +10904,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Florestas/Selva",
       "Lagos/Mares"
     ]
@@ -11030,9 +11034,10 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Lagos/Mares"
     ]
   },
   {
@@ -13514,8 +13519,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -13631,8 +13636,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -13763,8 +13768,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -13897,8 +13902,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -14033,8 +14038,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Beira de Lagos/Rios",
+      "Praia"
     ]
   },
   {
@@ -14168,8 +14173,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Beira de Lagos/Rios",
+      "Praia"
     ]
   },
   {
@@ -14307,8 +14312,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Beira de Lagos/Rios",
+      "Praia"
     ]
   },
   {
@@ -14445,8 +14450,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Beira de Lagos/Rios",
+      "Praia"
     ]
   },
   {
@@ -14577,8 +14582,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Beira de Lagos/Rios",
+      "Praia"
     ]
   },
   {
@@ -14980,10 +14985,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -15102,10 +15107,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -15241,8 +15246,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -15379,8 +15384,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -16548,8 +16553,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Cidades/Vilas",
+      "Florestas/Selva",
       "Ruínas/Cemitérios"
     ]
   },
@@ -16679,8 +16684,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Cidades/Vilas",
+      "Florestas/Selva",
       "Ruínas/Cemitérios"
     ]
   },
@@ -16819,8 +16824,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Cidades/Vilas",
+      "Florestas/Selva",
       "Ruínas/Cemitérios"
     ]
   },
@@ -16952,8 +16957,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Cidades/Vilas",
+      "Florestas/Selva",
       "Ruínas/Cemitérios"
     ]
   },
@@ -17226,10 +17231,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -17365,10 +17370,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -18457,8 +18462,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Praia"
     ]
   },
   {
@@ -18590,8 +18595,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Praia"
     ]
   },
   {
@@ -19125,8 +19130,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -19258,8 +19263,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -19917,9 +19922,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Planíces/Campos"
     ]
   },
   {
@@ -20050,9 +20055,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Planíces/Campos"
     ]
   },
   {
@@ -20202,9 +20207,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -20340,9 +20345,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -20478,8 +20483,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva"
     ]
   },
   {
@@ -20613,8 +20618,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva"
     ]
   },
   {
@@ -21830,9 +21835,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -22098,8 +22103,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -22368,8 +22373,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva"
     ]
   },
   {
@@ -22500,8 +22505,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva"
     ]
   },
   {
@@ -22626,8 +22631,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -22753,8 +22758,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -22880,8 +22885,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -23006,8 +23011,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -23521,8 +23526,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -23724,8 +23729,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -23844,7 +23849,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "Beira de Lagos/Rios"
     ]
   },
   {
@@ -24086,8 +24091,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -25145,8 +25150,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -26933,8 +26938,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -27059,8 +27064,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -27203,8 +27208,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -27327,8 +27332,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -27464,8 +27469,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -27609,8 +27614,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -27755,8 +27760,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -28295,9 +28300,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cavernas/Montanhas",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Regiões Árticas"
     ]
   },
@@ -28430,9 +28435,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cavernas/Montanhas",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Regiões Árticas"
     ]
   },
@@ -28566,8 +28571,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Florestas/Selva",
+      "Planíces/Campos",
       "Regiões Árticas"
     ]
   },
@@ -28704,8 +28709,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Florestas/Selva",
+      "Planíces/Campos",
       "Regiões Árticas"
     ]
   },
@@ -28831,8 +28836,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -28972,8 +28977,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -29110,8 +29115,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -29267,8 +29272,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -29408,8 +29413,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -29777,9 +29782,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva"
     ]
   },
   {
@@ -29979,8 +29984,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -30375,8 +30380,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Desertos",
+      "Florestas/Selva",
       "Ruínas/Cemitérios"
     ]
   },
@@ -30509,8 +30514,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Desertos",
+      "Florestas/Selva",
       "Ruínas/Cemitérios"
     ]
   },
@@ -31198,9 +31203,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -31343,6 +31348,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Florestas/Selva",
       "Lagos/Mares"
     ]
@@ -31480,6 +31486,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Florestas/Selva",
       "Lagos/Mares"
     ]
@@ -31736,6 +31743,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Florestas/Selva",
       "Lagos/Mares"
     ]
@@ -31882,9 +31890,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -32035,9 +32043,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -32193,9 +32201,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -32724,8 +32732,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -32849,6 +32857,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Florestas/Selva",
       "Lagos/Mares"
     ]
@@ -32974,6 +32983,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Florestas/Selva",
       "Lagos/Mares"
     ]
@@ -33107,6 +33117,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Florestas/Selva",
       "Lagos/Mares"
     ]
@@ -33491,9 +33502,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -33637,8 +33648,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Beira de Lagos/Rios",
+      "Praia"
     ]
   },
   {
@@ -33782,8 +33793,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Beira de Lagos/Rios",
+      "Praia"
     ]
   },
   {
@@ -33905,9 +33916,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Lagos/Mares",
+      "Planíces/Campos"
     ]
   },
   {
@@ -34021,8 +34033,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -34158,9 +34170,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -34696,9 +34708,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva"
     ]
   },
   {
@@ -35148,8 +35160,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -35285,8 +35297,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -35719,9 +35731,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -35860,9 +35872,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -35991,8 +36003,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Praia"
     ]
   },
   {
@@ -38318,9 +38330,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -38472,9 +38484,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -38618,9 +38630,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -38877,9 +38889,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Planíces/Campos"
     ]
   },
   {
@@ -39022,9 +39034,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Planíces/Campos"
     ]
   },
   {
@@ -39306,8 +39318,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Cavernas/Montanhas",
+      "Florestas/Selva",
       "Regiões Árticas"
     ]
   },
@@ -39389,8 +39401,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -39478,8 +39490,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -39615,8 +39627,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -39860,8 +39872,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -40113,8 +40125,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -40265,8 +40277,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -42377,8 +42389,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -42533,8 +42545,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -42697,8 +42709,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -42854,8 +42866,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -42992,8 +43004,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Praia"
     ]
   },
   {
@@ -43148,8 +43160,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Praia"
     ]
   },
   {
@@ -43312,8 +43324,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Praia"
     ]
   },
   {
@@ -43468,8 +43480,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Praia"
     ]
   },
   {
@@ -43601,9 +43613,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cavernas/Montanhas",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Regiões Árticas"
     ]
   },
@@ -43756,9 +43768,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cavernas/Montanhas",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Regiões Árticas"
     ]
   },
@@ -43887,10 +43899,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -44019,10 +44031,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -44165,10 +44177,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -44314,10 +44326,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -44899,7 +44911,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Lagos/Mares"
     ]
   },
   {
@@ -45034,7 +45047,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Lagos/Mares"
     ]
   },
   {
@@ -45167,7 +45181,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Lagos/Mares"
     ]
   },
   {
@@ -45279,8 +45294,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -45431,8 +45446,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -45589,8 +45604,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -45702,8 +45717,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -45827,8 +45842,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -45944,8 +45959,8 @@
       }
     ],
     "habitats": [
-      "Praia",
       "Lagos/Mares",
+      "Praia",
       "Regiões Árticas"
     ]
   },
@@ -46099,8 +46114,8 @@
       }
     ],
     "habitats": [
-      "Praia",
       "Lagos/Mares",
+      "Praia",
       "Regiões Árticas"
     ]
   },
@@ -46238,8 +46253,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -46388,8 +46403,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -46548,8 +46563,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -46700,8 +46715,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -47326,8 +47341,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -47443,8 +47458,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -47566,8 +47581,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -47681,8 +47696,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -47818,8 +47833,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -47962,8 +47977,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -48726,6 +48741,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Florestas/Selva",
       "Lagos/Mares"
     ]
@@ -48999,8 +49015,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -49147,8 +49163,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -50380,8 +50396,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -50543,8 +50559,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -50699,8 +50715,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -50816,8 +50832,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -50947,8 +50963,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -51070,8 +51086,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -51211,9 +51227,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -51353,9 +51369,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -51480,8 +51496,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Lagos/Mares",
+      "Planíces/Campos"
     ]
   },
   {
@@ -51606,8 +51623,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Lagos/Mares",
+      "Planíces/Campos"
     ]
   },
   {
@@ -51870,10 +51888,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -52009,10 +52027,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -52537,8 +52555,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Lagos/Mares",
+      "Praia"
     ]
   },
   {
@@ -53626,8 +53644,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -54490,9 +54508,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cidades/Vilas",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -54647,8 +54665,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Florestas/Selva",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -54796,8 +54814,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Florestas/Selva",
+      "Planíces/Campos",
       "Vulcões"
     ]
   },
@@ -54930,9 +54948,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -55076,9 +55094,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -55465,9 +55483,9 @@
       }
     ],
     "habitats": [
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Lagos/Mares"
     ]
   },
   {
@@ -55603,9 +55621,9 @@
       }
     ],
     "habitats": [
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Lagos/Mares"
     ]
   },
   {
@@ -57094,8 +57112,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -57617,9 +57635,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Ruínas/Cemitérios"
     ]
   },
@@ -57773,9 +57791,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Ruínas/Cemitérios"
     ]
   },
@@ -58036,9 +58054,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cavernas/Montanhas",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Ruínas/Cemitérios"
     ]
   },
@@ -58406,8 +58424,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -64503,10 +64521,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -64628,9 +64646,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -64758,9 +64776,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -64892,7 +64910,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "Beira de Lagos/Rios"
     ]
   },
   {
@@ -65044,7 +65062,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "Beira de Lagos/Rios"
     ]
   },
   {
@@ -65382,8 +65400,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -65513,8 +65531,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -65641,8 +65659,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -65731,8 +65749,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Lagos/Mares"
+      "Beira de Lagos/Rios",
+      "Planíces/Campos"
     ]
   },
   {
@@ -66455,9 +66473,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
+      "Beira de Lagos/Rios",
       "Cidades/Vilas",
-      "Lagos/Mares"
+      "Florestas/Selva"
     ]
   },
   {
@@ -66593,9 +66611,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
+      "Beira de Lagos/Rios",
       "Cidades/Vilas",
-      "Lagos/Mares"
+      "Florestas/Selva"
     ]
   },
   {
@@ -66731,9 +66749,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
+      "Beira de Lagos/Rios",
       "Cidades/Vilas",
-      "Lagos/Mares"
+      "Florestas/Selva"
     ]
   },
   {
@@ -66869,9 +66887,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
+      "Beira de Lagos/Rios",
       "Cidades/Vilas",
-      "Lagos/Mares"
+      "Florestas/Selva"
     ]
   },
   {
@@ -67087,8 +67105,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -67236,8 +67254,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -67365,10 +67383,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -67499,8 +67517,9 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Beira de Lagos/Rios",
+      "Lagos/Mares",
+      "Praia"
     ]
   },
   {
@@ -67635,8 +67654,9 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Beira de Lagos/Rios",
+      "Lagos/Mares",
+      "Praia"
     ]
   },
   {
@@ -68012,8 +68032,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Lagos/Mares",
+      "Praia"
     ]
   },
   {
@@ -68137,8 +68157,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Lagos/Mares",
+      "Praia"
     ]
   },
   {
@@ -68704,9 +68724,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares",
+      "Beira de Lagos/Rios",
       "Cavernas/Montanhas",
+      "Florestas/Selva",
       "Regiões Árticas"
     ]
   },
@@ -68864,9 +68884,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares",
+      "Beira de Lagos/Rios",
       "Cavernas/Montanhas",
+      "Florestas/Selva",
       "Regiões Árticas"
     ]
   },
@@ -69018,9 +69038,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares",
+      "Beira de Lagos/Rios",
       "Cavernas/Montanhas",
+      "Florestas/Selva",
       "Regiões Árticas"
     ]
   },
@@ -69159,9 +69179,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Lagos/Mares",
+      "Planíces/Campos"
     ]
   },
   {
@@ -69313,9 +69334,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -69447,8 +69468,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -69587,8 +69608,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -69686,9 +69707,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cavernas/Montanhas",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Ruínas/Cemitérios"
     ]
   },
@@ -69826,8 +69847,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -69968,8 +69989,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -70372,8 +70393,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -70624,8 +70645,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -70767,8 +70788,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Praia"
     ]
   },
   {
@@ -71608,9 +71629,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva"
     ]
   },
   {
@@ -72477,8 +72498,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva"
     ]
   },
   {
@@ -72631,8 +72652,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva"
     ]
   },
   {
@@ -74435,9 +74456,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Planíces/Campos"
     ]
   },
   {
@@ -74592,9 +74613,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -74733,8 +74754,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -75182,8 +75203,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -75306,8 +75327,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -75578,9 +75599,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva"
     ]
   },
   {
@@ -76497,9 +76518,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Ruínas/Cemitérios"
     ]
   },
@@ -76809,8 +76830,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -76945,8 +76966,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -77081,8 +77102,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -77217,8 +77238,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -77353,8 +77374,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -77489,8 +77510,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -77624,8 +77645,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -80384,9 +80405,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -80511,9 +80532,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -80656,9 +80677,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -80777,8 +80798,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -80908,8 +80929,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -81049,8 +81070,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -81735,8 +81756,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -81887,8 +81908,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -82008,8 +82029,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -82135,8 +82156,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -82272,8 +82293,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -82400,10 +82421,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -82538,9 +82559,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -82667,8 +82688,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -82811,8 +82832,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -83211,8 +83232,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "Beira de Lagos/Rios",
+      "Florestas/Selva"
     ]
   },
   {
@@ -83355,8 +83376,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "Beira de Lagos/Rios",
+      "Florestas/Selva"
     ]
   },
   {
@@ -83766,10 +83787,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -83896,10 +83917,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -84039,9 +84060,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -84161,8 +84182,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -84298,8 +84319,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -84793,8 +84814,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -84930,8 +84951,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -85332,8 +85353,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -85476,8 +85497,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -85609,9 +85630,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas",
       "Cavernas/Montanhas",
+      "Cidades/Vilas",
+      "Florestas/Selva",
       "Regiões Árticas"
     ]
   },
@@ -85749,9 +85770,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas",
       "Cavernas/Montanhas",
+      "Cidades/Vilas",
+      "Florestas/Selva",
       "Regiões Árticas"
     ]
   },
@@ -85900,9 +85921,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas",
       "Cavernas/Montanhas",
+      "Cidades/Vilas",
+      "Florestas/Selva",
       "Regiões Árticas"
     ]
   },
@@ -86023,7 +86044,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Lagos/Mares"
     ]
   },
   {
@@ -86149,6 +86171,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Florestas/Selva",
       "Lagos/Mares"
     ]
@@ -86295,6 +86318,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Florestas/Selva",
       "Lagos/Mares"
     ]
@@ -86421,8 +86445,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -86547,8 +86571,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -87005,8 +87029,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -87141,8 +87165,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -87290,8 +87314,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -87420,8 +87444,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -87566,8 +87590,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -87697,8 +87721,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -87837,8 +87861,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -87978,8 +88002,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -91667,9 +91691,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -91800,9 +91824,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -91948,9 +91972,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -92097,9 +92121,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -92227,10 +92251,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
-      "Lagos/Mares",
+      "Beira de Lagos/Rios",
       "Cavernas/Montanhas",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Regiões Árticas"
     ]
   },
@@ -92366,10 +92390,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
-      "Lagos/Mares",
+      "Beira de Lagos/Rios",
       "Cavernas/Montanhas",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Regiões Árticas"
     ]
   },
@@ -94007,9 +94031,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -94150,9 +94174,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -94401,8 +94425,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -94550,8 +94574,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -94675,8 +94699,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -94812,8 +94836,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -95353,9 +95377,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Florestas/Selva"
     ]
   },
   {
@@ -95503,8 +95527,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -95888,8 +95912,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -96015,8 +96039,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -96155,8 +96179,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -96222,9 +96246,10 @@
       }
     ],
     "habitats": [
-      "Praia",
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
       "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Praia"
     ]
   },
   {
@@ -96348,9 +96373,10 @@
       }
     ],
     "habitats": [
-      "Praia",
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
       "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Praia"
     ]
   },
   {
@@ -96488,9 +96514,10 @@
       }
     ],
     "habitats": [
-      "Praia",
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
       "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Praia"
     ]
   },
   {
@@ -96894,9 +96921,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cidades/Vilas",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Ruínas/Cemitérios"
     ]
   },
@@ -97032,9 +97059,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cidades/Vilas",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Ruínas/Cemitérios"
     ]
   },
@@ -97179,9 +97206,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cidades/Vilas",
+      "Florestas/Selva",
+      "Planíces/Campos",
       "Ruínas/Cemitérios"
     ]
   },
@@ -97317,7 +97344,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
+      "Beira de Lagos/Rios",
       "Cavernas/Montanhas"
     ]
   },
@@ -97459,7 +97486,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
+      "Beira de Lagos/Rios",
       "Cavernas/Montanhas"
     ]
   },
@@ -97608,7 +97635,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
+      "Beira de Lagos/Rios",
       "Cavernas/Montanhas"
     ]
   },
@@ -98408,8 +98435,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Praia"
     ]
   },
   {
@@ -98542,8 +98569,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Praia"
     ]
   },
   {
@@ -99361,7 +99388,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
+      "Beira de Lagos/Rios",
       "Cavernas/Montanhas",
       "Desertos"
     ]
@@ -99509,7 +99536,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
+      "Beira de Lagos/Rios",
       "Cavernas/Montanhas",
       "Desertos"
     ]
@@ -99640,8 +99667,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -99771,8 +99798,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Desertos",
+      "Florestas/Selva",
       "Regiões Árticas"
     ]
   },
@@ -99913,8 +99940,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Desertos",
+      "Florestas/Selva",
       "Regiões Árticas"
     ]
   },
@@ -100056,8 +100083,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Desertos",
+      "Florestas/Selva",
       "Regiões Árticas"
     ]
   },
@@ -100194,9 +100221,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Planíces/Campos"
     ]
   },
   {
@@ -100345,9 +100372,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Planíces/Campos"
     ]
   },
   {
@@ -100487,8 +100514,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -100630,8 +100657,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -101339,8 +101366,8 @@
       }
     ],
     "habitats": [
-      "Vulcões",
-      "Ruínas/Cemitérios"
+      "Ruínas/Cemitérios",
+      "Vulcões"
     ]
   },
   {
@@ -104013,9 +104040,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -104140,9 +104167,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -104294,9 +104321,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -104419,10 +104446,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -104551,10 +104578,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -104702,10 +104729,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -104828,7 +104855,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Lagos/Mares"
     ]
   },
   {
@@ -104957,7 +104985,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Lagos/Mares"
     ]
   },
   {
@@ -105111,7 +105140,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Lagos/Mares"
     ]
   },
   {
@@ -105258,7 +105288,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Lagos/Mares"
     ]
   },
   {
@@ -105390,9 +105421,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -105536,9 +105567,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -105666,9 +105697,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -105802,8 +105833,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -105947,8 +105978,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -106341,8 +106372,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -106482,8 +106513,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -106719,8 +106750,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -106982,8 +107013,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -107122,8 +107153,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -107246,8 +107277,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -107388,8 +107419,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -107635,8 +107666,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -107796,8 +107827,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -108460,8 +108491,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -108604,8 +108635,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -108732,9 +108763,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -108873,9 +108904,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -110866,9 +110897,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -110997,8 +111028,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -111123,9 +111154,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -112176,8 +112207,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -112317,8 +112348,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -112443,8 +112474,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -112584,8 +112615,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -113142,8 +113173,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -113291,8 +113322,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -114823,8 +114854,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -114960,8 +114991,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -115105,8 +115136,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -115250,8 +115281,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -115374,9 +115405,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -115505,9 +115536,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -115651,9 +115682,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -116568,9 +116599,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -116710,9 +116741,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -116814,9 +116845,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -116937,9 +116968,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -117082,9 +117113,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -118025,8 +118056,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -118314,9 +118345,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva"
     ]
   },
   {
@@ -118471,9 +118502,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva"
     ]
   },
   {
@@ -118628,9 +118659,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva"
     ]
   },
   {
@@ -118784,9 +118815,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva"
     ]
   },
   {
@@ -119173,8 +119204,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Lagos/Mares",
+      "Praia"
     ]
   },
   {
@@ -119310,8 +119341,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Lagos/Mares",
+      "Praia"
     ]
   },
   {
@@ -119439,9 +119470,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -119580,9 +119611,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -119714,6 +119745,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Lagos/Mares"
     ]
   },
@@ -119858,6 +119890,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Lagos/Mares"
     ]
   },
@@ -120249,8 +120282,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -120390,8 +120423,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -120797,8 +120830,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -121442,8 +121475,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -121581,8 +121614,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -121793,8 +121826,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Lagos/Mares",
+      "Praia"
     ]
   },
   {
@@ -121937,8 +121970,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Lagos/Mares",
+      "Praia"
     ]
   },
   {
@@ -122342,8 +122375,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Lagos/Mares",
+      "Praia"
     ]
   },
   {
@@ -122755,9 +122788,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
       "Desertos",
+      "Planíces/Campos",
       "Regiões Árticas"
     ]
   },
@@ -122893,9 +122926,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
       "Desertos",
+      "Planíces/Campos",
       "Regiões Árticas"
     ]
   },
@@ -123023,8 +123056,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -123287,9 +123320,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -128356,8 +128389,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -128490,8 +128523,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -128634,8 +128667,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -128757,7 +128790,9 @@
         "moveId": "water-pledge"
       }
     ],
-    "habitats": []
+    "habitats": [
+      "Lagos/Mares"
+    ]
   },
   {
     "id": "drizzile",
@@ -128888,7 +128923,9 @@
         "moveId": "water-pledge"
       }
     ],
-    "habitats": []
+    "habitats": [
+      "Lagos/Mares"
+    ]
   },
   {
     "id": "inteleon",
@@ -129029,7 +129066,9 @@
         "moveId": "hydro-cannon"
       }
     ],
-    "habitats": []
+    "habitats": [
+      "Lagos/Mares"
+    ]
   },
   {
     "id": "skwovet",
@@ -129155,8 +129194,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Florestas/Selva",
+      "Planíces/Campos",
       "Regiões Árticas"
     ]
   },
@@ -129300,8 +129339,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Florestas/Selva",
+      "Planíces/Campos",
       "Regiões Árticas"
     ]
   },
@@ -129430,9 +129469,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Desertos",
       "Florestas/Selva",
-      "Desertos"
+      "Planíces/Campos"
     ]
   },
   {
@@ -129565,9 +129604,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Desertos",
       "Florestas/Selva",
-      "Desertos"
+      "Planíces/Campos"
     ]
   },
   {
@@ -129707,10 +129746,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cidades/Vilas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -129778,8 +129817,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -129866,8 +129905,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -130008,8 +130047,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -130136,8 +130175,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -130289,8 +130328,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -130681,8 +130720,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -130821,8 +130860,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -130934,6 +130973,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Florestas/Selva",
       "Lagos/Mares"
     ]
@@ -131071,10 +131111,11 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
       "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -131205,8 +131246,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -132491,8 +132532,8 @@
       }
     ],
     "habitats": [
-      "Praia",
       "Lagos/Mares",
+      "Praia",
       "Regiões Árticas"
     ]
   },
@@ -132617,8 +132658,8 @@
       }
     ],
     "habitats": [
-      "Praia",
       "Lagos/Mares",
+      "Praia",
       "Regiões Árticas"
     ]
   },
@@ -132743,8 +132784,8 @@
       }
     ],
     "habitats": [
-      "Praia",
       "Lagos/Mares",
+      "Praia",
       "Regiões Árticas"
     ]
   },
@@ -133098,10 +133139,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -133262,10 +133303,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -133426,10 +133467,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -133820,8 +133861,8 @@
       }
     ],
     "habitats": [
-      "Praia",
       "Lagos/Mares",
+      "Praia",
       "Regiões Árticas"
     ]
   },
@@ -133957,8 +133998,8 @@
       }
     ],
     "habitats": [
-      "Praia",
       "Lagos/Mares",
+      "Praia",
       "Regiões Árticas"
     ]
   },
@@ -134347,8 +134388,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Lagos/Mares",
+      "Planíces/Campos"
     ]
   },
   {
@@ -134486,8 +134528,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Lagos/Mares",
+      "Planíces/Campos"
     ]
   },
   {
@@ -134636,8 +134679,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Lagos/Mares",
+      "Planíces/Campos"
     ]
   },
   {
@@ -134758,9 +134802,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -134899,9 +134943,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -135049,9 +135093,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -135200,8 +135244,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -135336,8 +135380,8 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Praia",
-      "Lagos/Mares",
       "Regiões Árticas"
     ]
   },
@@ -135473,8 +135517,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
       "Desertos",
+      "Lagos/Mares",
       "Regiões Árticas"
     ]
   },
@@ -135606,10 +135650,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -136033,8 +136077,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -136177,8 +136221,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -136444,8 +136488,8 @@
       }
     ],
     "habitats": [
-      "Praia",
       "Lagos/Mares",
+      "Praia",
       "Regiões Árticas"
     ]
   },
@@ -136793,8 +136837,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
+      "Planíces/Campos",
       "Ruínas/Cemitérios"
     ]
   },
@@ -137223,8 +137267,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -137358,8 +137402,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -137499,9 +137543,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -137628,11 +137672,11 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
-      "Lagos/Mares",
+      "Beira de Lagos/Rios",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -137771,11 +137815,11 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
-      "Lagos/Mares",
+      "Beira de Lagos/Rios",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -138468,9 +138512,10 @@
       }
     ],
     "habitats": [
-      "Praia",
+      "Beira de Lagos/Rios",
+      "Desertos",
       "Lagos/Mares",
-      "Desertos"
+      "Praia"
     ]
   },
   {
@@ -138605,9 +138650,10 @@
       }
     ],
     "habitats": [
-      "Praia",
+      "Beira de Lagos/Rios",
+      "Desertos",
       "Lagos/Mares",
-      "Desertos"
+      "Praia"
     ]
   },
   {
@@ -138759,9 +138805,10 @@
       }
     ],
     "habitats": [
-      "Praia",
+      "Beira de Lagos/Rios",
+      "Desertos",
       "Lagos/Mares",
-      "Desertos"
+      "Praia"
     ]
   },
   {
@@ -141155,10 +141202,10 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -142426,8 +142473,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -142560,8 +142607,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -142713,8 +142760,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -143248,6 +143295,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Lagos/Mares"
     ]
   },
@@ -143389,6 +143437,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Lagos/Mares"
     ]
   },
@@ -143541,6 +143590,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Lagos/Mares"
     ]
   },
@@ -143659,8 +143709,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -143800,8 +143850,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -143941,8 +143991,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -144057,8 +144107,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -144189,8 +144239,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -144301,9 +144351,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -144439,9 +144489,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -144561,9 +144611,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -144698,9 +144748,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -144844,9 +144894,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -144962,9 +145012,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -145095,9 +145145,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cidades/Vilas",
       "Florestas/Selva",
-      "Cidades/Vilas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -145216,8 +145266,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -145360,8 +145410,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -145473,8 +145523,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -145604,8 +145654,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -145753,8 +145803,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -145888,8 +145938,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -146004,9 +146054,9 @@
       }
     ],
     "habitats": [
-      "Praia",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Praia"
     ]
   },
   {
@@ -146135,9 +146185,9 @@
       }
     ],
     "habitats": [
-      "Praia",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Praia"
     ]
   },
   {
@@ -146288,9 +146338,9 @@
       }
     ],
     "habitats": [
-      "Praia",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Praia"
     ]
   },
   {
@@ -146415,8 +146465,8 @@
       }
     ],
     "habitats": [
-      "Vulcões",
-      "Ruínas/Cemitérios"
+      "Ruínas/Cemitérios",
+      "Vulcões"
     ]
   },
   {
@@ -146556,8 +146606,8 @@
       }
     ],
     "habitats": [
-      "Vulcões",
-      "Ruínas/Cemitérios"
+      "Ruínas/Cemitérios",
+      "Vulcões"
     ]
   },
   {
@@ -146697,8 +146747,8 @@
       }
     ],
     "habitats": [
-      "Vulcões",
-      "Ruínas/Cemitérios"
+      "Ruínas/Cemitérios",
+      "Vulcões"
     ]
   },
   {
@@ -146809,9 +146859,10 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Lagos/Mares"
     ]
   },
   {
@@ -146946,9 +146997,10 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
       "Florestas/Selva",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Lagos/Mares"
     ]
   },
   {
@@ -147064,8 +147116,8 @@
       }
     ],
     "habitats": [
-      "Praia",
       "Lagos/Mares",
+      "Praia",
       "Regiões Árticas"
     ]
   },
@@ -147202,8 +147254,8 @@
       }
     ],
     "habitats": [
-      "Praia",
       "Lagos/Mares",
+      "Praia",
       "Regiões Árticas"
     ]
   },
@@ -147323,8 +147375,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -147459,8 +147511,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -147580,8 +147632,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -147721,8 +147773,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -148113,8 +148165,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -148257,8 +148309,8 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Florestas/Selva"
+      "Florestas/Selva",
+      "Planíces/Campos"
     ]
   },
   {
@@ -148995,9 +149047,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Planíces/Campos"
     ]
   },
   {
@@ -149136,9 +149188,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
       "Cavernas/Montanhas",
-      "Desertos"
+      "Desertos",
+      "Planíces/Campos"
     ]
   },
   {
@@ -149654,8 +149706,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Lagos/Mares",
+      "Praia"
     ]
   },
   {
@@ -149782,8 +149834,8 @@
       }
     ],
     "habitats": [
-      "Praia",
-      "Lagos/Mares"
+      "Lagos/Mares",
+      "Praia"
     ]
   },
   {
@@ -149916,9 +149968,10 @@
       }
     ],
     "habitats": [
-      "Praia",
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
       "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Praia"
     ]
   },
   {
@@ -150446,8 +150499,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -150591,8 +150644,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Cidades/Vilas"
     ]
   },
   {
@@ -150709,9 +150762,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
+      "Cavernas/Montanhas",
       "Cidades/Vilas",
-      "Cavernas/Montanhas"
+      "Planíces/Campos"
     ]
   },
   {
@@ -151207,10 +151260,10 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Ruínas/Cemitérios",
-      "Regiões Árticas"
+      "Florestas/Selva",
+      "Regiões Árticas",
+      "Ruínas/Cemitérios"
     ]
   },
   {
@@ -151349,10 +151402,10 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
       "Cavernas/Montanhas",
-      "Ruínas/Cemitérios",
-      "Regiões Árticas"
+      "Florestas/Selva",
+      "Regiões Árticas",
+      "Ruínas/Cemitérios"
     ]
   },
   {
@@ -152102,6 +152155,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Lagos/Mares"
     ]
   },
@@ -152211,6 +152265,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Lagos/Mares"
     ]
   },
@@ -152320,6 +152375,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Lagos/Mares"
     ]
   },
@@ -152468,8 +152524,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cavernas/Montanhas"
+      "Cavernas/Montanhas",
+      "Florestas/Selva"
     ]
   },
   {
@@ -152601,6 +152657,7 @@
       }
     ],
     "habitats": [
+      "Beira de Lagos/Rios",
       "Florestas/Selva",
       "Lagos/Mares"
     ]
@@ -152746,9 +152803,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Lagos/Mares",
-      "Cavernas/Montanhas"
+      "Beira de Lagos/Rios",
+      "Cavernas/Montanhas",
+      "Planíces/Campos"
     ]
   },
   {
@@ -153043,7 +153100,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
+      "Beira de Lagos/Rios",
       "Cavernas/Montanhas",
       "Desertos"
     ]
@@ -156737,8 +156794,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Cidades/Vilas"
+      "Cidades/Vilas",
+      "Florestas/Selva"
     ]
   },
   {

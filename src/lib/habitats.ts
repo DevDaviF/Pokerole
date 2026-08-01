@@ -51,6 +51,15 @@ export const HABITATS: Habitat[] = [
     official: false,
   },
   {
+    id: 'riverside',
+    label: 'Beira de Lagos/Rios',
+    icon: '🏖️',
+    common: ['Water', 'Normal', 'Bug'],
+    uncommon: ['Ice', 'Electric', 'Flying'],
+    rare: ['Dragon', 'Psychic', 'Rock'],
+    official: false,
+  },
+  {
     id: 'caves',
     label: 'Cavernas/Montanhas',
     icon: '⛰️',
@@ -86,6 +95,15 @@ export const HABITATS: Habitat[] = [
     rare: ['Dragon', 'Psychic', 'Fairy'],
     official: false,
   },
+  {
+    id: 'ruins',
+    label: 'Ruínas/Cemitérios',
+    icon: '💀',
+    common: ['Ghost', 'Psychic', 'Normal'],
+    uncommon: ['Fighting', 'Steel', 'Dark'],
+    rare: ['Dragon'],
+    official: true,
+  }
 ]
 
 export type RarityTier = 'common' | 'uncommon' | 'rare'
