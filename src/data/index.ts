@@ -15,6 +15,7 @@ export const moveById = new Map(MOVES.map((m) => [m.id, m]))
 export const pokemonById = new Map(POKEDEX.map((p) => [p.id, p]))
 export const abilityByName = new Map(ABILITIES.map((a) => [a.name, a]))
 export const itemById = new Map(ITEMS.map((i) => [i.id, i]))
+export const itemByName = new Map(ITEMS.map((i) => [i.name, i]))
 
 export const POKEMON_TYPES = [
   'Normal',

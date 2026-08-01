@@ -144,6 +144,14 @@ export function parseEvolutionSpeed(detail: string): EvolutionSpeed | null {
   return (s[0].toUpperCase() + s.slice(1).toLowerCase()) as EvolutionSpeed
 }
 
+// Evoluções por Pedra (kind "Stone") e algumas por Troca (kind "Trade",
+// ex: Poliwhirl->Politoed com King's Rock) guardam o item exigido como
+// "Item: Thunder Stone" no `detail`.
+export function parseEvolutionItem(detail: string): string | null {
+  const m = detail.match(/Item:\s*([^,]+)/)
+  return m ? m[1].trim() : null
+}
+
 // ── Aprender Golpes (Corebook 3.0, p.109-111) ───────────────────────
 // Três mecânicas DIFERENTES, cada uma com seu próprio custo — nenhuma é
 // "5 TP fixo pra tudo":

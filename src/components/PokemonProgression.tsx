@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react'
 import { db } from '../db'
 import type { PokemonSheet, Trainer } from '../types'
 import { rankIndex, RANKS } from '../types'
-import { pokemonById, spriteUrl, moveById, MOVES } from '../data'
+import { pokemonById, spriteUrl, moveById, MOVES, itemByName } from '../data'
 import {
   nextRank,
   rankUpCost,
   retrainCost,
   evolveCost,
   parseEvolutionSpeed,
+  parseEvolutionItem,
   evolutiveStage,
   learnMoveCost,
   overRankCost,
@@ -101,8 +102,13 @@ export default function PokemonProgression({
   const candidates = species.evolutions.filter(
     (e) => e.direction === 'to' && e.kind !== 'Mega',
   )
+  const [tradeConfirmed, setTradeConfirmed] = useState<Record<string, boolean>>({})
 
-  const doEvolve = async (targetName: string, speed: EvolutionSpeed) => {
+  const doEvolve = async (
+    targetName: string,
+    speed: EvolutionSpeed,
+    requiredItemId: string | undefined,
+  ) => {
     const target = [...pokemonById.values()].find((p) => p.name === targetName)
     if (!target) {
       setNotice(`Não achei "${targetName}" no Pokédex — confira o nome.`)
@@ -127,6 +133,13 @@ export default function PokemonProgression({
       currentHp: Math.max(1, sheet.currentHp + hpDelta),
       trainingPoints: tp - c,
     })
+    // consome o item de evolução (Pedra, ou item de troca tipo King's Rock)
+    if (requiredItemId && trainer?.id) {
+      const newInventory = (trainer.inventory ?? [])
+        .map((e) => (e.itemId === requiredItemId ? { ...e, qty: e.qty - 1 } : e))
+        .filter((e) => e.qty > 0)
+      await db.trainers.update(trainer.id, { inventory: newInventory })
+    }
     setNotice(`Evoluiu para ${target.name}! (−${c} TP)`)
   }
 
@@ -331,63 +344,103 @@ export default function PokemonProgression({
               const targetSprite = [...pokemonById.values()].find(
                 (p) => p.name === c.name,
               )
+              // Evolução por Pedra (e algumas por Troca, ex: King's Rock)
+              // exigem possuir o item no inventário do Treinador — sem
+              // isso não dá pra evoluir, e o item é consumido no ato.
+              const itemName = parseEvolutionItem(c.detail)
+              const itemDef = itemName ? itemByName.get(itemName) : undefined
+              const ownedQty = itemDef
+                ? (trainer?.inventory?.find((e) => e.itemId === itemDef.id)?.qty ?? 0)
+                : 0
+              const hasItem = !itemDef || ownedQty > 0
+              // Troca não dá pra verificar automaticamente — exige
+              // confirmação manual de que ela realmente aconteceu.
+              const isTrade = c.kind === 'Trade'
+              const tradeOk = !isTrade || Boolean(tradeConfirmed[c.name])
+              const canEvolve = tp >= cCost && hasItem && tradeOk
               return (
-                <div
-                  key={i}
-                  className="flex flex-wrap items-center gap-2 rounded-lg bg-slate-50 p-2"
-                >
-                  {targetSprite && (
-                    <img
-                      src={spriteUrl(targetSprite.id)}
-                      alt=""
-                      className="h-8 w-8 object-contain [image-rendering:pixelated]"
-                      onError={(e) =>
-                        (e.currentTarget.style.visibility = 'hidden')
-                      }
-                    />
-                  )}
-                  <div>
-                    <p className="text-sm font-semibold text-slate-700">
-                      {c.name}
-                    </p>
-                    <p className="text-[11px] text-slate-400">
-                      {c.kind}
-                      {c.detail ? ` · ${c.detail}` : ''}
-                    </p>
+                <div key={i} className="rounded-lg bg-slate-50 p-2">
+                  <div className="flex flex-wrap items-center gap-2">
+                    {targetSprite && (
+                      <img
+                        src={spriteUrl(targetSprite.id)}
+                        alt=""
+                        className="h-8 w-8 object-contain [image-rendering:pixelated]"
+                        onError={(e) =>
+                          (e.currentTarget.style.visibility = 'hidden')
+                        }
+                      />
+                    )}
+                    <div>
+                      <p className="text-sm font-semibold text-slate-700">
+                        {c.name}
+                      </p>
+                      <p className="text-[11px] text-slate-400">
+                        {c.kind}
+                        {c.detail ? ` · ${c.detail}` : ''}
+                      </p>
+                    </div>
+                    {detected ? (
+                      <span
+                        title="Velocidade de evolução da espécie (fixa, detectada automaticamente)"
+                        className="ml-auto rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-semibold text-slate-600"
+                      >
+                        {detected}
+                      </span>
+                    ) : (
+                      <select
+                        value={speed}
+                        onChange={(e) =>
+                          setEvoSpeedOverride((prev) => ({
+                            ...prev,
+                            [c.name]: e.target.value as EvolutionSpeed,
+                          }))
+                        }
+                        title="Não achei a velocidade nos dados — escolha manualmente"
+                        className="ml-auto rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs focus:border-red-400 focus:outline-none"
+                      >
+                        {SPEEDS.map((s) => (
+                          <option key={s} value={s}>
+                            {s}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                    <button
+                      onClick={() => doEvolve(c.name, speed, itemDef?.id)}
+                      disabled={!canEvolve}
+                      className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700 disabled:opacity-40"
+                    >
+                      Evoluir ({cCost} TP)
+                    </button>
                   </div>
-                  {detected ? (
-                    <span
-                      title="Velocidade de evolução da espécie (fixa, detectada automaticamente)"
-                      className="ml-auto rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-semibold text-slate-600"
+                  {itemDef && (
+                    <p
+                      className={`mt-1 text-[11px] ${
+                        hasItem ? 'text-emerald-600' : 'text-red-500'
+                      }`}
                     >
-                      {detected}
-                    </span>
-                  ) : (
-                    <select
-                      value={speed}
-                      onChange={(e) =>
-                        setEvoSpeedOverride((prev) => ({
-                          ...prev,
-                          [c.name]: e.target.value as EvolutionSpeed,
-                        }))
-                      }
-                      title="Não achei a velocidade nos dados — escolha manualmente"
-                      className="ml-auto rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs focus:border-red-400 focus:outline-none"
-                    >
-                      {SPEEDS.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
-                      ))}
-                    </select>
+                      {hasItem ? '✅' : '⚠️'} Precisa ter 1x {itemDef.name} no
+                      inventário do Treinador ({ownedQty} em posse) — será
+                      consumido ao evoluir.
+                    </p>
                   )}
-                  <button
-                    onClick={() => doEvolve(c.name, speed)}
-                    disabled={tp < cCost}
-                    className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700 disabled:opacity-40"
-                  >
-                    Evoluir ({cCost} TP)
-                  </button>
+                  {isTrade && (
+                    <label className="mt-1 flex items-center gap-1.5 text-[11px] text-slate-500">
+                      <input
+                        type="checkbox"
+                        checked={Boolean(tradeConfirmed[c.name])}
+                        onChange={(e) =>
+                          setTradeConfirmed((prev) => ({
+                            ...prev,
+                            [c.name]: e.target.checked,
+                          }))
+                        }
+                      />
+                      Confirmo que troquei este Pokémon com outro jogador ou
+                      NPC
+                    </label>
+                  )}
                 </div>
               )
             })}
