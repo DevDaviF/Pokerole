@@ -115,3 +115,79 @@ const SPRITE_ALIASES: Record<string, string> = {
 
 export const spriteUrl = (pokemonId: string) =>
   `/sprites/${SPRITE_ALIASES[pokemonId] ?? pokemonId}.png`
+
+// Ícones reais extraídos do próprio Corebook (páginas "Items for the
+// Journey" — mochila/camping, Medicine, Poké Balls, Pedras de
+// evolução, TM/TR) — cobre a maioria dos itens COMPRÁVEIS na Loja.
+// Held Items "de efeito" (Mega Stones, Z-Crystals, Battle Items,
+// boosters de tipo) não têm arte própria no livro — só um selo
+// genérico "Damage +1/[Tipo]" — então esses continuam no emoji por
+// categoria (itemIcon abaixo).
+const ITEM_ICON_IDS = new Set([
+  'antidote', 'aspear-berry', 'awakening', 'baked-goods', 'berry-juice',
+  'big-camping-tent', 'burn-heal', 'calcium', 'camping-stove-&-cookware',
+  'carbos', 'cheri-berry', 'chesto-berry', 'chocolate', 'compass',
+  'dawn-stone', 'dry-food', 'dusk-ball', 'dusk-stone', 'energy-root',
+  'fast-ball', 'fire-stone', 'fishing-rod', 'fresh-water', 'full-heal',
+  'full-restore', 'gourmet-food', 'greatball', 'grooming-kit',
+  'hang-glider', 'heal-powder', 'heavy-ball', 'high-performance-food',
+  'honey', 'hp-up', 'hyper-potion', 'ice-cream', 'ice-heal', 'ice-stone',
+  'inflatable-boat', 'iron', 'leaf-stone', 'lemonade', 'lum-berry',
+  'luxury-ball', 'masterball', 'max-honey', 'max-potion', 'max-revive',
+  'meal-rations', 'moon-stone', 'mountain-bike', 'old-pokeball',
+  'oran-berry', 'paralyze-heal', 'pecha-berry', 'pepper-spray-can',
+  'persim-berry', 'piece-of-accessory', 'pokeball', 'pokedex',
+  'pokedex-upgrade', 'pokedoll', 'pokemon-costume', 'pokemon-repel',
+  'potion', 'pp-up', 'protein', 'quick-ball', 'rare-candy', 'rawst-berry',
+  'regional-map', 'remedy', 'revival-herb', 'revive', 'saddle',
+  'shiny-stone', 'sitrus-berry', 'sled', 'sleeping-bag',
+  'small-camping-tent', 'soda-pop', 'sun-stone', 'super-potion',
+  'thunder-stone', 'tm---basic', 'tm---high-power', 'tm---support',
+  'tr---basic', 'tr---high-power', 'tr---support', 'ultraball',
+  'water-stone', 'zinc',
+])
+
+export function itemIconUrl(item: { id: string }): string | null {
+  return ITEM_ICON_IDS.has(item.id) ? `/items/${item.id}.png` : null
+}
+
+// Emoji por categoria/bolso — usado como fallback pros itens que não
+// têm arte própria no livro (ver ITEM_ICON_IDS acima).
+export function itemIcon(item: { pocket: string; category: string }): string {
+  switch (item.pocket) {
+    case 'Pokeballs':
+      return '🔴'
+    case 'TechnicalMachine':
+      return '💿'
+    case 'EvolutionItem':
+      return '🌟'
+    case 'Medicine':
+      switch (item.category) {
+        case 'Berry':
+          return '🍓'
+        case 'Vitamin':
+          return '💉'
+        case 'Status':
+          return '🩹'
+        case 'MonBoosting':
+          return '⭐'
+        default:
+          return '💊'
+      }
+    case 'TrainerItems':
+      return item.category === 'BattleItem' ? '⚔️' : '🎒'
+    case 'HeldItems':
+      switch (item.category) {
+        case 'MegaStone':
+          return '💠'
+        case 'ZCrystal':
+          return '🔷'
+        case 'TypeBoosting':
+          return '🔥'
+        default:
+          return '🎗️'
+      }
+    default:
+      return '📦'
+  }
+}

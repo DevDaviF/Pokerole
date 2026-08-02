@@ -120,6 +120,15 @@ export default function PokemonProgression({
     const keepAbility = target.abilities.includes(sheet.ability)
       ? sheet.ability
       : (target.abilities[0] ?? '')
+    // Nem todo golpe do pré-evo continua no learnset da evolução (ex:
+    // Ivysaur não tem Charm nem Grass Whistle, que Bulbasaur tem) — sem
+    // filtrar aqui, o golpe ficava "fantasma": continuava em knownMoves
+    // mas sumia da lista de Golpes Conhecidos (que só lista o learnset da
+    // espécie atual), parecendo que evoluir zerou os golpes.
+    const knownMoves = sheet.knownMoves.filter((id) =>
+      target.learnset.some((e) => e.moveId === id),
+    )
+    const droppedCount = sheet.knownMoves.length - knownMoves.length
     await apply({
       species: target.id,
       ability: keepAbility,
@@ -130,6 +139,7 @@ export default function PokemonProgression({
         special: Math.min(sheet.attributes.special, target.maxAttributes.special),
         insight: Math.min(sheet.attributes.insight, target.maxAttributes.insight),
       },
+      knownMoves,
       currentHp: Math.max(1, sheet.currentHp + hpDelta),
       trainingPoints: tp - c,
     })
@@ -140,7 +150,12 @@ export default function PokemonProgression({
         .filter((e) => e.qty > 0)
       await db.trainers.update(trainer.id, { inventory: newInventory })
     }
-    setNotice(`Evoluiu para ${target.name}! (−${c} TP)`)
+    setNotice(
+      `Evoluiu para ${target.name}! (−${c} TP)` +
+        (droppedCount > 0
+          ? ` ${droppedCount} golpe${droppedCount > 1 ? 's' : ''} não existe${droppedCount > 1 ? 'm' : ''} no learnset de ${target.name} e foi${droppedCount > 1 ? 'ram' : ''} esquecido${droppedCount > 1 ? 's' : ''} — role até Golpes Conhecidos pra aprender outro(s).`
+          : ''),
+    )
   }
 
   // ── Re-Train ─────────────────────────────────────────────────

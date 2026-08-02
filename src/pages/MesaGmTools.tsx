@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { db } from '../db'
 import { supabase } from '../lib/supabase'
 import type { Pokemon, PokemonSheet, Rank } from '../types'
-import { RANKS } from '../types'
+import { RANKS, rankIndex } from '../types'
 import { POKEDEX, POKEMON_TYPES, spriteUrl, pokemonById, typeColor, ITEMS } from '../data'
 import { generateNpcSheet } from '../lib/npcGen'
 import {
@@ -406,7 +406,16 @@ function QuickGymNpc({ mesaId }: { mesaId: string }) {
   const [busy, setBusy] = useState(false)
   const [notice, setNotice] = useState('')
 
-  const typePool = WILD_POOL.filter((p) => p.types.includes(type))
+  // só espécies cujo suggestedRank caiba no Rank do time — senão dava pra
+  // sortear algo como Kartana (suggestedRank Ace) num time Standard,
+  // forçando o rank pra baixo do mínimo em que a espécie tem qualquer
+  // golpe aprendível e gerando um Pokémon sem golpe nenhum.
+  const typePool = WILD_POOL.filter(
+    (p) =>
+      p.types.includes(type) &&
+      RANKS.includes(p.suggestedRank as (typeof RANKS)[number]) &&
+      rankIndex(p.suggestedRank) <= rankIndex(rank),
+  )
 
   const generate = async () => {
     if (!name.trim() || busy) return

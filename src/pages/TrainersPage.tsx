@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db'
 import type { Trainer } from '../types'
-import { RANKS } from '../types'
+import { RANKS, rankIndex } from '../types'
 import {
   TRAINER_ATTRIBUTE_LABELS,
   SOCIAL_LABELS,
@@ -108,8 +108,18 @@ export default function TrainersPage() {
 
   // time temático: só espécies que tenham a tipagem escolhida (mono-tipo
   // ou combinada com outra) — sorteio livre de tipo não fazia sentido pra
-  // um ginásio, que é definido justamente pelo tipo do líder.
-  const typeTeamPool = TEAM_POOL.filter((p) => p.types.includes(favoredType))
+  // um ginásio, que é definido justamente pelo tipo do líder. E só
+  // espécies cujo suggestedRank caiba no Rank do time — sem isso, o
+  // gerador podia sortear algo como Kartana (suggestedRank Ace) pra um
+  // time Standard, forçando o rank pra baixo do mínimo em que a espécie
+  // tem QUALQUER golpe aprendível (Kartana só aprende algo a partir de
+  // Ace), gerando um Pokémon sem nenhum golpe conhecido.
+  const typeTeamPool = TEAM_POOL.filter(
+    (p) =>
+      p.types.includes(favoredType) &&
+      RANKS.includes(p.suggestedRank as (typeof RANKS)[number]) &&
+      rankIndex(p.suggestedRank) <= rankIndex(editing?.rank ?? 'Starter'),
+  )
 
   const generateTeam = async () => {
     if (!editing?.id || !editing.mesaId) return

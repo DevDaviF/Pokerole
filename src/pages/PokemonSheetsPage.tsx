@@ -608,6 +608,10 @@ export default function PokemonSheetsPage() {
                   {skillRemaining}/{skillBudget} Skill Points · limite {skillLimit}/skill
                 </span>
               </div>
+              <p className="mb-2 text-xs text-slate-400">
+                Só dá pra aumentar — reduzir um Skill Point já alocado exige
+                Re-Treino.
+              </p>
               <div className="grid gap-x-8 gap-y-4 sm:grid-cols-3">
                 {POKEMON_SKILL_GROUPS.map(({ group, skills }) => (
                   <div key={group}>
@@ -620,6 +624,7 @@ export default function PokemonSheetsPage() {
                           key={s}
                           label={s}
                           value={editing.skills[s] ?? 0}
+                          min={editing.skills[s] ?? 0}
                           max={skillMax(s)}
                           dotMax={skillLimit}
                           onChange={(v) =>

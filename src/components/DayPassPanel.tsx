@@ -13,6 +13,13 @@ import { supabase } from '../lib/supabase'
 const RATION_ITEM_IDS = ['dry-food', 'meal-rations', 'high-performance-food', 'gourmet-food']
 const RATION_NAME = 'Ração'
 
+// O Corebook não descreve uma cura numérica pra "passar o dia" fora de
+// um Centro Pokémon (que aí sim é cura completa e de graça, p.13) — só
+// achamos o "Basic Heal" (golpes de cura) valendo 3 HP. Combinado com o
+// usuário: usar esse mesmo valor pra descanso de campo, em vez de curar
+// tudo, já que curar 100% sem Centro não tem respaldo no livro.
+const REST_HEAL_AMOUNT = 3
+
 interface TriggerRow {
   mesa_id: string
   triggered_at: string | null
@@ -136,39 +143,49 @@ export default function DayPassPanel({
         .filter((e) => e.qty > 0)
       await db.trainers.update(myTrainer.id, {
         inventory: nextInventory,
-        currentHp: myTrainer.hp,
+        currentHp: Math.min(myTrainer.hp, myTrainer.currentHp + REST_HEAL_AMOUNT),
         currentWill: myTrainer.attributes.insight + 3, // descansar recupera WP (p.28)
       })
     } else {
       await db.trainers.update(myTrainer.id, {
-        currentHp: myTrainer.hp,
+        currentHp: Math.min(myTrainer.hp, myTrainer.currentHp + REST_HEAL_AMOUNT),
         currentWill: myTrainer.attributes.insight + 3,
       })
     }
 
+    // Pokémon desmaiado (currentHp 0) não acorda só por passar a noite —
+    // precisa ser reanimado por outro meio (Centro Pokémon, item de
+    // revive etc., ainda não modelado aqui). Passar o dia só descansa
+    // quem ainda está de pé.
+    const fainted = team.filter((s) => s.currentHp <= 0)
     for (const s of team) {
+      if (s.currentHp <= 0) continue
       const sp = pokemonById.get(s.species)
       const maxHp = (sp?.baseHp ?? 1) + s.attributes.vitality
       await db.pokemonSheets.update(s.id!, {
-        currentHp: maxHp,
+        currentHp: Math.min(maxHp, s.currentHp + REST_HEAL_AMOUNT),
         statusConditions: [],
         currentWill: s.attributes.insight + 3,
       })
     }
 
+    const faintedNote =
+      fainted.length > 0
+        ? ` ${fainted.length} desmaiado${fainted.length > 1 ? 's' : ''} continua${fainted.length > 1 ? 'm' : ''} desmaiado${fainted.length > 1 ? 's' : ''} (precisa reanimar por outro meio).`
+        : ''
     if (short > 0) {
       await announce(
-        `⚠️ ${myTrainer.name} não tinha ração suficiente hoje! Faltaram ${short} de ${needed}.`,
+        `⚠️ ${myTrainer.name} não tinha ração suficiente hoje! Faltaram ${short} de ${needed}.${faintedNote}`,
       )
     } else {
       await announce(
-        `🌙 ${myTrainer.name} passou o dia e descansou${consumed > 0 ? ` (−${consumed} ${RATION_NAME}${consumed > 1 ? 'ões' : ''})` : ''}. Time totalmente recuperado.`,
+        `🌙 ${myTrainer.name} passou o dia e descansou${consumed > 0 ? ` (−${consumed} ${RATION_NAME}${consumed > 1 ? 'ões' : ''})` : ''}. Time recuperou ${REST_HEAL_AMOUNT} HP.${faintedNote}`,
       )
     }
     setNotice(
-      short > 0
-        ? `Dia passado, mas faltou ração (${short}). Time recuperado mesmo assim.`
-        : 'Dia passado! Treinador e time recuperados.',
+      (short > 0
+        ? `Dia passado, mas faltou ração (${short}). Time recuperou ${REST_HEAL_AMOUNT} HP mesmo assim.`
+        : `Dia passado! Treinador e time recuperaram ${REST_HEAL_AMOUNT} HP.`) + faintedNote,
     )
     if (lastAppliedKey && trigger?.triggered_at) {
       localStorage.setItem(lastAppliedKey, trigger.triggered_at)
@@ -194,7 +211,8 @@ export default function DayPassPanel({
       <div className="space-y-2 p-4">
         <p className="text-xs text-slate-400">
           Consome 1 {RATION_NAME.toLowerCase()} por Pokémon no time e aplica
-          descanso: recupera HP do treinador e do time, limpa status. Só o
+          descanso: recupera {REST_HEAL_AMOUNT} HP do treinador e do time (não
+          desmaiados), limpa status. Cura completa só num Centro Pokémon. Só o
           Mestre decide quando o dia passa pra mesa toda.
         </p>
         {isGm && (

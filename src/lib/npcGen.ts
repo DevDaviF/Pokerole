@@ -1,7 +1,10 @@
 import type { Attributes, Pokemon, PokemonSheet, Rank } from '../types'
 import { MOVES, NATURES, moveById } from '../data'
 import { rankIndex } from '../types'
-import { rankAttributePoints, RANK_POINT_ATTRIBUTES } from './progression'
+import { rankAttributePoints, rankSkillPoints, rankSkillLimit, RANK_POINT_ATTRIBUTES } from './progression'
+import { POKEMON_SKILL_GROUPS } from '../constants'
+
+const ALL_POKEMON_SKILLS = POKEMON_SKILL_GROUPS.flatMap((g) => g.skills)
 
 /**
  * Atributos de Pokémon selvagem = base da espécie (referência oficial do
@@ -74,15 +77,46 @@ function pickMovesForRank(species: Pokemon, rank: Rank, count: number): string[]
   return result
 }
 
-// Estimativa simples de pontos de skill (não é regra oficial): cresce com o
-// Rank, aplicada às skills de Accuracy dos golpes escolhidos.
+// Gasta o orçamento REAL de Skill Points do Rank (mesmo rankSkillPoints
+// que um Pokémon jogável tem, respeitando o limite por skill do Rank) —
+// antes só marcava a skill de Acerto de cada golpe conhecido com um
+// "nível" fixo, o que raramente chegava perto de gastar o total (um NPC
+// Standard com 17 pontos disponíveis podia acabar usando só 4, um pra
+// cada golpe único). Prioriza as skills de Acerto dos golpes conhecidos
+// (é o que o NPC realmente rola), e só depois espalha o resto do
+// orçamento pelas demais skills, igual um jogador faria sobrando pontos.
 function estimateSkills(knownMoves: string[], rank: Rank): Record<string, number> {
-  const level = Math.min(5, 1 + Math.floor(rankIndex(rank) / 2))
+  const limit = rankSkillLimit(rank)
+  let points = rankSkillPoints(rank)
   const skills: Record<string, number> = {}
-  for (const moveId of knownMoves) {
-    const skill = moveById.get(moveId)?.accuracy.skill
-    if (skill) skills[skill] = level
+
+  const priority = shuffle([
+    ...new Set(
+      knownMoves
+        .map((id) => moveById.get(id)?.accuracy.skill)
+        .filter((s): s is string => Boolean(s)),
+    ),
+  ])
+
+  let guard = points * 20
+  while (points > 0 && guard-- > 0) {
+    const candidates = priority.filter((s) => (skills[s] ?? 0) < limit)
+    if (candidates.length === 0) break
+    const key = candidates[Math.floor(Math.random() * candidates.length)]
+    skills[key] = (skills[key] ?? 0) + 1
+    points--
   }
+
+  const rest = shuffle(ALL_POKEMON_SKILLS.filter((s) => !priority.includes(s)))
+  guard = points * 20
+  while (points > 0 && guard-- > 0) {
+    const candidates = rest.filter((s) => (skills[s] ?? 0) < limit)
+    if (candidates.length === 0) break
+    const key = candidates[Math.floor(Math.random() * candidates.length)]
+    skills[key] = (skills[key] ?? 0) + 1
+    points--
+  }
+
   return skills
 }
 

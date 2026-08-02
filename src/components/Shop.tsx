@@ -1,7 +1,23 @@
 import { useMemo, useState } from 'react'
 import type { InventoryEntry, Item } from '../types'
-import { ITEMS, itemById } from '../data'
+import { ITEMS, itemById, itemIcon, itemIconUrl } from '../data'
 import { parsePrice } from '../lib/economy'
+
+// Ícone real (extraído do Corebook) quando existe; emoji de categoria
+// como fallback pros itens sem arte própria no livro.
+function ItemIcon({ item }: { item: { id: string; pocket: string; category: string } }) {
+  const url = itemIconUrl(item)
+  if (url) {
+    return (
+      <img
+        src={url}
+        alt=""
+        className="h-4 w-4 shrink-0 rounded-sm object-cover"
+      />
+    )
+  }
+  return <span>{itemIcon(item)}</span>
+}
 
 export default function Shop({
   money,
@@ -127,7 +143,7 @@ export default function Shop({
                   key={e.itemId}
                   className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 py-1 pr-1 pl-2.5 text-xs font-medium text-slate-600"
                 >
-                  {item?.name ?? e.itemId} × {e.qty}
+                  {item ? <ItemIcon item={item} /> : '📦'} {item?.name ?? e.itemId} × {e.qty}
                   <button
                     onClick={() => adjustInventory(e.itemId, -1)}
                     title="Usar/descartar 1"
@@ -171,7 +187,8 @@ export default function Shop({
                 key={item.id}
                 className="flex items-center gap-2 rounded-lg border border-slate-100 px-2.5 py-1.5"
               >
-                <span className="min-w-0 flex-1 truncate text-xs font-medium text-slate-700">
+                <span className="flex min-w-0 flex-1 items-center gap-1.5 truncate text-xs font-medium text-slate-700">
+                  <ItemIcon item={item} />
                   {item.name}
                 </span>
                 <span className="text-xs text-slate-400">{price} P$</span>

@@ -108,6 +108,7 @@ export default function NpcRollPanel({ mesaId }: { mesaId: string }) {
 
           {sheet && (
             <div className="mt-2 space-y-2">
+              <SkillRoll sheet={sheet} displayName={rollDisplayName} isPokemon={true} />
               <div className="flex flex-wrap gap-1">
                 {sheet.knownMoves.map((mid) => (
                   <button
