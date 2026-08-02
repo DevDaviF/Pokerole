@@ -281,6 +281,11 @@ export default function BattleTracker({
     const isCurrent = row.combatants[0]?.key === c.key
     const isOpponent = hasSides && mySide && c.side && c.side !== mySide
     const hideExactHp = (c.kind === 'npc' && !isGm) || (isOpponent && !isGm && c.ownerId !== myId)
+    // Def/Sp.Def de Pokémon (não NPC do Mestre) seguem a mesma regra de
+    // "fog of war" do HP exato: visível pro Mestre, pro dono e pros aliados
+    // (mesmo lado/sem lados) — some só quando é adversário de outro lado.
+    const showDefStats =
+      c.kind === 'pokemon' && !hideExactHp && c.def !== undefined && c.spDef !== undefined
     // só o Mestre ou o dono do combatente mexe nele — evita jogador
     // remover ou curar/ferir o Pokémon de outra pessoa
     const canManage = isGm || c.ownerId === myId
@@ -303,6 +308,14 @@ export default function BattleTracker({
           )}
           <span className="text-sm font-semibold text-slate-700">{c.name}</span>
           {c.ownerLabel && <span className="text-xs text-slate-400">{c.ownerLabel}</span>}
+          {showDefStats && (
+            <span
+              className="rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold text-slate-500"
+              title="Defesa / Defesa Especial"
+            >
+              🛡️ {c.def}/{c.spDef}
+            </span>
+          )}
           {c.statusConditions.length > 0 && (
             <span className="flex gap-1">
               {c.statusConditions.map((s) => (
