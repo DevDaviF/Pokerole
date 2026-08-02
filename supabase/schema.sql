@@ -12,6 +12,12 @@ create table public.profiles (
   created_at timestamptz not null default now()
 );
 
+-- Unicidade CASE-INSENSITIVE ("GameMaster" e "gamemaster" contam como
+-- o mesmo nome) — evita que dois jogadores tenham o mesmo nome de
+-- exibição na mesma mesa (abria espaço pra se passar por outra
+-- pessoa, ex: fingir ser o Mestre).
+create unique index profiles_username_lower_key on public.profiles (lower(username));
+
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql security definer set search_path = public
@@ -32,6 +38,22 @@ $$;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
+
+-- Pré-checagem de disponibilidade ANTES de criar a conta: profiles
+-- tem RLS (ninguém não-autenticado consegue ler a tabela), então o
+-- formulário de cadastro precisa de uma função com acesso controlado
+-- pra só responder "disponível ou não", sem expor a lista de usuários.
+create or replace function public.username_available(_username text)
+returns boolean
+language sql stable security definer set search_path = public
+as $$
+  select not exists (
+    select 1 from public.profiles where lower(username) = lower(trim(_username))
+  );
+$$;
+
+revoke execute on function public.username_available(text) from public;
+grant execute on function public.username_available(text) to anon, authenticated;
 
 -- ── Mesas e membros ──────────────────────────────────────────
 create table public.mesas (
@@ -87,6 +109,9 @@ begin
   insert into public.day_pass_triggers (mesa_id)
   values (new.id);
 
+  insert into public.pokecenter_triggers (mesa_id)
+  values (new.id);
+
   return new;
 end;
 $$;
@@ -133,6 +158,89 @@ create table public.messages (
 );
 
 create index messages_mesa_created on public.messages (mesa_id, created_at desc);
+
+-- Rolagem calculada e validada no SERVIDOR — o client escolhe quantos
+-- dados pedir e o rótulo, nunca o resultado (RNG roda com random() do
+-- Postgres, fora do alcance do client). Sem isso, dava pra inserir um
+-- `roll` inteiramente forjado direto em `messages`, e pior: Treino,
+-- Captura e Batedores usam o `successes` do roll pra decidir
+-- recompensa de jogo de verdade (TP ganho, captura bem-sucedida etc).
+create or replace function public.roll_dice_shared(
+  _mesa_id uuid,
+  _pool int,
+  _label text default '',
+  _mode text default 'standard',
+  _bonus int default 0,
+  _icon text default null
+)
+returns jsonb
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  _dice int[];
+  _successes int;
+  _sixes int;
+  _roll jsonb;
+begin
+  if auth.uid() is null then
+    raise exception 'Não autenticado';
+  end if;
+  if not public.is_mesa_member(_mesa_id) then
+    raise exception 'Você não é membro dessa mesa';
+  end if;
+  if _pool is null or _pool < 1 or _pool > 20 then
+    raise exception 'Pool de dados inválida (1 a 20)';
+  end if;
+  if _mode not in ('standard', 'chance', 'additive') then
+    raise exception 'Modo de rolagem inválido';
+  end if;
+
+  if _mode = 'additive' then
+    _dice := array[(1 + floor(random() * 6))::int];
+  else
+    select array_agg((1 + floor(random() * 6))::int)
+      into _dice
+      from generate_series(1, _pool);
+  end if;
+
+  _sixes := (select count(*) from unnest(_dice) as val where val = 6);
+
+  if _mode = 'chance' then
+    _roll := jsonb_build_object(
+      'pool', array_length(_dice, 1), 'dice', to_jsonb(_dice),
+      'successes', _sixes, 'sixes', _sixes,
+      'mode', 'chance', 'triggered', _sixes > 0
+    );
+  elsif _mode = 'additive' then
+    _roll := jsonb_build_object(
+      'pool', 1, 'dice', to_jsonb(_dice),
+      'successes', 0, 'sixes', _sixes,
+      'mode', 'additive', 'bonus', coalesce(_bonus, 0),
+      'total', _dice[1] + coalesce(_bonus, 0)
+    );
+  else
+    _successes := (select count(*) from unnest(_dice) as val where val >= 4);
+    _roll := jsonb_build_object(
+      'pool', array_length(_dice, 1), 'dice', to_jsonb(_dice),
+      'successes', _successes, 'sixes', _sixes
+    );
+  end if;
+
+  if _icon is not null and length(_icon) <= 3000 then
+    _roll := _roll || jsonb_build_object('icon', _icon);
+  end if;
+
+  insert into public.messages (mesa_id, user_id, kind, content, roll)
+  values (_mesa_id, auth.uid(), 'roll', coalesce(_label, ''), _roll);
+
+  return _roll;
+end;
+$$;
+
+revoke execute on function public.roll_dice_shared(uuid, int, text, text, int, text) from public;
+grant execute on function public.roll_dice_shared(uuid, int, text, text, int, text) to authenticated;
 
 -- ── Fichas compartilhadas (snapshot somente leitura p/ a mesa) ─
 create table public.shared_sheets (
@@ -185,6 +293,15 @@ create table public.day_pass_triggers (
   triggered_by uuid references auth.users (id)
 );
 
+-- ── "Centro Pokémon": mesmo mecanismo do Passar o Dia, mas pra cura
+-- completa e de graça (100% HP, limpa status, reanima desmaiado) —
+-- só o Mestre abre, cada jogador aplica na própria ficha ─
+create table public.pokecenter_triggers (
+  mesa_id uuid primary key references public.mesas (id) on delete cascade,
+  triggered_at timestamptz,
+  triggered_by uuid references auth.users (id)
+);
+
 -- Helper: caller é Mestre desta mesa? (usado para transferir o cargo)
 create or replace function public.is_mesa_gm(_mesa uuid)
 returns boolean
@@ -206,6 +323,7 @@ alter table public.mesa_notes enable row level security;
 alter table public.battle_order enable row level security;
 alter table public.scout_rolls enable row level security;
 alter table public.day_pass_triggers enable row level security;
+alter table public.pokecenter_triggers enable row level security;
 
 -- profiles: você vê o seu e o de quem divide mesa com você
 create policy "ver perfis da mesa" on public.profiles
@@ -330,6 +448,16 @@ create policy "mestre decreta o dia" on public.day_pass_triggers
   using (public.is_mesa_gm(mesa_id))
   with check (public.is_mesa_gm(mesa_id));
 
+-- pokecenter_triggers: mesa lê; só o Mestre abre o Centro Pokémon
+create policy "mesa lê o gatilho do pokecentro" on public.pokecenter_triggers
+  for select to authenticated
+  using (public.is_mesa_member(mesa_id));
+
+create policy "mestre abre o pokecentro" on public.pokecenter_triggers
+  for update to authenticated
+  using (public.is_mesa_gm(mesa_id))
+  with check (public.is_mesa_gm(mesa_id));
+
 -- ── Realtime no chat, anotações, combate, batedores e fichas ───
 alter publication supabase_realtime add table public.messages;
 alter publication supabase_realtime add table public.mesa_notes;
@@ -339,6 +467,7 @@ alter publication supabase_realtime add table public.shared_sheets;
 alter publication supabase_realtime add table public.mesas;
 alter publication supabase_realtime add table public.mesa_members;
 alter publication supabase_realtime add table public.day_pass_triggers;
+alter publication supabase_realtime add table public.pokecenter_triggers;
 alter table public.mesa_members replica identity full;
 
 -- REPLICA IDENTITY FULL: colunas jsonb grandes (TOAST) podem chegar
@@ -349,6 +478,7 @@ alter table public.shared_sheets replica identity full;
 alter table public.scout_rolls replica identity full;
 alter table public.mesa_notes replica identity full;
 alter table public.day_pass_triggers replica identity full;
+alter table public.pokecenter_triggers replica identity full;
 
 -- ── Transferência de fichas de Pokémon entre jogadores ───────
 create table public.sheet_transfers (

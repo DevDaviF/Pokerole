@@ -21,7 +21,7 @@ const navItems = [
 ]
 
 function Shell() {
-  const { postRoll, activeMesa, session } = useMesa()
+  const { rollShared, activeMesa, session } = useMesa()
   return (
     <div className="min-h-screen">
       <header className="bg-red-600 text-white shadow-md">
@@ -64,7 +64,7 @@ function Shell() {
           </Routes>
         </ErrorBoundary>
       </main>
-      <DiceRoller onRoll={postRoll} />
+      <DiceRoller onRoll={rollShared} />
     </div>
   )
 }

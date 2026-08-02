@@ -54,15 +54,6 @@ export default function TeamPage() {
     await db.pokemonSheets.update(sheet.id!, { currentHp: next })
   }
 
-  const resetHp = async (sheet: PokemonSheet) => {
-    const sp = pokemonById.get(sheet.species)
-    const maxHp = sp ? sp.baseHp + sheet.attributes.vitality : 0
-    await db.pokemonSheets.update(sheet.id!, {
-      currentHp: maxHp,
-      statusConditions: [],
-    })
-  }
-
   const toggleTeam = async (sheet: PokemonSheet) => {
     if (!sheet.inTeam && team.length >= 6) return
     await db.pokemonSheets.update(sheet.id!, { inTeam: !sheet.inTeam })
@@ -231,12 +222,6 @@ export default function TeamPage() {
                       isPokemon
                     />
                   )}
-                  <button
-                    onClick={() => resetHp(s)}
-                    className="w-full rounded-lg border border-emerald-200 py-1 text-xs font-semibold text-emerald-600 hover:bg-emerald-50"
-                  >
-                    Descansar (HP cheio + limpar status)
-                  </button>
                 </div>
               </div>
             )

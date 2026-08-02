@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { PokemonSheet, Trainer } from '../types'
 import { sheetAttrValue } from './MoveRoll'
-import { rollDice, rollAdditive, DiceRow, type RollResult } from './DiceRoller'
+import { DiceRow, type RollResult } from './DiceRoller'
 import { useMesa } from '../lib/mesa'
 import { spriteUrl } from '../data'
 import { DEFAULT_AVATAR } from './ImagePicker'
@@ -31,7 +31,7 @@ export default function SkillRoll({
   displayName: string
   isPokemon: boolean
 }) {
-  const { postRoll, session, activeMesa } = useMesa()
+  const { rollShared, session, activeMesa } = useMesa()
   const attrLabels = isPokemon
     ? POKEMON_ATTRIBUTE_LABELS
     : TRAINER_ATTRIBUTE_LABELS
@@ -54,25 +54,27 @@ export default function SkillRoll({
     ? spriteUrl((sheet as PokemonSheet).species)
     : (sheet as Trainer).imageUrl || DEFAULT_AVATAR
 
-  const roll = (a: string, s: string, presetName?: string) => {
+  const roll = async (a: string, s: string, presetName?: string) => {
     const formula = `${a} + ${s}${bonus ? ` ${bonus > 0 ? '+' : ''}${bonus}` : ''}`
     const label = `${displayName} · ${presetName ?? formula}`
-    const r = rollDice(pool(a, s), label)
-    r.icon = rollIcon
+    const r = await rollShared({ pool: pool(a, s), label, icon: rollIcon })
     setLast(r)
     setLastLabel(presetName ? `${presetName} (${formula})` : formula)
-    postRoll(r)
   }
 
   // Iniciativa (p. 56) não é uma pool: é 1d6 + (Dexterity + Alert) como
   // número fixo. Resultado é comparado entre combatentes para a ordem.
   const initiativeBonus = sheetAttrValue(sheet, 'Dexterity') + (sheet.skills['Alert'] ?? 0)
-  const rollInitiative = () => {
-    const r = rollAdditive(initiativeBonus, `${displayName} · Iniciativa`)
-    r.icon = rollIcon
+  const rollInitiative = async () => {
+    const r = await rollShared({
+      pool: 1,
+      label: `${displayName} · Iniciativa`,
+      mode: 'additive',
+      bonus: initiativeBonus,
+      icon: rollIcon,
+    })
     setLast(r)
     setLastLabel(`Iniciativa (1d6 + Dex + Alert)`)
-    postRoll(r)
   }
 
   const presets: Array<{

@@ -109,7 +109,7 @@ export default function BattleTracker({
   myUsername: string
   isGm: boolean
 }) {
-  const { postRoll } = useMesa()
+  const { rollShared } = useMesa()
   const [row, setRow] = useState<BattleRow | null>(null)
   const [showAdd, setShowAdd] = useState(false)
   // lado aplicado ao próximo combatente adicionado — nenhum lado escolhido
@@ -175,13 +175,23 @@ export default function BattleTracker({
   // verdade, não só move um ponteiro sobre uma lista fixa por iniciativa.
   const addCombatant = async (combatant: Omit<Combatant, 'key' | 'initiative'>, bonus: number) => {
     if (!row) return
-    const r = rollAdditive(bonus, `${combatant.name} · Iniciativa`)
-    if (combatant.spriteId) r.icon = spriteUrl(combatant.spriteId)
+    const icon = combatant.spriteId ? spriteUrl(combatant.spriteId) : undefined
     // NPC (selvagem/ginásio): a rolagem soma Destreza+Alert ocultos do
     // Pokémon gerado pelo Mestre — anunciar "dado + bônus = total" no chat
     // entregaria esses atributos escondidos pros jogadores. A iniciativa em
-    // si continua valendo pra ordenar o combate, só não vai pro chat.
-    if (combatant.kind !== 'npc') postRoll(r)
+    // si continua valendo pra ordenar o combate, só não é compartilhada —
+    // por isso continua rolando localmente, nunca pelo RPC (que sempre
+    // grava em `messages`).
+    const r =
+      combatant.kind === 'npc'
+        ? rollAdditive(bonus, `${combatant.name} · Iniciativa`)
+        : await rollShared({
+            pool: 1,
+            label: `${combatant.name} · Iniciativa`,
+            mode: 'additive',
+            bonus,
+            icon,
+          })
     const full: Combatant = { ...combatant, key: newKey(), initiative: r.total! }
     // antes do combate começar, a lista toda é reordenada por iniciativa;
     // depois de começado, reforços entram no fim da fila (agem na próxima

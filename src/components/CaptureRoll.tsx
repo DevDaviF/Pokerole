@@ -4,7 +4,7 @@ import { RANKS } from '../types'
 import { db } from '../db'
 import { supabase } from '../lib/supabase'
 import { sheetAttrValue } from './MoveRoll'
-import { rollDice, DiceRow, type RollResult } from './DiceRoller'
+import { DiceRow, type RollResult } from './DiceRoller'
 import { useMesa } from '../lib/mesa'
 import { pokemonById } from '../data'
 import { DEFAULT_AVATAR } from './ImagePicker'
@@ -37,7 +37,7 @@ export default function CaptureRoll({
   sharedNpcs: Array<{ id: string; ownerId: string; payload: PokemonSheet }>
   isGm: boolean
 }) {
-  const { postRoll, session, activeMesa } = useMesa()
+  const { rollShared, session, activeMesa } = useMesa()
   const bonusMode = useCaptureBonusMode(mesaId)
 
   const [targetKey, setTargetKey] = useState('')
@@ -131,15 +131,14 @@ export default function CaptureRoll({
     ? Math.max(0, sheetAttrValue(myTrainer, throwAttr) + (myTrainer.skills['Throw'] ?? 0))
     : 0
 
-  const rollThrow = () => {
+  const rollThrow = async () => {
     if (!myTrainer || ballQty <= 0) return
-    const r = rollDice(
-      Math.max(1, throwPool),
-      `${myTrainer.name} · Arremesso (${ball.label}) vs ${targetName}`,
-    )
-    r.icon = myTrainer.imageUrl || DEFAULT_AVATAR
+    const r = await rollShared({
+      pool: Math.max(1, throwPool),
+      label: `${myTrainer.name} · Arremesso (${ball.label}) vs ${targetName}`,
+      icon: myTrainer.imageUrl || DEFAULT_AVATAR,
+    })
     setLastThrow(r)
-    postRoll(r)
   }
 
   const consumeBall = async () => {
@@ -153,13 +152,12 @@ export default function CaptureRoll({
   const rollCapture = async () => {
     if (ballQty <= 0) return
     if (!targetKey && !isGm) return
-    const r = rollDice(
-      rollPool(),
-      `${myTrainer?.name ?? 'Treinador'} · Captura (${ball.label}) vs ${targetName}`,
-    )
-    r.icon = myTrainer?.imageUrl || DEFAULT_AVATAR
+    const r = await rollShared({
+      pool: rollPool(),
+      label: `${myTrainer?.name ?? 'Treinador'} · Captura (${ball.label}) vs ${targetName}`,
+      icon: myTrainer?.imageUrl || DEFAULT_AVATAR,
+    })
     setLastCapture(r)
-    postRoll(r)
     setOutcome(null)
     setAfterNote('')
 

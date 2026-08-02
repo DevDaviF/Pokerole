@@ -2,13 +2,7 @@ import { useState } from 'react'
 import type { Move, PokemonSheet } from '../types'
 import TypeBadge from './TypeBadge'
 import { CategoryBadge } from './MoveDetailModal'
-import {
-  rollDice,
-  rollChanceDice,
-  parseChanceDiceCount,
-  DiceRow,
-  type RollResult,
-} from './DiceRoller'
+import { parseChanceDiceCount, DiceRow, type RollResult } from './DiceRoller'
 import { useMesa } from '../lib/mesa'
 import { pokemonById, typeColor, spriteUrl } from '../data'
 import { supabase } from '../lib/supabase'
@@ -96,7 +90,7 @@ export function MoveRollPanel({
   move: Move
   displayName: string
 }) {
-  const { postRoll, session, activeMesa } = useMesa()
+  const { rollShared, session, activeMesa } = useMesa()
   const [last, setLast] = useState<RollResult | null>(null)
   const [accBonus, setAccBonus] = useState(0)
   const [dmgBonus, setDmgBonus] = useState(0)
@@ -134,29 +128,29 @@ export function MoveRollPanel({
       : 'Sp.Def alvo'
     : 'Def alvo'
 
-  const doRoll = (kind: string, pool: number, formula: string) => {
-    const r = rollDice(
-      Math.max(1, pool),
-      `${displayName} · ${move.name} · ${kind} (${formula})`,
-    )
-    if (species) r.icon = spriteUrl(species.id)
+  const doRoll = async (kind: string, pool: number, formula: string) => {
+    const r = await rollShared({
+      pool: Math.max(1, pool),
+      label: `${displayName} · ${move.name} · ${kind} (${formula})`,
+      icon: species ? spriteUrl(species.id) : undefined,
+    })
     setLast(r)
-    postRoll(r)
   }
 
   const chancePool =
     baseChanceDice !== null ? Math.max(1, baseChanceDice + chanceBonus) : 0
   const doChanceRoll = async () => {
-    const r = rollChanceDice(
-      chancePool,
-      `${displayName} · ${move.name} · Chance Dice`,
-    )
-    if (species) r.icon = spriteUrl(species.id)
-    setLast(r)
     // espera o roll terminar de gravar antes de mandar a descrição, senão
     // as duas inserções corriam em paralelo e a descrição podia aparecer
-    // no chat ANTES do log do dado, fora de ordem.
-    await postRoll(r)
+    // no chat ANTES do log do dado, fora de ordem — rollShared já espera
+    // a gravação terminar antes de resolver.
+    const r = await rollShared({
+      pool: chancePool,
+      label: `${displayName} · ${move.name} · Chance Dice`,
+      mode: 'chance',
+      icon: species ? spriteUrl(species.id) : undefined,
+    })
+    setLast(r)
     // Efeito ativou (algum 6 saiu) — manda o que ele faz pro chat, sem
     // precisar o jogador digitar/explicar de novo. Erro logado no console
     // porque antes essa inserção falhava 100% em silêncio.

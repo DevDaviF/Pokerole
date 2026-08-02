@@ -1,14 +1,10 @@
 import { useState } from 'react'
 import { db } from '../db'
 import type { PokemonSheet, Trainer } from '../types'
-import {
-  rollDice,
-  successChanceWithRetry,
-  truncatedPercent,
-  type RollResult,
-} from './DiceRoller'
+import { successChanceWithRetry, truncatedPercent, type RollResult } from './DiceRoller'
 import { DiceRow, sheetAttrValue } from './MoveRoll'
 import { useMesa } from '../lib/mesa'
+import { supabase } from '../lib/supabase'
 import { spriteUrl } from '../data'
 import { DEFAULT_AVATAR } from './ImagePicker'
 import {
@@ -54,7 +50,7 @@ export function TreinoPanel({
   displayName: string
   trainer: Trainer | undefined
 }) {
-  const { postRoll } = useMesa()
+  const { rollShared, session, activeMesa } = useMesa()
   const [difficulty, setDifficulty] = useState(2)
   const [pokAttr, setPokAttr] = useState('Vitality')
   const [pokSkill, setPokSkill] = useState('Athletic')
@@ -76,33 +72,51 @@ export function TreinoPanel({
     : 0
   const pokChance = successChanceWithRetry(pokPool, difficulty)
 
-  const rollTask = () => {
-    const r = rollDice(pokPool, '')
-    const passed = r.successes >= difficulty
-    const labeled = {
-      ...r,
+  // O rótulo antigo embutia o resultado ("→ completou! ✅") no próprio
+  // texto do roll — mas agora o roll é gravado pelo servidor no momento
+  // em que é pedido, antes de sabermos o resultado. Por isso o
+  // veredito vira uma mensagem de chat separada, mandada DEPOIS de ver
+  // o `successes` que o servidor calculou (mesmo padrão já usado pro
+  // efeito de Chance Dice em MoveRoll.tsx).
+  const announce = async (content: string) => {
+    if (!session || !activeMesa || !supabase) return
+    await supabase.from('messages').insert({
+      mesa_id: activeMesa.id,
+      user_id: session.user.id,
+      kind: 'chat',
+      content,
+    })
+  }
+
+  const rollTask = async () => {
+    const r = await rollShared({
+      pool: pokPool,
+      label: `${displayName} · Treino: tarefa dif. ${difficulty} (${pokAttr} + ${pokSkill})`,
       icon: spriteUrl(sheet.species),
-      label: `${displayName} · Treino: tarefa dif. ${difficulty} (${pokAttr} + ${pokSkill}) → ${
-        passed ? 'completou! ✅' : 'falhou ❌'
-      }`,
-    }
-    setTaskResult(labeled)
+    })
+    const passed = r.successes >= difficulty
+    setTaskResult(r)
     setTrainResult(null)
     setAwarded(null)
-    postRoll(labeled)
+    await announce(
+      `${displayName} ${passed ? 'completou a tarefa! ✅' : 'falhou na tarefa ❌'} (precisava de ${difficulty}, tirou ${r.successes}).`,
+    )
   }
 
   const rollTrainer = async () => {
     if (!trainer) return
-    const r = rollDice(trPool, '')
-    const total = r.successes + difficulty
-    const labeled = {
-      ...r,
+    const r = await rollShared({
+      pool: trPool,
+      label: `${trainer.name} · Treino: rolagem do treinador (${trAttr} + ${trSkill})`,
       icon: trainer.imageUrl || DEFAULT_AVATAR,
-      label: `${trainer.name} · Treino: rolagem do treinador (${trAttr} + ${trSkill}) + ${difficulty} bônus → ${total} Pontos de Treino`,
-    }
-    setTrainResult(labeled)
-    postRoll(labeled)
+    })
+    // total vem do successes que o SERVIDOR calculou — TP é recompensa de
+    // jogo de verdade, não pode confiar num roll computado no client.
+    const total = r.successes + difficulty
+    setTrainResult(r)
+    await announce(
+      `${trainer.name} ganhou ${total} Pontos de Treino (${r.successes} + ${difficulty} de bônus) para ${displayName}!`,
+    )
     // p.105 Passo 5: depois do treino, Treinador e Pokémon recuperam 2 WP
     const pokWillMax = sheet.attributes.insight + 3
     const trWillMax = trainer.attributes.insight + 3

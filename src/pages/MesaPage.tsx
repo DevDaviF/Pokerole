@@ -20,6 +20,7 @@ import CaptureRoll from '../components/CaptureRoll'
 import SheetTransfers from '../components/SheetTransfers'
 import PlayerSheetGift from '../components/PlayerSheetGift'
 import DayPassPanel from '../components/DayPassPanel'
+import PokeCenterPanel from '../components/PokeCenterPanel'
 import WillPointsPanel from '../components/WillPointsPanel'
 import ItemGifts from '../components/ItemGifts'
 import MoneyAdjustments from '../components/MoneyAdjustments'
@@ -385,15 +386,29 @@ function AuthPanel() {
         setInfo(
           'Email de recuperação enviado! Abra o link com o app rodando nesta máquina.',
         )
+    } else if (mode === 'signup') {
+      // profiles tem RLS (ninguém não-autenticado lê a tabela), então a
+      // única forma de checar disponibilidade ANTES de criar a conta é
+      // essa função com acesso controlado — sem isso, o usuário só
+      // descobre que o nome já existe depois de tentar cadastrar.
+      const { data: available, error: checkError } = await supabase.rpc(
+        'username_available',
+        { _username: username.trim() },
+      )
+      if (checkError) {
+        setError(friendlyError(checkError.message))
+      } else if (available === false) {
+        setError('Esse nome de usuário já está em uso. Escolha outro.')
+      } else {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { data: { username: username.trim() } },
+        })
+        if (error) setError(friendlyError(error.message))
+      }
     } else {
-      const { error } =
-        mode === 'login'
-          ? await supabase.auth.signInWithPassword({ email, password })
-          : await supabase.auth.signUp({
-              email,
-              password,
-              options: { data: { username: username.trim() } },
-            })
+      const { error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) setError(friendlyError(error.message))
     }
     setBusy(false)
@@ -1692,6 +1707,13 @@ export default function MesaPage() {
           <ErrorBoundary label="Passar o dia">
             <DayPassPanel
               myTrainer={myActiveTrainer}
+              myPokemonSheets={myOwnPokemonSheets}
+              isGm={myRole === 'gm'}
+            />
+          </ErrorBoundary>
+
+          <ErrorBoundary label="Centro Pokémon">
+            <PokeCenterPanel
               myPokemonSheets={myOwnPokemonSheets}
               isGm={myRole === 'gm'}
             />

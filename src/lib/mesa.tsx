@@ -9,7 +9,7 @@ import {
 import type { Session } from '@supabase/supabase-js'
 import { supabase } from './supabase'
 import { syncDbScope } from '../db'
-import type { RollResult } from '../components/DiceRoller'
+import { rollAdditive, rollChanceDice, rollDice, type RollResult } from '../components/DiceRoller'
 
 export interface ActiveMesa {
   id: string
@@ -22,14 +22,27 @@ interface StoredActiveMesa {
   userId: string
 }
 
+export interface RollSharedOptions {
+  pool: number
+  label: string
+  mode?: 'chance' | 'additive'
+  bonus?: number
+  icon?: string
+}
+
 interface MesaContextValue {
   session: Session | null
   activeMesa: ActiveMesa | null
   setActiveMesa: (m: ActiveMesa | null) => void
-  // resolve depois que o insert termina — quem precisa mandar outra
-  // mensagem LOGO DEPOIS (ex: descrição de efeito de Chance Dice) pode dar
-  // await pra garantir que ela vai aparecer depois no chat, não antes.
-  postRoll: (r: RollResult) => Promise<void>
+  // Rola no SERVIDOR (RPC roll_dice_shared) quando há mesa ativa — o RNG
+  // roda com random() do Postgres, fora do alcance do client, e a
+  // inserção em `messages` acontece dentro da própria função. Sem mesa
+  // (jogo solo/offline), rola localmente, já que não tem ninguém pra
+  // "enganar" numa rolagem que só quem rolou vê. Resolve depois que a
+  // mensagem já está gravada — quem precisa mandar outra mensagem LOGO
+  // DEPOIS (ex: descrição de efeito de Chance Dice) pode dar await pra
+  // garantir que ela vai aparecer depois no chat, não antes.
+  rollShared: (opts: RollSharedOptions) => Promise<RollResult>
   passwordRecovery: boolean
   clearPasswordRecovery: () => void
 }
@@ -38,7 +51,7 @@ const MesaContext = createContext<MesaContextValue>({
   session: null,
   activeMesa: null,
   setActiveMesa: () => {},
-  postRoll: () => Promise.resolve(),
+  rollShared: async (opts) => rollDice(opts.pool, opts.label),
   passwordRecovery: false,
   clearPasswordRecovery: () => {},
 })
@@ -111,35 +124,33 @@ export function MesaProvider({ children }: { children: ReactNode }) {
   const iconFits = (icon?: string) =>
     Boolean(icon) && new TextEncoder().encode(icon).length <= MAX_ROLL_ICON_BYTES
 
-  const postRoll = (r: RollResult): Promise<void> => {
-    if (!supabase || !session || !activeMesa) return Promise.resolve()
-    // atenção: a query do supabase-js só executa no await/.then. Promise.resolve
-    // porque o builder do supabase-js só é "thenable" (PromiseLike), não uma
-    // Promise de verdade — sem isso o tipo de retorno não bate.
-    return Promise.resolve(
-      supabase
-        .from('messages')
-        .insert({
-          mesa_id: activeMesa.id,
-          user_id: session.user.id,
-          kind: 'roll',
-          content: r.label,
-          roll: {
-            pool: r.pool,
-            dice: r.dice,
-            successes: r.successes,
-            sixes: r.sixes,
-            ...(iconFits(r.icon) ? { icon: r.icon } : {}),
-            ...(r.mode === 'chance' ? { mode: r.mode, triggered: r.triggered } : {}),
-            ...(r.mode === 'additive'
-              ? { mode: r.mode, bonus: r.bonus, total: r.total }
-              : {}),
-          },
-        })
-        .then(({ error }) => {
-          if (error) console.error('Roll não enviado à mesa:', error.message)
-        }),
-    )
+  const localRoll = (opts: RollSharedOptions): RollResult => {
+    if (opts.mode === 'chance') return rollChanceDice(opts.pool, opts.label)
+    if (opts.mode === 'additive') return rollAdditive(opts.bonus ?? 0, opts.label)
+    return rollDice(opts.pool, opts.label)
+  }
+
+  const rollShared = async (opts: RollSharedOptions): Promise<RollResult> => {
+    if (!supabase || !session || !activeMesa) return localRoll(opts)
+    const { data, error } = await supabase.rpc('roll_dice_shared', {
+      _mesa_id: activeMesa.id,
+      _pool: opts.pool,
+      _label: opts.label,
+      _mode: opts.mode ?? 'standard',
+      _bonus: opts.bonus ?? 0,
+      _icon: iconFits(opts.icon) ? opts.icon : null,
+    })
+    if (error || !data) {
+      // Rede fora do ar ou RPC recusou (ex: não é membro da mesa) — rola
+      // localmente só pra não travar a interface, mas ESSE resultado não
+      // foi gravado em lugar nenhum (não aparece pros outros da mesa).
+      console.error(
+        'Roll não pôde ser validado no servidor, rolando localmente (não compartilhado):',
+        error?.message,
+      )
+      return localRoll(opts)
+    }
+    return { label: opts.label, at: Date.now(), ...(data as object) } as RollResult
   }
 
   return (
@@ -148,7 +159,7 @@ export function MesaProvider({ children }: { children: ReactNode }) {
         session,
         activeMesa,
         setActiveMesa,
-        postRoll,
+        rollShared,
         passwordRecovery,
         clearPasswordRecovery: () => setPasswordRecovery(false),
       }}

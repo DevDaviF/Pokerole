@@ -176,7 +176,11 @@ export function DiceRow({ r }: { r: RollResult }) {
 export default function DiceRoller({
   onRoll,
 }: {
-  onRoll?: (r: RollResult) => void
+  // Pede o roll (pool + rótulo) e recebe de volta o resultado JÁ
+  // validado — quando há mesa ativa, quem implementa isso (App.tsx →
+  // rollShared) roda o RNG no servidor, não aqui. Sem essa prop
+  // (uso standalone), rola localmente.
+  onRoll?: (opts: { pool: number; label: string }) => Promise<RollResult>
 }) {
   const [open, setOpen] = useState(false)
   const [pool, setPool] = useState(3)
@@ -184,10 +188,11 @@ export default function DiceRoller({
   const [history, setHistory] = useState<RollResult[]>([])
   const [display, setDisplay] = useState(getDiceDisplay())
 
-  const roll = () => {
-    const r = rollDice(pool, label.trim())
+  const roll = async () => {
+    const r = onRoll
+      ? await onRoll({ pool, label: label.trim() })
+      : rollDice(pool, label.trim())
     setHistory((h) => [r, ...h].slice(0, 20))
-    onRoll?.(r)
   }
 
   return (
