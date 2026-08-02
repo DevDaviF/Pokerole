@@ -107,6 +107,52 @@ function CollapsibleGroup({
   )
 }
 
+// Sanfona os painéis grandes da Mesa (Captura, Ferramentas do Mestre,
+// Passar o dia etc.) — a página tinha ficado longa demais, obrigando a
+// rolar bastante pra chegar no chat mesmo com pouca coisa acontecendo
+// naquele painel. Lembra o estado (aberto/fechado) por seção no
+// localStorage, pra não precisar fechar de novo toda vez que a página
+// recarrega.
+function CollapsibleSection({
+  id,
+  title,
+  icon,
+  defaultOpen = true,
+  children,
+}: {
+  id: string
+  title: string
+  icon: string
+  defaultOpen?: boolean
+  children: ReactNode
+}) {
+  const storageKey = `mesaSectionOpen:${id}`
+  const [open, setOpen] = useState(() => {
+    const stored = localStorage.getItem(storageKey)
+    return stored === null ? defaultOpen : stored === '1'
+  })
+  useEffect(() => {
+    localStorage.setItem(storageKey, open ? '1' : '0')
+  }, [storageKey, open])
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className={`flex w-full items-center gap-2 border border-slate-200 bg-slate-50 px-3 py-1.5 text-left text-xs font-bold text-slate-500 uppercase hover:bg-slate-100 ${
+          open ? 'rounded-t-lg' : 'rounded-lg'
+        }`}
+      >
+        <span className="text-slate-400">{open ? '▾' : '▸'}</span>
+        <span>
+          {icon} {title}
+        </span>
+      </button>
+      {open && <div className="pt-2">{children}</div>}
+    </div>
+  )
+}
+
 // Rolagem rápida pelas fichas locais, sem sair do chat da mesa
 function QuickRollCard({
   mesaTrainerId,
@@ -1623,113 +1669,148 @@ export default function MesaPage() {
             </div>
           )}
 
-          <ErrorBoundary label="Batedores">
-            <ScoutRollWidget mesaId={activeMesa.id} myTrainer={myActiveTrainer} />
-          </ErrorBoundary>
+          <CollapsibleSection id="batedores" title="Batedores" icon="🔍">
+            <ErrorBoundary label="Batedores">
+              <ScoutRollWidget mesaId={activeMesa.id} myTrainer={myActiveTrainer} />
+            </ErrorBoundary>
+          </CollapsibleSection>
 
           {myRole === 'gm' && (
-            <ErrorBoundary label="Ferramentas do Mestre">
-              <GmToolsPanel
+            <CollapsibleSection
+              id="gm-tools"
+              title="Ferramentas do Mestre"
+              icon="🎓"
+              defaultOpen={false}
+            >
+              <ErrorBoundary label="Ferramentas do Mestre">
+                <GmToolsPanel
+                  mesaId={activeMesa.id}
+                  myId={myId}
+                  members={members}
+                  usernames={usernames}
+                  gmPokemonSheets={myPokemonSheets}
+                  sharedSheets={sharedSheets}
+                  onUnshare={unshareSheet}
+                  onView={setViewing}
+                />
+              </ErrorBoundary>
+            </CollapsibleSection>
+          )}
+
+          <CollapsibleSection id="combate" title="Ordem de Combate" icon="⚔️">
+            <ErrorBoundary label="Ordem de Combate">
+              <BattleTracker
                 mesaId={activeMesa.id}
                 myId={myId}
-                members={members}
-                usernames={usernames}
-                gmPokemonSheets={myPokemonSheets}
-                sharedSheets={sharedSheets}
-                onUnshare={unshareSheet}
-                onView={setViewing}
+                myPokemonSheets={myOwnPokemonSheets}
+                myTrainer={myActiveTrainer}
+                myUsername={usernames[myId] ?? 'você'}
+                sharedNpcs={sharedNpcs}
+                isGm={myRole === 'gm'}
               />
             </ErrorBoundary>
-          )}
-
-          <ErrorBoundary label="Ordem de Combate">
-            <BattleTracker
-              mesaId={activeMesa.id}
-              myId={myId}
-              myPokemonSheets={myOwnPokemonSheets}
-              myTrainer={myActiveTrainer}
-              myUsername={usernames[myId] ?? 'você'}
-              sharedNpcs={sharedNpcs}
-              isGm={myRole === 'gm'}
-            />
-          </ErrorBoundary>
+          </CollapsibleSection>
 
           {myRole === 'gm' && (
-            <ErrorBoundary label="Interpretar NPC">
-              <NpcRollPanel mesaId={activeMesa.id} />
-            </ErrorBoundary>
+            <CollapsibleSection id="interpretar-npc" title="Interpretar NPC" icon="🎭">
+              <ErrorBoundary label="Interpretar NPC">
+                <NpcRollPanel mesaId={activeMesa.id} />
+              </ErrorBoundary>
+            </CollapsibleSection>
           )}
 
-          <ErrorBoundary label="Captura">
-            <CaptureRoll
-              mesaId={activeMesa.id}
-              myTrainer={myActiveTrainer}
-              myPokemonSheets={myOwnPokemonSheets}
-              sharedNpcs={sharedNpcs}
-              isGm={myRole === 'gm'}
-            />
-          </ErrorBoundary>
+          <CollapsibleSection id="captura" title="Captura" icon="🎯">
+            <ErrorBoundary label="Captura">
+              <CaptureRoll
+                mesaId={activeMesa.id}
+                myTrainer={myActiveTrainer}
+                myPokemonSheets={myOwnPokemonSheets}
+                sharedNpcs={sharedNpcs}
+                isGm={myRole === 'gm'}
+              />
+            </ErrorBoundary>
+          </CollapsibleSection>
 
           {/* Presentes de Pokémon/item pendentes pra mim — de qualquer
               membro da mesa, não só do Mestre (que ainda tem seu atalho em
               "Ferramentas do Mestre" → 🎁 Presentear). */}
-          <ErrorBoundary label="Passar Pokémon pra outro jogador">
-            <PlayerSheetGift
-              mesaId={activeMesa.id}
-              myId={myId}
-              myPokemonSheets={myPokemonSheets}
-              members={members}
-              usernames={usernames}
-            />
-          </ErrorBoundary>
-
-          <div className="grid gap-4 lg:grid-cols-2">
-            <ErrorBoundary label="Presentes de Pokémon">
-              <SheetTransfers
+          <CollapsibleSection
+            id="passar-pokemon"
+            title="Passar Pokémon pra outro jogador"
+            icon="🔁"
+            defaultOpen={false}
+          >
+            <ErrorBoundary label="Passar Pokémon pra outro jogador">
+              <PlayerSheetGift
                 mesaId={activeMesa.id}
                 myId={myId}
-                myActiveTrainerId={myActiveTrainer?.id}
+                myPokemonSheets={myPokemonSheets}
+                members={members}
                 usernames={usernames}
               />
             </ErrorBoundary>
-            <ErrorBoundary label="Presentes de item">
-              <ItemGifts
-                mesaId={activeMesa.id}
-                myId={myId}
+          </CollapsibleSection>
+
+          <CollapsibleSection
+            id="trocas"
+            title="Presentes e ajustes"
+            icon="🎁"
+            defaultOpen={false}
+          >
+            <div className="grid gap-4 lg:grid-cols-2">
+              <ErrorBoundary label="Presentes de Pokémon">
+                <SheetTransfers
+                  mesaId={activeMesa.id}
+                  myId={myId}
+                  myActiveTrainerId={myActiveTrainer?.id}
+                  usernames={usernames}
+                />
+              </ErrorBoundary>
+              <ErrorBoundary label="Presentes de item">
+                <ItemGifts
+                  mesaId={activeMesa.id}
+                  myId={myId}
+                  myTrainer={myActiveTrainer}
+                  usernames={usernames}
+                />
+              </ErrorBoundary>
+              <ErrorBoundary label="Ajustes de dinheiro">
+                <MoneyAdjustments
+                  mesaId={activeMesa.id}
+                  myId={myId}
+                  myTrainer={myActiveTrainer}
+                  usernames={usernames}
+                  onApplied={setNotice}
+                />
+              </ErrorBoundary>
+            </div>
+          </CollapsibleSection>
+
+          <CollapsibleSection id="passar-dia" title="Passar o dia" icon="🌙" defaultOpen={false}>
+            <ErrorBoundary label="Passar o dia">
+              <DayPassPanel
                 myTrainer={myActiveTrainer}
-                usernames={usernames}
+                myPokemonSheets={myOwnPokemonSheets}
+                isGm={myRole === 'gm'}
               />
             </ErrorBoundary>
-            <ErrorBoundary label="Ajustes de dinheiro">
-              <MoneyAdjustments
-                mesaId={activeMesa.id}
-                myId={myId}
-                myTrainer={myActiveTrainer}
-                usernames={usernames}
-                onApplied={setNotice}
+          </CollapsibleSection>
+
+          <CollapsibleSection id="pokecentro" title="Centro Pokémon" icon="🏥" defaultOpen={false}>
+            <ErrorBoundary label="Centro Pokémon">
+              <PokeCenterPanel
+                myPokemonSheets={myOwnPokemonSheets}
+                isGm={myRole === 'gm'}
               />
             </ErrorBoundary>
-          </div>
-
-          <ErrorBoundary label="Passar o dia">
-            <DayPassPanel
-              myTrainer={myActiveTrainer}
-              myPokemonSheets={myOwnPokemonSheets}
-              isGm={myRole === 'gm'}
-            />
-          </ErrorBoundary>
-
-          <ErrorBoundary label="Centro Pokémon">
-            <PokeCenterPanel
-              myPokemonSheets={myOwnPokemonSheets}
-              isGm={myRole === 'gm'}
-            />
-          </ErrorBoundary>
+          </CollapsibleSection>
 
           {myRole !== 'gm' && (
-            <ErrorBoundary label="Will Points">
-              <WillPointsPanel myTrainer={myActiveTrainer} myPokemonSheets={myOwnPokemonSheets} />
-            </ErrorBoundary>
+            <CollapsibleSection id="will-points" title="Will Points" icon="🧠" defaultOpen={false}>
+              <ErrorBoundary label="Will Points">
+                <WillPointsPanel myTrainer={myActiveTrainer} myPokemonSheets={myOwnPokemonSheets} />
+              </ErrorBoundary>
+            </CollapsibleSection>
           )}
 
           {myRole !== 'gm' && (
@@ -1951,9 +2032,11 @@ export default function MesaPage() {
             </div>
           </div>
 
-          <ErrorBoundary label="Anotações da Mesa">
-            <MesaNotes mesaId={activeMesa.id} />
-          </ErrorBoundary>
+          <CollapsibleSection id="notas" title="Anotações da Mesa" icon="📝" defaultOpen={false}>
+            <ErrorBoundary label="Anotações da Mesa">
+              <MesaNotes mesaId={activeMesa.id} />
+            </ErrorBoundary>
+          </CollapsibleSection>
         </>
       )}
 
