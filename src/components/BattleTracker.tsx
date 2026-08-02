@@ -313,7 +313,7 @@ export default function BattleTracker({
               className="rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold text-slate-500"
               title="Defesa / Defesa Especial"
             >
-              🛡️ {c.def}/{c.spDef}
+              🛡️ Def {c.def} · SpD {c.spDef}
             </span>
           )}
           {c.statusConditions.length > 0 && (
