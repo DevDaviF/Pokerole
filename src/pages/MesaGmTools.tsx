@@ -121,7 +121,7 @@ function weightedDraw(
   {
     const smallItem = small.shift();
     const largeItem = large.shift();
-
+    
     if (smallItem && largeItem)
     {
       result.push({
@@ -145,8 +145,18 @@ function weightedDraw(
 
     if (largeItem)
     {
-      if (largeItem.tier >= 1) large.push(largeItem);
-      else if (Math.abs(largeItem.tier) > EPSILON) small.push({ ...largeItem, tier: largeItem.tier });
+      if (result.length === normalizedAux.length - 1)
+      {
+        result.push({
+          prob: { pokemon: largeItem.pokemon, tier: 1 },
+          alias: largeItem.pokemon
+        })
+      }
+      else
+      {
+        if (largeItem.tier >= 1) large.push(largeItem);
+        else if (Math.abs(largeItem.tier) > EPSILON) small.push({ ...largeItem, tier: largeItem.tier });
+      }
     }
   }
 
