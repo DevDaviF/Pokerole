@@ -248,7 +248,7 @@ export default function DiceRoller({
                 {pool} {pool === 1 ? 'dado' : 'dados'}
               </span>
               <button
-                onClick={() => setPool(Math.min(20, pool + 1))}
+                onClick={() => setPool(Math.min(100, pool + 1))}
                 className="h-9 w-9 rounded-lg border border-slate-200 font-bold text-slate-600 hover:bg-slate-100"
               >
                 +
