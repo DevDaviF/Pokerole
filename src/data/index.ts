@@ -134,7 +134,7 @@ const ITEM_ICON_IDS = new Set([
   'honey', 'hp-up', 'hyper-potion', 'ice-cream', 'ice-heal', 'ice-stone',
   'inflatable-boat', 'iron', 'leaf-stone', 'lemonade', 'lum-berry',
   'luxury-ball', 'masterball', 'max-honey', 'max-potion', 'max-revive',
-  'meal-rations', 'moon-stone', 'mountain-bike', 'old-pokeball',
+  'meal-rations', 'moomoo-milk', 'moon-stone', 'mountain-bike', 'old-pokeball',
   'oran-berry', 'paralyze-heal', 'pecha-berry', 'pepper-spray-can',
   'persim-berry', 'piece-of-accessory', 'pokeball', 'pokedex',
   'pokedex-upgrade', 'pokedoll', 'pokemon-costume', 'pokemon-repel',
