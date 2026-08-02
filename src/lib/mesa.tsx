@@ -9,7 +9,7 @@ import {
 import type { Session } from '@supabase/supabase-js'
 import { supabase } from './supabase'
 import { syncDbScope } from '../db'
-import { rollAdditive, rollChanceDice, rollDice, type RollResult } from '../components/DiceRoller'
+import { rollAdditive, rollChanceDice, rollDice, rollSum, type RollResult } from '../components/DiceRoller'
 
 export interface ActiveMesa {
   id: string
@@ -25,8 +25,9 @@ interface StoredActiveMesa {
 export interface RollSharedOptions {
   pool: number
   label: string
-  mode?: 'chance' | 'additive'
+  mode?: 'chance' | 'additive' | 'sum'
   bonus?: number
+  sides?: number // para mode 'sum': faces do dado (4/6/8/10/12/20/100)
   icon?: string
 }
 
@@ -127,6 +128,7 @@ export function MesaProvider({ children }: { children: ReactNode }) {
   const localRoll = (opts: RollSharedOptions): RollResult => {
     if (opts.mode === 'chance') return rollChanceDice(opts.pool, opts.label)
     if (opts.mode === 'additive') return rollAdditive(opts.bonus ?? 0, opts.label)
+    if (opts.mode === 'sum') return rollSum(opts.pool, opts.sides ?? 6, opts.bonus ?? 0, opts.label)
     return rollDice(opts.pool, opts.label)
   }
 
@@ -138,6 +140,7 @@ export function MesaProvider({ children }: { children: ReactNode }) {
       _label: opts.label,
       _mode: opts.mode ?? 'standard',
       _bonus: opts.bonus ?? 0,
+      _sides: opts.sides ?? 6,
       _icon: iconFits(opts.icon) ? opts.icon : null,
     })
     if (error || !data) {

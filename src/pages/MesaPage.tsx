@@ -31,6 +31,11 @@ import NpcRollPanel from '../components/NpcRollPanel'
 import { useCustomItems, customItemToItem } from '../lib/customItems'
 import { friendlyError } from '../lib/errors'
 
+// Comando de dado avulso digitado direto no chat (ex: "3d6+20", "1d20",
+// "d100", "2d8-3") — fora do sistema de sucessos do Pokérole, é só a
+// soma dos dados + modificador. N (quantidade) é opcional, default 1.
+const DICE_COMMAND_RE = /^(\d{1,2})?d(\d{1,4})\s*([+-]\s*\d{1,3})?$/i
+
 // Cor determinística por usuário (hash simples do id → matiz), pra
 // identificar quem falou o quê de relance no chat.
 function colorForUser(userId: string): string {
@@ -383,10 +388,11 @@ interface Message {
     dice: number[]
     successes: number
     sixes: number
-    mode?: 'chance' | 'additive'
+    mode?: 'chance' | 'additive' | 'sum'
     triggered?: boolean
     bonus?: number
     total?: number
+    sides?: number
     icon?: string
   } | null
   created_at: string
@@ -714,7 +720,7 @@ function SheetViewer({
 // ── Página principal ───────────────────────────────────────────────
 
 export default function MesaPage() {
-  const { session, activeMesa, setActiveMesa, passwordRecovery, clearPasswordRecovery } =
+  const { session, activeMesa, setActiveMesa, rollShared, passwordRecovery, clearPasswordRecovery } =
     useMesa()
   const [mesas, setMesas] = useState<MesaRow[]>([])
   const [usernames, setUsernames] = useState<Record<string, string>>({})
@@ -1121,7 +1127,27 @@ export default function MesaPage() {
 
   const sendChat = async () => {
     if (!supabase || !activeMesa || !chatInput.trim()) return
-    const content = chatInput.trim().slice(0, 2000)
+    const raw = chatInput.trim()
+
+    // Comando de dado avulso (ex: "3d6+20") — rola em vez de mandar como
+    // texto. Detecta antes de qualquer outra coisa pra não precisar de
+    // uma barra "/roll" nem de um botão à parte.
+    const diceMatch = raw.match(DICE_COMMAND_RE)
+    if (diceMatch) {
+      const pool = diceMatch[1] ? Number(diceMatch[1]) : 1
+      const sides = Number(diceMatch[2])
+      const bonus = diceMatch[3] ? Number(diceMatch[3].replace(/\s+/g, '')) : 0
+      if (pool < 1 || pool > 100 || sides < 2 || sides > 1000) {
+        setNotice(`Dado inválido: "${raw}". Use algo como 3d6+20, 1d20 ou 1d32 (2 a 1000 faces, 1 a 100 dados).`)
+        return
+      }
+      setChatInput('')
+      const actor = myRole === 'gm' ? 'Mestre' : (myActiveTrainer?.name ?? usernames[myId] ?? 'Alguém')
+      await rollShared({ pool, label: `${actor} · ${raw}`, mode: 'sum', sides, bonus })
+      return
+    }
+
+    const content = raw.slice(0, 2000)
     setChatInput('')
     const { error } = await supabase.from('messages').insert({
       mesa_id: activeMesa.id,
@@ -1923,6 +1949,7 @@ export default function MesaPage() {
                                     triggered: m.roll.triggered,
                                     bonus: m.roll.bonus,
                                     total: m.roll.total,
+                                    sides: m.roll.sides,
                                   }}
                                 />
                               </span>
@@ -1948,7 +1975,8 @@ export default function MesaPage() {
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && sendChat()}
-                  placeholder="Mensagem para a mesa..."
+                  placeholder="Mensagem para a mesa... (ou 3d6+20, 1d20)"
+                  title='Também aceita comandos de dado avulso: "3d6+20", "1d20", "2d8-3"...'
                   className="min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-1.5 text-sm focus:border-red-400 focus:outline-none"
                 />
                 <button

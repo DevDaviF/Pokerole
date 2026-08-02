@@ -165,12 +165,18 @@ create index messages_mesa_created on public.messages (mesa_id, created_at desc)
 -- `roll` inteiramente forjado direto em `messages`, e pior: Treino,
 -- Captura e Batedores usam o `successes` do roll pra decidir
 -- recompensa de jogo de verdade (TP ganho, captura bem-sucedida etc).
+-- _sides (migration-20, faixa ampliada na migration-21): faces do dado
+-- pro modo 'sum' (dado avulso fora do sistema de sucessos, ex: "3d6+20"
+-- digitado no chat) — qualquer valor de 2 a 1000, mesmo dados que não
+-- existem fisicamente (ex: d32). Os demais modos ignoram _sides e
+-- sempre usam d6.
 create or replace function public.roll_dice_shared(
   _mesa_id uuid,
   _pool int,
   _label text default '',
   _mode text default 'standard',
   _bonus int default 0,
+  _sides int default 6,
   _icon text default null
 )
 returns jsonb
@@ -183,6 +189,7 @@ declare
   _successes int;
   _sixes int;
   _roll jsonb;
+  _faces int;
 begin
   if auth.uid() is null then
     raise exception 'Não autenticado';
@@ -193,14 +200,19 @@ begin
   if _pool is null or _pool < 1 or _pool > 100 then
     raise exception 'Pool de dados inválida (1 a 100)';
   end if;
-  if _mode not in ('standard', 'chance', 'additive') then
+  if _mode not in ('standard', 'chance', 'additive', 'sum') then
     raise exception 'Modo de rolagem inválido';
   end if;
+  if _mode = 'sum' and (_sides is null or _sides < 2 or _sides > 1000) then
+    raise exception 'Tipo de dado inválido (2 a 1000 faces)';
+  end if;
+
+  _faces := case when _mode = 'sum' then _sides else 6 end;
 
   if _mode = 'additive' then
     _dice := array[(1 + floor(random() * 6))::int];
   else
-    select array_agg((1 + floor(random() * 6))::int)
+    select array_agg((1 + floor(random() * _faces))::int)
       into _dice
       from generate_series(1, _pool);
   end if;
@@ -219,6 +231,13 @@ begin
       'successes', 0, 'sixes', _sixes,
       'mode', 'additive', 'bonus', coalesce(_bonus, 0),
       'total', _dice[1] + coalesce(_bonus, 0)
+    );
+  elsif _mode = 'sum' then
+    _roll := jsonb_build_object(
+      'pool', array_length(_dice, 1), 'dice', to_jsonb(_dice),
+      'successes', 0, 'sixes', _sixes,
+      'mode', 'sum', 'sides', _sides, 'bonus', coalesce(_bonus, 0),
+      'total', (select coalesce(sum(val), 0) from unnest(_dice) as val) + coalesce(_bonus, 0)
     );
   else
     _successes := (select count(*) from unnest(_dice) as val where val >= 4);
@@ -239,8 +258,8 @@ begin
 end;
 $$;
 
-revoke execute on function public.roll_dice_shared(uuid, int, text, text, int, text) from public;
-grant execute on function public.roll_dice_shared(uuid, int, text, text, int, text) to authenticated;
+revoke execute on function public.roll_dice_shared(uuid, int, text, text, int, int, text) from public;
+grant execute on function public.roll_dice_shared(uuid, int, text, text, int, int, text) to authenticated;
 
 -- ── Fichas compartilhadas (snapshot somente leitura p/ a mesa) ─
 create table public.shared_sheets (
