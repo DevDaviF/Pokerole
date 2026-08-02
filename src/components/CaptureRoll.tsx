@@ -14,6 +14,7 @@ import {
   parseWeightKg,
   captureBonusSuccesses,
   captureOutcome,
+  canUseBall,
   useCaptureBonusMode,
   setCaptureBonusMode,
   type CaptureOutcome,
@@ -108,6 +109,9 @@ export default function CaptureRoll({
         return Math.max(0, 9 - 2 * Math.max(0, round - 1))
       case 'dusk':
         return duskBase + (duskCave ? 4 : 0) + (duskNight ? 5 : 0)
+      case 'guaranteed':
+        // Master Ball não rola dados — captura sempre acontece (ver rollCapture)
+        return 0
       case 'manual':
       default:
         return manualPool
@@ -149,9 +153,76 @@ export default function CaptureRoll({
     await db.trainers.update(myTrainer.id, { inventory: inv })
   }
 
+  const addCapturedToTeam = async () => {
+    if (!targetKey || !myTrainer?.id) return
+    const n = sharedNpcs.find((s) => s.id === targetKey)
+    if (!n) return
+    const payload = { ...n.payload } as Partial<PokemonSheet>
+    delete payload.id
+    const teamCount = myPokemonSheets.filter(
+      (s) => s.trainerId === myTrainer.id && s.inTeam,
+    ).length
+    const joinsTeam = teamCount < 6
+    await db.pokemonSheets.add({
+      ...(payload as PokemonSheet),
+      trainerId: myTrainer.id,
+      isNpc: false,
+      npcKind: undefined,
+      inTeam: joinsTeam,
+    })
+    setAfterNote(
+      `✅ ${targetName} foi ${joinsTeam ? 'direto pro seu time' : 'adicionado a "Meus Pokémon"'}! Peça ao Mestre para remover a ficha selvagem da mesa.`,
+    )
+  }
+
+  const ballAllowed = canUseBall(ball, rank)
+
   const rollCapture = async () => {
     if (ballQty <= 0) return
     if (!targetKey && !isGm) return
+
+    // Rank sem sucessos necessários definidos no livro (acima de Ace) só
+    // pode ser capturado com Master Ball — mas o jogador ainda pode TENTAR
+    // com outra bola: ela simplesmente quebra na hora, sem rolar dados
+    // (não tem contra o que comparar sucessos), e o chat avisa o motivo.
+    if (!ballAllowed) {
+      setLastCapture(null)
+      setOutcome('critical-fail')
+      setAfterNote('')
+      const resultText = `💥 ${targetName} é Rank ${rank} — só uma Master Ball consegue capturar. A ${ball.label} foi destruída na tentativa.`
+      if (supabase && session && activeMesa) {
+        await supabase.from('messages').insert({
+          mesa_id: activeMesa.id,
+          user_id: session.user.id,
+          kind: 'chat',
+          content: resultText,
+        })
+      }
+      await consumeBall()
+      return
+    }
+
+    // Master Ball: captura garantida, sem RNG — não faz sentido "rolar" algo
+    // que sempre dá certo, e é a única forma de capturar acima de Ace (Rank
+    // sem sucessos necessários definidos no livro).
+    if (ball.kind === 'guaranteed') {
+      setLastCapture(null)
+      setOutcome('success')
+      setAfterNote('')
+      const resultText = `🎉 Captura garantida! ${targetName} foi capturado(a) com uma ${ball.label} — nenhuma rolagem necessária.`
+      if (supabase && session && activeMesa) {
+        await supabase.from('messages').insert({
+          mesa_id: activeMesa.id,
+          user_id: session.user.id,
+          kind: 'chat',
+          content: resultText,
+        })
+      }
+      await consumeBall()
+      await addCapturedToTeam()
+      return
+    }
+
     const r = await rollShared({
       pool: rollPool(),
       label: `${myTrainer?.name ?? 'Treinador'} · Captura (${ball.label}) vs ${targetName}`,
@@ -186,27 +257,7 @@ export default function CaptureRoll({
     // só sobrevive (recuperável) se o alvo escapar
     if (result === 'success' || result === 'critical-fail') await consumeBall()
 
-    if (result === 'success' && targetKey && myTrainer?.id) {
-      const n = sharedNpcs.find((s) => s.id === targetKey)
-      if (n) {
-        const payload = { ...n.payload } as Partial<PokemonSheet>
-        delete payload.id
-        const teamCount = myPokemonSheets.filter(
-          (s) => s.trainerId === myTrainer.id && s.inTeam,
-        ).length
-        const joinsTeam = teamCount < 6
-        await db.pokemonSheets.add({
-          ...(payload as PokemonSheet),
-          trainerId: myTrainer.id,
-          isNpc: false,
-          npcKind: undefined,
-          inTeam: joinsTeam,
-        })
-        setAfterNote(
-          `✅ ${targetName} foi ${joinsTeam ? 'direto pro seu time' : 'adicionado a "Meus Pokémon"'}! Peça ao Mestre para remover a ficha selvagem da mesa.`,
-        )
-      }
-    }
+    if (result === 'success') await addCapturedToTeam()
   }
 
   const totalSuccesses =
@@ -367,14 +418,23 @@ export default function CaptureRoll({
           >
             {POKEBALLS.map((b) => {
               const owned = myTrainer?.inventory?.find((e) => e.itemId === b.id)?.qty ?? 0
+              const allowed = canUseBall(b, rank)
               return (
                 <option key={b.id} value={b.id}>
-                  {b.label} ({owned})
+                  {b.label} ({owned}){isGm && !allowed ? ' — quebra contra Rank acima de Ace' : ''}
                 </option>
               )
             })}
           </select>
           <p className="mt-1 text-[11px] text-slate-400">{ball.hint}</p>
+          {/* Só pro Mestre — pro jogador, o resultado (bola quebrada, sem
+              chance de sucesso) só aparece DEPOIS de tentar, no chat. */}
+          {isGm && !ballAllowed && (
+            <p className="mt-1 rounded-lg bg-amber-50 p-2 text-xs text-amber-700">
+              ⚠️ Rank {rank} não tem sucessos necessários definidos no livro — só uma Master Ball
+              consegue capturar. Tentar com a {ball.label} vai quebrá-la, sem chance de sucesso.
+            </p>
+          )}
 
           <div className="mt-2 flex flex-wrap items-end gap-3">
             {isGm && ball.kind === 'fast' && (
@@ -440,7 +500,10 @@ export default function CaptureRoll({
                 </label>
               </>
             )}
-            {ball.kind === 'manual' && (
+            {/* Potência sem fórmula no livro — só o Mestre define, senão
+                qualquer jogador poderia digitar um valor gigante e "ganhar"
+                a captura sem rolar nada de verdade. */}
+            {isGm && ball.kind === 'manual' && (
               <label className="flex flex-col gap-0.5 text-[11px] text-slate-500">
                 Potência do selo (dados)
                 <input
@@ -452,14 +515,29 @@ export default function CaptureRoll({
               </label>
             )}
             <span
-              className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700"
+              className={`rounded-full px-2.5 py-1 text-xs font-bold ${
+                isGm && !ballAllowed
+                  ? 'bg-red-100 text-red-700'
+                  : 'bg-emerald-100 text-emerald-700'
+              }`}
               title={
-                isGm
-                  ? undefined
-                  : 'A quantidade de dados denunciaria atributos ocultos do alvo (Destreza, HP, status) — só o Mestre vê antes de rolar'
+                ball.kind === 'guaranteed'
+                  ? 'Master Ball: sempre captura, não precisa rolar'
+                  : isGm && !ballAllowed
+                    ? `Rank ${rank} não tem sucessos necessários definidos — sem dados pra rolar, a bola só quebra`
+                    : isGm
+                      ? undefined
+                      : 'A quantidade de dados denunciaria atributos ocultos do alvo (Destreza, HP, status) — só o Mestre vê antes de rolar'
               }
             >
-              Captura: {isGm ? `${rollPool()}d6` : '🔒 oculto'}
+              Captura:{' '}
+              {ball.kind === 'guaranteed'
+                ? '✨ garantida'
+                : isGm
+                  ? ballAllowed
+                    ? `${rollPool()}d6`
+                    : '💥 sempre quebra'
+                  : '🔒 oculto'}
             </span>
           </div>
         </div>
@@ -485,10 +563,20 @@ export default function CaptureRoll({
           <button
             onClick={rollCapture}
             disabled={ballQty <= 0 || (!targetKey && !isGm)}
-            title={ballQty <= 0 ? 'Você não tem essa Pokébola no inventário' : ''}
+            title={
+              ballQty <= 0
+                ? 'Você não tem essa Pokébola no inventário'
+                : isGm && !ballAllowed
+                  ? `Rank ${rank} não cai com essa bola — vai quebrar sem chance de sucesso`
+                  : ''
+            }
             className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700 disabled:opacity-40"
           >
-            Rolar Captura{isGm ? ` (${rollPool()}d6)` : ''}
+            {ball.kind === 'guaranteed'
+              ? 'Capturar (garantida)'
+              : isGm && !ballAllowed
+                ? 'Tentar (vai quebrar)'
+                : `Rolar Captura${isGm ? ` (${rollPool()}d6)` : ''}`}
           </button>
         </div>
 

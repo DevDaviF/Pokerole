@@ -73,8 +73,9 @@ export interface BallDef {
   id: string
   label: string
   hint: string
-  // 'fixed' = potência fixa; outras chaves precisam de dados extras (ver CaptureRoll)
-  kind: 'fixed' | 'fast' | 'heavy' | 'quick' | 'dusk' | 'manual'
+  // 'fixed' = potência fixa; 'guaranteed' = captura automática, sem rolar
+  // (Master Ball); outras chaves precisam de dados extras (ver CaptureRoll)
+  kind: 'fixed' | 'fast' | 'heavy' | 'quick' | 'dusk' | 'manual' | 'guaranteed'
   basePotency?: number
 }
 
@@ -86,10 +87,22 @@ export const POKEBALLS: BallDef[] = [
   { id: 'heavy-ball', label: 'Heavy Ball', hint: '+1 a cada 25kg do alvo (máx. 5)', kind: 'heavy' },
   { id: 'quick-ball', label: 'Quick Ball', hint: '9 dados na 1ª rodada, -2 por rodada seguinte', kind: 'quick' },
   { id: 'dusk-ball', label: 'Dusk Ball', hint: '+4 em caverna, +5 à noite (base manual)', kind: 'dusk' },
-  { id: 'luxury-ball', label: 'Luxury Ball', hint: 'Potência não definida no livro — defina manualmente', kind: 'manual' },
-  { id: 'masterball', label: 'Master Ball', hint: 'Potência não definida no livro — defina manualmente', kind: 'manual' },
-  { id: 'old-pokeball', label: 'Old Pokébola', hint: 'Potência não definida no livro — defina manualmente', kind: 'manual' },
+  { id: 'luxury-ball', label: 'Luxury Ball', hint: 'Potência não definida no livro — o Mestre define manualmente', kind: 'manual' },
+  {
+    id: 'masterball',
+    label: 'Master Ball',
+    hint: 'Captura garantida — sempre funciona, sem rolar dados. Única forma de capturar Pokémon acima do Rank Ace (Master/Champion).',
+    kind: 'guaranteed',
+  },
+  { id: 'old-pokeball', label: 'Old Pokébola', hint: 'Potência não definida no livro — o Mestre define manualmente', kind: 'manual' },
 ]
+
+// Rank sem valor de sucessos necessários no livro (Master/Champion, acima
+// de Ace) só pode ser capturado com a Master Ball (captura garantida) — do
+// contrário não haveria como saber quantos sucessos contam como sucesso.
+export function canUseBall(ball: BallDef, rank: Rank): boolean {
+  return ball.kind === 'guaranteed' || CAPTURE_REQUIRED_SUCCESSES[rank] !== undefined
+}
 
 export function parseWeightKg(weight: string): number {
   const m = weight.match(/[\d.]+/)
