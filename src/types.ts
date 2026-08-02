@@ -69,7 +69,8 @@ export interface Pokemon {
   legendary: boolean
   goodStarter: boolean
   evolutions: EvolutionInfo[]
-  learnset: LearnsetEntry[]
+  learnset: LearnsetEntry[],
+  habitats: string[]
 }
 
 export interface Ability {

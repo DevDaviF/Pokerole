@@ -7,10 +7,12 @@ import { POKEDEX, POKEMON_TYPES, spriteUrl, pokemonById, typeColor, ITEMS } from
 import { generateNpcSheet } from '../lib/npcGen'
 import {
   HABITATS,
-  TIER_WEIGHT,
+  POKEMON_APPEARANCES,
   suggestFromScoutRoll,
   type Habitat,
-  type RarityTier,
+  type LuckyTier,
+  type PokeTier,
+  type PokeTierBox,
 } from '../lib/habitats'
 import { useScoutRolls, resetScoutRolls } from '../lib/scoutRolls'
 import { useCustomItems, createCustomItem, deleteCustomItem, customItemToItem } from '../lib/customItems'
@@ -24,10 +26,10 @@ import type { SharedSheet } from './MesaPage'
 // só espécies "base" (sem Mega/Gmax/formas regionais) entram no sorteio
 const WILD_POOL = POKEDEX.filter((p) => !p.name.includes('('))
 
-const TIER_LABEL: Record<RarityTier, string> = {
-  common: 'Comum',
-  uncommon: 'Incomum',
-  rare: 'Raro',
+const LUCKY_TIER_LABEL: Record<LuckyTier, string> = {
+  unlucky: 'Azarado',
+  average: 'Normal',
+  lucky: 'Sortudo',
 }
 
 async function announce(mesaId: string, myId: string, text: string) {
@@ -67,44 +69,101 @@ async function publishNpc(
   return { localId, sheet }
 }
 
+function getTierWeight(pokemon: Pokemon, habitats: Habitat[], luckyTier: LuckyTier): number
+{
+  if (pokemon.legendary) return 0.005;
+
+  const commonTypes = habitats.flatMap(h => h.common)
+
+  if (pokemon.types.some(t => commonTypes.includes(t)))
+    return POKEMON_APPEARANCES[luckyTier].common
+
+  const uncommonTypes = habitats.flatMap(h => h.uncommon)
+
+  if (pokemon.types.some(t => uncommonTypes.includes(t)))
+    return POKEMON_APPEARANCES[luckyTier].uncommon
+
+  const rareTypes = habitats.flatMap(h => h.rare)
+
+  if (pokemon.types.some(t => rareTypes.includes(t)))
+    return POKEMON_APPEARANCES[luckyTier].rare;
+
+  throw new Error('Pokémon não tem tipo compatível com nenhum habitat');
+}
+
+function normalizePokeTiers(data: PokeTier[], total: number = 1): PokeTier[]
+{
+  const sum = data.reduce((a, b) => a + b.tier, 0);
+  const normalized = data.map(d => ({ ...d, tier: d.tier / sum }));
+  const onormalized = normalized.map(d => ({ ...d, tier: d.tier * total }));
+  return onormalized;
+}
+
 function weightedDraw(
   habitats: Habitat[],
-  tiers: RarityTier[],
+  luckyTier: LuckyTier,
   includeLegendary: boolean,
   quantity: number,
 ): Pokemon[] {
-  const candidates = new Map<string, { p: Pokemon; weight: number }>()
-  // com mais de um habitat selecionado, uma espécie entra pelo tier mais
-  // generoso em que aparece em QUALQUER um deles (ex: comum na floresta e
-  // rara na cidade — conta como comum, é uma zona de transição entre os
-  // dois biomas)
-  for (const tier of tiers) {
-    for (const habitat of habitats) {
-      const tierTypes = habitat[tier]
-      for (const p of WILD_POOL) {
-        if (!includeLegendary && p.legendary) continue
-        const existing = candidates.get(p.id)
-        if (existing && existing.weight >= TIER_WEIGHT[tier]) continue
-        if (p.types.some((t) => tierTypes.includes(t))) {
-          candidates.set(p.id, { p, weight: TIER_WEIGHT[tier] })
-        }
-      }
+  const eligibles: Pokemon[] = WILD_POOL.filter((p) => (habitats.some((h) => p.habitats.includes(h.id))) && (includeLegendary || !p.legendary))
+  const EPSILON = 1e-12;
+
+  const aux: PokeTier[] = eligibles.map(p => ({ pokemon: p.id, tier: getTierWeight(p, habitats, luckyTier) }));
+
+  const normalizedAux = normalizePokeTiers(aux, aux.length);
+
+  const small = normalizedAux.filter(w => w.tier < 1);
+  const large = normalizedAux.filter(w => w.tier >= 1);
+
+  const result: PokeTierBox[] = [];
+
+  while (small.length > 0 || large.length > 0)
+  {
+    const smallItem = small.shift();
+    const largeItem = large.shift();
+
+    if (smallItem && largeItem)
+    {
+      result.push({
+        prob: smallItem,
+        alias: largeItem.pokemon
+      })
+      largeItem.tier -= 1 - smallItem.tier;
+      if (Math.abs(largeItem.tier) < EPSILON) largeItem.tier = 0;
+    }
+    else if (largeItem)
+    {
+      result.push({
+        prob: { pokemon: largeItem.pokemon, tier: 1 },
+        alias: largeItem.pokemon
+      })
+      largeItem.tier -= 1;
+      if (Math.abs(largeItem.tier) < EPSILON) largeItem.tier = 0;
+    }
+    else
+      throw new Error('Small and large items cannot be null at the same time');
+
+    if (largeItem)
+    {
+      if (largeItem.tier >= 1) large.push(largeItem);
+      else if (Math.abs(largeItem.tier) > EPSILON) small.push({ ...largeItem, tier: largeItem.tier });
     }
   }
-  const remaining = [...candidates.values()]
+
   const picks: Pokemon[] = []
-  for (let i = 0; i < quantity && remaining.length > 0; i++) {
-    const total = remaining.reduce((s, c) => s + c.weight, 0)
-    let r = Math.random() * total
-    let idx = 0
-    for (; idx < remaining.length; idx++) {
-      r -= remaining[idx].weight
-      if (r <= 0) break
-    }
-    idx = Math.min(idx, remaining.length - 1)
-    picks.push(remaining[idx].p)
-    remaining.splice(idx, 1)
+
+  for (let i = 0; i < quantity; i++)
+  {
+    const choosedBoxIndex = Math.round(Math.random() * (result.length - 1))
+    const choosedBox = result[choosedBoxIndex]
+    const boxProb = Math.random();
+    const pokemonId = (choosedBox.prob.tier >= boxProb) ? choosedBox.prob.pokemon : choosedBox.alias;
+    const choosedPokemon: Pokemon | undefined = WILD_POOL.find(p => p.id === pokemonId);
+
+    if (!choosedPokemon) throw new Error(`Pokemon not found: ${choosedBox.prob.pokemon} or ${choosedBox.alias}`);
+    picks.push(choosedPokemon)
   }
+
   return picks
 }
 
@@ -128,7 +187,7 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
   const [combineMode, setCombineMode] = useState(false)
   const [includeLegendary, setIncludeLegendary] = useState(false)
   const [quantity, setQuantity] = useState(1)
-  const [tiers, setTiers] = useState<RarityTier[]>(['common'])
+  const [luckyTier, setLuckyTier] = useState<LuckyTier>('average')
   const [drawn, setDrawn] = useState<Drawn[]>([])
   const [appliedTotal, setAppliedTotal] = useState<number | null>(null)
 
@@ -148,21 +207,19 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
     )
   }
 
-  const toggleTier = (t: RarityTier) =>
-    setTiers((prev) =>
-      prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t],
-    )
+  const toggleTier = (t: LuckyTier) =>
+    setLuckyTier(t)
 
   const applyScoutSuggestion = () => {
     if (!scouts) return
     const suggestion = suggestFromScoutRoll(scouts.total)
     setQuantity(suggestion.quantity)
-    setTiers(suggestion.tiers)
+    setLuckyTier(suggestion.tier)
     setAppliedTotal(scouts.total)
   }
 
   const draw = async () => {
-    const picks = weightedDraw(selectedHabitats, tiers, includeLegendary, quantity)
+    const picks = weightedDraw(selectedHabitats, luckyTier, includeLegendary, quantity)
     // O sorteio em si fica só com o Mestre — mandar os nomes pro chat aqui
     // entregava o encontro inteiro pros jogadores antes de qualquer ficha
     // existir. O anúncio público só acontece depois, quando o Mestre gera
@@ -275,7 +332,7 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
         {appliedTotal !== null && (
           <p className="mt-1 text-xs text-slate-500">
             sugestão aplicada com {appliedTotal} sucessos: {quantity} Pokémon,
-            até {tiers.map((t) => TIER_LABEL[t]).join('/')} (ajustável abaixo)
+            até {LUCKY_TIER_LABEL[luckyTier]} (ajustável abaixo)
           </p>
         )}
       </div>
@@ -293,17 +350,17 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
           />
         </label>
         <div className="flex gap-1">
-          {(['common', 'uncommon', 'rare'] as RarityTier[]).map((t) => (
+          {(['unlucky', 'average', 'lucky'] as LuckyTier[]).map((t) => (
             <button
               key={t}
               onClick={() => toggleTier(t)}
               className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${
-                tiers.includes(t)
+                luckyTier === t
                   ? 'bg-slate-800 text-white'
                   : 'bg-slate-100 text-slate-500'
               }`}
             >
-              {TIER_LABEL[t]}
+              {LUCKY_TIER_LABEL[t]}
             </button>
           ))}
         </div>
@@ -317,7 +374,7 @@ function EncounterTab({ mesaId, myId }: { mesaId: string; myId: string }) {
         </label>
         <button
           onClick={draw}
-          disabled={tiers.length === 0}
+          disabled={luckyTier.length === 0}
           className="ml-auto rounded-lg bg-emerald-600 px-4 py-1.5 text-sm font-bold text-white shadow-sm hover:bg-emerald-700 disabled:opacity-50"
         >
           🎲 Sortear encontro
@@ -1103,7 +1160,7 @@ export default function GmToolsPanel({
 
   return (
     <div className="overflow-hidden rounded-xl border border-purple-200 bg-white shadow-sm">
-      <div className="flex items-center gap-2 bg-gradient-to-r from-purple-700 to-indigo-700 px-4 py-2.5 text-white">
+      <div className="flex items-center gap-2 bg-linear-to-r from-purple-700 to-indigo-700 px-4 py-2.5 text-white">
         <b>🎓 Ferramentas do Mestre</b>
         <div className="ml-auto flex gap-1">
           {(['encounter', 'gym', 'items'] as const).map((t) => (
