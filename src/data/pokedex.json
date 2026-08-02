@@ -167,7 +167,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -305,7 +305,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -455,7 +455,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -598,7 +598,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -721,8 +721,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -851,8 +851,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -1008,8 +1008,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -1152,8 +1152,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -1296,8 +1296,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -1424,7 +1424,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -1557,7 +1557,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -1706,7 +1706,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -1848,7 +1848,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -1911,7 +1911,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -1983,7 +1983,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -2123,7 +2123,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -2187,8 +2187,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -2261,8 +2261,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -2408,8 +2408,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -2548,8 +2548,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -2678,10 +2678,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -2816,9 +2816,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -2960,9 +2960,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -3097,9 +3097,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -3219,9 +3219,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -3342,9 +3342,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -3475,9 +3475,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -3609,9 +3609,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -3731,7 +3731,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -3867,7 +3867,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -4002,9 +4002,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -4156,9 +4156,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -4313,8 +4313,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -4453,8 +4453,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -4593,8 +4593,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -4725,9 +4725,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -4863,9 +4863,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -5008,9 +5008,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -5154,9 +5154,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -5280,8 +5280,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -5411,8 +5411,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -5552,8 +5552,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -5677,8 +5677,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -5808,8 +5808,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -5949,8 +5949,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -6111,7 +6111,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -6271,7 +6271,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -6410,9 +6410,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Ruínas/Cemitérios",
-      "Vulcões"
+      "grasslands",
+      "ruins",
+      "volcano"
     ]
   },
   {
@@ -6551,9 +6551,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Ruínas/Cemitérios",
-      "Vulcões"
+      "grasslands",
+      "ruins",
+      "volcano"
     ]
   },
   {
@@ -6704,9 +6704,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Ruínas/Cemitérios",
-      "Vulcões"
+      "grasslands",
+      "ruins",
+      "volcano"
     ]
   },
   {
@@ -6858,9 +6858,9 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos",
-      "Ruínas/Cemitérios",
-      "Vulcões"
+      "grasslands",
+      "ruins",
+      "volcano"
     ]
   },
   {
@@ -7015,8 +7015,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -7165,8 +7165,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -7290,7 +7290,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -7424,7 +7424,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -7552,9 +7552,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -7695,9 +7695,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -7833,9 +7833,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -7947,9 +7947,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -8082,9 +8082,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -8205,8 +8205,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -8350,8 +8350,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -8471,8 +8471,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -8593,8 +8593,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -8733,8 +8733,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -8875,8 +8875,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -9000,8 +9000,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -9125,8 +9125,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -9242,8 +9242,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -9387,8 +9387,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -9532,8 +9532,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -9657,8 +9657,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Lagos/Mares"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -9793,9 +9793,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Lagos/Mares",
-      "Praia"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -9934,8 +9933,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -10089,8 +10088,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -10226,9 +10225,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos",
-      "Vulcões"
+      "caves",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -10364,9 +10363,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos",
-      "Vulcões"
+      "caves",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -10506,9 +10505,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos",
-      "Vulcões"
+      "caves",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -10648,9 +10647,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos",
-      "Vulcões"
+      "caves",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -10770,9 +10769,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -10904,9 +10903,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -11034,10 +11033,10 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "caves",
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -11117,8 +11116,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Ruínas/Cemitérios"
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -11252,8 +11251,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Ruínas/Cemitérios"
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -11386,8 +11385,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Ruínas/Cemitérios"
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -11513,8 +11512,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Ruínas/Cemitérios"
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -11650,7 +11649,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -11792,7 +11791,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -11931,7 +11930,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -12051,7 +12050,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -12177,7 +12176,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -12317,7 +12316,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -12458,8 +12457,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -12603,8 +12602,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -12733,8 +12732,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -12863,8 +12862,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -12999,8 +12998,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -13135,8 +13134,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -13269,8 +13268,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -13402,8 +13401,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -13519,8 +13518,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -13636,8 +13635,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -13768,8 +13767,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -13902,8 +13901,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -14038,8 +14037,7 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -14173,8 +14171,7 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -14312,8 +14309,7 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -14450,8 +14446,7 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -14582,8 +14577,7 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -14716,7 +14710,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -14863,7 +14857,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -14985,10 +14979,10 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -15107,10 +15101,10 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -15246,8 +15240,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -15384,8 +15378,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -15517,8 +15511,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -15654,8 +15648,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -15783,7 +15777,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -15908,7 +15902,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -16035,7 +16029,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -16163,7 +16157,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -16291,8 +16285,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -16433,8 +16427,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -16553,9 +16547,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Ruínas/Cemitérios"
+      "forest",
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -16684,9 +16678,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Ruínas/Cemitérios"
+      "forest",
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -16824,9 +16818,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Ruínas/Cemitérios"
+      "forest",
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -16957,9 +16951,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Ruínas/Cemitérios"
+      "forest",
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -17103,7 +17097,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -17231,10 +17225,10 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -17370,10 +17364,10 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -17505,7 +17499,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -17644,7 +17638,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -17780,7 +17774,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -17916,7 +17910,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -18056,7 +18050,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -18196,7 +18190,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -18330,7 +18324,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -18462,8 +18456,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Praia"
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -18595,8 +18589,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Praia"
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -18730,8 +18724,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -18863,8 +18857,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -18997,8 +18991,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -19130,8 +19124,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -19263,8 +19257,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -19388,7 +19382,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -19514,8 +19508,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Vulcões"
+      "towns",
+      "volcano"
     ]
   },
   {
@@ -19651,8 +19645,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Vulcões"
+      "towns",
+      "volcano"
     ]
   },
   {
@@ -19801,8 +19795,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Vulcões"
+      "towns",
+      "volcano"
     ]
   },
   {
@@ -19922,9 +19916,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -20055,9 +20049,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -20207,9 +20201,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -20345,9 +20339,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -20483,8 +20477,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva"
+      "desert",
+      "forest"
     ]
   },
   {
@@ -20618,8 +20612,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva"
+      "desert",
+      "forest"
     ]
   },
   {
@@ -20739,7 +20733,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -20865,7 +20859,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -20981,7 +20975,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -21100,7 +21094,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -21240,7 +21234,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -21364,8 +21358,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -21525,7 +21519,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -21692,7 +21686,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -21835,9 +21829,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -21970,7 +21964,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -22103,8 +22097,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -22241,7 +22235,7 @@
       }
     ],
     "habitats": [
-      "Vulcões"
+      "volcano"
     ]
   },
   {
@@ -22373,8 +22367,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva"
+      "desert",
+      "forest"
     ]
   },
   {
@@ -22505,8 +22499,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva"
+      "desert",
+      "forest"
     ]
   },
   {
@@ -22631,8 +22625,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -22758,8 +22752,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -22885,8 +22879,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -23011,8 +23005,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -23079,8 +23073,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -23218,8 +23212,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -23350,8 +23344,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -23481,8 +23475,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -23526,8 +23520,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -23729,8 +23723,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -23849,7 +23843,7 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios"
+      "riverside"
     ]
   },
   {
@@ -23968,7 +23962,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -24091,8 +24085,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -24216,7 +24210,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -25150,8 +25144,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -26001,7 +25995,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -26126,7 +26120,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -26270,7 +26264,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -26938,8 +26932,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -27064,8 +27058,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -27208,8 +27202,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -27332,9 +27326,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos",
-      "Vulcões"
+      "caves",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -27469,9 +27463,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos",
-      "Vulcões"
+      "caves",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -27614,9 +27608,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos",
-      "Vulcões"
+      "caves",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -27760,9 +27754,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos",
-      "Vulcões"
+      "caves",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -27893,8 +27887,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake"
     ]
   },
   {
@@ -28031,8 +28025,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake"
     ]
   },
   {
@@ -28175,8 +28169,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake"
     ]
   },
   {
@@ -28300,10 +28294,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -28435,10 +28429,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -28571,9 +28565,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Regiões Árticas"
+      "arctic",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -28709,9 +28703,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Regiões Árticas"
+      "arctic",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -28836,8 +28830,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -28977,8 +28971,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -29115,8 +29109,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -29272,8 +29266,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -29413,8 +29407,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -29539,7 +29533,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -29683,7 +29677,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -29782,9 +29776,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "caves",
+      "forest",
+      "towns"
     ]
   },
   {
@@ -29883,7 +29877,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -29984,8 +29978,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -30113,7 +30107,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -30255,7 +30249,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -30380,9 +30374,9 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva",
-      "Ruínas/Cemitérios"
+      "desert",
+      "forest",
+      "ruins"
     ]
   },
   {
@@ -30514,9 +30508,9 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva",
-      "Ruínas/Cemitérios"
+      "desert",
+      "forest",
+      "ruins"
     ]
   },
   {
@@ -30639,7 +30633,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -30768,7 +30762,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -30921,7 +30915,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -31068,7 +31062,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -31203,9 +31197,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -31348,9 +31342,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -31486,9 +31480,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -31620,7 +31614,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -31743,9 +31737,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -31890,9 +31884,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -32043,9 +32037,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -32201,9 +32195,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -32319,7 +32313,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -32447,7 +32441,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -32591,7 +32585,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -32732,8 +32726,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -32857,9 +32851,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -32983,9 +32977,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -33117,9 +33111,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -33242,7 +33236,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -33365,7 +33359,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -33502,9 +33496,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -33648,8 +33642,7 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -33793,8 +33786,7 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -33916,10 +33908,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Lagos/Mares",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "lake"
     ]
   },
   {
@@ -33962,7 +33954,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -34033,8 +34025,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -34170,9 +34162,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -34295,7 +34287,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -34443,7 +34435,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -34579,7 +34571,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -34708,9 +34700,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva"
+      "caves",
+      "desert",
+      "forest"
     ]
   },
   {
@@ -34877,7 +34869,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -35036,7 +35028,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -35160,8 +35152,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -35297,8 +35289,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -35444,7 +35436,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -35584,7 +35576,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -35731,9 +35723,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -35872,9 +35864,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -36003,8 +35995,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Praia"
+      "caves",
+      "riverside"
     ]
   },
   {
@@ -36153,7 +36145,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -36300,7 +36292,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -36425,7 +36417,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -36550,7 +36542,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -36677,8 +36669,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "forest"
     ]
   },
   {
@@ -36812,8 +36804,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "forest"
     ]
   },
   {
@@ -36937,7 +36929,7 @@
       }
     ],
     "habitats": [
-      "Vulcões"
+      "volcano"
     ]
   },
   {
@@ -37070,7 +37062,7 @@
       }
     ],
     "habitats": [
-      "Vulcões"
+      "volcano"
     ]
   },
   {
@@ -37191,7 +37183,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -37326,7 +37318,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -37459,7 +37451,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -37570,7 +37562,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -37686,7 +37678,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -37822,7 +37814,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -37920,7 +37912,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -38057,7 +38049,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -38191,9 +38183,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "desert"
     ]
   },
   {
@@ -38330,10 +38322,10 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Vulcões"
+      "desert",
+      "forest",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -38484,10 +38476,10 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Vulcões"
+      "desert",
+      "forest",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -38630,10 +38622,10 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Vulcões"
+      "desert",
+      "forest",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -38774,7 +38766,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -38889,9 +38881,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -39034,9 +39026,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -39170,7 +39162,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -39318,9 +39310,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "forest"
     ]
   },
   {
@@ -39401,8 +39393,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -39490,8 +39482,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -39627,8 +39619,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -39753,7 +39745,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -39872,8 +39864,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -40000,7 +39992,7 @@
       }
     ],
     "habitats": [
-      "Vulcões"
+      "volcano"
     ]
   },
   {
@@ -40125,8 +40117,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -40277,8 +40269,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -40808,8 +40800,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -40946,8 +40938,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -41105,8 +41097,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -41257,8 +41249,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -41777,7 +41769,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -41934,7 +41926,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -42099,7 +42091,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -42254,7 +42246,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -42389,9 +42381,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos",
-      "Vulcões"
+      "caves",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -42545,9 +42537,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos",
-      "Vulcões"
+      "caves",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -42709,9 +42701,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos",
-      "Vulcões"
+      "caves",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -42866,9 +42858,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos",
-      "Vulcões"
+      "caves",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -43004,8 +42996,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Praia"
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -43160,8 +43152,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Praia"
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -43324,8 +43316,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Praia"
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -43480,8 +43472,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Praia"
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -43613,10 +43605,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -43768,10 +43760,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -43899,10 +43891,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -44031,10 +44023,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -44177,10 +44169,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -44326,10 +44318,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -44406,7 +44398,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -44470,7 +44462,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -44598,7 +44590,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -44662,7 +44654,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -44790,7 +44782,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -44911,8 +44903,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake"
     ]
   },
   {
@@ -45047,8 +45039,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake"
     ]
   },
   {
@@ -45181,8 +45173,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake"
     ]
   },
   {
@@ -45294,8 +45286,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -45446,8 +45438,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -45604,8 +45596,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -45717,8 +45709,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -45842,8 +45834,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -45959,9 +45951,9 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia",
-      "Regiões Árticas"
+      "arctic",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -46114,9 +46106,9 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia",
-      "Regiões Árticas"
+      "arctic",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -46253,8 +46245,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -46403,8 +46395,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -46563,8 +46555,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -46715,8 +46707,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -46828,8 +46820,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake"
     ]
   },
   {
@@ -46974,8 +46966,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake"
     ]
   },
   {
@@ -47087,7 +47079,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -47231,7 +47223,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -47341,8 +47333,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -47458,8 +47450,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -47581,8 +47573,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -47696,8 +47688,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -47833,8 +47825,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -47977,8 +47969,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -48089,7 +48081,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -48210,7 +48202,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -48349,7 +48341,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -48489,7 +48481,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -48632,7 +48624,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -48741,9 +48733,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -48867,7 +48859,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -49015,8 +49007,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -49163,8 +49155,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -49304,7 +49296,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -49443,7 +49435,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -49580,7 +49572,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -49715,7 +49707,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -49848,7 +49840,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -49987,7 +49979,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -50126,7 +50118,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -50256,7 +50248,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -50396,8 +50388,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -50559,8 +50551,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -50715,8 +50707,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -50832,8 +50824,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -50963,8 +50955,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -51086,8 +51078,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -51227,9 +51219,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -51369,9 +51361,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -51496,9 +51488,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "lake"
     ]
   },
   {
@@ -51623,9 +51615,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "lake"
     ]
   },
   {
@@ -51760,7 +51752,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -51888,10 +51880,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -52027,10 +52019,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -52150,7 +52142,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -52292,7 +52284,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -52427,7 +52419,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -52555,8 +52547,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -52691,7 +52683,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -52820,7 +52812,7 @@
       }
     ],
     "habitats": [
-      "Vulcões"
+      "volcano"
     ]
   },
   {
@@ -52967,7 +52959,7 @@
       }
     ],
     "habitats": [
-      "Vulcões"
+      "volcano"
     ]
   },
   {
@@ -53106,7 +53098,7 @@
       }
     ],
     "habitats": [
-      "Vulcões"
+      "volcano"
     ]
   },
   {
@@ -53239,7 +53231,7 @@
       }
     ],
     "habitats": [
-      "Vulcões"
+      "volcano"
     ]
   },
   {
@@ -53366,8 +53358,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -53519,8 +53511,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -53644,8 +53636,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -53781,7 +53773,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -53934,7 +53926,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -54093,7 +54085,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -54232,7 +54224,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -54376,7 +54368,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -54508,10 +54500,10 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Vulcões"
+      "forest",
+      "grasslands",
+      "towns",
+      "volcano"
     ]
   },
   {
@@ -54665,9 +54657,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Vulcões"
+      "forest",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -54814,9 +54806,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Vulcões"
+      "forest",
+      "grasslands",
+      "volcano"
     ]
   },
   {
@@ -54948,9 +54940,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -55094,9 +55086,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -55228,8 +55220,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Ruínas/Cemitérios"
+      "caves",
+      "ruins"
     ]
   },
   {
@@ -55361,8 +55353,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Ruínas/Cemitérios"
+      "caves",
+      "ruins"
     ]
   },
   {
@@ -55483,9 +55475,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "caves",
+      "forest",
+      "lake"
     ]
   },
   {
@@ -55621,9 +55613,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "caves",
+      "forest",
+      "lake"
     ]
   },
   {
@@ -55747,7 +55739,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -55883,7 +55875,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -56010,7 +56002,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -56149,7 +56141,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -56725,7 +56717,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -56861,7 +56853,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -56972,7 +56964,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -57112,8 +57104,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -57241,7 +57233,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -57382,7 +57374,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -57516,7 +57508,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -57635,10 +57627,10 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Ruínas/Cemitérios"
+      "desert",
+      "forest",
+      "grasslands",
+      "ruins"
     ]
   },
   {
@@ -57791,10 +57783,10 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Ruínas/Cemitérios"
+      "desert",
+      "forest",
+      "grasslands",
+      "ruins"
     ]
   },
   {
@@ -57924,7 +57916,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -58054,10 +58046,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Ruínas/Cemitérios"
+      "caves",
+      "forest",
+      "grasslands",
+      "ruins"
     ]
   },
   {
@@ -58201,8 +58193,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Ruínas/Cemitérios"
+      "caves",
+      "ruins"
     ]
   },
   {
@@ -58344,8 +58336,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Ruínas/Cemitérios"
+      "caves",
+      "ruins"
     ]
   },
   {
@@ -58424,8 +58416,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -58547,7 +58539,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -58680,7 +58672,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -58806,7 +58798,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -58931,8 +58923,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -59067,8 +59059,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -59205,8 +59197,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -59291,7 +59283,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -59418,7 +59410,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -59545,7 +59537,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -59659,7 +59651,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -59791,7 +59783,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -59906,8 +59898,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -60032,8 +60024,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -60175,8 +60167,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -60311,8 +60303,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -60376,8 +60368,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -60507,8 +60499,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -60654,8 +60646,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -60794,8 +60786,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -63249,7 +63241,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -63386,7 +63378,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -63534,7 +63526,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -63657,8 +63649,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -63804,8 +63796,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -63961,8 +63953,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -64101,8 +64093,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -64247,8 +64239,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -64404,8 +64396,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -64521,10 +64513,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -64646,9 +64638,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -64776,9 +64768,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -64910,7 +64902,7 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios"
+      "riverside"
     ]
   },
   {
@@ -65062,7 +65054,7 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios"
+      "riverside"
     ]
   },
   {
@@ -65149,7 +65141,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -65276,7 +65268,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -65400,8 +65392,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -65531,8 +65523,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -65659,8 +65651,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -65749,8 +65741,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Planíces/Campos"
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -65894,7 +65886,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -66473,9 +66465,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "riverside",
+      "towns"
     ]
   },
   {
@@ -66611,9 +66603,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "riverside",
+      "towns"
     ]
   },
   {
@@ -66749,9 +66741,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "riverside",
+      "towns"
     ]
   },
   {
@@ -66887,9 +66879,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "riverside",
+      "towns"
     ]
   },
   {
@@ -67021,7 +67013,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -67105,8 +67097,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -67254,8 +67246,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -67383,10 +67375,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -67517,9 +67509,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Lagos/Mares",
-      "Praia"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -67654,9 +67645,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Lagos/Mares",
-      "Praia"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -67782,7 +67772,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -67912,7 +67902,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -68032,8 +68022,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -68157,8 +68147,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -68285,7 +68275,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -68430,8 +68420,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -68579,8 +68569,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -68724,10 +68714,10 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -68884,10 +68874,10 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -69038,10 +69028,10 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -69179,10 +69169,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Lagos/Mares",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "lake"
     ]
   },
   {
@@ -69334,9 +69324,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -69468,8 +69458,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -69608,8 +69598,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -69707,10 +69697,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Ruínas/Cemitérios"
+      "caves",
+      "forest",
+      "grasslands",
+      "ruins"
     ]
   },
   {
@@ -69847,8 +69837,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -69989,8 +69979,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -70123,8 +70113,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Ruínas/Cemitérios"
+      "caves",
+      "ruins"
     ]
   },
   {
@@ -70273,8 +70263,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Ruínas/Cemitérios"
+      "caves",
+      "ruins"
     ]
   },
   {
@@ -70393,8 +70383,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -70545,7 +70535,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -70645,8 +70635,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -70788,8 +70778,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Praia"
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -70926,7 +70916,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -71046,9 +71036,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Vulcões"
+      "caves",
+      "desert",
+      "volcano"
     ]
   },
   {
@@ -71182,9 +71172,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Vulcões"
+      "caves",
+      "desert",
+      "volcano"
     ]
   },
   {
@@ -71334,9 +71324,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Vulcões"
+      "caves",
+      "desert",
+      "volcano"
     ]
   },
   {
@@ -71479,9 +71469,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Vulcões"
+      "caves",
+      "desert",
+      "volcano"
     ]
   },
   {
@@ -71629,9 +71619,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "caves",
+      "forest",
+      "towns"
     ]
   },
   {
@@ -71774,7 +71764,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -71940,7 +71930,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -72099,7 +72089,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -72222,7 +72212,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -72357,7 +72347,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -72498,8 +72488,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva"
+      "desert",
+      "forest"
     ]
   },
   {
@@ -72652,8 +72642,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva"
+      "desert",
+      "forest"
     ]
   },
   {
@@ -72790,7 +72780,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -72926,7 +72916,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -73065,7 +73055,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -73193,7 +73183,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -73337,7 +73327,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -73458,7 +73448,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -73578,7 +73568,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -73720,7 +73710,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -73855,7 +73845,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -74015,7 +74005,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -74164,7 +74154,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -74307,7 +74297,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -74456,9 +74446,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -74613,9 +74603,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -74754,8 +74744,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -74890,7 +74880,7 @@
       }
     ],
     "habitats": [
-      "Vulcões"
+      "volcano"
     ]
   },
   {
@@ -75046,7 +75036,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -75203,8 +75193,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -75327,8 +75317,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -75451,7 +75441,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -75599,9 +75589,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva"
+      "caves",
+      "desert",
+      "forest"
     ]
   },
   {
@@ -75745,7 +75735,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -75885,7 +75875,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -76051,7 +76041,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -76210,7 +76200,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -76367,7 +76357,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -76518,10 +76508,10 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Ruínas/Cemitérios"
+      "desert",
+      "forest",
+      "grasslands",
+      "ruins"
     ]
   },
   {
@@ -76669,7 +76659,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -76830,8 +76820,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -76966,8 +76956,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -77102,8 +77092,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -77238,8 +77228,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -77374,8 +77364,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -77510,8 +77500,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -77645,8 +77635,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -79508,7 +79498,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -80405,9 +80395,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -80532,9 +80522,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -80677,9 +80667,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -80798,8 +80788,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -80929,8 +80919,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -81070,8 +81060,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -81190,7 +81180,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -81333,7 +81323,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -81476,7 +81466,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -81620,7 +81610,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -81756,8 +81746,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -81908,8 +81898,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -82029,8 +82019,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -82156,8 +82146,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -82293,8 +82283,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -82421,10 +82411,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -82559,9 +82549,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -82688,8 +82678,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -82832,8 +82822,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -82960,8 +82950,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Vulcões"
+      "forest",
+      "volcano"
     ]
   },
   {
@@ -83104,8 +83094,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Vulcões"
+      "forest",
+      "volcano"
     ]
   },
   {
@@ -83232,8 +83222,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva"
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -83376,8 +83366,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva"
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -83517,8 +83507,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Ruínas/Cemitérios"
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -83665,8 +83655,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Ruínas/Cemitérios"
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -83787,10 +83777,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -83917,10 +83907,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -84060,9 +84050,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -84182,8 +84172,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -84319,8 +84309,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -84432,8 +84422,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -84563,8 +84553,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -84696,8 +84686,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -84814,8 +84804,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -84951,8 +84941,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -85076,7 +85066,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -85209,7 +85199,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -85353,8 +85343,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -85497,8 +85487,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -85630,10 +85620,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "forest",
+      "towns"
     ]
   },
   {
@@ -85770,10 +85760,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "forest",
+      "towns"
     ]
   },
   {
@@ -85921,10 +85911,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "forest",
+      "towns"
     ]
   },
   {
@@ -86044,8 +86034,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake"
     ]
   },
   {
@@ -86171,9 +86161,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -86318,9 +86308,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -86445,8 +86435,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -86571,8 +86561,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -86669,7 +86659,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -86771,7 +86761,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -86904,7 +86894,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -87029,8 +87019,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -87165,8 +87155,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -87314,8 +87304,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -87444,8 +87434,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -87590,8 +87580,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -87721,8 +87711,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -87861,8 +87851,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -88002,8 +87992,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -88128,7 +88118,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -88266,7 +88256,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -88403,7 +88393,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -88546,7 +88536,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -88695,7 +88685,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -88826,8 +88816,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Ruínas/Cemitérios"
+      "desert",
+      "ruins"
     ]
   },
   {
@@ -88958,8 +88948,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Ruínas/Cemitérios"
+      "desert",
+      "ruins"
     ]
   },
   {
@@ -89104,8 +89094,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Ruínas/Cemitérios"
+      "desert",
+      "ruins"
     ]
   },
   {
@@ -89256,8 +89246,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Ruínas/Cemitérios"
+      "desert",
+      "ruins"
     ]
   },
   {
@@ -89402,8 +89392,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Ruínas/Cemitérios"
+      "desert",
+      "ruins"
     ]
   },
   {
@@ -89554,8 +89544,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Ruínas/Cemitérios"
+      "desert",
+      "ruins"
     ]
   },
   {
@@ -89688,7 +89678,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -89809,8 +89799,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -89947,8 +89937,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -90081,7 +90071,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -90221,7 +90211,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -90347,7 +90337,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -90473,7 +90463,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -90600,7 +90590,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -90742,7 +90732,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -91422,7 +91412,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -91561,7 +91551,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -91691,9 +91681,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -91824,9 +91814,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -91972,9 +91962,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -92121,9 +92111,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -92251,11 +92241,11 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "forest",
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -92390,11 +92380,11 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "forest",
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -92530,7 +92520,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -92672,7 +92662,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -92823,7 +92813,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -92963,7 +92953,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -93109,7 +93099,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -93260,7 +93250,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -93381,7 +93371,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -93525,7 +93515,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -93645,7 +93635,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -93771,7 +93761,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -93910,7 +93900,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -94031,9 +94021,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -94174,9 +94164,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -94301,7 +94291,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -94425,8 +94415,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -94574,8 +94564,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -94699,8 +94689,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -94836,8 +94826,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -94973,8 +94963,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -95119,8 +95109,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -95252,7 +95242,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -95377,9 +95367,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "caves",
+      "forest",
+      "towns"
     ]
   },
   {
@@ -95527,8 +95517,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -95648,7 +95638,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -95792,7 +95782,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -95912,8 +95902,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -96039,8 +96029,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -96179,8 +96169,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -96246,10 +96236,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Lagos/Mares",
-      "Praia"
+      "caves",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -96373,10 +96362,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Lagos/Mares",
-      "Praia"
+      "caves",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -96514,10 +96502,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Lagos/Mares",
-      "Praia"
+      "caves",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -96653,7 +96640,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -96792,7 +96779,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -96921,10 +96908,10 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Ruínas/Cemitérios"
+      "forest",
+      "grasslands",
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -97059,10 +97046,10 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Ruínas/Cemitérios"
+      "forest",
+      "grasslands",
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -97206,10 +97193,10 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Ruínas/Cemitérios"
+      "forest",
+      "grasslands",
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -97344,8 +97331,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas"
+      "caves",
+      "riverside"
     ]
   },
   {
@@ -97486,8 +97473,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas"
+      "caves",
+      "riverside"
     ]
   },
   {
@@ -97635,8 +97622,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas"
+      "caves",
+      "riverside"
     ]
   },
   {
@@ -97763,7 +97750,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -97911,8 +97898,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -98047,7 +98034,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -98170,7 +98157,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -98301,7 +98288,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -98435,8 +98422,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Praia"
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -98569,8 +98556,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Praia"
+      "forest",
+      "riverside"
     ]
   },
   {
@@ -98697,7 +98684,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -98841,7 +98828,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -98974,7 +98961,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -99111,7 +99098,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -99259,7 +99246,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -99388,9 +99375,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert",
+      "riverside"
     ]
   },
   {
@@ -99536,9 +99523,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert",
+      "riverside"
     ]
   },
   {
@@ -99667,8 +99654,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -99798,9 +99785,9 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "desert",
+      "forest"
     ]
   },
   {
@@ -99940,9 +99927,9 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "desert",
+      "forest"
     ]
   },
   {
@@ -100083,9 +100070,9 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "desert",
+      "forest"
     ]
   },
   {
@@ -100221,9 +100208,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -100372,9 +100359,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -100514,8 +100501,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -100657,8 +100644,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -100789,7 +100776,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -100934,7 +100921,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -101085,8 +101072,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -101206,7 +101193,7 @@
       }
     ],
     "habitats": [
-      "Vulcões"
+      "volcano"
     ]
   },
   {
@@ -101366,8 +101353,8 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios",
-      "Vulcões"
+      "ruins",
+      "volcano"
     ]
   },
   {
@@ -104040,9 +104027,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -104167,9 +104154,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -104321,9 +104308,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -104446,10 +104433,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -104578,10 +104565,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -104729,10 +104716,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -104855,8 +104842,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake"
     ]
   },
   {
@@ -104985,8 +104972,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake"
     ]
   },
   {
@@ -105140,8 +105127,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake"
     ]
   },
   {
@@ -105288,8 +105275,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake"
     ]
   },
   {
@@ -105421,9 +105408,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -105567,9 +105554,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -105697,9 +105684,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -105833,8 +105820,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -105978,8 +105965,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -106046,8 +106033,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "forest"
     ]
   },
   {
@@ -106116,8 +106103,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "forest"
     ]
   },
   {
@@ -106250,8 +106237,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "forest"
     ]
   },
   {
@@ -106372,8 +106359,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -106513,8 +106500,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -106629,7 +106616,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -106750,8 +106737,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -106890,7 +106877,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -107013,8 +107000,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -107153,8 +107140,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -107277,8 +107264,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -107419,8 +107406,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -107551,7 +107538,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -107666,8 +107653,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -107827,8 +107814,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -107947,7 +107934,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -108072,7 +108059,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -108225,7 +108212,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -108372,7 +108359,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -108491,8 +108478,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -108635,8 +108622,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -108763,9 +108750,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -108904,9 +108891,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -109039,7 +109026,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -109179,7 +109166,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -109303,7 +109290,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -109444,7 +109431,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -109569,7 +109556,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -109713,7 +109700,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -109835,7 +109822,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -109973,7 +109960,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -110090,7 +110077,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -110230,7 +110217,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -110897,9 +110884,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -111028,8 +111015,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -111154,9 +111141,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -111289,7 +111276,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -111411,7 +111398,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -111540,7 +111527,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -111670,7 +111657,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -111809,7 +111796,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -111949,7 +111936,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -112082,7 +112069,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -112207,8 +112194,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -112348,8 +112335,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -112474,8 +112461,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -112615,8 +112602,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -112750,8 +112737,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -112898,8 +112885,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -113047,8 +113034,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -113173,8 +113160,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -113322,8 +113309,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -114854,8 +114841,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -114991,8 +114978,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -115136,8 +115123,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -115281,8 +115268,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -115405,9 +115392,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -115536,9 +115523,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -115682,9 +115669,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -115807,7 +115794,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -115936,7 +115923,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -116080,7 +116067,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -116204,7 +116191,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -116339,7 +116326,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -116475,7 +116462,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -116599,9 +116586,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -116741,9 +116728,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -116845,9 +116832,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -116968,9 +116955,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -117113,9 +117100,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -117239,7 +117226,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -117379,7 +117366,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -117518,7 +117505,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -117657,7 +117644,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -117796,7 +117783,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -117935,7 +117922,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -118056,8 +118043,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -118201,7 +118188,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -118345,9 +118332,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva"
+      "caves",
+      "desert",
+      "forest"
     ]
   },
   {
@@ -118502,9 +118489,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva"
+      "caves",
+      "desert",
+      "forest"
     ]
   },
   {
@@ -118659,9 +118646,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva"
+      "caves",
+      "desert",
+      "forest"
     ]
   },
   {
@@ -118815,9 +118802,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva"
+      "caves",
+      "desert",
+      "forest"
     ]
   },
   {
@@ -118947,8 +118934,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -119090,8 +119077,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -119204,8 +119191,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -119341,8 +119328,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -119470,9 +119457,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -119611,9 +119598,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -119745,8 +119732,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Lagos/Mares"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -119890,8 +119877,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Lagos/Mares"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -120014,7 +120001,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -120157,7 +120144,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -120282,8 +120269,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -120423,8 +120410,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -120552,8 +120539,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Vulcões"
+      "desert",
+      "volcano"
     ]
   },
   {
@@ -120709,8 +120696,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Vulcões"
+      "desert",
+      "volcano"
     ]
   },
   {
@@ -120830,8 +120817,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -120972,7 +120959,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -121076,7 +121063,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -121198,7 +121185,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -121338,7 +121325,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -121475,8 +121462,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -121614,8 +121601,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -121755,7 +121742,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -121826,8 +121813,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -121970,8 +121957,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -122095,7 +122082,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -122235,7 +122222,7 @@
       }
     ],
     "habitats": [
-      "Praia"
+      "riverside"
     ]
   },
   {
@@ -122375,8 +122362,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -122788,10 +122775,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -122926,10 +122913,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos",
-      "Regiões Árticas"
+      "arctic",
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -123056,8 +123043,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -123185,8 +123172,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -123320,9 +123307,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -123458,7 +123445,7 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas"
+      "towns"
     ]
   },
   {
@@ -123592,7 +123579,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -123722,7 +123709,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -123862,7 +123849,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -123977,8 +123964,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -124116,8 +124103,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -124266,8 +124253,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -127990,7 +127977,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -128123,7 +128110,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -128266,7 +128253,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -128389,8 +128376,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -128523,8 +128510,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -128667,8 +128654,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -128791,7 +128778,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -128924,7 +128911,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -129067,7 +129054,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -129194,9 +129181,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Regiões Árticas"
+      "arctic",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -129339,9 +129326,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos",
-      "Regiões Árticas"
+      "arctic",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -129469,9 +129456,9 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "desert",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -129604,9 +129591,9 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "desert",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -129746,10 +129733,10 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "desert",
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -129817,8 +129804,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -129905,8 +129892,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -130047,8 +130034,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -130175,8 +130162,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -130328,8 +130315,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -130456,7 +130443,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -130596,7 +130583,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -130720,8 +130707,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -130860,8 +130847,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -130973,9 +130960,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -131111,11 +131098,11 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Lagos/Mares",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -131246,8 +131233,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -131398,7 +131385,7 @@
       }
     ],
     "habitats": [
-      "Planíces/Campos"
+      "grasslands"
     ]
   },
   {
@@ -131514,8 +131501,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -131649,8 +131636,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -131787,8 +131774,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -131873,7 +131860,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -132009,7 +131996,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -132145,7 +132132,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -132269,7 +132256,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -132412,7 +132399,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -132532,9 +132519,9 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia",
-      "Regiões Árticas"
+      "arctic",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -132658,9 +132645,9 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia",
-      "Regiões Árticas"
+      "arctic",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -132784,9 +132771,9 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia",
-      "Regiões Árticas"
+      "arctic",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -132913,7 +132900,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -133048,7 +133035,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -133139,10 +133126,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -133303,10 +133290,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -133467,10 +133454,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -133599,8 +133586,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -133741,8 +133728,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Vulcões"
+      "caves",
+      "volcano"
     ]
   },
   {
@@ -133861,9 +133848,9 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia",
-      "Regiões Árticas"
+      "arctic",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -133998,9 +133985,9 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia",
-      "Regiões Árticas"
+      "arctic",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -134123,8 +134110,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Ruínas/Cemitérios"
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -134267,8 +134254,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Ruínas/Cemitérios"
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -134388,9 +134375,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "lake"
     ]
   },
   {
@@ -134528,9 +134515,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "lake"
     ]
   },
   {
@@ -134679,9 +134666,9 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Lagos/Mares",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "lake"
     ]
   },
   {
@@ -134802,9 +134789,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -134943,9 +134930,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -135093,9 +135080,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -135244,8 +135231,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -135380,9 +135367,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Praia",
-      "Regiões Árticas"
+      "arctic",
+      "riverside"
     ]
   },
   {
@@ -135517,9 +135503,9 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "desert",
+      "lake"
     ]
   },
   {
@@ -135650,10 +135636,10 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -135814,8 +135800,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Regiões Árticas"
+      "arctic",
+      "towns"
     ]
   },
   {
@@ -135958,7 +135944,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -136077,8 +136063,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -136221,8 +136207,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -136354,9 +136340,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Ruínas/Cemitérios"
+      "caves",
+      "desert",
+      "ruins"
     ]
   },
   {
@@ -136488,9 +136474,9 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia",
-      "Regiões Árticas"
+      "arctic",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -136562,7 +136548,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -136710,7 +136696,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -136837,9 +136823,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos",
-      "Ruínas/Cemitérios"
+      "caves",
+      "grasslands",
+      "ruins"
     ]
   },
   {
@@ -136985,8 +136971,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -137132,8 +137118,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -137267,8 +137253,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -137402,8 +137388,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -137543,9 +137529,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -137672,11 +137658,11 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "forest",
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -137815,11 +137801,11 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "forest",
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -138427,7 +138413,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -138512,10 +138498,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Desertos",
-      "Lagos/Mares",
-      "Praia"
+      "desert",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -138650,10 +138635,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Desertos",
-      "Lagos/Mares",
-      "Praia"
+      "desert",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -138805,10 +138789,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Desertos",
-      "Lagos/Mares",
-      "Praia"
+      "desert",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -141064,8 +141047,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Regiões Árticas"
+      "arctic",
+      "caves"
     ]
   },
   {
@@ -141202,10 +141185,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -141358,8 +141341,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "forest"
     ]
   },
   {
@@ -141511,8 +141494,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Regiões Árticas"
+      "arctic",
+      "forest"
     ]
   },
   {
@@ -141660,7 +141643,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -141808,7 +141791,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -141944,8 +141927,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Regiões Árticas"
+      "arctic",
+      "caves"
     ]
   },
   {
@@ -142097,8 +142080,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -142473,8 +142456,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -142607,8 +142590,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -142760,8 +142743,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -142884,8 +142867,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Vulcões"
+      "desert",
+      "volcano"
     ]
   },
   {
@@ -143022,8 +143005,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Vulcões"
+      "desert",
+      "volcano"
     ]
   },
   {
@@ -143171,8 +143154,8 @@
       }
     ],
     "habitats": [
-      "Desertos",
-      "Vulcões"
+      "desert",
+      "volcano"
     ]
   },
   {
@@ -143295,8 +143278,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Lagos/Mares"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -143437,8 +143420,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Lagos/Mares"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -143590,8 +143573,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Lagos/Mares"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -143709,8 +143692,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -143850,8 +143833,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -143991,8 +143974,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -144107,8 +144090,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -144239,8 +144222,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -144351,9 +144334,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -144489,9 +144472,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -144611,9 +144594,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -144748,9 +144731,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -144894,9 +144877,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "caves",
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -145012,9 +144995,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -145145,9 +145128,9 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -145266,8 +145249,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -145410,8 +145393,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -145523,8 +145506,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -145654,8 +145637,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -145803,8 +145786,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands"
     ]
   },
   {
@@ -145938,8 +145921,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -146054,9 +146037,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Praia"
+      "caves",
+      "desert",
+      "riverside"
     ]
   },
   {
@@ -146185,9 +146168,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Praia"
+      "caves",
+      "desert",
+      "riverside"
     ]
   },
   {
@@ -146338,9 +146321,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Praia"
+      "caves",
+      "desert",
+      "riverside"
     ]
   },
   {
@@ -146465,8 +146448,8 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios",
-      "Vulcões"
+      "ruins",
+      "volcano"
     ]
   },
   {
@@ -146606,8 +146589,8 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios",
-      "Vulcões"
+      "ruins",
+      "volcano"
     ]
   },
   {
@@ -146747,8 +146730,8 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios",
-      "Vulcões"
+      "ruins",
+      "volcano"
     ]
   },
   {
@@ -146859,10 +146842,10 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "caves",
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -146997,10 +146980,10 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "caves",
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -147116,9 +147099,9 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia",
-      "Regiões Árticas"
+      "arctic",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -147254,9 +147237,9 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia",
-      "Regiões Árticas"
+      "arctic",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -147375,8 +147358,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -147511,8 +147494,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -147632,8 +147615,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -147773,8 +147756,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -147898,7 +147881,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -148038,7 +148021,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -148165,8 +148148,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -148309,8 +148292,8 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva",
-      "Planíces/Campos"
+      "forest",
+      "grasslands"
     ]
   },
   {
@@ -148438,7 +148421,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -148553,7 +148536,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -148689,7 +148672,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -148796,7 +148779,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -148936,7 +148919,7 @@
       }
     ],
     "habitats": [
-      "Desertos"
+      "desert"
     ]
   },
   {
@@ -149047,9 +149030,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -149188,9 +149171,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos",
-      "Planíces/Campos"
+      "caves",
+      "desert",
+      "grasslands"
     ]
   },
   {
@@ -149314,8 +149297,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Ruínas/Cemitérios"
+      "caves",
+      "ruins"
     ]
   },
   {
@@ -149449,8 +149432,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Ruínas/Cemitérios"
+      "caves",
+      "ruins"
     ]
   },
   {
@@ -149590,8 +149573,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Ruínas/Cemitérios"
+      "caves",
+      "ruins"
     ]
   },
   {
@@ -149706,8 +149689,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -149834,8 +149817,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Praia"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -149968,10 +149951,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Lagos/Mares",
-      "Praia"
+      "caves",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -150089,7 +150071,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -150237,7 +150219,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -150379,7 +150361,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -150499,8 +150481,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -150644,8 +150626,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas"
+      "caves",
+      "towns"
     ]
   },
   {
@@ -150762,9 +150744,9 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Cidades/Vilas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands",
+      "towns"
     ]
   },
   {
@@ -150884,8 +150866,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert"
     ]
   },
   {
@@ -151005,7 +150987,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -151141,7 +151123,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -151260,10 +151242,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Regiões Árticas",
-      "Ruínas/Cemitérios"
+      "arctic",
+      "caves",
+      "forest",
+      "ruins"
     ]
   },
   {
@@ -151402,10 +151384,10 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva",
-      "Regiões Árticas",
-      "Ruínas/Cemitérios"
+      "arctic",
+      "caves",
+      "forest",
+      "ruins"
     ]
   },
   {
@@ -151534,7 +151516,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
@@ -151653,7 +151635,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -151792,7 +151774,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -151917,8 +151899,8 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares",
-      "Regiões Árticas"
+      "arctic",
+      "lake"
     ]
   },
   {
@@ -152046,7 +152028,7 @@
       }
     ],
     "habitats": [
-      "Lagos/Mares"
+      "lake"
     ]
   },
   {
@@ -152155,8 +152137,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Lagos/Mares"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -152265,8 +152247,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Lagos/Mares"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -152375,8 +152357,8 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Lagos/Mares"
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -152524,8 +152506,8 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas",
-      "Florestas/Selva"
+      "caves",
+      "forest"
     ]
   },
   {
@@ -152657,9 +152639,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Florestas/Selva",
-      "Lagos/Mares"
+      "forest",
+      "lake",
+      "riverside"
     ]
   },
   {
@@ -152803,9 +152785,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Planíces/Campos"
+      "caves",
+      "grasslands",
+      "riverside"
     ]
   },
   {
@@ -152948,7 +152930,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -153100,9 +153082,9 @@
       }
     ],
     "habitats": [
-      "Beira de Lagos/Rios",
-      "Cavernas/Montanhas",
-      "Desertos"
+      "caves",
+      "desert",
+      "riverside"
     ]
   },
   {
@@ -154750,7 +154732,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -154880,7 +154862,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -155024,7 +155006,7 @@
       }
     ],
     "habitats": [
-      "Regiões Árticas"
+      "arctic"
     ]
   },
   {
@@ -155114,7 +155096,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -155197,7 +155179,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -155328,7 +155310,7 @@
       }
     ],
     "habitats": [
-      "Ruínas/Cemitérios"
+      "ruins"
     ]
   },
   {
@@ -156794,8 +156776,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Florestas/Selva"
+      "forest",
+      "towns"
     ]
   },
   {
@@ -156907,8 +156889,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Ruínas/Cemitérios"
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -157020,8 +157002,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Ruínas/Cemitérios"
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -157157,8 +157139,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Ruínas/Cemitérios"
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -157294,8 +157276,8 @@
       }
     ],
     "habitats": [
-      "Cidades/Vilas",
-      "Ruínas/Cemitérios"
+      "ruins",
+      "towns"
     ]
   },
   {
@@ -158447,7 +158429,7 @@
       }
     ],
     "habitats": [
-      "Cavernas/Montanhas"
+      "caves"
     ]
   },
   {
@@ -158595,7 +158577,7 @@
       }
     ],
     "habitats": [
-      "Florestas/Selva"
+      "forest"
     ]
   },
   {
