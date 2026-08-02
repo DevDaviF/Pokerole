@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db'
 import type { Move, Pokemon, PokemonSheet } from '../types'
@@ -37,7 +37,7 @@ import UnitToggle, { useUnitSystem } from '../components/UnitToggle'
 import SendToChatButton from '../components/SendToChatButton'
 import FloatingSaveBar from '../components/FloatingSaveBar'
 import { useMesa } from '../lib/mesa'
-import { supabaseConfigured } from '../lib/supabase'
+import { supabase, supabaseConfigured } from '../lib/supabase'
 import { formatHeight, formatWeight } from '../lib/units'
 import { breedingInfoFor, eggGroupLabel, genderLabel } from '../lib/breeding'
 
@@ -71,6 +71,28 @@ export default function PokemonSheetsPage() {
   const { session } = useMesa()
   const needsAccount = supabaseConfigured && !session
   const [unitSystem, setUnitSystem] = useUnitSystem()
+
+  // Mesas onde o usuário é Mestre — um Pokémon feito aqui em "+ Nova Ficha"
+  // (não pelo gerador de Encontro/Ginásio) só pode virar NPC se vinculado a
+  // uma dessas, senão "isNpc" ficaria marcado sem nenhuma mesa dona dele.
+  const [gmMesas, setGmMesas] = useState<Array<{ id: string; name: string }>>([])
+  useEffect(() => {
+    if (!supabase || !session) return
+    let cancelled = false
+    supabase
+      .from('mesa_members')
+      .select('role, mesas(id, name)')
+      .eq('user_id', session.user.id)
+      .eq('role', 'gm')
+      .then(({ data }) => {
+        if (cancelled || !data) return
+        const rows = data as unknown as Array<{ mesas: { id: string; name: string } | null }>
+        setGmMesas(rows.filter((r) => r.mesas).map((r) => r.mesas!))
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [session])
 
   const species = editing?.species ? pokemonById.get(editing.species) : undefined
   const speciesBreeding = species ? breedingInfoFor(species.id) : null
@@ -379,6 +401,93 @@ export default function PokemonSheetsPage() {
                   ))}
                 </select>
               </label>
+              {/* Só Pokémon gerados por "Encontro"/"Ginásio" (Ferramentas do
+                  Mestre) viravam NPC — uma ficha feita aqui à mão nunca
+                  aparecia em "Interpretar NPC"/Captura da mesa. Espelha o
+                  mesmo toggle "Tipo de treinador" de Treinadores. */}
+              <div className="block sm:col-span-2 lg:col-span-3">
+                <span className="mb-1 block text-sm font-medium text-slate-600">
+                  Tipo de Pokémon
+                </span>
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex gap-1 rounded-full bg-slate-100 p-0.5">
+                    {(
+                      [
+                        [false, '🐣 Da minha ficha'],
+                        [true, '🎓 NPC do Mestre'],
+                      ] as const
+                    ).map(([isNpc, label]) => (
+                      <button
+                        key={label}
+                        type="button"
+                        onClick={() =>
+                          setEditing({
+                            ...editing,
+                            isNpc,
+                            npcKind: isNpc ? (editing.npcKind ?? 'wild') : undefined,
+                          })
+                        }
+                        className={`rounded-full px-3 py-1 text-xs font-bold transition-colors ${
+                          Boolean(editing.isNpc) === isNpc
+                            ? 'bg-white text-slate-800 shadow-sm'
+                            : 'text-slate-500 hover:text-slate-700'
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                  {editing.isNpc && (
+                    <>
+                      <div className="flex gap-1 rounded-full bg-slate-100 p-0.5">
+                        {(
+                          [
+                            ['wild', '🐾 Selvagem'],
+                            ['gym', '🏋️ Ginásio'],
+                          ] as const
+                        ).map(([kind, label]) => (
+                          <button
+                            key={kind}
+                            type="button"
+                            onClick={() => setEditing({ ...editing, npcKind: kind })}
+                            className={`rounded-full px-3 py-1 text-xs font-bold transition-colors ${
+                              editing.npcKind === kind
+                                ? 'bg-white text-slate-800 shadow-sm'
+                                : 'text-slate-500 hover:text-slate-700'
+                            }`}
+                          >
+                            {label}
+                          </button>
+                        ))}
+                      </div>
+                      <select
+                        value={editing.mesaId ?? ''}
+                        onChange={(e) =>
+                          setEditing({ ...editing, mesaId: e.target.value || undefined })
+                        }
+                        className="rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs focus:border-red-400 focus:outline-none"
+                      >
+                        <option value="">— nenhuma mesa —</option>
+                        {gmMesas.map((m) => (
+                          <option key={m.id} value={m.id}>
+                            {m.name}
+                          </option>
+                        ))}
+                      </select>
+                      {gmMesas.length === 0 && (
+                        <span className="text-xs text-amber-600">
+                          Você precisa ser Mestre de alguma mesa pra vincular um NPC.
+                        </span>
+                      )}
+                    </>
+                  )}
+                </div>
+                <p className="mt-1 text-xs text-slate-400">
+                  {editing.isNpc
+                    ? 'Some de "Meus Pokémon" e passa a aparecer em "Interpretar NPC"/Captura na mesa escolhida, igual um Pokémon gerado por Encontro/Ginásio.'
+                    : 'Um Pokémon normal, seu ou de um Treinador seu.'}
+                </p>
+              </div>
               <label className="block">
                 <span className="mb-1 block text-sm font-medium text-slate-600">
                   Habilidade
