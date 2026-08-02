@@ -190,8 +190,8 @@ begin
   if not public.is_mesa_member(_mesa_id) then
     raise exception 'Você não é membro dessa mesa';
   end if;
-  if _pool is null or _pool < 1 or _pool > 20 then
-    raise exception 'Pool de dados inválida (1 a 20)';
+  if _pool is null or _pool < 1 or _pool > 100 then
+    raise exception 'Pool de dados inválida (1 a 100)';
   end if;
   if _mode not in ('standard', 'chance', 'additive') then
     raise exception 'Modo de rolagem inválido';

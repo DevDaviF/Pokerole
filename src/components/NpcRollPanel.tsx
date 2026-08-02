@@ -8,7 +8,8 @@ import SkillRoll from './SkillRoll'
 // Selvagens/de ginásio desta mesa não aparecem em "Rolar pela ficha" (isso
 // é só pro seu próprio personagem) — aqui o Mestre rola pelos NPCs: o
 // Treinador NPC (Perícia) e qualquer Pokémon dele/solto gerado pra esta
-// mesa (Golpes), sem precisar sair das Ferramentas do Mestre.
+// mesa (Golpes). Fica logo abaixo da Ordem de Combate pra ter tudo que
+// precisa durante uma luta (rolls + Def/Sp.Def/HP) num só lugar.
 export default function NpcRollPanel({ mesaId }: { mesaId: string }) {
   const npcTrainers = (useLiveQuery(() => db.trainers.toArray(), []) ?? []).filter(
     (t) => t.isNpc && t.mesaId === mesaId,
@@ -108,6 +109,16 @@ export default function NpcRollPanel({ mesaId }: { mesaId: string }) {
 
           {sheet && (
             <div className="mt-2 space-y-2">
+              <p
+                className="text-xs text-slate-500"
+                title="Só o Mestre vê isso — o jogador não tem acesso à ficha até você compartilhar/capturar"
+              >
+                🔒 Def/Sp.Def: <b>{sheet.attributes.vitality}</b> /{' '}
+                <b>{sheet.attributes.insight}</b> · HP{' '}
+                <b>
+                  {sheet.currentHp} / {(pokemonById.get(sheet.species)?.baseHp ?? 0) + sheet.attributes.vitality}
+                </b>
+              </p>
               <SkillRoll sheet={sheet} displayName={rollDisplayName} isPokemon={true} />
               <div className="flex flex-wrap gap-1">
                 {sheet.knownMoves.map((mid) => (

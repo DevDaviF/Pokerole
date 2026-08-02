@@ -27,6 +27,7 @@ import MoneyAdjustments from '../components/MoneyAdjustments'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Shop from '../components/Shop'
 import GmToolsPanel from './MesaGmTools'
+import NpcRollPanel from '../components/NpcRollPanel'
 import { useCustomItems, customItemToItem } from '../lib/customItems'
 import { friendlyError } from '../lib/errors'
 
@@ -1652,6 +1653,12 @@ export default function MesaPage() {
               isGm={myRole === 'gm'}
             />
           </ErrorBoundary>
+
+          {myRole === 'gm' && (
+            <ErrorBoundary label="Interpretar NPC">
+              <NpcRollPanel mesaId={activeMesa.id} />
+            </ErrorBoundary>
+          )}
 
           <ErrorBoundary label="Captura">
             <CaptureRoll
