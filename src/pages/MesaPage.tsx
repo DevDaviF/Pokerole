@@ -1582,6 +1582,8 @@ export default function MesaPage() {
 
       {activeMesa && (
         <>
+        <div className="lg:grid lg:grid-cols-[1fr_380px] lg:items-start lg:gap-4">
+        <div className="min-w-0 space-y-5">
           <div className="flex flex-wrap items-center gap-3 rounded-xl bg-slate-800 px-4 py-2.5 text-white">
             <b>{activeMesa.name}</b>
             {myRole === 'gm' && (
@@ -1872,124 +1874,8 @@ export default function MesaPage() {
             </ErrorBoundary>
           )}
 
-          <div className="grid gap-4 lg:grid-cols-3">
-            {/* Chat */}
-            <div className="flex h-96 flex-col rounded-xl border border-slate-200 bg-white shadow-sm lg:col-span-2">
-              <div className="flex items-center justify-between border-b border-slate-100 px-4 py-1.5">
-                <span className="text-xs font-bold text-slate-400 uppercase">Chat</span>
-                <button
-                  onClick={clearChat}
-                  title="Limpar só na sua tela — o resto da mesa continua vendo tudo"
-                  className="text-xs font-semibold text-slate-400 hover:text-red-500"
-                >
-                  🧹 Limpar chat
-                </button>
-              </div>
-              <div
-                ref={chatContainerRef}
-                onScroll={handleChatScroll}
-                className="flex-1 space-y-2 overflow-y-auto p-4"
-              >
-                {visibleMessages.length === 0 && (
-                  <p className="text-center text-xs text-slate-300">
-                    {chatClearedAt ? 'Chat limpo — só na sua tela.' : 'Nenhuma mensagem ainda.'}
-                  </p>
-                )}
-                {visibleMessages.map((m) => {
-                  const isWarning = m.kind === 'chat' && m.content.startsWith('⚠️')
-                  return (
-                    <div
-                      key={m.id}
-                      className={`rounded-lg px-2 py-1 text-sm ${
-                        isWarning
-                          ? 'border border-amber-300 bg-amber-50 py-1.5'
-                          : ''
-                      }`}
-                    >
-                      <span
-                        className="font-bold"
-                        style={{ color: colorForUser(m.user_id) }}
-                      >
-                        {usernames[m.user_id] ?? '???'}
-                      </span>{' '}
-                      {m.kind === 'roll' && m.roll ? (
-                        (() => {
-                          const { actor, rest } = splitRollLabel(
-                            m.content,
-                            `${m.roll.pool}d6`,
-                          )
-                          return (
-                            <span className="text-slate-600">
-                              {m.roll.icon && (
-                                <img
-                                  src={m.roll.icon}
-                                  alt=""
-                                  className="mr-1 inline-block h-5 w-5 rounded-full object-contain align-middle [image-rendering:pixelated]"
-                                  onError={(e) => (e.currentTarget.style.display = 'none')}
-                                />
-                              )}
-                              {actor && (
-                                <>
-                                  <span className="font-semibold text-indigo-600">
-                                    {actor}
-                                  </span>{' '}
-                                </>
-                              )}
-                              rolou <b>{rest}</b>:{' '}
-                              <span className="inline-block align-middle">
-                                <DiceRow
-                                  r={{
-                                    label: '',
-                                    at: 0,
-                                    pool: m.roll.pool,
-                                    dice: m.roll.dice,
-                                    successes: m.roll.successes,
-                                    sixes: m.roll.sixes,
-                                    mode: m.roll.mode,
-                                    triggered: m.roll.triggered,
-                                    bonus: m.roll.bonus,
-                                    total: m.roll.total,
-                                    sides: m.roll.sides,
-                                  }}
-                                />
-                              </span>
-                            </span>
-                          )
-                        })()
-                      ) : (
-                        <span
-                          className={isWarning ? 'font-semibold text-amber-800' : 'text-slate-600'}
-                        >
-                          {m.kind === 'chat' && m.content.startsWith('✨ ')
-                            ? renderEffectChat(m.content)
-                            : m.content}
-                        </span>
-                      )}
-                    </div>
-                  )
-                })}
-                <div ref={chatEndRef} />
-              </div>
-              <div className="flex gap-2 border-t border-slate-100 p-3">
-                <input
-                  value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && sendChat()}
-                  placeholder="Mensagem para a mesa... (ou 3d6+20, 1d20)"
-                  title='Também aceita comandos de dado avulso: "3d6+20", "1d20", "2d8-3"...'
-                  className="min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-1.5 text-sm focus:border-red-400 focus:outline-none"
-                />
-                <button
-                  onClick={sendChat}
-                  className="rounded-lg bg-red-600 px-4 py-1.5 text-sm font-bold text-white hover:bg-red-700"
-                >
-                  Enviar
-                </button>
-              </div>
-            </div>
-
-            {/* Rolagem rápida + fichas compartilhadas */}
-            <div className="space-y-4">
+          {/* Rolagem rápida + fichas compartilhadas */}
+          <div className="space-y-4">
               {myRole !== 'gm' && (
                 <QuickRollCard
                   mesaTrainerId={myActiveTrainer?.id ?? null}
@@ -2058,13 +1944,130 @@ export default function MesaPage() {
                 )}
               </div>
             </div>
-          </div>
 
           <CollapsibleSection id="notas" title="Anotações da Mesa" icon="📝" defaultOpen={false}>
             <ErrorBoundary label="Anotações da Mesa">
               <MesaNotes mesaId={activeMesa.id} />
             </ErrorBoundary>
           </CollapsibleSection>
+        </div>
+
+        <div className="mt-5 lg:sticky lg:top-4 lg:mt-0">
+          <div className="flex h-96 flex-col rounded-xl border border-slate-200 bg-white shadow-sm lg:h-[calc(100vh-2rem)]">
+            <div className="flex items-center justify-between border-b border-slate-100 px-4 py-1.5">
+              <span className="text-xs font-bold text-slate-400 uppercase">Chat</span>
+              <button
+                onClick={clearChat}
+                title="Limpar só na sua tela — o resto da mesa continua vendo tudo"
+                className="text-xs font-semibold text-slate-400 hover:text-red-500"
+              >
+                🧹 Limpar chat
+              </button>
+            </div>
+            <div
+              ref={chatContainerRef}
+              onScroll={handleChatScroll}
+              className="flex-1 space-y-2 overflow-y-auto p-4"
+            >
+              {visibleMessages.length === 0 && (
+                <p className="text-center text-xs text-slate-300">
+                  {chatClearedAt ? 'Chat limpo — só na sua tela.' : 'Nenhuma mensagem ainda.'}
+                </p>
+              )}
+              {visibleMessages.map((m) => {
+                const isWarning = m.kind === 'chat' && m.content.startsWith('⚠️')
+                return (
+                  <div
+                    key={m.id}
+                    className={`rounded-lg px-2 py-1 text-sm ${
+                      isWarning
+                        ? 'border border-amber-300 bg-amber-50 py-1.5'
+                        : ''
+                    }`}
+                  >
+                    <span
+                      className="font-bold"
+                      style={{ color: colorForUser(m.user_id) }}
+                    >
+                      {usernames[m.user_id] ?? '???'}
+                    </span>{' '}
+                    {m.kind === 'roll' && m.roll ? (
+                      (() => {
+                        const { actor, rest } = splitRollLabel(
+                          m.content,
+                          `${m.roll.pool}d6`,
+                        )
+                        return (
+                          <span className="text-slate-600">
+                            {m.roll.icon && (
+                              <img
+                                src={m.roll.icon}
+                                alt=""
+                                className="mr-1 inline-block h-5 w-5 rounded-full object-contain align-middle [image-rendering:pixelated]"
+                                onError={(e) => (e.currentTarget.style.display = 'none')}
+                              />
+                            )}
+                            {actor && (
+                              <>
+                                <span className="font-semibold text-indigo-600">
+                                  {actor}
+                                </span>{' '}
+                              </>
+                            )}
+                            rolou <b>{rest}</b>:{' '}
+                            <span className="inline-block align-middle">
+                              <DiceRow
+                                r={{
+                                  label: '',
+                                  at: 0,
+                                  pool: m.roll.pool,
+                                  dice: m.roll.dice,
+                                  successes: m.roll.successes,
+                                  sixes: m.roll.sixes,
+                                  mode: m.roll.mode,
+                                  triggered: m.roll.triggered,
+                                  bonus: m.roll.bonus,
+                                  total: m.roll.total,
+                                  sides: m.roll.sides,
+                                }}
+                              />
+                            </span>
+                          </span>
+                        )
+                      })()
+                    ) : (
+                      <span
+                        className={isWarning ? 'font-semibold text-amber-800' : 'text-slate-600'}
+                      >
+                        {m.kind === 'chat' && m.content.startsWith('✨ ')
+                          ? renderEffectChat(m.content)
+                          : m.content}
+                      </span>
+                    )}
+                  </div>
+                )
+              })}
+              <div ref={chatEndRef} />
+            </div>
+            <div className="flex gap-2 border-t border-slate-100 p-3">
+              <input
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && sendChat()}
+                placeholder="Mensagem para a mesa... (ou 3d6+20, 1d20)"
+                title='Também aceita comandos de dado avulso: "3d6+20", "1d20", "2d8-3"...'
+                className="min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-1.5 text-sm focus:border-red-400 focus:outline-none"
+              />
+              <button
+                onClick={sendChat}
+                className="rounded-lg bg-red-600 px-4 py-1.5 text-sm font-bold text-white hover:bg-red-700"
+              >
+                Enviar
+              </button>
+            </div>
+          </div>
+        </div>
+        </div>
         </>
       )}
 

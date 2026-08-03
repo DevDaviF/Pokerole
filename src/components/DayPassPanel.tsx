@@ -12,6 +12,9 @@ import { supabase } from '../lib/supabase'
 // jogador quiser usá-las de propósito).
 const RATION_ITEM_IDS = ['dry-food', 'meal-rations', 'high-performance-food', 'gourmet-food']
 const RATION_NAME = 'Ração'
+// Plural irregular ("ração" -> "rações", não "raçãoões" — só trocar o
+// singular por "ões" no fim dava esse resultado errado)
+const rationPlural = (n: number) => (n === 1 ? RATION_NAME : 'Rações')
 
 // O Corebook não descreve uma cura numérica pra "passar o dia" fora de
 // um Centro Pokémon (que aí sim é cura completa e de graça, p.13) — só
@@ -179,7 +182,7 @@ export default function DayPassPanel({
       )
     } else {
       await announce(
-        `🌙 ${myTrainer.name} passou o dia e descansou${consumed > 0 ? ` (−${consumed} ${RATION_NAME}${consumed > 1 ? 'ões' : ''})` : ''}. Time recuperou ${REST_HEAL_AMOUNT} HP.${faintedNote}`,
+        `🌙 ${myTrainer.name} passou o dia e descansou${consumed > 0 ? ` (−${consumed} ${rationPlural(consumed)})` : ''}. Time recuperou ${REST_HEAL_AMOUNT} HP.${faintedNote}`,
       )
     }
     setNotice(
@@ -204,7 +207,7 @@ export default function DayPassPanel({
         <b>🌙 Passar o dia</b>
         {myTrainer && (
           <span className="ml-auto text-xs opacity-90">
-            {needed} Pokémon no time · {haveRations} ração(ões)
+            {needed} Pokémon no time · {haveRations} {rationPlural(haveRations).toLowerCase()}
           </span>
         )}
       </div>
