@@ -1992,10 +1992,10 @@ export default function MesaPage() {
 
           {/* Rolagem rápida + fichas compartilhadas */}
           <div className="space-y-4">
-              {/* A partir de 2xl o quick-roll muda pra coluna lateral (onde
+              {/* Acima de WIDE_PX o quick-roll muda pra coluna lateral (onde
                   o chat ficava antes de virar o painel fixo na borda) —
-                  aqui embaixo só aparece até 2xl. */}
-              <div className="2xl:hidden">{quickRollPanel}</div>
+                  aqui embaixo some só nesse ponto. */}
+              <div className="min-[1900px]:hidden">{quickRollPanel}</div>
               <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
                 <h2 className="mb-2 font-bold text-slate-800">
                   Fichas da mesa
@@ -2067,19 +2067,19 @@ export default function MesaPage() {
         </div>
 
         <div className="mt-5 lg:sticky lg:top-4 lg:mt-0 lg:h-[calc(100vh-2rem)]">
-          <div className="h-full 2xl:hidden">{chatPanel}</div>
-          <div className="hidden 2xl:block">{quickRollPanel}</div>
+          <div className="h-full min-[1900px]:hidden">{chatPanel}</div>
+          <div className="hidden min-[1900px]:block">{quickRollPanel}</div>
         </div>
         </div>
 
-        {/* A partir de 2xl sobra bastante margem vazia fora do max-w-6xl
-            do conteúdo (ver <main> em App.tsx) — usa exatamente essa
-            largura, colado na borda direita real da janela, em vez de
-            uma coluna fixa de 380px dentro do conteúdo centralizado. */}
-        <div
-          className="fixed top-20 right-4 bottom-4 z-20 hidden 2xl:block"
-          style={{ left: 'calc(50% + 38rem + 1rem)' }}
-        >
+        {/* Só acima de ~1900px de largura sobra margem suficiente fora do
+            max-w-6xl do conteúdo (ver <main> em App.tsx) pra encaixar um
+            painel de 320px sem espremer nada — abaixo disso o chat some
+            daqui e volta pra coluna lateral normal (ver acima). Já rodou
+            espremido demais numa tela mais estreita quando isso ativava
+            em 2xl (1536px) com largura flexível — agora é fixa e só
+            aparece quando realmente cabe. */}
+        <div className="fixed top-20 right-4 bottom-4 z-20 hidden w-80 min-[1900px]:block">
           {chatPanel}
         </div>
         </>

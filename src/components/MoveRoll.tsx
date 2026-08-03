@@ -21,6 +21,15 @@ export function sheetAttrValue(
   )
 }
 
+// Skill de Acerto também pode ser composta ("Channel/Nature" em alguns
+// golpes) — sem isso, `sheet.skills["Channel/Nature"]` nunca existe como
+// chave (as skills são guardadas separadas: "Channel", "Nature") e o roll
+// contava 0 pra esse pedaço, ignorando os pontos investidos em QUALQUER
+// uma das duas. Usa a maior das opções, igual já acontece com atributos.
+export function sheetSkillValue(rec: { skills: Record<string, number> }, name: string) {
+  return Math.max(0, ...name.split('/').map((p) => rec.skills[p.trim()] ?? 0))
+}
+
 function MiniNum({
   label,
   value,
@@ -104,7 +113,7 @@ export function MoveRollPanel({
     move.accuracy.skill ? ` + ${move.accuracy.skill}` : ''
   }`
   const accBase =
-    attrVal(move.accuracy.attribute) + (sheet.skills[move.accuracy.skill] ?? 0)
+    attrVal(move.accuracy.attribute) + sheetSkillValue(sheet, move.accuracy.skill)
   const accPool = Math.max(1, accBase + accBonus)
 
   // STAB: golpe Physical/Special do mesmo tipo do Pokémon = +1 dado (p. 60)

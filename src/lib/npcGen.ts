@@ -90,11 +90,16 @@ function estimateSkills(knownMoves: string[], rank: Rank): Record<string, number
   let points = rankSkillPoints(rank)
   const skills: Record<string, number> = {}
 
+  // Skill de Acerto às vezes é composta ("Channel/Nature") — sem separar,
+  // "Channel/Nature" virava uma chave própria em `skills` que não existe
+  // em lugar nenhum da ficha (as skills reais são "Channel" e "Nature"
+  // separadas), desperdiçando pontos que o roll nunca ia usar.
   const priority = shuffle([
     ...new Set(
       knownMoves
-        .map((id) => moveById.get(id)?.accuracy.skill)
-        .filter((s): s is string => Boolean(s)),
+        .flatMap((id) => moveById.get(id)?.accuracy.skill?.split('/') ?? [])
+        .map((s) => s.trim())
+        .filter(Boolean),
     ),
   ])
 
