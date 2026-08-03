@@ -1469,6 +1469,122 @@ export default function MesaPage() {
   const shareGymSheets = myPokemonSheets.filter((s) => s.isNpc && s.npcKind === 'gym')
   const shareWildSheets = myPokemonSheets.filter((s) => s.isNpc && s.npcKind === 'wild')
 
+  // "Rolar pela ficha" ocupa a coluna lateral só quando o chat sai dela
+  // (2xl+, quando o chat vira o painel fixo na borda) — abaixo disso o
+  // chat continua nessa mesma coluna, e o quick-roll fica no fluxo normal.
+  const quickRollPanel =
+    myRole !== 'gm' ? (
+      <QuickRollCard mesaTrainerId={myActiveTrainer?.id ?? null} trainers={myTrainers} />
+    ) : null
+
+  // Painel do chat — usado duas vezes: encaixado na coluna lateral (telas
+  // médias/grandes) e fixo colado na borda direita de verdade do navegador
+  // em telas bem largas, aproveitando a margem vazia fora do max-w-6xl do
+  // conteúdo principal (ver <main> em App.tsx).
+  const chatPanel = (
+    <div className="flex h-full min-h-0 flex-col rounded-xl border border-slate-200 bg-white shadow-sm">
+      <div className="flex items-center justify-between border-b border-slate-100 px-4 py-1.5">
+        <span className="text-xs font-bold text-slate-400 uppercase">Chat</span>
+        <button
+          onClick={clearChat}
+          title="Limpar só na sua tela — o resto da mesa continua vendo tudo"
+          className="text-xs font-semibold text-slate-400 hover:text-red-500"
+        >
+          🧹 Limpar chat
+        </button>
+      </div>
+      <div
+        ref={chatContainerRef}
+        onScroll={handleChatScroll}
+        className="flex-1 space-y-2 overflow-y-auto p-4"
+      >
+        {visibleMessages.length === 0 && (
+          <p className="text-center text-xs text-slate-300">
+            {chatClearedAt ? 'Chat limpo — só na sua tela.' : 'Nenhuma mensagem ainda.'}
+          </p>
+        )}
+        {visibleMessages.map((m) => {
+          const isWarning = m.kind === 'chat' && m.content.startsWith('⚠️')
+          return (
+            <div
+              key={m.id}
+              className={`rounded-lg px-2 py-1 text-sm ${
+                isWarning ? 'border border-amber-300 bg-amber-50 py-1.5' : ''
+              }`}
+            >
+              <span className="font-bold" style={{ color: colorForUser(m.user_id) }}>
+                {usernames[m.user_id] ?? '???'}
+              </span>{' '}
+              {m.kind === 'roll' && m.roll ? (
+                (() => {
+                  const { actor, rest } = splitRollLabel(m.content, `${m.roll.pool}d6`)
+                  return (
+                    <span className="text-slate-600">
+                      {m.roll.icon && (
+                        <img
+                          src={m.roll.icon}
+                          alt=""
+                          className="mr-1 inline-block h-5 w-5 rounded-full object-contain align-middle [image-rendering:pixelated]"
+                          onError={(e) => (e.currentTarget.style.display = 'none')}
+                        />
+                      )}
+                      {actor && (
+                        <>
+                          <span className="font-semibold text-indigo-600">{actor}</span>{' '}
+                        </>
+                      )}
+                      rolou <b>{rest}</b>:{' '}
+                      <span className="inline-block align-middle">
+                        <DiceRow
+                          r={{
+                            label: '',
+                            at: 0,
+                            pool: m.roll.pool,
+                            dice: m.roll.dice,
+                            successes: m.roll.successes,
+                            sixes: m.roll.sixes,
+                            mode: m.roll.mode,
+                            triggered: m.roll.triggered,
+                            bonus: m.roll.bonus,
+                            total: m.roll.total,
+                            sides: m.roll.sides,
+                          }}
+                        />
+                      </span>
+                    </span>
+                  )
+                })()
+              ) : (
+                <span className={isWarning ? 'font-semibold text-amber-800' : 'text-slate-600'}>
+                  {m.kind === 'chat' && m.content.startsWith('✨ ')
+                    ? renderEffectChat(m.content)
+                    : m.content}
+                </span>
+              )}
+            </div>
+          )
+        })}
+        <div ref={chatEndRef} />
+      </div>
+      <div className="flex gap-2 border-t border-slate-100 p-3">
+        <input
+          value={chatInput}
+          onChange={(e) => setChatInput(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && sendChat()}
+          placeholder="Mensagem para a mesa... (ou 3d6+20, 1d20)"
+          title='Também aceita comandos de dado avulso: "3d6+20", "1d20", "2d8-3"...'
+          className="min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-1.5 text-sm focus:border-red-400 focus:outline-none"
+        />
+        <button
+          onClick={sendChat}
+          className="rounded-lg bg-red-600 px-4 py-1.5 text-sm font-bold text-white hover:bg-red-700"
+        >
+          Enviar
+        </button>
+      </div>
+    </div>
+  )
+
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -1876,12 +1992,10 @@ export default function MesaPage() {
 
           {/* Rolagem rápida + fichas compartilhadas */}
           <div className="space-y-4">
-              {myRole !== 'gm' && (
-                <QuickRollCard
-                  mesaTrainerId={myActiveTrainer?.id ?? null}
-                  trainers={myTrainers}
-                />
-              )}
+              {/* A partir de 2xl o quick-roll muda pra coluna lateral (onde
+                  o chat ficava antes de virar o painel fixo na borda) —
+                  aqui embaixo só aparece até 2xl. */}
+              <div className="2xl:hidden">{quickRollPanel}</div>
               <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
                 <h2 className="mb-2 font-bold text-slate-800">
                   Fichas da mesa
@@ -1952,123 +2066,24 @@ export default function MesaPage() {
           </CollapsibleSection>
         </div>
 
-        <div className="mt-5 lg:sticky lg:top-4 lg:mt-0">
-          <div className="flex h-96 flex-col rounded-xl border border-slate-200 bg-white shadow-sm lg:h-[calc(100vh-2rem)]">
-            <div className="flex items-center justify-between border-b border-slate-100 px-4 py-1.5">
-              <span className="text-xs font-bold text-slate-400 uppercase">Chat</span>
-              <button
-                onClick={clearChat}
-                title="Limpar só na sua tela — o resto da mesa continua vendo tudo"
-                className="text-xs font-semibold text-slate-400 hover:text-red-500"
-              >
-                🧹 Limpar chat
-              </button>
-            </div>
-            <div
-              ref={chatContainerRef}
-              onScroll={handleChatScroll}
-              className="flex-1 space-y-2 overflow-y-auto p-4"
-            >
-              {visibleMessages.length === 0 && (
-                <p className="text-center text-xs text-slate-300">
-                  {chatClearedAt ? 'Chat limpo — só na sua tela.' : 'Nenhuma mensagem ainda.'}
-                </p>
-              )}
-              {visibleMessages.map((m) => {
-                const isWarning = m.kind === 'chat' && m.content.startsWith('⚠️')
-                return (
-                  <div
-                    key={m.id}
-                    className={`rounded-lg px-2 py-1 text-sm ${
-                      isWarning
-                        ? 'border border-amber-300 bg-amber-50 py-1.5'
-                        : ''
-                    }`}
-                  >
-                    <span
-                      className="font-bold"
-                      style={{ color: colorForUser(m.user_id) }}
-                    >
-                      {usernames[m.user_id] ?? '???'}
-                    </span>{' '}
-                    {m.kind === 'roll' && m.roll ? (
-                      (() => {
-                        const { actor, rest } = splitRollLabel(
-                          m.content,
-                          `${m.roll.pool}d6`,
-                        )
-                        return (
-                          <span className="text-slate-600">
-                            {m.roll.icon && (
-                              <img
-                                src={m.roll.icon}
-                                alt=""
-                                className="mr-1 inline-block h-5 w-5 rounded-full object-contain align-middle [image-rendering:pixelated]"
-                                onError={(e) => (e.currentTarget.style.display = 'none')}
-                              />
-                            )}
-                            {actor && (
-                              <>
-                                <span className="font-semibold text-indigo-600">
-                                  {actor}
-                                </span>{' '}
-                              </>
-                            )}
-                            rolou <b>{rest}</b>:{' '}
-                            <span className="inline-block align-middle">
-                              <DiceRow
-                                r={{
-                                  label: '',
-                                  at: 0,
-                                  pool: m.roll.pool,
-                                  dice: m.roll.dice,
-                                  successes: m.roll.successes,
-                                  sixes: m.roll.sixes,
-                                  mode: m.roll.mode,
-                                  triggered: m.roll.triggered,
-                                  bonus: m.roll.bonus,
-                                  total: m.roll.total,
-                                  sides: m.roll.sides,
-                                }}
-                              />
-                            </span>
-                          </span>
-                        )
-                      })()
-                    ) : (
-                      <span
-                        className={isWarning ? 'font-semibold text-amber-800' : 'text-slate-600'}
-                      >
-                        {m.kind === 'chat' && m.content.startsWith('✨ ')
-                          ? renderEffectChat(m.content)
-                          : m.content}
-                      </span>
-                    )}
-                  </div>
-                )
-              })}
-              <div ref={chatEndRef} />
-            </div>
-            <div className="flex gap-2 border-t border-slate-100 p-3">
-              <input
-                value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && sendChat()}
-                placeholder="Mensagem para a mesa... (ou 3d6+20, 1d20)"
-                title='Também aceita comandos de dado avulso: "3d6+20", "1d20", "2d8-3"...'
-                className="min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-1.5 text-sm focus:border-red-400 focus:outline-none"
-              />
-              <button
-                onClick={sendChat}
-                className="rounded-lg bg-red-600 px-4 py-1.5 text-sm font-bold text-white hover:bg-red-700"
-              >
-                Enviar
-              </button>
-            </div>
-          </div>
+        <div className="mt-5 lg:sticky lg:top-4 lg:mt-0 lg:h-[calc(100vh-2rem)]">
+          <div className="h-full 2xl:hidden">{chatPanel}</div>
+          <div className="hidden 2xl:block">{quickRollPanel}</div>
         </div>
+        </div>
+
+        {/* A partir de 2xl sobra bastante margem vazia fora do max-w-6xl
+            do conteúdo (ver <main> em App.tsx) — usa exatamente essa
+            largura, colado na borda direita real da janela, em vez de
+            uma coluna fixa de 380px dentro do conteúdo centralizado. */}
+        <div
+          className="fixed top-20 right-4 bottom-4 z-20 hidden 2xl:block"
+          style={{ left: 'calc(50% + 38rem + 1rem)' }}
+        >
+          {chatPanel}
         </div>
         </>
+
       )}
 
       {viewing && (
