@@ -245,7 +245,13 @@ export default function BattleTracker({
     if (target.sourceKind === 'trainerSheet') {
       await db.trainers.update(target.localId, { currentHp: nextHp })
     } else if (target.sourceKind === 'pokemonSheet' || target.sourceKind === 'sharedNpc') {
-      await db.pokemonSheets.update(target.localId, { currentHp: nextHp })
+      await db.pokemonSheets.update(target.localId, {
+        currentHp: nextHp,
+        // saiu de desmaiado por aqui (Revive, cura de golpe etc.) — zera a
+        // contagem de "Passar o Dia", senão um desmaio futuro já "herdava"
+        // dias de antes.
+        ...(target.currentHp <= 0 && nextHp > 0 ? { daysFainted: 0 } : {}),
+      })
       if (target.sharedSheetId && supabase) {
         // não dá pra sobrescrever `payload` só com currentHp — apagaria o
         // resto da ficha. Busca o payload atual e mescla.

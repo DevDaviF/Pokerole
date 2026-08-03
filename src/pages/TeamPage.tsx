@@ -9,6 +9,7 @@ import { getActiveTrainerId } from './TrainersPage'
 import { MoveRollPanel } from '../components/MoveRoll'
 import TrainingPointsBadge from '../components/TrainingPoints'
 import SkillRoll from '../components/SkillRoll'
+import { DAYS_TO_WAKE_UP } from '../components/DayPassPanel'
 
 function HpBar({ current, max }: { current: number; max: number }) {
   const pct = max > 0 ? Math.max(0, Math.min(100, (current / max) * 100)) : 0
@@ -46,13 +47,6 @@ export default function TeamPage() {
 
   const team = sheets.filter((s) => s.inTeam).slice(0, 6)
   const reserve = sheets.filter((s) => !s.inTeam)
-
-  const setHp = async (sheet: PokemonSheet, delta: number) => {
-    const sp = pokemonById.get(sheet.species)
-    const maxHp = sp ? sp.baseHp + sheet.attributes.vitality : 99
-    const next = Math.max(0, Math.min(maxHp, sheet.currentHp + delta))
-    await db.pokemonSheets.update(sheet.id!, { currentHp: next })
-  }
 
   const toggleTeam = async (sheet: PokemonSheet) => {
     if (!sheet.inTeam && team.length >= 6) return
@@ -129,30 +123,28 @@ export default function TeamPage() {
                   </button>
                 </div>
                 <div className="space-y-2 p-4">
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => setHp(s, -1)}
-                      className="h-7 w-7 rounded-lg border border-slate-300 font-bold text-slate-600 hover:bg-slate-100"
-                    >
-                      −
-                    </button>
-                    <div className="flex-1">
-                      <div className="mb-1 flex justify-between text-xs text-slate-500">
-                        <span>HP</span>
-                        <span className="font-bold text-slate-700">
-                          {s.currentHp}/{maxHp}
-                        </span>
-                      </div>
-                      <HpBar current={s.currentHp} max={maxHp} />
+                  {/* Só leitura de propósito — HP não muda por um +/- livre
+                      aqui. Sobe/desce via Ordem de Combate (na Mesa),
+                      Passar o Dia ou Centro Pokémon, nunca de graça pelo
+                      próprio jogador. */}
+                  <div>
+                    <div className="mb-1 flex justify-between text-xs text-slate-500">
+                      <span>HP</span>
+                      <span className="font-bold text-slate-700">
+                        {s.currentHp}/{maxHp}
+                      </span>
                     </div>
-                    <button
-                      onClick={() => setHp(s, +1)}
-                      className="h-7 w-7 rounded-lg border border-slate-300 font-bold text-slate-600 hover:bg-slate-100"
-                    >
-                      +
-                    </button>
+                    <HpBar current={s.currentHp} max={maxHp} />
                   </div>
                   <TrainingPointsBadge sheet={s} />
+                  {s.currentHp <= 0 && (
+                    <span
+                      className="inline-block w-fit rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-bold text-white"
+                      title={`Acorda sozinho com 1 HP depois de ${DAYS_TO_WAKE_UP} dias desmaiado (Passar o Dia), ou na hora num Centro Pokémon.`}
+                    >
+                      💀 Desmaiado · {s.daysFainted ?? 0}/{DAYS_TO_WAKE_UP} dias
+                    </span>
+                  )}
                   {s.statusConditions.length > 0 && (
                     <div className="flex flex-wrap gap-1">
                       {s.statusConditions.map((c) => (

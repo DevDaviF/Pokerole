@@ -106,7 +106,11 @@ export default function PokeCenterPanel({
       for (const s of team) {
         const sp = pokemonById.get(s.species)
         const maxHp = (sp?.baseHp ?? 1) + s.attributes.vitality
-        await db.pokemonSheets.update(s.id!, { currentHp: maxHp, statusConditions: [] })
+        await db.pokemonSheets.update(s.id!, {
+          currentHp: maxHp,
+          statusConditions: [],
+          daysFainted: 0,
+        })
       }
       localStorage.setItem(lastAppliedKey, trigger.triggered_at!)
       if (team.length > 0) setNotice('🏥 Seu time saiu do Centro Pokémon totalmente curado!')

@@ -23,6 +23,11 @@ const rationPlural = (n: number) => (n === 1 ? RATION_NAME : 'Rações')
 // tudo, já que curar 100% sem Centro não tem respaldo no livro.
 const REST_HEAL_AMOUNT = 3
 
+// Combinado com o usuário: um Pokémon desmaiado que passa 3 dias sem ser
+// reanimado por outro meio (Centro Pokémon) acorda sozinho com 1 HP —
+// recuperação natural, sem precisar reanimar toda vez na mão.
+export const DAYS_TO_WAKE_UP = 3
+
 interface TriggerRow {
   mesa_id: string
   triggered_at: string | null
@@ -156,13 +161,27 @@ export default function DayPassPanel({
       })
     }
 
-    // Pokémon desmaiado (currentHp 0) não acorda só por passar a noite —
-    // precisa ser reanimado por outro meio (Centro Pokémon, item de
-    // revive etc., ainda não modelado aqui). Passar o dia só descansa
-    // quem ainda está de pé.
+    // Pokémon desmaiado (currentHp 0) não acorda de graça só por passar
+    // a noite uma vez — mas depois de DAYS_TO_WAKE_UP dias seguidos assim,
+    // acorda sozinho com 1 HP (recuperação natural). Centro Pokémon
+    // continua sendo a forma de reanimar na hora.
     const fainted = team.filter((s) => s.currentHp <= 0)
+    const wokeUp: PokemonSheet[] = []
     for (const s of team) {
-      if (s.currentHp <= 0) continue
+      if (s.currentHp <= 0) {
+        const days = (s.daysFainted ?? 0) + 1
+        if (days >= DAYS_TO_WAKE_UP) {
+          await db.pokemonSheets.update(s.id!, {
+            currentHp: 1,
+            statusConditions: [],
+            daysFainted: 0,
+          })
+          wokeUp.push(s)
+        } else {
+          await db.pokemonSheets.update(s.id!, { daysFainted: days })
+        }
+        continue
+      }
       const sp = pokemonById.get(s.species)
       const maxHp = (sp?.baseHp ?? 1) + s.attributes.vitality
       await db.pokemonSheets.update(s.id!, {
@@ -172,23 +191,30 @@ export default function DayPassPanel({
       })
     }
 
+    const stillFainted = fainted.filter((s) => !wokeUp.some((w) => w.id === s.id))
+    const wokeUpNote =
+      wokeUp.length > 0
+        ? ` ${wokeUp.map((s) => s.nickname || pokemonById.get(s.species)?.name).join(', ')} acordou${wokeUp.length > 1 ? 'ram' : ''} sozinho${wokeUp.length > 1 ? 's' : ''} com 1 HP após ${DAYS_TO_WAKE_UP} dias desmaiado${wokeUp.length > 1 ? 's' : ''}!`
+        : ''
     const faintedNote =
-      fainted.length > 0
-        ? ` ${fainted.length} desmaiado${fainted.length > 1 ? 's' : ''} continua${fainted.length > 1 ? 'm' : ''} desmaiado${fainted.length > 1 ? 's' : ''} (precisa reanimar por outro meio).`
+      stillFainted.length > 0
+        ? ` ${stillFainted.length} desmaiado${stillFainted.length > 1 ? 's' : ''} continua${stillFainted.length > 1 ? 'm' : ''} desmaiado${stillFainted.length > 1 ? 's' : ''} (precisa reanimar por outro meio ou esperar).`
         : ''
     if (short > 0) {
       await announce(
-        `⚠️ ${myTrainer.name} não tinha ração suficiente hoje! Faltaram ${short} de ${needed}.${faintedNote}`,
+        `⚠️ ${myTrainer.name} não tinha ração suficiente hoje! Faltaram ${short} de ${needed}.${faintedNote}${wokeUpNote}`,
       )
     } else {
       await announce(
-        `🌙 ${myTrainer.name} passou o dia e descansou${consumed > 0 ? ` (−${consumed} ${rationPlural(consumed)})` : ''}. Time recuperou ${REST_HEAL_AMOUNT} HP.${faintedNote}`,
+        `🌙 ${myTrainer.name} passou o dia e descansou${consumed > 0 ? ` (−${consumed} ${rationPlural(consumed)})` : ''}. Time recuperou ${REST_HEAL_AMOUNT} HP.${faintedNote}${wokeUpNote}`,
       )
     }
     setNotice(
       (short > 0
         ? `Dia passado, mas faltou ração (${short}). Time recuperou ${REST_HEAL_AMOUNT} HP mesmo assim.`
-        : `Dia passado! Treinador e time recuperaram ${REST_HEAL_AMOUNT} HP.`) + faintedNote,
+        : `Dia passado! Treinador e time recuperaram ${REST_HEAL_AMOUNT} HP.`) +
+        faintedNote +
+        wokeUpNote,
     )
     if (lastAppliedKey && trigger?.triggered_at) {
       localStorage.setItem(lastAppliedKey, trigger.triggered_at)
@@ -215,8 +241,10 @@ export default function DayPassPanel({
         <p className="text-xs text-slate-400">
           Consome 1 {RATION_NAME.toLowerCase()} por Pokémon no time e aplica
           descanso: recupera {REST_HEAL_AMOUNT} HP do treinador e do time (não
-          desmaiados), limpa status. Cura completa só num Centro Pokémon. Só o
-          Mestre decide quando o dia passa pra mesa toda.
+          desmaiados), limpa status. Desmaiado só acorda sozinho (com 1 HP)
+          após {DAYS_TO_WAKE_UP} dias assim — antes disso, ou pra cura
+          completa na hora, só num Centro Pokémon. Só o Mestre decide quando
+          o dia passa pra mesa toda.
         </p>
         {isGm && (
           <button

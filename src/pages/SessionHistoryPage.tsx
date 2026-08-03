@@ -19,6 +19,10 @@ export default function SessionHistoryPage() {
   const [open, setOpen] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [notice, setNotice] = useState('')
+  const [editing, setEditing] = useState<string | null>(null)
+  const [draftTitle, setDraftTitle] = useState('')
+  const [draftContent, setDraftContent] = useState('')
+  const [saving, setSaving] = useState(false)
 
   useEffect(() => {
     if (!supabase || !activeMesa) return
@@ -45,6 +49,39 @@ export default function SessionHistoryPage() {
     const { error } = await supabase.from('session_notes').delete().eq('id', id)
     if (error) setNotice(error.message)
     else setNotes((prev) => prev.filter((n) => n.id !== id))
+  }
+
+  const startEdit = (n: SessionNote) => {
+    setEditing(n.id)
+    setDraftTitle(n.title)
+    setDraftContent(n.content)
+    setOpen(n.id)
+  }
+
+  const cancelEdit = () => setEditing(null)
+
+  const saveEdit = async (id: string) => {
+    if (!supabase || !draftTitle.trim()) return
+    setSaving(true)
+    const { error } = await supabase
+      .from('session_notes')
+      .update({
+        title: draftTitle.trim(),
+        content: draftContent,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', id)
+    setSaving(false)
+    if (error) {
+      setNotice(error.message)
+      return
+    }
+    setNotes((prev) =>
+      prev.map((n) =>
+        n.id === id ? { ...n, title: draftTitle.trim(), content: draftContent } : n,
+      ),
+    )
+    setEditing(null)
   }
 
   if (!supabaseConfigured) {
@@ -132,6 +169,17 @@ export default function SessionHistoryPage() {
                 <span
                   onClick={(e) => {
                     e.stopPropagation()
+                    startEdit(n)
+                  }}
+                  role="button"
+                  title="Editar"
+                  className="px-1 text-slate-300 hover:text-slate-600"
+                >
+                  ✏️
+                </span>
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation()
                     remove(n.id)
                   }}
                   role="button"
@@ -143,9 +191,42 @@ export default function SessionHistoryPage() {
               </button>
               {isOpen && (
                 <div className="border-t border-slate-100 p-4">
-                  <p className="whitespace-pre-wrap text-sm text-slate-700">
-                    {n.content}
-                  </p>
+                  {editing === n.id ? (
+                    <div className="space-y-2">
+                      <input
+                        value={draftTitle}
+                        onChange={(e) => setDraftTitle(e.target.value)}
+                        placeholder="Título"
+                        className="w-full rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-bold focus:border-red-400 focus:outline-none"
+                      />
+                      <textarea
+                        value={draftContent}
+                        onChange={(e) => setDraftContent(e.target.value)}
+                        rows={8}
+                        className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-red-400 focus:outline-none"
+                      />
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => saveEdit(n.id)}
+                          disabled={saving || !draftTitle.trim()}
+                          className="rounded-lg bg-red-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-red-700 disabled:opacity-50"
+                        >
+                          {saving ? 'Salvando...' : 'Salvar'}
+                        </button>
+                        <button
+                          onClick={cancelEdit}
+                          disabled={saving}
+                          className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+                        >
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="whitespace-pre-wrap text-sm text-slate-700">
+                      {n.content}
+                    </p>
+                  )}
                 </div>
               )}
             </div>

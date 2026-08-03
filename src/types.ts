@@ -178,6 +178,10 @@ export interface PokemonSheet {
   loyalty?: number
   currentWill?: number // Will Points atuais (Score = Insight + 3, p.28); undefined = cheio
   overRankMoveId?: string // golpe atual aprendido via Over-Rank (só 1 por vez)
+  // Dias consecutivos desmaiado (currentHp 0) — conta a cada "Passar o Dia"
+  // sem reanimar; ao chegar em 3, acorda sozinho com 1 HP (recuperação
+  // natural). Centro Pokémon ou cura manual zeram isso na hora.
+  daysFainted?: number
   // Gênero deste indivíduo — diferente da razão de gênero da espécie (que é
   // só a probabilidade estatística exibida como referência de RP).
   gender?: 'M' | 'F' | 'genderless'
