@@ -8,6 +8,7 @@ import {
   Mail,
   ArrowRight,
 } from "lucide-react";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { AuroraBackground } from "./aurora-background";
 import { PokeballMark } from "./pokeball-mark";
 import type { LoginViewProps } from "./login-screen";
@@ -24,15 +25,23 @@ export function LoginMobile({
   onSubmit,
 }: LoginViewProps) {
   return (
-    <main className="login-theme relative flex min-h-svh items-center justify-center overflow-hidden bg-background px-4 py-8">
+    <main className="login-theme relative flex min-h-svh items-center justify-center overflow-x-hidden overflow-y-auto bg-background px-4 py-8">
       <AuroraBackground />
+
+      <div className="absolute top-3 right-3 z-20">
+        <ThemeToggle variant="pill" />
+      </div>
 
       <div className="relative z-10 mx-auto w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center text-center">
-          <PokeballMark
-            className="h-14 w-14 drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]"
-            gradientId="pkTopLoginMobile"
-          />
+          <div className="relative flex size-20 items-center justify-center">
+            <div className="animate-pulse-ring border-accent/25 absolute inset-0 rounded-full border" />
+            <div className="animate-pulse-ring border-primary/30 absolute inset-2 rounded-full border [animation-delay:-2s]" />
+            <PokeballMark
+              className="relative z-10 h-14 w-14"
+              gradientId="pkTopLoginMobile"
+            />
+          </div>
           <p className="text-accent mt-3 text-xs font-semibold tracking-widest uppercase">
             Pokérole
           </p>
@@ -44,7 +53,7 @@ export function LoginMobile({
           </p>
         </div>
 
-        <form className="space-y-4" onSubmit={onSubmit}>
+        <form className="space-y-4" onSubmit={onSubmit} noValidate>
           <div className="space-y-1.5">
             <label htmlFor="email-mobile" className="text-foreground/90 text-sm font-medium">
               E-mail

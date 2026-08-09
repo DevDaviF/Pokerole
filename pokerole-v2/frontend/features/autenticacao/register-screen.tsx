@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { setStoredToken } from "@/lib/auth/session";
 import { RegisterMobile } from "./register-mobile";
 import { RegisterDesktop } from "./register-desktop";
@@ -19,17 +18,24 @@ export type RegisterViewProps = {
 };
 
 export function RegisterScreen() {
-  const router = useRouter();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // mock por enquanto
     setStoredToken("dev-token");
-    router.push("/dashboard");
+    window.location.href = "/dashboard";
   }
 
   const sharedProps: RegisterViewProps = {
@@ -44,14 +50,13 @@ export function RegisterScreen() {
     onSubmit: handleSubmit,
   };
 
-  return (
-    <div className="min-h-dvh">
-      <div className="md:hidden">
-        <RegisterMobile {...sharedProps} />
-      </div>
-      <div className="hidden md:block">
-        <RegisterDesktop {...sharedProps} />
-      </div>
-    </div>
+  if (isMobile === null) {
+    return <div className="bg-background min-h-dvh" />;
+  }
+
+  return isMobile ? (
+    <RegisterMobile {...sharedProps} />
+  ) : (
+    <RegisterDesktop {...sharedProps} />
   );
 }

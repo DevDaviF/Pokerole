@@ -19,11 +19,11 @@ export function AuroraBackground() {
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_-10%,oklch(0.24_0.05_285)_0%,var(--background)_55%,oklch(0.12_0.03_280)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_-10%,oklch(0.93_0.02_85)_0%,var(--background)_55%,oklch(0.96_0.01_275)_100%)] dark:bg-[radial-gradient(120%_120%_at_50%_-10%,oklch(0.24_0.05_285)_0%,var(--background)_55%,oklch(0.12_0.03_280)_100%)]" />
 
-      <div className="animate-aurora absolute -left-[10%] top-[-15%] h-[65vh] w-[65vh] rounded-full bg-primary/30 blur-[120px]" />
-      <div className="animate-aurora-slow absolute top-[10%] right-[-12%] h-[70vh] w-[70vh] rounded-full bg-accent/20 blur-[130px]" />
-      <div className="animate-aurora absolute bottom-[-25%] left-[35%] h-[60vh] w-[60vh] rounded-full bg-[oklch(0.45_0.12_280)]/25 blur-[140px]" />
+      <div className="animate-aurora absolute -left-[10%] top-[-15%] h-[65vh] w-[65vh] rounded-full bg-primary/20 blur-[120px] dark:bg-primary/30" />
+      <div className="animate-aurora-slow absolute top-[10%] right-[-12%] h-[70vh] w-[70vh] rounded-full bg-accent/25 blur-[130px] dark:bg-accent/20" />
+      <div className="animate-aurora absolute bottom-[-25%] left-[35%] h-[60vh] w-[60vh] rounded-full bg-[oklch(0.75_0.08_280)]/20 blur-[140px] dark:bg-[oklch(0.45_0.12_280)]/25" />
 
       <svg
         className="animate-spin-slow absolute -right-24 top-1/2 h-[520px] w-[520px] -translate-y-1/2 text-foreground/[0.05]"

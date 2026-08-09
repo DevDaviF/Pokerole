@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { setStoredToken } from "@/lib/auth/session";
 import { LoginMobile } from "./login-mobile";
 import { LoginDesktop } from "./login-desktop";
@@ -19,16 +18,24 @@ export type LoginViewProps = {
 };
 
 export function LoginScreen() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [keepConnected, setKeepConnected] = useState(true);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStoredToken("dev-token");
-    router.push("/dashboard");
+    window.location.href = "/dashboard";
   }
 
   const sharedProps: LoginViewProps = {
@@ -43,14 +50,14 @@ export function LoginScreen() {
     onSubmit: handleSubmit,
   };
 
-  return (
-    <div className="min-h-dvh">
-      <div className="md:hidden">
-        <LoginMobile {...sharedProps} />
-      </div>
-      <div className="hidden md:block">
-        <LoginDesktop {...sharedProps} />
-      </div>
-    </div>
+  // Evita SSR com ThemeToggle / dois layouts ao mesmo tempo
+  if (isMobile === null) {
+    return <div className="bg-background min-h-dvh" />;
+  }
+
+  return isMobile ? (
+    <LoginMobile {...sharedProps} />
+  ) : (
+    <LoginDesktop {...sharedProps} />
   );
 }

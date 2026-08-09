@@ -12,6 +12,7 @@ import {
   Swords,
   User,
 } from "lucide-react";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { AuroraBackground } from "./aurora-background";
 import { PokeballMark } from "./pokeball-mark";
 import type { RegisterViewProps } from "./register-screen";
@@ -37,6 +38,10 @@ export function RegisterDesktop({
     <main className="login-theme relative flex min-h-svh items-center justify-center overflow-hidden bg-background px-6 py-10 lg:p-10">
       <AuroraBackground />
 
+      <div className="absolute top-4 right-4 z-20">
+        <ThemeToggle variant="pill" />
+      </div>
+
       <section className="relative z-10 grid w-full max-w-5xl grid-cols-2 items-stretch gap-16">
         <aside className="relative flex flex-col justify-between overflow-hidden">
           <div className="animate-pulse-ring absolute -bottom-24 -left-24 h-72 w-72 rounded-full border border-accent/20" />
@@ -44,7 +49,7 @@ export function RegisterDesktop({
 
           <div className="relative z-10 flex items-center gap-3">
             <PokeballMark
-              className="h-10 w-10 drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
+              className="h-10 w-10"
               gradientId="pkTopRegisterDesktop"
             />
             <p className="text-lg font-bold tracking-wide text-accent">Pokérole</p>

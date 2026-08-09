@@ -1,5 +1,5 @@
-import { AppSidebar } from "@/components/layout/appSidebar";
-import { AppHeader } from "@/components/layout/appHeader";
+import { AppShell } from "@/components/layout/appShell";
+import { RequireAuth } from "@/components/auth/require-auth";
 
 export default function DashboardLayout({
   children,
@@ -7,12 +7,8 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-full flex-1">
-      <AppSidebar />
-      <div className="flex min-w-0 flex-1 flex-col">
-        <AppHeader />
-        <main className="flex-1 p-6">{children}</main>
-      </div>
-    </div>
+    <RequireAuth>
+      <AppShell>{children}</AppShell>
+    </RequireAuth>
   );
 }
