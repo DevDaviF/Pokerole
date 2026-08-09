@@ -79,8 +79,10 @@ export function NavTop({ children, onChangeNavMode }: Props) {
       </header>
 
       {/* Conteúdo: no mobile desliza entre abas (estilo Meta) */}
-      <div className="px-4 pt-6 pb-24 md:pt-24 md:pb-8">
-        <MobileSwipePager>{children}</MobileSwipePager>
+      <div className="pt-4 pb-24 md:px-4 md:pt-24 md:pb-8">
+        <div className="px-4 md:px-0">
+          <MobileSwipePager>{children}</MobileSwipePager>
+        </div>
       </div>
 
       <MobileBottomNav />

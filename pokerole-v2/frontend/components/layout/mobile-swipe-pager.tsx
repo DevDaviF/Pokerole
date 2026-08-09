@@ -1,179 +1,286 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { getNavIndex, NAV_LINKS } from "./navLinks";
 
-const SWIPE_THRESHOLD = 40;
+const THRESHOLD_RATIO = 0.22; // 22% da largura pra trocar
+const VELOCITY_THRESHOLD = 0.35; // px/ms
 
 type Props = {
   children: React.ReactNode;
 };
 
-/**
- * Navegação por gesto horizontal (estilo Meta):
- * - arrastar pra esquerda → próxima aba
- * - arrastar pra direita → aba anterior
- */
 export function MobileSwipePager({ children }: Props) {
   const pathname = usePathname();
   const router = useRouter();
   const index = Math.max(0, getNavIndex(pathname));
 
-  const rootRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  const widthRef = useRef(0);
+  const indexRef = useRef(index);
   const startX = useRef(0);
   const startY = useRef(0);
-  const deltaX = useRef(0);
-  const axis = useRef<"x" | "y" | null>(null);
-  const active = useRef(false);
-  const indexRef = useRef(index);
+  const startT = useRef(0);
+  const dragRef = useRef(0);
+  const axisRef = useRef<"x" | "y" | null>(null);
+  const draggingRef = useRef(false);
 
-  const [dragX, setDragX] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
+  const [width, setWidth] = useState(0);
+  const [drag, setDrag] = useState(0);
+  const [dragging, setDragging] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   indexRef.current = index;
 
-  const goTo = useCallback(
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!isMobile) return;
+    const el = viewportRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      const w = el.clientWidth;
+      widthRef.current = w;
+      setWidth(w);
+    };
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [isMobile]);
+
+  useEffect(() => {
+    dragRef.current = 0;
+    setDrag(0);
+    setDragging(false);
+    draggingRef.current = false;
+    axisRef.current = null;
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    const prev = NAV_LINKS[index - 1];
+    const next = NAV_LINKS[index + 1];
+    if (prev) router.prefetch(prev.href);
+    if (next) router.prefetch(next.href);
+  }, [index, isMobile, router]);
+
+  const commit = useCallback(
     (nextIndex: number) => {
       const link = NAV_LINKS[nextIndex];
-      if (!link) return;
+      if (!link || nextIndex === indexRef.current) {
+        dragRef.current = 0;
+        setDrag(0);
+        setDragging(false);
+        draggingRef.current = false;
+        return;
+      }
       router.push(link.href);
     },
     [router],
   );
 
   useEffect(() => {
-    setDragX(0);
-    setIsDragging(false);
-    active.current = false;
-    axis.current = null;
-    deltaX.current = 0;
-  }, [pathname]);
-
-  useEffect(() => {
-    const el = rootRef.current;
+    if (!isMobile) return;
+    const el = viewportRef.current;
     if (!el) return;
 
-    const isMobile = () => window.matchMedia("(max-width: 767px)").matches;
+    const onPointerDown = (e: PointerEvent) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
 
-    const onStart = (x: number, y: number) => {
-      if (!isMobile()) return;
-      active.current = true;
-      startX.current = x;
-      startY.current = y;
-      deltaX.current = 0;
-      axis.current = null;
-      setIsDragging(true);
-      setDragX(0);
+      draggingRef.current = true;
+      axisRef.current = null;
+      startX.current = e.clientX;
+      startY.current = e.clientY;
+      startT.current = performance.now();
+      dragRef.current = 0;
+      setDragging(true);
+      setDrag(0);
+
+      el.setPointerCapture(e.pointerId);
     };
 
-    const onMove = (x: number, y: number, e: Event) => {
-      if (!active.current || !isMobile()) return;
+    const onPointerMove = (e: PointerEvent) => {
+      if (!draggingRef.current) return;
 
-      const dx = x - startX.current;
-      const dy = y - startY.current;
+      const dx = e.clientX - startX.current;
+      const dy = e.clientY - startY.current;
 
-      if (axis.current === null) {
-        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
-        axis.current = Math.abs(dx) >= Math.abs(dy) ? "x" : "y";
-      }
-
-      // scroll vertical da página — não interfere
-      if (axis.current === "y") return;
-
-      // gesto horizontal nosso
-      e.preventDefault();
-      deltaX.current = dx;
-      setDragX(dx);
-    };
-
-    const onEnd = () => {
-      if (!active.current) return;
-
-      const dx = deltaX.current;
-      const i = indexRef.current;
-
-      if (axis.current === "x") {
-        // direita → anterior | esquerda → próximo
-        if (dx > SWIPE_THRESHOLD && i > 0) {
-          goTo(i - 1);
-        } else if (dx < -SWIPE_THRESHOLD && i < NAV_LINKS.length - 1) {
-          goTo(i + 1);
+      if (axisRef.current === null) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        axisRef.current = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+        if (axisRef.current === "y") {
+          // deixa o scroll vertical em paz
+          draggingRef.current = false;
+          setDragging(false);
+          try {
+            el.releasePointerCapture(e.pointerId);
+          } catch {
+            /* ignore */
+          }
+          return;
         }
       }
 
-      active.current = false;
-      axis.current = null;
-      deltaX.current = 0;
-      setDragX(0);
-      setIsDragging(false);
+      if (axisRef.current !== "x") return;
+
+      e.preventDefault();
+
+      const i = indexRef.current;
+      const w = widthRef.current || 1;
+      let next = dx;
+
+      // resistência nas pontas
+      if ((i === 0 && dx > 0) || (i === NAV_LINKS.length - 1 && dx < 0)) {
+        next = dx * 0.35;
+      }
+
+      // limita um pouco além da largura
+      next = Math.max(-w * 1.05, Math.min(w * 1.05, next));
+      dragRef.current = next;
+      setDrag(next);
     };
 
-    const touchStart = (e: TouchEvent) => {
-      const t = e.changedTouches[0];
-      onStart(t.clientX, t.clientY);
-    };
-    const touchMove = (e: TouchEvent) => {
-      const t = e.touches[0];
-      onMove(t.clientX, t.clientY, e);
-    };
-    const mouseDown = (e: MouseEvent) => {
-      if (!isMobile()) return;
-      onStart(e.clientX, e.clientY);
-    };
-    const mouseMove = (e: MouseEvent) => {
-      if (!active.current) return;
-      onMove(e.clientX, e.clientY, e);
-    };
-    const mouseUp = () => onEnd();
+    const onPointerUp = (e: PointerEvent) => {
+      if (!draggingRef.current && axisRef.current !== "x") {
+        setDragging(false);
+        return;
+      }
 
-    el.addEventListener("touchstart", touchStart, { passive: true });
-    el.addEventListener("touchmove", touchMove, { passive: false });
-    el.addEventListener("touchend", onEnd);
-    el.addEventListener("touchcancel", onEnd);
+      const dx = dragRef.current;
+      const dt = Math.max(1, performance.now() - startT.current);
+      const velocity = dx / dt; // px/ms
+      const w = widthRef.current || 1;
+      const i = indexRef.current;
+      const passed =
+        Math.abs(dx) > w * THRESHOLD_RATIO ||
+        Math.abs(velocity) > VELOCITY_THRESHOLD;
 
-    // DevTools / emulador com mouse
-    el.addEventListener("mousedown", mouseDown);
-    window.addEventListener("mousemove", mouseMove);
-    window.addEventListener("mouseup", mouseUp);
+      let nextIndex = i;
+      if (axisRef.current === "x" && passed) {
+        if (dx < 0 && i < NAV_LINKS.length - 1) nextIndex = i + 1;
+        if (dx > 0 && i > 0) nextIndex = i - 1;
+      }
+
+      draggingRef.current = false;
+      axisRef.current = null;
+      setDragging(false);
+
+      if (nextIndex !== i) {
+        // anima até o slide vizinho antes/durante o push
+        const dir = nextIndex > i ? -1 : 1;
+        setDrag(dir * w);
+        commit(nextIndex);
+      } else {
+        setDrag(0);
+        dragRef.current = 0;
+      }
+
+      try {
+        el.releasePointerCapture(e.pointerId);
+      } catch {
+        /* ignore */
+      }
+    };
+
+    el.addEventListener("pointerdown", onPointerDown);
+    el.addEventListener("pointermove", onPointerMove, { passive: false });
+    el.addEventListener("pointerup", onPointerUp);
+    el.addEventListener("pointercancel", onPointerUp);
 
     return () => {
-      el.removeEventListener("touchstart", touchStart);
-      el.removeEventListener("touchmove", touchMove);
-      el.removeEventListener("touchend", onEnd);
-      el.removeEventListener("touchcancel", onEnd);
-      el.removeEventListener("mousedown", mouseDown);
-      window.removeEventListener("mousemove", mouseMove);
-      window.removeEventListener("mouseup", mouseUp);
+      el.removeEventListener("pointerdown", onPointerDown);
+      el.removeEventListener("pointermove", onPointerMove);
+      el.removeEventListener("pointerup", onPointerUp);
+      el.removeEventListener("pointercancel", onPointerUp);
     };
-  }, [goTo]);
+  }, [isMobile, commit]);
 
-  useEffect(() => {
-    const i = Math.max(0, getNavIndex(pathname));
-    const prev = NAV_LINKS[i - 1];
-    const next = NAV_LINKS[i + 1];
-    if (prev) router.prefetch(prev.href);
-    if (next) router.prefetch(next.href);
-  }, [pathname, router]);
+  if (isMobile === null) {
+    return <div className="min-h-[calc(100dvh-7rem)]" />;
+  }
+
+  // Desktop: sem swiper
+  if (!isMobile) {
+    return <>{children}</>;
+  }
+
+  const w = width > 0 ? width : 1;
+  const translateX = -index * w + drag;
 
   return (
     <div
-      ref={rootRef}
-      className="relative min-h-[calc(100dvh-7rem)] overflow-hidden md:min-h-0"
-      style={{ touchAction: "pan-y" }}
+      ref={viewportRef}
+      className="relative w-full overflow-hidden"
+      style={{
+        // none = nós controlamos o gesto horizontal (efeito de swiper)
+        touchAction: "none",
+        minHeight: "calc(100dvh - 7rem)",
+        cursor: dragging ? "grabbing" : "grab",
+      }}
     >
       <div
-        className="min-h-[inherit]"
+        ref={trackRef}
+        className="flex h-full will-change-transform"
         style={{
-          transform: `translate3d(${dragX}px, 0, 0)`,
-          transition: isDragging ? "none" : "transform 200ms ease-out",
+          width: w * NAV_LINKS.length,
+          transform: `translate3d(${translateX}px, 0, 0)`,
+          transition: dragging
+            ? "none"
+            : "transform 280ms cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       >
-        {children ?? (
-          // garante área de toque mesmo com página vazia
-          <div className="min-h-[calc(100dvh-7rem)] w-full" aria-hidden />
-        )}
+        {NAV_LINKS.map((link, i) => {
+          const active = i === index;
+          return (
+            <section
+              key={link.href}
+              className="h-full shrink-0"
+              style={{ width: w }}
+              aria-hidden={!active}
+            >
+              <div className="h-full min-h-[calc(100dvh-7rem)] w-full">
+                {active ? (
+                  (children ?? <SlidePlaceholder label={link.label} active />)
+                ) : (
+                  <SlidePlaceholder label={link.label} />
+                )}
+              </div>
+            </section>
+          );
+        })}
       </div>
+    </div>
+  );
+}
+
+function SlidePlaceholder({
+  label,
+  active = false,
+}: {
+  label: string;
+  active?: boolean;
+}) {
+  return (
+    <div
+      className={
+        active
+          ? "text-muted-foreground flex min-h-[calc(100dvh-7rem)] items-start pt-2 text-sm"
+          : "text-muted-foreground/50 flex min-h-[calc(100dvh-7rem)] items-center justify-center text-sm"
+      }
+    >
+      {!active && label}
     </div>
   );
 }
