@@ -117,6 +117,26 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* Tema escuro da tela de login (v0 / Pokérole) */
+.login-theme {
+  --background: oklch(0.14 0.03 280);
+  --foreground: oklch(0.97 0.01 275);
+  --card: oklch(0.18 0.03 280);
+  --card-foreground: oklch(0.97 0.01 275);
+  --primary: oklch(0.62 0.23 25);
+  --primary-foreground: oklch(0.98 0.01 275);
+  --secondary: oklch(0.22 0.03 280);
+  --secondary-foreground: oklch(0.97 0.01 275);
+  --muted: oklch(0.22 0.03 280);
+  --muted-foreground: oklch(0.72 0.02 275);
+  --accent: oklch(0.82 0.15 85);
+  --accent-foreground: oklch(0.17 0.035 275);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.62 0.23 25);
+  color: var(--foreground);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -127,4 +147,80 @@
   html {
     @apply font-sans;
   }
+}
+
+/* ===== Login aurora / particles ===== */
+@keyframes aurora {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, 3%, 0) scale(1.05);
+  }
+}
+
+@keyframes aurora-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-3%, 4%, 0) scale(1.08);
+  }
+}
+
+@keyframes pulse-ring {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes float-up {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  15% {
+    opacity: var(--dot-opacity, 0.5);
+  }
+  100% {
+    transform: translate3d(var(--dot-drift, 20px), -110vh, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+.animate-aurora {
+  animation: aurora 14s ease-in-out infinite;
+}
+
+.animate-aurora-slow {
+  animation: aurora-slow 22s ease-in-out infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 6s ease-in-out infinite;
+}
+
+.animate-float-up {
+  animation: float-up var(--dot-duration, 20s) linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 80s linear infinite;
 }

@@ -12,5 +12,8 @@
     "start:backend": "npm run start --prefix backend",
     "lint:frontend": "npm run lint --prefix frontend",
     "lint:backend": "npm run lint --prefix backend"
+  },
+  "dependencies": {
+    "lucide-react": "^1.30.0"
   }
 }
