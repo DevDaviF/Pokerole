@@ -29,6 +29,8 @@
 
 ```bash
 $ npm install
+$ yarn supabase:login
+$ yarn supabase:types
 ```
 
 ## Compile and run the project
@@ -82,6 +84,12 @@ Check out a few resources that may come in handy when working with NestJS:
 - Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
 - To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
 - Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+
+## Additional Libraries
+
+- @nestjs/config: Used for env variables handle support
+- @supabase/supabase-js: Used for supabase integration
+- supabase (Develop): Database schema migration's CLI tool
 
 ## Support
 

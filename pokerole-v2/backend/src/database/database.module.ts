@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { SupabaseService } from './supabase.service';
 
-/**
- * Placeholder para conexão com banco (Prisma/TypeORM/etc).
- */
-@Module({})
+@Module({
+  providers: [SupabaseService],
+  exports: [SupabaseService],
+})
 export class DatabaseModule {}
