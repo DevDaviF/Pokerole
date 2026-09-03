@@ -1,0 +1,336 @@
+{
+  "info": {
+    "_postman_id": "0362f6c1-73d2-4a61-b06b-f7e72558491c",
+    "name": "API v2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "31391878",
+    "_collection_link": "https://go.postman.co/collection/31391878-0362f6c1-73d2-4a61-b06b-f7e72558491c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Ping",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/ping",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "ping"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"thinotsukimichi@sharklasers.com\",\r\n    \"password\": \"P0k3r0l3@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Login and get your authentication token.\n\n**Body**\n\n| **arg** | **type** | **Description** |\n| --- | --- | --- |\n| email | string | email address to login |\n| password | string | password of email |"
+          },
+          "response": [
+            {
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"thinotsukimichi@sharklasers.com\",\r\n    \"password\": \"P0k3r0l3@s\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "http://localhost:3000"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "76"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"4c-mpZ0OihLidz/Wa1w55kE3AhGUeA\""
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 03 Sep 2026 03:17:22 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Credenciais inválidas\",\n  \"error\": \"Unauthorized\",\n  \"statusCode\": 401\n}"
+            },
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"thinotsukimichi@sharklasers.com\",\r\n    \"password\": \"P0k3r0l3@\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "http://localhost:3000"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "3479"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"d97-JExXKFiVOybGJJve+XmNz9Ypk/A\""
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 03 Sep 2026 03:17:41 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"user\": {\n    \"id\": \"46ca0e7f-f904-4470-9ef4-6ab07869ac25\",\n    \"aud\": \"authenticated\",\n    \"role\": \"authenticated\",\n    \"email\": \"thinotsukimichi@sharklasers.com\",\n    \"email_confirmed_at\": \"2026-07-26T15:14:11.099387Z\",\n    \"phone\": \"\",\n    \"confirmed_at\": \"2026-07-26T15:14:11.099387Z\",\n    \"last_sign_in_at\": \"2026-09-03T03:17:40.941284686Z\",\n    \"app_metadata\": {\n      \"provider\": \"email\",\n      \"providers\": [\n        \"email\"\n      ]\n    },\n    \"user_metadata\": {\n      \"email\": \"thinotsukimichi@sharklasers.com\",\n      \"email_verified\": true,\n      \"phone_verified\": false,\n      \"sub\": \"46ca0e7f-f904-4470-9ef4-6ab07869ac25\",\n      \"username\": \"thinotsuki\"\n    },\n    \"identities\": [\n      {\n        \"identity_id\": \"c4a77a65-52ad-4bdc-9ea1-6f409a1fbf87\",\n        \"id\": \"46ca0e7f-f904-4470-9ef4-6ab07869ac25\",\n        \"user_id\": \"46ca0e7f-f904-4470-9ef4-6ab07869ac25\",\n        \"identity_data\": {\n          \"email\": \"thinotsukimichi@sharklasers.com\",\n          \"email_verified\": false,\n          \"phone_verified\": false,\n          \"sub\": \"46ca0e7f-f904-4470-9ef4-6ab07869ac25\",\n          \"username\": \"thinotsuki\"\n        },\n        \"provider\": \"email\",\n        \"last_sign_in_at\": \"2026-07-26T15:14:11.088474Z\",\n        \"created_at\": \"2026-07-26T15:14:11.088523Z\",\n        \"updated_at\": \"2026-07-26T15:14:11.088523Z\",\n        \"email\": \"thinotsukimichi@sharklasers.com\"\n      }\n    ],\n    \"created_at\": \"2026-07-26T15:14:11.032607Z\",\n    \"updated_at\": \"2026-09-03T03:17:40.954981Z\",\n    \"is_anonymous\": false\n  },\n  \"session\": {\n    \"access_token\": \"eyJhbGciOiJFUzI1NiIsImtpZCI6IjBkYWZiODEwLTM4ODAtNGI5Ni05NTdjLTAyNWY2NWEwMWI4NyIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL29oemhyY3V1aWZyaGpsc2RvaWJvLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiI0NmNhMGU3Zi1mOTA0LTQ0NzAtOWVmNC02YWIwNzg2OWFjMjUiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzg4NDA5MDYwLCJpYXQiOjE3ODg0MDU0NjAsImVtYWlsIjoidGhpbm90c3VraW1pY2hpQHNoYXJrbGFzZXJzLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsiZW1haWwiOiJ0aGlub3RzdWtpbWljaGlAc2hhcmtsYXNlcnMuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwic3ViIjoiNDZjYTBlN2YtZjkwNC00NDcwLTllZjQtNmFiMDc4NjlhYzI1IiwidXNlcm5hbWUiOiJ0aGlub3RzdWtpIn0sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE3ODg0MDU0NjB9XSwic2Vzc2lvbl9pZCI6IjQ2ZGNkOWEwLTc0MjktNDdhMS1hY2I0LTBkNTg4NWQ1MTY0MiIsImlzX2Fub255bW91cyI6ZmFsc2V9.hX4HO4QyxgDikBB-xJgXl9SOsPceaOUyOsYrBG0en2sAIywmAtIxtqg8GGjzliQrhMtTF6WiSiXfxjgJhLVNvQ\",\n    \"token_type\": \"bearer\",\n    \"expires_in\": 3600,\n    \"expires_at\": 1788409060,\n    \"refresh_token\": \"ikb24lygo4jj\",\n    \"user\": {\n      \"id\": \"46ca0e7f-f904-4470-9ef4-6ab07869ac25\",\n      \"aud\": \"authenticated\",\n      \"role\": \"authenticated\",\n      \"email\": \"thinotsukimichi@sharklasers.com\",\n      \"email_confirmed_at\": \"2026-07-26T15:14:11.099387Z\",\n      \"phone\": \"\",\n      \"confirmed_at\": \"2026-07-26T15:14:11.099387Z\",\n      \"last_sign_in_at\": \"2026-09-03T03:17:40.941284686Z\",\n      \"app_metadata\": {\n        \"provider\": \"email\",\n        \"providers\": [\n          \"email\"\n        ]\n      },\n      \"user_metadata\": {\n        \"email\": \"thinotsukimichi@sharklasers.com\",\n        \"email_verified\": true,\n        \"phone_verified\": false,\n        \"sub\": \"46ca0e7f-f904-4470-9ef4-6ab07869ac25\",\n        \"username\": \"thinotsuki\"\n      },\n      \"identities\": [\n        {\n          \"identity_id\": \"c4a77a65-52ad-4bdc-9ea1-6f409a1fbf87\",\n          \"id\": \"46ca0e7f-f904-4470-9ef4-6ab07869ac25\",\n          \"user_id\": \"46ca0e7f-f904-4470-9ef4-6ab07869ac25\",\n          \"identity_data\": {\n            \"email\": \"thinotsukimichi@sharklasers.com\",\n            \"email_verified\": false,\n            \"phone_verified\": false,\n            \"sub\": \"46ca0e7f-f904-4470-9ef4-6ab07869ac25\",\n            \"username\": \"thinotsuki\"\n          },\n          \"provider\": \"email\",\n          \"last_sign_in_at\": \"2026-07-26T15:14:11.088474Z\",\n          \"created_at\": \"2026-07-26T15:14:11.088523Z\",\n          \"updated_at\": \"2026-07-26T15:14:11.088523Z\",\n          \"email\": \"thinotsukimichi@sharklasers.com\"\n        }\n      ],\n      \"created_at\": \"2026-07-26T15:14:11.032607Z\",\n      \"updated_at\": \"2026-09-03T03:17:40.954981Z\",\n      \"is_anonymous\": false\n    },\n    \"weak_password\": null\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "forgot-password"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Api Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "health"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    }
+  ]
+}

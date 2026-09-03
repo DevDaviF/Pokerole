@@ -23,7 +23,7 @@ async function bootstrap() {
 
 function getPort(host: string): number {
   if (host.includes(':')) {
-    return Number(host.split(':')[1]);
+    return Number(host.split(':')[2]);
   } else if (host.startsWith('https://')) {
     return 443;
   } else {

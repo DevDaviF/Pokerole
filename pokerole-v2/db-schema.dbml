@@ -1,0 +1,90 @@
+table schema_definition {
+	id int [primary key]
+	table_name varchar
+	column_name varchar
+	type varchar
+	description varchar
+	nullable boolean
+	primary_key boolean
+	foreign_key varchar
+	reference_table varchar
+	reference_column varchar
+	created_at datetime
+	updated_at datetime
+}
+
+table log_entry {
+	id int [primary key]
+	user_id int
+	session_id int
+	message varchar
+	created_at datetime
+	updated_at datetime
+}
+
+table log_type {
+	id int [primary key]
+	name varchar
+	created_at datetime
+	updated_at datetime
+}
+
+table user {
+	id int [primary key]
+	first_name varchar
+	last_name varchar
+	username varchar
+	email varchar
+	password varchar
+	role_id int
+	is_active boolean
+	created_at datetime
+	updated_at datetime
+	last_login datetime
+}
+
+table session {
+	id int [primary key]
+	master_id int
+	created_at datetime
+	updated_at datetime
+}
+
+table character_sheet {
+	id int [primary key]
+	user_id int
+	session_id int
+	created_at datetime
+	updated_at datetime
+}
+
+table catched_pokemon {
+	id int [primary key]
+	character_sheet_id int
+	pokedex_pokemon_id int
+	created_at datetime
+	updated_at datetime
+}
+
+table pokedex_pokemon {
+	id int [primary key]
+	name varchar
+	type_id int
+	created_at datetime
+	updated_at datetime
+}
+
+table pokedex_type {
+	id int [primary key]
+	name varchar
+	created_at datetime
+	updated_at datetime
+}
+
+table pokedex_skill {
+	id int [primary key]
+	name varchar
+	type_id int
+	created_at datetime
+	updated_at datetime
+}

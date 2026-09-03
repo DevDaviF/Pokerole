@@ -1,0 +1,76 @@
+{
+  "version": "3.0.0",
+  "darkMode": true,
+  "gridEnabling": false,
+  "currentViewName": null,
+  "defaultView": {
+    "detailLevel": "All",
+    "relationshipMode": "All",
+    "tablePositions": [
+      {
+        "name": "schema_definition",
+        "schemaName": "public",
+        "x": 293.2392578125,
+        "y": 600
+      },
+      {
+        "name": "log_entry",
+        "schemaName": "public",
+        "x": 574.478515625,
+        "y": 290
+      },
+      {
+        "name": "log_type",
+        "schemaName": "public",
+        "x": 12,
+        "y": 12
+      },
+      {
+        "name": "user",
+        "schemaName": "public",
+        "x": 12,
+        "y": 600
+      },
+      {
+        "name": "session",
+        "schemaName": "public",
+        "x": 293.2392578125,
+        "y": 12
+      },
+      {
+        "name": "character_sheet",
+        "schemaName": "public",
+        "x": 855.7177734375,
+        "y": 12
+      },
+      {
+        "name": "catched_pokemon",
+        "schemaName": "public",
+        "x": 855.7177734375,
+        "y": 290
+      },
+      {
+        "name": "pokedex_pokemon",
+        "schemaName": "public",
+        "x": 12,
+        "y": 290
+      },
+      {
+        "name": "pokedex_type",
+        "schemaName": "public",
+        "x": 574.478515625,
+        "y": 12
+      },
+      {
+        "name": "pokedex_skill",
+        "schemaName": "public",
+        "x": 293.2392578125,
+        "y": 290
+      }
+    ],
+    "tableGroupCollapseStates": [],
+    "stickyNoteLayouts": [],
+    "referencePaths": []
+  },
+  "views": {}
+}
