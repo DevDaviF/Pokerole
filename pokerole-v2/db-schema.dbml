@@ -1,4 +1,4 @@
-table schema_definition {
+table db_schema_definition {
 	id int [primary key]
 	table_name varchar
 	column_name varchar
@@ -13,23 +13,7 @@ table schema_definition {
 	updated_at datetime
 }
 
-table log_entry {
-	id int [primary key]
-	user_id int
-	session_id int
-	message varchar
-	created_at datetime
-	updated_at datetime
-}
-
-table log_type {
-	id int [primary key]
-	name varchar
-	created_at datetime
-	updated_at datetime
-}
-
-table user {
+table auth_user {
 	id int [primary key]
 	first_name varchar
 	last_name varchar
@@ -37,54 +21,82 @@ table user {
 	email varchar
 	password varchar
 	role_id int
-	is_active boolean
+	is_deleted boolean
 	created_at datetime
 	updated_at datetime
 	last_login datetime
 }
 
-table session {
+/*
+ * System Tables
+ * These tables are used to store global system data that is not specific to a single session.
+ */
+
+table sys_pokemon {
 	id int [primary key]
-	master_id int
+	name varchar
+	type_id int
 	created_at datetime
 	updated_at datetime
 }
 
-table character_sheet {
+table sys_pokemon_type {
+	id int [primary key]
+	name varchar
+	created_at datetime
+	updated_at datetime
+}
+
+table sys_pokemon_skill {
+	id int [primary key]
+	type_id int
+	name varchar
+	description varchar
+	created_at datetime
+	updated_at datetime
+}
+
+/*
+ * RPG Tables
+ * These tables are used to store data specific to a RPG session.
+ */
+
+ table rpg_session {
+	id int [primary key]
+	owner_id int
+	deleted_at datetime
+	created_at datetime
+	updated_at datetime
+}
+
+table rpg_session_player_setting {
+	session_id int [primary key, ref: > rpg_session.id]
+	deleted_at datetime
+	created_at datetime
+	updated_at datetime
+}
+
+table rpg_session_pokemon_setting {
+	session_id int [primary key, ref: > rpg_session.id]
+	deleted_at datetime
+	created_at datetime
+	updated_at datetime
+}
+
+table rpg_player {
 	id int [primary key]
 	user_id int
 	session_id int
+	is_deleted boolean
 	created_at datetime
 	updated_at datetime
 }
 
-table catched_pokemon {
+table rpg_pokemon {
 	id int [primary key]
-	character_sheet_id int
-	pokedex_pokemon_id int
-	created_at datetime
-	updated_at datetime
-}
-
-table pokedex_pokemon {
-	id int [primary key]
-	name varchar
-	type_id int
-	created_at datetime
-	updated_at datetime
-}
-
-table pokedex_type {
-	id int [primary key]
-	name varchar
-	created_at datetime
-	updated_at datetime
-}
-
-table pokedex_skill {
-	id int [primary key]
-	name varchar
-	type_id int
+	pokemon_id int
+	rpg_player_id int
+	is_deleted boolean
 	created_at datetime
 	updated_at datetime
 }

@@ -14,18 +14,6 @@
         "y": 600
       },
       {
-        "name": "log_entry",
-        "schemaName": "public",
-        "x": 574.478515625,
-        "y": 290
-      },
-      {
-        "name": "log_type",
-        "schemaName": "public",
-        "x": 12,
-        "y": 12
-      },
-      {
         "name": "user",
         "schemaName": "public",
         "x": 12,
@@ -34,8 +22,8 @@
       {
         "name": "session",
         "schemaName": "public",
-        "x": 293.2392578125,
-        "y": 12
+        "x": 12,
+        "y": 25.680504382776746
       },
       {
         "name": "character_sheet",
@@ -58,19 +46,437 @@
       {
         "name": "pokedex_type",
         "schemaName": "public",
-        "x": 574.478515625,
-        "y": 12
+        "x": 552.0922357259108,
+        "y": 290
       },
       {
         "name": "pokedex_skill",
         "schemaName": "public",
         "x": 293.2392578125,
         "y": 290
+      },
+      {
+        "name": "rsession",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1066
+      },
+      {
+        "name": "rpsession",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1066
+      },
+      {
+        "name": "rpgsession",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1066
+      },
+      {
+        "name": "rpg_session",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1066
+      },
+      {
+        "name": "r",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1276
+      },
+      {
+        "name": "rp",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1276
+      },
+      {
+        "name": "rpg",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1276
+      },
+      {
+        "name": "rpgp",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1276
+      },
+      {
+        "name": "rpgpl",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1276
+      },
+      {
+        "name": "rpgpla",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1276
+      },
+      {
+        "name": "rpgplay",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1276
+      },
+      {
+        "name": "rpgplaye",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1276
+      },
+      {
+        "name": "rpgplayer",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1276
+      },
+      {
+        "name": "rpg_player",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1276
+      },
+      {
+        "name": "pokemon",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1550
+      },
+      {
+        "name": "p_type",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1792
+      },
+      {
+        "name": "po_type",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1792
+      },
+      {
+        "name": "pok_type",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1792
+      },
+      {
+        "name": "poke_type",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1792
+      },
+      {
+        "name": "pokem_type",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1792
+      },
+      {
+        "name": "pokemo_type",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1792
+      },
+      {
+        "name": "pokemon_type",
+        "schemaName": "public",
+        "x": 12,
+        "y": 1792
+      },
+      {
+        "name": "p_skill",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2002
+      },
+      {
+        "name": "po_skill",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2002
+      },
+      {
+        "name": "pok_skill",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2002
+      },
+      {
+        "name": "poke_skill",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2002
+      },
+      {
+        "name": "pokem_skill",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2002
+      },
+      {
+        "name": "pokemo_skill",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2002
+      },
+      {
+        "name": "pokemon_skill",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2002
+      },
+      {
+        "name": "r_pokemon",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2276
+      },
+      {
+        "name": "rp_pokemon",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2276
+      },
+      {
+        "name": "rpg_pokemon",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2276
+      },
+      {
+        "name": "spokemon_skill",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2550
+      },
+      {
+        "name": "stpokemon_skill",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2550
+      },
+      {
+        "name": "sypokemon_skill",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2550
+      },
+      {
+        "name": "syspokemon_skill",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2550
+      },
+      {
+        "name": "sys_pokemon_skill",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2550
+      },
+      {
+        "name": "suser",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2550
+      },
+      {
+        "name": "syuser",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2550
+      },
+      {
+        "name": "sysuser",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2550
+      },
+      {
+        "name": "sys_user",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2550
+      },
+      {
+        "name": "sschema_definition",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2984
+      },
+      {
+        "name": "syschema_definition",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2984
+      },
+      {
+        "name": "sysschema_definition",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2984
+      },
+      {
+        "name": "sys_schema_definition",
+        "schemaName": "public",
+        "x": 12,
+        "y": 2984
+      },
+      {
+        "name": "a_user",
+        "schemaName": "public",
+        "x": 12,
+        "y": 3450
+      },
+      {
+        "name": "au_user",
+        "schemaName": "public",
+        "x": 12,
+        "y": 3450
+      },
+      {
+        "name": "aut_user",
+        "schemaName": "public",
+        "x": 12,
+        "y": 3450
+      },
+      {
+        "name": "auth_user",
+        "schemaName": "public",
+        "x": 12,
+        "y": 3450
+      },
+      {
+        "name": "rpg_session_player_setting",
+        "schemaName": "public",
+        "x": 12,
+        "y": 3884
+      },
+      {
+        "name": "rpg_session_pokemon_setting",
+        "schemaName": "public",
+        "x": 12,
+        "y": 4030
+      },
+      {
+        "name": "spokemon",
+        "schemaName": "public",
+        "x": 12,
+        "y": 4240
+      },
+      {
+        "name": "sypokemon",
+        "schemaName": "public",
+        "x": 12,
+        "y": 4240
+      },
+      {
+        "name": "syspokemon",
+        "schemaName": "public",
+        "x": 12,
+        "y": 4240
+      },
+      {
+        "name": "sys_pokemon",
+        "schemaName": "public",
+        "x": 12,
+        "y": 4240
+      },
+      {
+        "name": "spokemon_type",
+        "schemaName": "public",
+        "x": 12,
+        "y": 4482
+      },
+      {
+        "name": "supokemon_type",
+        "schemaName": "public",
+        "x": 12,
+        "y": 4482
+      },
+      {
+        "name": "sypokemon_type",
+        "schemaName": "public",
+        "x": 12,
+        "y": 4482
+      },
+      {
+        "name": "syspokemon_type",
+        "schemaName": "public",
+        "x": 12,
+        "y": 4482
+      },
+      {
+        "name": "sys_pokemon_type",
+        "schemaName": "public",
+        "x": 12,
+        "y": 4482
+      },
+      {
+        "name": "d_schema_definition",
+        "schemaName": "public",
+        "x": 12,
+        "y": 4692
+      },
+      {
+        "name": "db_schema_definition",
+        "schemaName": "public",
+        "x": 12,
+        "y": 4692
       }
     ],
     "tableGroupCollapseStates": [],
     "stickyNoteLayouts": [],
-    "referencePaths": []
+    "referencePaths": [
+      {
+        "firstFieldNames": [
+          "id"
+        ],
+        "firstTableName": "rpg_session",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "session_id"
+        ],
+        "secondTableName": "rpg_session_player_setting",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id"
+        ],
+        "firstTableName": "rpg_player",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "player_id"
+        ],
+        "secondTableName": "rpg_session_player_setting",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id"
+        ],
+        "firstTableName": "rpg_session",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "session_id"
+        ],
+        "secondTableName": "rpg_session_pokemon_setting",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      }
+    ]
   },
   "views": {}
 }
